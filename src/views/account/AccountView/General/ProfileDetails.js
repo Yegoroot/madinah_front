@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+// import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
@@ -9,7 +9,7 @@ import {
   Card,
   CardActions,
   CardContent,
-  Link,
+  // Link,
   Typography,
   makeStyles
 } from '@material-ui/core'
@@ -52,7 +52,7 @@ const ProfileDetails = ({ className, user, ...rest }) => {
           >
             {user.name}
           </Typography>
-          <Typography
+          {/* <Typography
             color="textPrimary"
             variant="body1"
           >
@@ -64,7 +64,7 @@ const ProfileDetails = ({ className, user, ...rest }) => {
             >
               {user.tier}
             </Link>
-          </Typography>
+          </Typography> */}
         </Box>
       </CardContent>
       <CardActions>

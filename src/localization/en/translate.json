@@ -1,0 +1,26 @@
+{
+  "translations": {
+    "notification": {
+      "note": {
+        "was_created": "Note was create"
+      }
+    },
+    "components": {
+      "settings": {
+        "title": "Settings"
+      }
+    },
+    "menu": {
+      "manage": {
+        "title": "Management",
+        "program": "Education Programs",
+        "program_list": "Program List",
+        "program_create": "Create Programm",
+        "topics": "Topics (Chapters)",
+        "notes": "Notice",
+        "users": "Users",
+        "print": "Print"
+      }
+    }
+  }
+}

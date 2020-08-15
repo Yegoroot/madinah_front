@@ -1,3 +1,3 @@
-import './account'
+import './auth'
 import './notifications'
 import './search'

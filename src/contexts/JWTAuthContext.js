@@ -5,7 +5,9 @@ import React, {
 } from 'react'
 import jwtDecode from 'jwt-decode'
 import SplashScreen from 'src/components/SplashScreen'
-import axios from 'src/utils/axios'
+// import axios from 'src/utils/axios'
+import { instanceAxios as axios } from 'src/utils/axios'
+import { API_BASE_URL } from 'src/constants'
 
 const initialAuthState = {
   isAuthenticated: false,
@@ -89,10 +91,10 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialAuthState)
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', { email, password })
-    const { accessToken, user } = response.data
+    const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password })
+    const { token, user } = response.data
 
-    setSession(accessToken)
+    setSession(token)
     dispatch({
       type: 'LOGIN',
       payload: {
@@ -107,14 +109,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   const register = async (email, name, password) => {
-    const response = await axios.post('/api/account/register', {
+    const response = await axios.post(`${API_BASE_URL}/auth/register`, {
       email,
       name,
       password
     })
-    const { accessToken, user } = response.data
+    const { token, user } = response.data
 
-    window.localStorage.setItem('accessToken', accessToken)
+    window.localStorage.setItem('accessToken', token)
 
     dispatch({
       type: 'REGISTER',
@@ -132,7 +134,7 @@ export const AuthProvider = ({ children }) => {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken)
 
-          const response = await axios.get('/api/account/me')
+          const response = await axios.get(`${API_BASE_URL}/auth/me`)
           const { user } = response.data
 
           dispatch({
@@ -152,7 +154,7 @@ export const AuthProvider = ({ children }) => {
           })
         }
       } catch (err) {
-        console.error(err)
+        console.error('err', err)
         dispatch({
           type: 'INITIALISE',
           payload: {

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import {
   Avatar,
   Box,
-  Chip,
+  // Chip,
   Divider,
   Drawer,
   Hidden,
@@ -17,26 +17,26 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
-import ReceiptIcon from '@material-ui/icons/ReceiptOutlined'
+// import ReceiptIcon from '@material-ui/icons/ReceiptOutlined'
 import {
-  Briefcase as BriefcaseIcon,
-  Calendar as CalendarIcon,
-  ShoppingCart as ShoppingCartIcon,
-  Folder as FolderIcon,
-  BarChart as BarChartIcon,
+  // Briefcase as BriefcaseIcon,
+  // Calendar as CalendarIcon,
+  // ShoppingCart as ShoppingCartIcon,
+  // Folder as FolderIcon,
+  // BarChart as BarChartIcon,
   Lock as LockIcon,
   UserPlus as UserPlusIcon,
   AlertCircle as AlertCircleIcon,
-  Trello as TrelloIcon,
+  // Trello as TrelloIcon,
   User as UserIcon,
-  Layout as LayoutIcon,
-  Edit as EditIcon,
-  DollarSign as DollarSignIcon,
-  Mail as MailIcon,
-  MessageCircle as MessageCircleIcon,
-  PieChart as PieChartIcon,
-  Share2 as ShareIcon,
-  Users as UsersIcon
+  // Layout as LayoutIcon,
+  // Edit as EditIcon,
+  // DollarSign as DollarSignIcon,
+  // Mail as MailIcon,
+  // MessageCircle as MessageCircleIcon,
+  // PieChart as PieChartIcon,
+  // Share2 as ShareIcon,
+  // Users as UsersIcon
 } from 'react-feather'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
@@ -213,7 +213,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             >
               {user.name}
             </Link>
-            <Typography
+            {/* <Typography
               variant="body2"
               color="textSecondary"
             >
@@ -225,7 +225,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               >
                 {user.tier}
               </Link>
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
         <Divider />

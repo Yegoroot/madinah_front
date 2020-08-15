@@ -55,7 +55,8 @@ const JWTRegister = ({ className, ...rest }) => {
         } catch (err) {
           console.error(err)
           setStatus({ success: false })
-          setErrors({ submit: err.message })
+          const submit = err.response.data ? err.response.data.error : 'Bro smth error'
+          setErrors({ submit })
           setSubmitting(false)
         }
       }}

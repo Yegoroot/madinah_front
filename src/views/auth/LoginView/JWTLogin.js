@@ -10,7 +10,6 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
 import useAuth from 'src/hooks/useAuth'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 
@@ -26,8 +25,8 @@ const JWTLogin = ({ className, ...rest }) => {
   return (
     <Formik
       initialValues={{
-        email: 'demo@devias.io',
-        password: 'Password123',
+        email: '',
+        password: '',
         submit: null
       }}
       validationSchema={Yup.object().shape({
@@ -50,7 +49,8 @@ const JWTLogin = ({ className, ...rest }) => {
           console.error(err)
           if (isMountedRef.current) {
             setStatus({ success: false })
-            setErrors({ submit: err.message })
+            const submit = err.response.data ? err.response.data.error : 'Bro smth error'
+            setErrors({ submit })
             setSubmitting(false)
           }
         }
@@ -116,21 +116,6 @@ const JWTLogin = ({ className, ...rest }) => {
             >
               Log In
             </Button>
-          </Box>
-          <Box mt={2}>
-            <Alert
-              severity="info"
-            >
-              <div>
-                Use
-                {' '}
-                <b>demo@devias.io</b>
-                {' '}
-                and password
-                {' '}
-                <b>Password123</b>
-              </div>
-            </Alert>
           </Box>
         </form>
       )}

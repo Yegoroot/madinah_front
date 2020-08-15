@@ -4,26 +4,26 @@ import {
   Box,
   Card,
   CardContent,
-  Chip,
+  // Chip,
   Container,
   Divider,
   Link,
-  Tooltip,
+  // Tooltip,
   Typography,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import Logo from 'src/components/Logo'
-import useAuth from 'src/hooks/useAuth'
-import Auth0Register from './Auth0Register'
-import FirebaseAuthRegister from './FirebaseAuthRegister'
+// import useAuth from 'src/hooks/useAuth'
+// import Auth0Register from './Auth0Register'
+// import FirebaseAuthRegister from './FirebaseAuthRegister'
 import JWTRegister from './JWTRegister'
 
-const methodIcons = {
-  Auth0: '/static/images/auth0.svg',
-  FirebaseAuth: '/static/images/firebase.svg',
-  JWT: '/static/images/jwt.svg'
-}
+// const methodIcons = {
+//   Auth0: '/static/images/auth0.svg',
+//   FirebaseAuth: '/static/images/firebase.svg',
+//   JWT: '/static/images/jwt.svg'
+// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,20 +32,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     minHeight: '100vh'
   },
-  banner: {
-    backgroundColor: theme.palette.background.paper,
-    paddingBottom: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-    borderBottom: `1px solid ${theme.palette.divider}`
-  },
-  bannerChip: {
-    marginRight: theme.spacing(2)
-  },
-  methodIcon: {
-    height: 30,
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2)
-  },
+  // banner: {
+  //   backgroundColor: theme.palette.background.paper,
+  //   paddingBottom: theme.spacing(2),
+  //   paddingTop: theme.spacing(2),
+  //   borderBottom: `1px solid ${theme.palette.divider}`
+  // },
+  // bannerChip: {
+  //   marginRight: theme.spacing(2)
+  // },
+  // methodIcon: {
+  //   height: 30,
+  //   marginLeft: theme.spacing(2),
+  //   marginRight: theme.spacing(2)
+  // },
   cardContainer: {
     paddingBottom: 80,
     paddingTop: 80,
@@ -67,14 +67,14 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterView = () => {
   const classes = useStyles()
-  const { method } = useAuth()
+  // const { method } = useAuth()
 
   return (
     <Page
       className={classes.root}
       title="Register"
     >
-      <div className={classes.banner}>
+      {/* <div className={classes.banner}>
         <Container maxWidth="md">
           <Box
             alignItems="center"
@@ -130,7 +130,7 @@ const RegisterView = () => {
             </Box>
           </Box>
         </Container>
-      </div>
+      </div> */}
       <Container
         className={classes.cardContainer}
         maxWidth="sm"
@@ -167,20 +167,18 @@ const RegisterView = () => {
                   Register on the internal platform
                 </Typography>
               </div>
-              <div className={classes.currentMethodIcon}>
+              {/* <div className={classes.currentMethodIcon}>
                 <img
                   alt="Auth method"
                   src={methodIcons[method]}
                 />
-              </div>
+              </div> */}
             </Box>
             <Box
               flexGrow={1}
               mt={3}
             >
-              {method === 'Auth0' && <Auth0Register /> }
-              {method === 'FirebaseAuth' && <FirebaseAuthRegister /> }
-              {method === 'JWT' && <JWTRegister /> }
+              <JWTRegister />
             </Box>
             <Box my={3}>
               <Divider />
