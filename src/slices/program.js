@@ -6,7 +6,12 @@ import { API_BASE_URL } from 'src/constants'
 // import { enqueueSnackbar } from 'src/logic/notification'
 
 const initialState = {
-  list: { loading: false, data: null },
+  list: {
+    loading: false,
+    data: null,
+    total: null,
+    count: null
+  },
   item: { loading: false, data: null, topics: [] },
 }
 
@@ -17,11 +22,11 @@ const slice = createSlice({
   initialState,
   reducers: {
     /** Program */
-    getProgramRequest(program) {
+    getProgramItemRequest(program) {
       program.item.data = null
       program.item.loading = true
     },
-    getProgram(program, action) {
+    getProgramItem(program, action) {
       const { data } = action.payload
       program.item.data = data
       program.item.loading = false
@@ -30,13 +35,13 @@ const slice = createSlice({
       program.item.loading = 'reload'
     },
     /** Programs */
-    getProgramsRequest(program) {
+    getProgramListRequest(program) {
       program.list.data = null
       program.list.loading = true
     },
-    getPrograms(program, action) {
+    getProgramList(program, action) {
       const { data } = action.payload
-      program.list.data = data
+      program.list = { ...initialState.list, ...data }
       program.list.loading = false
     },
     deleteProgram(program, action) {
@@ -56,19 +61,19 @@ export const { reducer } = slice
  *
  * Program
  */
-export const getProgram = ({ id }) => async (dispatch) => {
+export const getProgramItem = ({ id }) => async (dispatch) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/programs/${id}`)
     const { data } = response.data
-    dispatch(slice.actions.getProgram({ data }))
+    dispatch(slice.actions.getProgramItem({ data }))
   } catch (error) {
     dispatch(slice.actions.getProgramError())
   }
 }
 
-export const getProgramRequest = ({ id }) => async (dispatch) => {
-  dispatch(slice.actions.getProgramRequest())
-  dispatch(getProgram({ id }))
+export const getProgramItemRequest = ({ id }) => async (dispatch) => {
+  dispatch(slice.actions.getProgramItemRequest())
+  dispatch(getProgramItem({ id }))
 }
 
 export const deleteProgram = ({ id }) => async (dispatch) => {
@@ -84,14 +89,14 @@ export const deleteProgram = ({ id }) => async (dispatch) => {
  *
  * Programs
  */
-export const getPrograms = ({ params } = {}) => async (dispatch) => {
+export const getProgramList = ({ params } = {}) => async (dispatch) => {
   const response = await axios.get(`${API_BASE_URL}/programs/`, { params })
-  const { data } = response.data
-  dispatch(slice.actions.getPrograms({ data }))
+  const { data } = response
+  dispatch(slice.actions.getProgramList({ data }))
 }
-export const getProgramsRequest = ({ params } = {}) => async (dispatch) => {
-  dispatch(slice.actions.getProgramRequest())
-  dispatch(getPrograms({ params }))
+export const getProgramListRequest = ({ params } = {}) => async (dispatch) => {
+  dispatch(slice.actions.getProgramListRequest())
+  dispatch(getProgramList({ params }))
 }
 
 export default slice

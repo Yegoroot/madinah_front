@@ -15,7 +15,7 @@ import HomeView from 'src/views/home/HomeView'
 import LoadingScreen from 'src/components/LoadingScreen'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
-import { PROGRAMS_URL } from 'src/constants'
+import { PROGRAMS_URL, TOPICS_URL, NOTES_URL } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -146,22 +146,22 @@ const routes = [
        */
       {
         exact: true,
-        path: '/app/management/topics',
+        path: `${TOPICS_URL}`,
         component: lazy(() => import('src/views/topics/List'))
       },
       {
         exact: true,
-        path: '/app/management/topics/create',
+        path: `${TOPICS_URL}/create`,
         component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
-        path: '/app/management/topics/:topicId',
+        path: `${TOPICS_URL}/:topicId`,
         component: lazy(() => import('src/views/topics/Item'))
       },
       {
         exact: true,
-        path: '/app/management/topics/:topicId/edit',
+        path: `${TOPICS_URL}/:topicId/edit`,
         component: lazy(() => import('src/views/topics/Create'))
       },
       /**
@@ -169,22 +169,22 @@ const routes = [
        */
       {
         exact: true,
-        path: '/app/management/notes',
+        path: `${NOTES_URL}`,
         component: lazy(() => import('src/views/notes/List'))
       },
       {
         exact: true,
-        path: '/app/management/notes/create',
+        path: `${NOTES_URL}/create`,
         component: lazy(() => import('src/views/notes/Create'))
       },
       {
         exact: true,
-        path: '/app/management/notes/:noteId',
+        path: `${NOTES_URL}/:noteId`,
         component: lazy(() => import('src/views/notes/Item'))
       },
       {
         exact: true,
-        path: '/app/management/notes/:noteId/edit',
+        path: `${NOTES_URL}/:noteId/edit`,
         component: lazy(() => import('src/views/notes/Create'))
       },
       {

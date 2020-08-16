@@ -1,13 +1,12 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, matchPath, Link as RouterLink } from 'react-router-dom'
-
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import {
   Avatar,
   Box,
-  // Chip,
   Divider,
   Drawer,
   Hidden,
@@ -17,30 +16,23 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
-// import ReceiptIcon from '@material-ui/icons/ReceiptOutlined'
+import { PROGRAMS_URL, TOPICS_URL, NOTES_URL } from 'src/constants'
+import i18n from 'i18next'
 import {
-  // Briefcase as BriefcaseIcon,
-  // Calendar as CalendarIcon,
-  // ShoppingCart as ShoppingCartIcon,
   Folder as FolderIcon,
-  // BarChart as BarChartIcon,
-  Lock as LockIcon,
-  UserPlus as UserPlusIcon,
-  AlertCircle as AlertCircleIcon,
-  Trello as TrelloIcon,
   User as UserIcon,
   FolderPlus as FolderPlusIcon,
-  // Edit as EditIcon,
-  // DollarSign as DollarSignIcon,
-  // Mail as MailIcon,
-  // MessageCircle as MessageCircleIcon,
-  // PieChart as PieChartIcon,
-  // Share2 as ShareIcon,
-  // Users as UsersIcon
+  Plus as PlusIcon,
+  Paperclip as PaperclipIcon,
+  Layers as LayersIcon,
+  // Heart as HeartIcon,
+  // Server as ServerIcon,
 } from 'react-feather'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
+import { matchPathProgram } from 'src/utils/urls'
 import NavItem from './NavItem'
+import { generateTopicsMenu } from './topicsMenu'
 
 const sections = [
 
@@ -48,20 +40,61 @@ const sections = [
     subheader: 'Education',
     items: [
       {
-        title: 'Programs',
-        href: '/app/programs',
+        title: 'Program List',
+        href: `${PROGRAMS_URL}`,
         icon: FolderIcon
       },
       {
-        title: 'Create Program',
-        href: '/app/programs/create',
-        icon: FolderPlusIcon
-      }
+        title: 'Create',
+        href: `${PROGRAMS_URL}/create`,
+        icon: FolderPlusIcon,
+      },
+
+      // {
+      //   title: 'Favorite Programs',
+      //   href: `${PROGRAMS_URL}`,
+      //   icon: HeartIcon
+      // },
     ]
   },
   {
-    subheader: 'Pages',
+    subheader: 'Managment',
     items: [
+
+      {
+        title: 'Topics',
+        href: '#',
+        icon: LayersIcon,
+        items: [
+          {
+            title: 'List Topics',
+            href: `${TOPICS_URL}`,
+            icon: LayersIcon,
+          },
+          {
+            title: 'Create',
+            href: `${TOPICS_URL}/create`,
+            icon: PlusIcon,
+          },
+        ]
+      },
+      {
+        title: 'Notes',
+        href: '#',
+        icon: PaperclipIcon,
+        items: [
+          {
+            title: 'List Notes',
+            href: `${NOTES_URL}`,
+            icon: PaperclipIcon,
+          },
+          {
+            title: 'Create',
+            href: `${NOTES_URL}/create`,
+            icon: PlusIcon,
+          },
+        ]
+      },
       {
         title: 'Account',
         href: '/app/account',
@@ -69,7 +102,6 @@ const sections = [
       },
     ]
   },
-
 ]
 
 function renderNavItems({
@@ -110,7 +142,7 @@ function reduceChildRoutes({
         info={item.info}
         key={key}
         open={Boolean(open)}
-        title={item.title}
+        title={i18n.t(`${item.title}`)}
       >
         {renderNavItems({
           depth: depth + 1,
@@ -127,7 +159,7 @@ function reduceChildRoutes({
         icon={item.icon}
         info={item.info}
         key={key}
-        title={item.title}
+        title={i18n.t(`${item.title}`)}
       />
     )
   }
@@ -155,10 +187,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles()
   const location = useLocation()
   const { user } = useAuth()
+  const [menuList, setMenuList] = useState(sections)
+  const { loading, topics } = useSelector((state) => state.program.item)
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose()
+    }
+    if (matchPathProgram(`${location.pathname}`)) {
+      setMenuList(generateTopicsMenu(topics, loading))
+    } else {
+      setMenuList(sections)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
@@ -224,7 +263,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </Box>
         <Divider />
         <Box p={2}>
-          {sections.map((section) => (
+          {menuList.map((section) => (
             <List
               key={section.subheader}
               subheader={(
@@ -232,7 +271,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
                   disableGutters
                   disableSticky
                 >
-                  {section.subheader}
+                  {i18n.t(`${section.subheader}`)}
                 </ListSubheader>
               )}
             >

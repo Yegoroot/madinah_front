@@ -33,7 +33,7 @@ import SunEditor from 'src/components/SunEditor'
 import FilesDropzone from 'src/components/FilesDropzone'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
-import { API_BASE_URL, IMAGES_BASE_URL } from 'src/constants'
+import { API_BASE_URL, IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -96,7 +96,7 @@ function ProductCreateForm({
                 })
                 setStatus({ success: true })
                 setSubmitting(false)
-                history.push('/app/management/topics')
+                history.push(`${TOPICS_URL}`)
               })
               .catch((err) => { setErrors({ submit: err.response.data.error }) })
           } else {
@@ -112,7 +112,7 @@ function ProductCreateForm({
                 })
                 setStatus({ success: true })
                 setSubmitting(false)
-                history.push('/app/management/topics')
+                history.push(`${TOPICS_URL}`)
               })
               .catch((err) => { setErrors({ submit: err.response.data.error }) })
           }
@@ -253,31 +253,34 @@ function ProductCreateForm({
                     display="flex"
                     alignItems="center"
                   >
-                    <FormControl
-                      fullWidth
-                      className={classes.formControl}
-                      error={Boolean(touched.program && errors.program)}
-                    >
-                      <InputLabel id="form-select-1">Программа обучения</InputLabel>
-                      <Select
-                        labelId="form-select-1"
-                        name="program"
-                        value={values.program}
-                        displayEmpty
-                        onChange={handleChange}
-                        input={<Input id="select-multiple-chip" />}
-                      >
-                        {programs.map((program) => (
-                          <MenuItem
-                            key={program.id}
-                            value={program.id}
+                    {!programs ? null
+                      : (
+                        <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.program && errors.program)}
+                        >
+                          <InputLabel id="form-select-1">Программа обучения</InputLabel>
+                          <Select
+                            labelId="form-select-1"
+                            name="program"
+                            value={values.program}
+                            displayEmpty
+                            onChange={handleChange}
+                            input={<Input id="select-multiple-chip" />}
                           >
-                            {program.title}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <FormHelperText>{touched.program && errors.program}</FormHelperText>
-                    </FormControl>
+                            {programs.map((program) => (
+                              <MenuItem
+                                key={program.id}
+                                value={program.id}
+                              >
+                                {program.title}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.program && errors.program}</FormHelperText>
+                        </FormControl>
+                      )}
                   </Box>
                   <Box
                     mt={2}

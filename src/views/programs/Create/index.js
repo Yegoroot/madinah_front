@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { useSelector, useDispatch } from 'react-redux'
-import { getProgramRequest, module } from 'src/slices/program'
+import { useSelector, useDispatch } from 'src/store'
+import { getProgramItemRequest, module } from 'src/slices/program'
 import Header from './Header'
 import ProgramCreateForm from './ProgramCreateForm'
 
@@ -21,7 +21,7 @@ function ProgramCreateView({ match }) {
   const { programId } = match.params
   const { loading, data } = useSelector((state) => state[module].item)
   const dispatch = useDispatch()
-  const [initialValues, setInitialValues] = useState({
+  const [initialValues] = useState({
     title: '',
     description: '',
     file: '',
@@ -31,13 +31,12 @@ function ProgramCreateView({ match }) {
 
   useEffect(() => {
     if (programId) {
-      console.log(programId)
-      dispatch(getProgramRequest({ id: programId }))
+      dispatch(getProgramItemRequest({ id: programId }))
     }
   }, [programId, dispatch])
 
   console.log(programId, loading, initialValues)
-  if ((loading && !initialValues.title)) {
+  if ((loading)) {
     return <LoadingScreen />
   }
 

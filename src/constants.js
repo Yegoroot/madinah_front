@@ -11,6 +11,9 @@ export const THEMES = {
 
 // new
 export const PROGRAMS_URL = '/app/programs'
+export const TOPICS_URL = '/app/topics'
+export const NOTES_URL = '/app/notes'
+
 export const DOMEN = 'http://localhost:5000'
 
 export const API_BASE_URL = `${DOMEN}/api/v1`

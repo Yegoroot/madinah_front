@@ -10,7 +10,7 @@ import Page from 'src/components/Page'
 // import Projects from './Projects'
 // import Todos from './Todos'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProgramRequest, module } from 'src/slices/program'
+import { getProgramItemRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Header from './Header'
 
@@ -30,12 +30,14 @@ function OverviewView({ match }) {
   const { loading, data } = useSelector((state) => state[module].item)
 
   useEffect(() => {
-    dispatch(getProgramRequest({ id: programId }))
+    dispatch(getProgramItemRequest({ id: programId }))
   }, [dispatch, programId])
 
   if (loading === 'reload') {
-    return <span onClick={() => dispatch(getProgramRequest({ programId, reload: true }))}>Перезагрузить</span>
-  } if (loading || !data) {
+    return <span onClick={() => dispatch(getProgramItemRequest({ programId, reload: true }))}>Перезагрузить</span>
+  }
+  console.log(loading, data)
+  if (loading || !data) {
     return <LoadingScreen />
   }
 

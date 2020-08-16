@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { IMAGES_BASE_URL } from 'src/constants'
+import { IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
 import {
   Avatar,
   Box,
@@ -31,7 +31,7 @@ import {
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import { useSelector, useDispatch } from 'react-redux'
-import { getTopics, deleteTopics, module } from 'src/logic/topics'
+import { getTopicListRequest, deleteSeveralTopics, module } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import moment from 'moment'
 import Header from './Header'
@@ -91,23 +91,25 @@ function Results() {
   })
 
   const dispatch = useDispatch()
-  const loading = useSelector((state) => state[module].loading)
-  const topics = useSelector((state) => state[module].topics.data)
-  const total = useSelector((state) => state[module].topics.total)
+  const { loading, data, total } = useSelector((state) => state[module].list)
 
   useEffect(() => {
-    dispatch(getTopics({ page, limit }))
+    dispatch(getTopicListRequest({ page, limit }))
   }, [dispatch, page, limit, filters])
 
   const onDelete = () => {
-    dispatch(deleteTopics(selectedTopics))
+    dispatch(deleteSeveralTopics(selectedTopics))
   }
 
-  if (loading) return <LoadingScreen />
+  if (loading === 'reload') {
+    return <span onClick={() => dispatch(getTopicListRequest({ params: {}, reload: true }))}>Перезагрузить</span>
+  } if (loading || !data) {
+    return <LoadingScreen />
+  }
 
   const handleSelectAllTopics = (event) => {
     setSelectedTopics(event.target.checked
-      ? topics.map((topic) => topic.id)
+      ? data.map((topic) => topic.id)
       : [])
   }
 
@@ -130,8 +132,8 @@ function Results() {
 
   // Usually query is done on backend with indexing solutions
   const enableBulkOperations = selectedTopics.length > 0
-  const selectedSomeTopics = selectedTopics.length > 0 && selectedTopics.length < topics.length
-  const selectedAllTopics = selectedTopics.length === topics.length
+  const selectedSomeTopics = selectedTopics.length > 0 && selectedTopics.length < data.length
+  const selectedAllTopics = selectedTopics.length === data.length
 
   return (
     <Page
@@ -195,7 +197,7 @@ function Results() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {topics.map((topic) => {
+                    {data.map((topic) => {
                       const isTopicSelected = selectedTopics.includes(topic.id)
 
                       return (
@@ -239,7 +241,7 @@ function Results() {
                                 <Link
                                   color="inherit"
                                   component={RouterLink}
-                                  to={`/app/management/topics/${topic._id}`}
+                                  to={`${TOPICS_URL}/${topic.id}`}
                                   variant="h6"
                                 >
                                   {topic.title}
@@ -273,7 +275,7 @@ function Results() {
                           <TableCell align="right">
                             <IconButton
                               component={RouterLink}
-                              to={`/app/management/topics/${topic._id}/edit`}
+                              to={`${TOPICS_URL}/${topic._id}/edit`}
                             >
                               <SvgIcon fontSize="small">
                                 <EditIcon />
@@ -281,7 +283,7 @@ function Results() {
                             </IconButton>
                             <IconButton
                               component={RouterLink}
-                              to={`/app/management/topics/${topic._id}`}
+                              to={`${TOPICS_URL}/${topic.id}`}
                             >
                               <SvgIcon fontSize="small">
                                 <ArrowRightIcon />

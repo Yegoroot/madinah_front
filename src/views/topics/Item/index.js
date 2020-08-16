@@ -17,8 +17,10 @@ import {
 } from '@material-ui/core'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import Page from 'src/components/Page'
-import { API_BASE_URL, IMAGES_BASE_URL } from 'src/constants'
-import { instanceAxios } from 'src/utils/axios'
+import { IMAGES_BASE_URL } from 'src/constants'
+import { useSelector, useDispatch } from 'src/store'
+import LoadingScreen from 'src/components/LoadingScreen'
+import { getTopicItemRequest, module } from 'src/slices/topic'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -36,31 +38,26 @@ const useStyles = makeStyles((theme) => ({
 
 function TopicDetailsView({ match }) {
   const classes = useStyles()
-  const isMountedRef = useIsMountedRef()
-  const [topic, setTopic] = useState(null)
   const { topicId } = match.params
   const [openedFile, setOpenedFile] = useState(null)
 
-  const getTopic = useCallback(() => {
-    instanceAxios
-      .get(`${API_BASE_URL}/topics/${topicId}`)
-      .then((response) => {
-        if (isMountedRef.current) {
-          setTopic(response.data.data)
-        }
-      })
-  }, [isMountedRef, topicId])
+  const dispatch = useDispatch()
+  const { loading, data } = useSelector((state) => state[module].item)
 
   useEffect(() => {
-    getTopic()
-  }, [getTopic])
+    dispatch(getTopicItemRequest({ id: topicId }))
+  }, [dispatch, topicId])
 
-  if (!topic) {
-    return null
+  if (loading === 'reload') {
+    return <span onClick={() => dispatch(getTopicItemRequest({ topicId, reload: true }))}>Перезагрузить</span>
+  }
+  console.log(loading, data)
+  if (loading || !data) {
+    return <LoadingScreen />
   }
 
-  const image = `${IMAGES_BASE_URL}/${topic.photo}`
-  const notes = () => topic.notes.map((note) => (
+  const image = `${IMAGES_BASE_URL}/${data.photo}`
+  const notes = () => data.notes.map((note) => (
     <span key={note.id}>
       {note.title}
       -
@@ -75,7 +72,7 @@ function TopicDetailsView({ match }) {
     >
 
       <Container maxWidth="lg">
-        <Header topic={topic} />
+        <Header topic={data} />
 
         <Box mt={2}>
           <Grid
@@ -84,7 +81,7 @@ function TopicDetailsView({ match }) {
           >
             <Grid
               item
-              md={topic.photo ? 8 : 12}
+              md={data.photo ? 8 : 12}
               // sm={7}
               xs={12}
             >
@@ -93,11 +90,11 @@ function TopicDetailsView({ match }) {
                   <CardHeader title="Content" />
                   <Divider />
                   <CardContent>
-                    <div dangerouslySetInnerHTML={{ __html: topic.content }} />
+                    <div dangerouslySetInnerHTML={{ __html: data.content }} />
                   </CardContent>
                 </Card>
               </Box>
-              {!topic.notes.length ? null : (
+              {!data.notes.length ? null : (
                 <Box mt={3}>
                   <Card>
                     <CardHeader title="Notes" />
@@ -109,7 +106,7 @@ function TopicDetailsView({ match }) {
                 </Box>
               )}
             </Grid>
-            {topic.photo && (
+            {data.photo && (
             <Grid
               item
               md={4}
