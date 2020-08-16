@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { getTopicService, getProgramsService } from 'src/services'
+import { getTopicService } from 'src/services'
+import { useDispatch, useSelector } from 'src/store'
+import { getProgramsRequest } from 'src/slices/program'
 import Header from './Header'
 import TopicCreateForm from './TopicCreateForm'
 
@@ -27,13 +29,13 @@ function TopicCreateView({ match }) {
     publish: true,
     program: ''
   })
-  const [programList, setPrograms] = useState([])
 
+  const programs = useSelector((state) => state.items.data)
 
   useEffect(() => {
     const initTopics = async () => {
-      const programs = await getProgramsService()
-      await setPrograms(programs.response.data)
+      getProgramsRequest({})
+
       if (topicId) {
         const topics = await getTopicService(topicId)
         await setInitialValue(topics.response.data)
@@ -53,7 +55,11 @@ function TopicCreateView({ match }) {
     >
       <Container maxWidth="lg">
         <Header id={topicId} />
-        <TopicCreateForm id={topicId} initialValue={initialValue} programs={programList} />
+        <TopicCreateForm
+          id={topicId}
+          initialValue={initialValue}
+          programs={programs}
+        />
       </Container>
     </Page>
   )

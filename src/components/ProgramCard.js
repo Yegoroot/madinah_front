@@ -29,8 +29,7 @@ import {
 } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
 import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
-
-import { deleteProgram } from 'src/logic/programs'
+import { deleteProgram } from 'src/slices/program'
 
 const useStyles = makeStyles((theme) => ({
   root: {},

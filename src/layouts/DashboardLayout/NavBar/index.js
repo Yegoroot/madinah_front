@@ -22,14 +22,14 @@ import {
   // Briefcase as BriefcaseIcon,
   // Calendar as CalendarIcon,
   // ShoppingCart as ShoppingCartIcon,
-  // Folder as FolderIcon,
+  Folder as FolderIcon,
   // BarChart as BarChartIcon,
   Lock as LockIcon,
   UserPlus as UserPlusIcon,
   AlertCircle as AlertCircleIcon,
-  // Trello as TrelloIcon,
+  Trello as TrelloIcon,
   User as UserIcon,
-  // Layout as LayoutIcon,
+  FolderPlus as FolderPlusIcon,
   // Edit as EditIcon,
   // DollarSign as DollarSignIcon,
   // Mail as MailIcon,
@@ -45,17 +45,17 @@ import NavItem from './NavItem'
 const sections = [
 
   {
-    subheader: 'Auth',
+    subheader: 'Education',
     items: [
       {
-        title: 'Login',
-        href: '/login-unprotected',
-        icon: LockIcon
+        title: 'Programs',
+        href: '/app/programs',
+        icon: FolderIcon
       },
       {
-        title: 'Register',
-        href: '/register-unprotected',
-        icon: UserPlusIcon
+        title: 'Create Program',
+        href: '/app/programs/create',
+        icon: FolderPlusIcon
       }
     ]
   },
@@ -67,12 +67,6 @@ const sections = [
         href: '/app/account',
         icon: UserIcon
       },
-      {
-        title: 'Error',
-        href: '/404',
-        icon: AlertCircleIcon
-      },
-
     ]
   },
 

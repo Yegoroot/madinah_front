@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { getProgramService } from 'src/services'
+import { useSelector, useDispatch } from 'react-redux'
+import { getProgramRequest, module } from 'src/slices/program'
 import Header from './Header'
 import ProgramCreateForm from './ProgramCreateForm'
 
@@ -17,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 function ProgramCreateView({ match }) {
   const classes = useStyles()
-  const { id } = match.params
-  const [initialValues, setInitialValue] = useState({
+  const { programId } = match.params
+  const { loading, data } = useSelector((state) => state[module].item)
+  const dispatch = useDispatch()
+  const [initialValues, setInitialValues] = useState({
     title: '',
     description: '',
     file: '',
@@ -27,29 +30,28 @@ function ProgramCreateView({ match }) {
   })
 
   useEffect(() => {
-    const initTopics = async () => {
-      if (id) {
-        const { response } = await getProgramService(id)
-        await setInitialValue(response.data)
-      }
+    if (programId) {
+      console.log(programId)
+      dispatch(getProgramRequest({ id: programId }))
     }
-    initTopics()
-  }, [setInitialValue, id])
+  }, [programId, dispatch])
 
-
-  if (!initialValues.title && id) {
+  console.log(programId, loading, initialValues)
+  if ((loading && !initialValues.title)) {
     return <LoadingScreen />
   }
-
 
   return (
     <Page
       className={classes.root}
-      title={id ? 'Program Edit' : 'Program Create'}
+      title={programId ? 'Program Edit' : 'Program Create'}
     >
       <Container maxWidth="lg">
-        <Header id={id} />
-        <ProgramCreateForm id={id} initialValues={initialValues} />
+        <Header id={programId} />
+        <ProgramCreateForm
+          id={programId}
+          initialValues={programId ? data : initialValues}
+        />
       </Container>
     </Page>
   )

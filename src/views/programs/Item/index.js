@@ -10,10 +10,9 @@ import Page from 'src/components/Page'
 // import Projects from './Projects'
 // import Todos from './Todos'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProgram, module } from 'src/logic/programs'
+import { getProgramRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Header from './Header'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,21 +24,20 @@ const useStyles = makeStyles((theme) => ({
 
 function OverviewView({ match }) {
   const classes = useStyles()
-  const { id } = match.params
+  const { programId } = match.params
 
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
 
   useEffect(() => {
-    dispatch(getProgram({ id }))
-  }, [dispatch, id])
+    dispatch(getProgramRequest({ id: programId }))
+  }, [dispatch, programId])
 
   if (loading === 'reload') {
-    return <span onClick={() => dispatch(getProgram({ id, reload: true }))}>Перезагрузить</span>
+    return <span onClick={() => dispatch(getProgramRequest({ programId, reload: true }))}>Перезагрузить</span>
   } if (loading || !data) {
     return <LoadingScreen />
   }
-
 
   return (
     <Page

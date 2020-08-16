@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
@@ -11,6 +10,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import BarChartIcon from '@material-ui/icons/BarChart'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ className, ...rest }) {
   const classes = useStyles()
-  const { user } = useSelector((state) => state.account)
+  const { user } = useAuth()
 
   return (
     <div

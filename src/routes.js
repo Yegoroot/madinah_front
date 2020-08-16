@@ -100,17 +100,17 @@ const routes = [
       {
         exact: true,
         path: '/app/management/users',
-        component: lazy(() => import('src/views/users/UserListView'))
+        component: lazy(() => import('src/views/users/List'))
       },
       {
         exact: true,
-        path: '/app/management/users/:id',
-        component: lazy(() => import('src/views/users/UserDetailsView'))
+        path: '/app/management/users/:userId',
+        component: lazy(() => import('src/views/users/Item'))
       },
       {
         exact: true,
-        path: '/app/management/users/:id/edit',
-        component: lazy(() => import('src/views/users/UserEditView'))
+        path: '/app/management/users/:userId/edit',
+        component: lazy(() => import('src/views/users/Create'))
       },
       /**
        * programs
@@ -118,27 +118,27 @@ const routes = [
       {
         exact: true,
         path: `${PROGRAMS_URL}`,
-        component: lazy(() => import('src/views/programs/ProgramBrowseView'))
+        component: lazy(() => import('src/views/programs/List'))
       },
       {
         exact: true,
         path: `${PROGRAMS_URL}/create`,
-        component: lazy(() => import('src/views/programs/ProgramCreateView'))
+        component: lazy(() => import('src/views/programs/Create'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/:id`,
-        component: lazy(() => import('src/views/programs/OverviewView'))
+        path: `${PROGRAMS_URL}/:programId`,
+        component: lazy(() => import('src/views/programs/Item'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/:id/edit`,
-        component: lazy(() => import('src/views/programs/ProgramCreateView'))
+        path: `${PROGRAMS_URL}/:programId/edit`,
+        component: lazy(() => import('src/views/programs/Create'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/:id/topics/:topicId`,
-        component: lazy(() => import('src/views/topics/TopicDetailsView'))
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId`,
+        component: lazy(() => import('src/views/topics/Item'))
       },
 
       /**
@@ -147,22 +147,22 @@ const routes = [
       {
         exact: true,
         path: '/app/management/topics',
-        component: lazy(() => import('src/views/topics/TopicListView'))
+        component: lazy(() => import('src/views/topics/List'))
       },
       {
         exact: true,
         path: '/app/management/topics/create',
-        component: lazy(() => import('src/views/topics/TopicCreateView'))
+        component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
         path: '/app/management/topics/:topicId',
-        component: lazy(() => import('src/views/topics/TopicDetailsView'))
+        component: lazy(() => import('src/views/topics/Item'))
       },
       {
         exact: true,
         path: '/app/management/topics/:topicId/edit',
-        component: lazy(() => import('src/views/topics/TopicCreateView'))
+        component: lazy(() => import('src/views/topics/Create'))
       },
       /**
        * notes
@@ -170,22 +170,22 @@ const routes = [
       {
         exact: true,
         path: '/app/management/notes',
-        component: lazy(() => import('src/views/notes/NoteListView'))
+        component: lazy(() => import('src/views/notes/List'))
       },
       {
         exact: true,
         path: '/app/management/notes/create',
-        component: lazy(() => import('src/views/notes/NoteCreateView'))
+        component: lazy(() => import('src/views/notes/Create'))
       },
       {
         exact: true,
-        path: '/app/management/notes/:id',
-        component: lazy(() => import('src/views/notes/NoteDetailsView'))
+        path: '/app/management/notes/:noteId',
+        component: lazy(() => import('src/views/notes/Item'))
       },
       {
         exact: true,
-        path: '/app/management/notes/:id/edit',
-        component: lazy(() => import('src/views/notes/NoteCreateView'))
+        path: '/app/management/notes/:noteId/edit',
+        component: lazy(() => import('src/views/notes/Create'))
       },
       {
         component: () => <Redirect to="/404" />

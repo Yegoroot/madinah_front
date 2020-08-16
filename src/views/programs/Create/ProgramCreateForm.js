@@ -14,18 +14,12 @@ import {
   Divider,
   FormHelperText,
   Grid,
-  // Paper,
-  // Typography,
   TextField,
   makeStyles,
-  // IconButton,
   FormControlLabel,
   Switch,
-  // Chip,
-  // SvgIcon,
 } from '@material-ui/core'
 import FilesDropzone from 'src/components/FilesDropzone'
-// import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, IMAGES_BASE_URL, PROGRAMS_URL } from 'src/constants'
 
@@ -44,7 +38,6 @@ function ProductCreateForm({
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
-  // const [tag, setTag] = useState('')
 
   const srcPhoto = initialValues.photo ? `${IMAGES_BASE_URL}/${initialValues.photo}` : null
 
@@ -69,9 +62,6 @@ function ProductCreateForm({
           if (values.file) {
             formData.append('photo', values.file)
           }
-          // if (values.tags.length) {
-          //   formData.append('tags', JSON.stringify(values.tags))
-          // }
 
           if (id) {
             instanceAxios.put(`${API_BASE_URL}/programs/${id}`, formData, {
@@ -214,50 +204,6 @@ function ProductCreateForm({
                       label="Publish"
                     />
                   </Box>
-                  {/* <Box
-                    mt={2}
-                    display="flex"
-                    alignItems="center"
-                  >
-                    <TextField
-                      fullWidth
-                      label="Tags"
-                      name="tags"
-                      value={tag}
-                      onChange={(event) => setTag(event.target.value)}
-                      variant="outlined"
-                    />
-                    <IconButton
-                      variant="contained"
-                      className={classes.addTab}
-                      onClick={() => {
-                        if (!tag) {
-                          return
-                        }
-
-                        setFieldValue('tags', [...values.tags, tag])
-                        setTag('')
-                      }}
-                    >
-                      <SvgIcon>
-                        <PlusIcon />
-                      </SvgIcon>
-                    </IconButton>
-                  </Box> */}
-                  {/* <Box mt={2}>
-                    {values.tags.map((tagEl, i) => (
-                      <Chip
-                        variant="outlined"
-                        key={i}
-                        label={tagEl}
-                        className={classes.tag}
-                        onDelete={() => {
-                          const newTags = values.tags.filter((t) => t !== tagEl)
-                          setFieldValue('tags', newTags)
-                        }}
-                      />
-                    ))}
-                  </Box> */}
                 </CardContent>
               </Card>
               <Box mt={3}>

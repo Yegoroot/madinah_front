@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
-import { getPrograms, module } from 'src/logic/programs'
+import { getPrograms, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Header from './Header'
 // import Filter from './Filter'
@@ -27,12 +27,11 @@ function ProgramBrowseView() {
   const classes = useStyles()
 
   const dispatch = useDispatch()
-  const { loading, data } = useSelector((state) => state[module].items)
+  const { loading, data } = useSelector((state) => state[module].list)
 
   useEffect(() => {
     dispatch(getPrograms({ params: {} }))
   }, [dispatch])
-
 
   if (loading === 'reload') {
     return <span onClick={() => dispatch(getPrograms({ params: {}, reload: true }))}>Перезагрузить</span>
