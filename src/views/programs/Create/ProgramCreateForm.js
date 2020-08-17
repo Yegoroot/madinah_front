@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core'
 import FilesDropzone from 'src/components/FilesDropzone'
 import { instanceAxios } from 'src/utils/axios'
-import { IMAGES_BASE_URL, PROGRAMS_URL } from 'src/constants'
+import { IMAGES_BASE_URL, API_BASE_URL, PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -64,7 +64,7 @@ function ProductCreateForm({
           }
 
           if (id) {
-            instanceAxios.put(`${PROGRAMS_URL}/${id}`, formData, {
+            instanceAxios.put(`${API_BASE_URL}/programs/${id}`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -82,7 +82,7 @@ function ProductCreateForm({
                 setErrors({ submit: err.response.data.error })
               })
           } else {
-            instanceAxios.post(`${PROGRAMS_URL}`, formData, {
+            instanceAxios.post(`${API_BASE_URL}/programs`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -96,10 +96,12 @@ function ProductCreateForm({
                 setSubmitting(false)
                 history.push(`${PROGRAMS_URL}`)
               })
-              .catch((err) => { setErrors({ submit: err.response.data.error }) })
+              .catch((err) => {
+                setErrors({ submit: err.message })
+              })
           }
         } catch (err) {
-          setErrors({ submit: err.response.data.error })
+          setErrors({ submit: err.message })
           setStatus({ success: false })
           setSubmitting(false)
         }
