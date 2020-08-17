@@ -33,7 +33,7 @@ import CreateRecord from 'src/components/Record/CreateRecord'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
-import { getTopicListService } from 'src/services'
+
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
@@ -60,7 +60,8 @@ function ProductCreateForm({
 
   useEffect(() => {
     const initTopics = async () => {
-      const { response } = await getTopicListService()
+      // const { response } = await getTopicListService()
+      const response = { data: {} }
       await setTopics(response.data)
     }
     initTopics()

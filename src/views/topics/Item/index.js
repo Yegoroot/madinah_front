@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useState,
   useEffect
 } from 'react'
@@ -15,7 +14,6 @@ import {
   Divider, CardHeader,
   Grid
 } from '@material-ui/core'
-import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import Page from 'src/components/Page'
 import { IMAGES_BASE_URL } from 'src/constants'
 import { useSelector, useDispatch } from 'src/store'
