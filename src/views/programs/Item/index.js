@@ -36,7 +36,6 @@ function OverviewView({ match }) {
   if (loading === 'reload') {
     return <span onClick={() => dispatch(getProgramItemRequest({ programId, reload: true }))}>Перезагрузить</span>
   }
-  console.log(loading, data)
   if (loading || !data) {
     return <LoadingScreen />
   }

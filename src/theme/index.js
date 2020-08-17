@@ -23,6 +23,13 @@ const baseOptions = {
         minWidth: 32
       }
     },
+    MuiListSubheader: {
+      root: {
+        lineHeight: '1.6',
+        paddingTop: 13,
+        paddingBottom: 13
+      }
+    },
     MuiChip: {
       root: {
         backgroundColor: 'rgba(0,0,0,0.075)'

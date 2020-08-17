@@ -30,8 +30,11 @@ const slice = createSlice({
       topic.item.loading = false
     },
     deleteSeveralTopics(topic, action) {
-      const { id } = action.payload
-      topic.list.data = topic.list.data.filter((el) => el.id !== id)
+      const { ids } = action.payload
+      topic.list.data = topic.list.data.filter((topic) => {
+        const find = ids.find((id) => id === topic.id)
+        return !find
+      })
     },
     /** Topics */
     getTopicListRequest(topic) {
@@ -59,6 +62,7 @@ export const getTopicItem = ({ id }) => async (dispatch) => {
     const { data } = response.data
     dispatch(slice.actions.getTopicItem({ data }))
   } catch (error) {
+    console.error('error', error) // FIXME alert message
     dispatch(slice.actions.getTopicItemError())
   }
 }
@@ -71,7 +75,7 @@ export const getTopicItemRequest = ({ id }) => async (dispatch) => {
 export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {
   try {
     await axios.delete(`${API_BASE_URL}/topics/?ids=${ids}`)
-    // dispatch(slice.actions.deleteTopic({ ids }))
+    dispatch(slice.actions.deleteSeveralTopics({ ids }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
   }
@@ -81,13 +85,16 @@ export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {
  *
  * topics
  */
-export const getTopicList = ({ params } = {}) => async (dispatch) => {
-  const response = await axios.get(`${API_BASE_URL}/topics/`, { params })
-  const { data } = response
-  dispatch(slice.actions.getTopicList({ data }))
+export const getTopicList = ({ params = {} }) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/topics/`, { params })
+    const { data } = response
+    dispatch(slice.actions.getTopicList({ data }))
+  } catch (error) {
+    console.error('error', error) // FIXME alert message
+  }
 }
-export const getTopicListRequest = ({ params } = {}) => async (dispatch) => {
-  console.log('--')
+export const getTopicListRequest = ({ params = {} }) => async (dispatch) => {
   dispatch(slice.actions.getTopicListRequest())
   dispatch(getTopicList({ params }))
 }

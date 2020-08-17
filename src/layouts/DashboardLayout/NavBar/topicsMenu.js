@@ -30,7 +30,6 @@ const additionalMenu = [{
 }]
 
 const notesMenu = (notes, programId, topicId) => {
-  console.log(notes)
   if (!notes.length) {
     return null
   }
@@ -42,9 +41,7 @@ const notesMenu = (notes, programId, topicId) => {
   ))
 }
 
-const topicsMenu = (topics, loading) => {
-  if (!topics.length || loading) return []
-
+const topicsMenu = (topics) => {
   const programId = topics[0].program.id
   const programTitle = topics[0].program.title
   const program = {
@@ -65,11 +62,19 @@ const topicsMenu = (topics, loading) => {
   return [program]
 }
 
-export const generateTopicsMenu = (topics, loading) => [
-  ...initialMenu,
-  ...topicsMenu(topics, loading),
-  ...additionalMenu
-]
-
+export const generateTopicsMenu = (topics, loading) => {
+  console.log(topics, loading)
+  if (loading || !topics.length) {
+    return [
+      ...initialMenu,
+      ...additionalMenu
+    ]
+  }
+  return [
+    ...initialMenu,
+    ...topicsMenu(topics),
+    ...additionalMenu
+  ]
+}
 
 export default generateTopicsMenu

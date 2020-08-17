@@ -131,6 +131,17 @@ export const AuthProvider = ({ children }) => {
       try {
         const accessToken = window.localStorage.getItem('accessToken')
 
+        // LOGOUT FOR UNAUTH USER
+        // axios.interceptors.response.use(
+        //   (response) => response,
+        //   (error) => {
+        //     if (error.response && error.response.status === 401) {
+        //       logout(null)
+        //     }
+        //     return Promise.reject(error)
+        //   }
+        // )
+
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken)
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, matchPath, Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Avatar,
   Box,
@@ -11,6 +11,7 @@ import {
   Drawer,
   Hidden,
   Link,
+  LinearProgress,
   List,
   ListSubheader,
   Typography,
@@ -31,6 +32,7 @@ import {
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
 import { matchPathProgram } from 'src/utils/urls'
+import { resetTopicsProgram } from 'src/slices/program'
 import NavItem from './NavItem'
 import { generateTopicsMenu } from './topicsMenu'
 
@@ -171,6 +173,15 @@ const useStyles = makeStyles(() => ({
   mobileDrawer: {
     width: 256
   },
+  progress: {
+    top: 244,
+    left: '50%',
+    height: 10,
+    position: 'absolute',
+    transform: 'translateX(-50%)',
+    justifyContent: 'center',
+    width: '100%'
+  },
   desktopDrawer: {
     width: 256,
     top: 64,
@@ -189,18 +200,26 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const { user } = useAuth()
   const [menuList, setMenuList] = useState(sections)
   const { loading, topics } = useSelector((state) => state.program.item)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose()
     }
+
+    /**
+     * If needed urls show subtopics
+     */
     if (matchPathProgram(`${location.pathname}`)) {
       setMenuList(generateTopicsMenu(topics, loading))
     } else {
+      if (topics.length) {
+        dispatch(resetTopicsProgram())
+      }
       setMenuList(sections)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
+  }, [dispatch, location.pathname, topics, loading])
 
   const content = (
     <Box
@@ -262,6 +281,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           </Box>
         </Box>
         <Divider />
+        {loading && loading !== 'reload' ? (
+          <Box className={classes.progress}>
+            <LinearProgress />
+          </Box>
+        ) : null }
+
         <Box p={2}>
           {menuList.map((section) => (
             <List

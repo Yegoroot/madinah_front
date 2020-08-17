@@ -94,15 +94,21 @@ function Results() {
   const { loading, data, total } = useSelector((state) => state[module].list)
 
   useEffect(() => {
-    dispatch(getTopicListRequest({ page, limit }))
+    const params = {
+      page, limit
+    }
+    dispatch(getTopicListRequest({ params }))
   }, [dispatch, page, limit, filters])
 
   const onDelete = () => {
-    dispatch(deleteSeveralTopics(selectedTopics))
+    dispatch(deleteSeveralTopics({ ids: selectedTopics }))
   }
 
   if (loading === 'reload') {
-    return <span onClick={() => dispatch(getTopicListRequest({ params: {}, reload: true }))}>Перезагрузить</span>
+    const params = {
+      page, limit
+    }
+    return <span onClick={() => dispatch(getTopicListRequest({ params, reload: true }))}>Перезагрузить</span>
   } if (loading || !data) {
     return <LoadingScreen />
   }

@@ -12,7 +12,11 @@ const initialState = {
     total: null,
     count: null
   },
-  item: { loading: false, data: null, topics: [] },
+  item: {
+    loading: false,
+    data: null,
+    topics: []
+  },
 }
 
 export const module = 'program'
@@ -23,20 +27,24 @@ const slice = createSlice({
   reducers: {
     /** Program */
     getProgramItemRequest(program) {
-      program.item.data = null
+      program.item = { ...initialState.item }
       program.item.loading = true
     },
     getProgramItem(program, action) {
-      const { data } = action.payload
-      program.item.data = data
+      const { programData, topicsData } = action.payload
+      program.item.data = programData
+      program.item.topics = topicsData
       program.item.loading = false
     },
     getProgramError(program) {
       program.item.loading = 'reload'
     },
+    resetTopicsProgram(program) {
+      program.item.topics = []
+    },
     /** Programs */
     getProgramListRequest(program) {
-      program.list.data = null
+      program.list = { ...initialState.list }
       program.list.loading = true
     },
     getProgramList(program, action) {
@@ -63,9 +71,12 @@ export const { reducer } = slice
  */
 export const getProgramItem = ({ id }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/programs/${id}`)
-    const { data } = response.data
-    dispatch(slice.actions.getProgramItem({ data }))
+    const programResponse = await axios.get(`${API_BASE_URL}/programs/${id}`)
+    const topicsResponse = await axios.get(`${API_BASE_URL}/programs/${id}/topics`)
+    dispatch(slice.actions.getProgramItem({
+      programData: programResponse.data.data,
+      topicsData: topicsResponse.data.data
+    }))
   } catch (error) {
     dispatch(slice.actions.getProgramError())
   }
@@ -97,6 +108,10 @@ export const getProgramList = ({ params } = {}) => async (dispatch) => {
 export const getProgramListRequest = ({ params } = {}) => async (dispatch) => {
   dispatch(slice.actions.getProgramListRequest())
   dispatch(getProgramList({ params }))
+}
+
+export const resetTopicsProgram = () => (dispatch) => {
+  dispatch(slice.actions.resetTopicsProgram())
 }
 
 export default slice
