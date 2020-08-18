@@ -6,11 +6,14 @@ import { API_BASE_URL } from 'src/constants'
 const initialState = {
   list: {
     loading: false,
-    data: null,
+    data: null, // []
     total: null,
     count: null
   },
-  item: { loading: false, data: null }
+  item: {
+    loading: false,
+    data: null
+  }
 }
 
 export const module = 'note'
@@ -21,7 +24,7 @@ const slice = createSlice({
   reducers: {
     /** Note */
     getNoteItemRequest(note) {
-      note.item.data = null
+      note.item = { ...initialState.item }
       note.item.loading = true
     },
     getNoteItem(note, action) {
@@ -38,7 +41,7 @@ const slice = createSlice({
     },
     /** Notes */
     getNoteListRequest(note) {
-      note.list.data = null
+      note.list = { ...initialState.list }
       note.list.loading = true
     },
     getNoteList(note, action) {

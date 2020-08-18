@@ -6,11 +6,14 @@ import { API_BASE_URL } from 'src/constants'
 const initialState = {
   list: {
     loading: false,
-    data: null,
+    data: null, // []
     total: null,
     count: null
   },
-  item: { loading: false, data: null }
+  item: {
+    loading: false,
+    data: null
+  }
 }
 
 export const module = 'topic'
@@ -21,7 +24,7 @@ const slice = createSlice({
   reducers: {
     /** Topic */
     getTopicItemRequest(topic) {
-      topic.item.data = null
+      topic.item = { ...initialState.item }
       topic.item.loading = true
     },
     getTopicItem(topic, action) {
@@ -38,7 +41,7 @@ const slice = createSlice({
     },
     /** Topics */
     getTopicListRequest(topic) {
-      topic.list.data = null
+      topic.list = { ...initialState.list }
       topic.list.loading = true
     },
     getTopicList(topic, action) {
@@ -68,6 +71,7 @@ export const getTopicItem = ({ id }) => async (dispatch) => {
 }
 
 export const getTopicItemRequest = ({ id }) => async (dispatch) => {
+  console.log(id)
   dispatch(slice.actions.getTopicItemRequest())
   dispatch(getTopicItem({ id }))
 }

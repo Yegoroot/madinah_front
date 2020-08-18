@@ -8,14 +8,14 @@ import { API_BASE_URL } from 'src/constants'
 const initialState = {
   list: {
     loading: false,
-    data: null,
+    data: null, // []
     total: null,
     count: null
   },
   item: {
     loading: false,
     data: null,
-    topics: []
+    topics: [] // all information
   },
 }
 

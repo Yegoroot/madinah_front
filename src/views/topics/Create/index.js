@@ -41,8 +41,7 @@ function TopicCreateView({ match }) {
     dispatch(getProgramListRequest({ })) // get program list
   }, [dispatch, topicId])
 
-  console.log(topicId, loading, data)
-  if (loading) {
+  if (loading || (topicId && !data)) {
     return <LoadingScreen />
   }
 
@@ -52,7 +51,7 @@ function TopicCreateView({ match }) {
       title={topicId ? 'Edit Topic' : 'Create Topic'}
     >
       <Container maxWidth="lg">
-        <Header id={topicId} />
+        <Header topic={topicId ? data : null} />
         <TopicCreateForm
           id={topicId}
           initialValue={topicId ? data : initialValue}

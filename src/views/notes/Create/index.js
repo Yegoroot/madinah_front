@@ -40,7 +40,7 @@ function TopicCreateView({ match }) {
     dispatch(getTopicListRequest({ }))
   }, [dispatch, noteId])
 
-  if (loading) {
+  if (loading || (noteId && !data)) {
     return <LoadingScreen />
   }
   return (

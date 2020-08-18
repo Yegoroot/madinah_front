@@ -11,12 +11,13 @@ import {
   makeStyles
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import { TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {}
 }))
 
-function Header({ className, id, ...rest }) {
+function Header({ className, topic, ...rest }) {
   const classes = useStyles()
 
   return (
@@ -43,25 +44,17 @@ function Header({ className, id, ...rest }) {
           <Link
             variant="body1"
             color="inherit"
-            to="/app/management"
-            component={RouterLink}
-          >
-            Management
-          </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app/management/topics"
+            to={`${TOPICS_URL}`}
             component={RouterLink}
           >
             Topics
           </Link>
-          {id ? (
+          {topic ? (
             <Typography
               variant="body1"
               color="textPrimary"
             >
-              {id}
+              {topic.title}
             </Typography>
           ) : null}
 
@@ -70,13 +63,13 @@ function Header({ className, id, ...rest }) {
           variant="h3"
           color="textPrimary"
         >
-          {id ? 'Edit topic' : 'Create a new topic'}
+          {topic ? 'Edit topic' : 'Create a new topic'}
         </Typography>
       </Grid>
       <Grid item>
         <Button
           component={RouterLink}
-          to="/app/management/products"
+          to={`${TOPICS_URL}`}
         >
           Cancel
         </Button>

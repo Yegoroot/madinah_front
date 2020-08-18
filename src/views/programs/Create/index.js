@@ -35,8 +35,7 @@ function ProgramCreateView({ match }) {
     }
   }, [programId, dispatch])
 
-  console.log(programId, loading, initialValues)
-  if ((loading)) {
+  if ((loading || (programId && !data))) {
     return <LoadingScreen />
   }
 

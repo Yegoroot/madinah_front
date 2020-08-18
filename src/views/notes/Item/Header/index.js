@@ -80,7 +80,7 @@ function Header({ note, }) {
               variant="body1"
               color="textPrimary"
             >
-              {note._id}
+              {note.title}
             </Typography>
           </Breadcrumbs>
         </Grid>
