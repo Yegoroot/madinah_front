@@ -28,9 +28,10 @@ import {
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { getNotes, deleteNotes, module } from 'src/logic/notes'
+import { getNoteListRequest, deleteSeveralNotes, module } from 'src/slices/note'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
+import { NOTES_URL } from 'src/constants'
 import Header from './Header'
 
 // function getInventoryLabel(inventoryType) {
@@ -123,34 +124,33 @@ function Results() {
   const [selectedNotes, setSelectedNotes] = useState([])
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
-  // const [sort, setSort] = useState(sortOptions[0].value)
   const dispatch = useDispatch()
-  const loading = useSelector((state) => state[module].loading)
-  const notes = useSelector((state) => state[module].notes.data)
-  const total = useSelector((state) => state[module].notes.total)
+  const { loading, data, total } = useSelector((state) => state[module].list)
+
   const [filters] = useState({
     category: null,
     availability: null,
     inStock: null,
     isShippable: null
   })
+  // const [sort, setSort] = useState(sortOptions[0].value)
 
   useEffect(() => {
-    dispatch(getNotes({ page, limit }))
+    dispatch(getNoteListRequest({ page, limit }))
   }, [dispatch, filters, page, limit])
 
-  if (loading) {
+  if (loading || !data) {
     return <LoadingScreen />
   }
 
   const deleteNotesHandler = async (selected) => {
-    dispatch(deleteNotes(selected))
+    dispatch(deleteSeveralNotes(selected))
     setSelectedNotes([])
   }
 
   const handleSelectAllNotes = (event) => {
     setSelectedNotes(event.target.checked
-      ? notes.map((note) => note.id)
+      ? data.map((note) => note.id)
       : [])
   }
 
@@ -172,8 +172,8 @@ function Results() {
   }
 
   const enableBulkOperations = selectedNotes.length > 0
-  const selectedSomeNotes = selectedNotes.length > 0 && selectedNotes.length < notes.length
-  const selectedAllNotes = selectedNotes.length === notes.length
+  const selectedSomeNotes = selectedNotes.length > 0 && selectedNotes.length < data.length
+  const selectedAllNotes = selectedNotes.length === data.length
 
   return (
     <Page
@@ -185,22 +185,22 @@ function Results() {
         <Box mt={3}>
           <Card>
             {enableBulkOperations && (
-            <div className={classes.bulkOperations}>
-              <div className={classes.bulkActions}>
-                <Checkbox
-                  checked={selectedAllNotes}
-                  indeterminate={selectedSomeNotes}
-                  onChange={handleSelectAllNotes}
-                />
-                <Button
-                  variant="outlined"
-                  onClick={() => deleteNotesHandler(selectedNotes)}
-                  className={classes.bulkAction}
-                >
-                  Delete
-                </Button>
+              <div className={classes.bulkOperations}>
+                <div className={classes.bulkActions}>
+                  <Checkbox
+                    checked={selectedAllNotes}
+                    indeterminate={selectedSomeNotes}
+                    onChange={handleSelectAllNotes}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={() => deleteNotesHandler(selectedNotes)}
+                    className={classes.bulkAction}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
-            </div>
             )}
             <PerfectScrollbar>
               <Box minWidth={1200}>
@@ -242,7 +242,7 @@ function Results() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {notes.map((note) => {
+                    {data.map((note) => {
                       const isNoteSelected = selectedNotes.includes(note.id)
 
                       return (
@@ -286,7 +286,7 @@ function Results() {
                                 color="textPrimary"
                                 component={RouterLink}
                                 underline="none"
-                                to={`/app/management/notes/${note.id}`}
+                                to={`${NOTES_URL}/${note.id}`}
                               >
                                 {note.title}
                               </Link>
@@ -319,7 +319,7 @@ function Results() {
                             >
                               <IconButton
                                 component={RouterLink}
-                                to={`/app/management/notes/${note.id}/edit`}
+                                to={`${NOTES_URL}/${note.id}/edit`}
                               >
                                 <SvgIcon fontSize="small">
                                   <EditIcon />
@@ -327,7 +327,7 @@ function Results() {
                               </IconButton>
                               <IconButton
                                 component={RouterLink}
-                                to={`/app/management/notes/${note.id}`}
+                                to={`${NOTES_URL}/${note.id}`}
                               >
                                 <SvgIcon fontSize="small">
                                   <ArrowRightIcon />

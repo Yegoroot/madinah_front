@@ -21,6 +21,7 @@ import {
   AlertTriangle as AlertIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import { NOTES_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -70,15 +71,7 @@ function Header({ note, }) {
             <Link
               variant="body1"
               color="inherit"
-              to="/app/management"
-              component={RouterLink}
-            >
-              Management
-            </Link>
-            <Link
-              variant="body1"
-              color="inherit"
-              to="/app/management/notes"
+              to={`${NOTES_URL}`}
               component={RouterLink}
             >
               Notes

@@ -11,21 +11,20 @@
 
 import axios from 'axios'
 import store from 'src/store'
-import { enqueueSnackbar } from 'src/logic/notification'
+// import { enqueueSnackbar } from 'src/logic/notification'
 
 const instanceWithMock = axios.create()
 
-const errorHandler = (err) => {
-  store.dispatch(enqueueSnackbar({
-    message: err.message === 'Network Error' ? 'Ошибка соединения' : err.response.data.error,
-    options: {
-      autoHideDuration: 6000,
-      key: new Date().getTime() + Math.random(),
-      variant: 'error'
-    },
-  }))
-  return Promise.reject(err)
-}
+const errorHandler = (err) =>
+  // store.dispatch(enqueueSnackbar({
+  //   message: err.message === 'Network Error' ? 'Ошибка соединения' : err.response.data.error,
+  //   options: {
+  //     autoHideDuration: 6000,
+  //     key: new Date().getTime() + Math.random(),
+  //     variant: 'error'
+  //   },
+  // }))
+  Promise.reject(err)
 
 export const instanceAxios = axios.create()
 instanceAxios.interceptors.request.use((req) => req, errorHandler)

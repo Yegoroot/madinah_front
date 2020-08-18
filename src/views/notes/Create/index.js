@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
-import { getNoteService } from 'src/services'
 import LoadingScreen from 'src/components/LoadingScreen'
+import { useSelector, useDispatch } from 'src/store'
+import { module as moduleTopic, getTopicListRequest } from 'src/slices/topic'
+import { module as moduleNote, getNoteItemRequest } from 'src/slices/note'
 import Header from './Header'
 import NoteCreateForm from './NoteCreateForm'
 
@@ -17,39 +19,42 @@ const useStyles = makeStyles((theme) => ({
 
 function TopicCreateView({ match }) {
   const classes = useStyles()
-  const { id } = match.params
-  const [initialValue, setInitialValue] = useState({
+  const dispatch = useDispatch()
+  const { noteId } = match.params
+  const [initialValue] = useState({
     title: '',
     description: '',
     content: [],
     minimumSkill: [],
     topic: [],
-    // level: '',
     publish: false,
   })
 
-  useEffect(() => {
-    const initTopics = async () => {
-      if (id) {
-        const { response } = await getNoteService(id)
-        response.data.topic = response.data.topic.map((e) => e._id)
-        await setInitialValue(response.data)
-      }
-    }
-    initTopics()
-  }, [setInitialValue, id])
+  const topics = useSelector((state) => state[moduleTopic].list.data)
+  const { data, loading } = useSelector((state) => state[moduleNote].item)
 
-  if (!initialValue.title && id) {
+  useEffect(() => {
+    if (noteId) {
+      dispatch(getNoteItemRequest({ id: noteId }))
+    }
+    dispatch(getTopicListRequest({ }))
+  }, [dispatch, noteId])
+
+  if (loading) {
     return <LoadingScreen />
   }
   return (
     <Page
       className={classes.root}
-      title={id ? 'Topic Edit' : 'Topic Create'}
+      title={noteId ? 'Topic Edit' : 'Topic Create'}
     >
       <Container maxWidth="lg">
-        <Header id={id} />
-        <NoteCreateForm id={id} initialValue={initialValue} />
+        <Header id={noteId} />
+        <NoteCreateForm
+          id={noteId}
+          topics={topics}
+          initialValue={noteId ? data : initialValue}
+        />
       </Container>
     </Page>
   )

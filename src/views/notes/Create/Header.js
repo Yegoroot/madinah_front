@@ -11,6 +11,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import { NOTES_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -40,14 +41,6 @@ function Header({ className, id, ...rest }) {
           >
             Dashboard
           </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app/management"
-            component={RouterLink}
-          >
-            Management
-          </Link>
           <Typography
             variant="body1"
             color="textPrimary"
@@ -65,7 +58,7 @@ function Header({ className, id, ...rest }) {
       <Grid item>
         <Button
           component={RouterLink}
-          to="/app/management/notes"
+          to={`${NOTES_URL}`}
         >
           Cancel
         </Button>

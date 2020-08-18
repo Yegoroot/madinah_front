@@ -32,8 +32,7 @@ import {
 import CreateRecord from 'src/components/Record/CreateRecord'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
-import { API_BASE_URL } from 'src/constants'
-
+import { API_BASE_URL, NOTES_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
@@ -50,22 +49,12 @@ const useStyles = makeStyles(() => ({
 }))
 
 function ProductCreateForm({
-  className, initialValue, id, ...rest
+  className, initialValue, id, topics, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
   const [skill, setSkill] = useState('')
-  const [topic, setTopics] = useState([])
-
-  useEffect(() => {
-    const initTopics = async () => {
-      // const { response } = await getTopicListService()
-      const response = { data: {} }
-      await setTopics(response.data)
-    }
-    initTopics()
-  }, [setTopics])
 
   const { t } = useTranslation()
 
@@ -97,7 +86,7 @@ function ProductCreateForm({
                 enqueueSnackbar('Note Updated', { variant: 'success' })
                 setStatus({ success: true })
                 setSubmitting(false)
-                history.push('/app/management/notes')
+                history.push(`${NOTES_URL}`)
               })
           } else {
             instanceAxios
@@ -106,7 +95,7 @@ function ProductCreateForm({
                 enqueueSnackbar(t('notification.note.was_created'), { variant: 'success' })
                 setStatus({ success: true })
                 setSubmitting(false)
-                history.push('/app/management/notes')
+                history.push(`${NOTES_URL}`)
               })
           }
         } catch (err) {
@@ -201,7 +190,7 @@ function ProductCreateForm({
                       label="Publish"
                     />
                   </Box>
-                  {!topic.length ? null
+                  {!topics ? null
                     : (
                       <FormControl
                         fullWidth
@@ -221,13 +210,13 @@ function ProductCreateForm({
                               {selected.map((value) => (
                                 <Chip
                                   key={value}
-                                  label={topic.find((el) => el.id === value).title}
+                                  label={topics.find((el) => el.id === value).title}
                                 />
                               ))}
                             </div>
                           )}
                         >
-                          {topic.map((name) => (
+                          {topics.map((name) => (
                             <MenuItem
                               key={name.id}
                               value={name.id}
@@ -327,6 +316,7 @@ function ProductCreateForm({
 ProductCreateForm.propTypes = {
   className: PropTypes.string,
   id: PropTypes.any,
+  topics: PropTypes.array,
   initialValue: PropTypes.object
 }
 

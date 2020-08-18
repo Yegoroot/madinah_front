@@ -29,19 +29,17 @@ function NoteDetailsView({ match }) {
   const classes = useStyles()
   const isMountedRef = useIsMountedRef()
   const [note, setNote] = useState(null)
-  const { id } = match.params
+  const { noteId } = match.params
 
-  console.log(id)
   const getNote = useCallback(() => {
     instanceAxios
-      .get(`${API_BASE_URL}/notes/${id}`)
+      .get(`${API_BASE_URL}/notes/${noteId}`)
       .then((response) => {
         if (isMountedRef.current) {
-          console.log(response)
           setNote(response.data.data)
         }
       })
-  }, [isMountedRef, id])
+  }, [isMountedRef, noteId])
 
   useEffect(() => {
     getNote()

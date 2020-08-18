@@ -13,14 +13,31 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".mdx", ".ts", ".tsx"]
+        "paths": [
+          "src"
+        ],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".mdx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
   "rules": {
-    "react/jsx-max-props-per-line": [1, { "when": "always" }],
-    "semi": ["error", "never"],
+    "react/jsx-max-props-per-line": [
+      1,
+      {
+        "when": "always"
+      }
+    ],
+    "linebreak-style": "off", // LF or CRLF
+    "semi": [
+      "error",
+      "never"
+    ],
     "comma-dangle": "off",
     "import/no-unresolved": "off",
     "jsx-a11y/anchor-is-valid": "off",

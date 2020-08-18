@@ -16,6 +16,7 @@ import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import { NOTES_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -54,14 +55,6 @@ function Header({ className, ...rest }) {
           >
             Dashboard
           </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app/management"
-            component={RouterLink}
-          >
-            Management
-          </Link>
           <Typography
             variant="body1"
             color="textPrimary"
@@ -82,7 +75,7 @@ function Header({ className, ...rest }) {
           variant="contained"
           className={classes.action}
           component={RouterLink}
-          to="/app/management/notes/create"
+          to={`${NOTES_URL}/create`}
         >
           <SvgIcon
             fontSize="small"
