@@ -78,10 +78,17 @@ function ProgramCard({ program, className, ...rest }) {
       {...rest}
     >
       <Box p={3}>
-        <CardMedia
-          className={classes.media}
-          image={image}
-        />
+        <Link
+          color="textPrimary"
+          component={RouterLink}
+          to={`${PROGRAMS_URL}/${program.id}`}
+          variant="h5"
+        >
+          <CardMedia
+            className={classes.media}
+            image={image}
+          />
+        </Link>
         <Box
           display="flex"
           alignItems="center"

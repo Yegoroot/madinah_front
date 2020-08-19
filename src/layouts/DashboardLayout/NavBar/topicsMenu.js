@@ -46,7 +46,7 @@ const topicsMenu = (topics) => {
   const programTitle = topics[0].program.title
   const program = {
     subheader: programTitle, // берем первый элемент (так как одна программа у тем)
-    // href: `/app/programm/${topics[0].program.id}`
+    href: `${PROGRAMS_URL}/${topics[0].program.id}`
   }
 
   program.items = topics.map(({ title, id, notes }) => (
