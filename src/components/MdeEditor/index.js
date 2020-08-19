@@ -31,14 +31,13 @@ import 'react-mde/lib/styles/css/react-mde-toolbar.css'
 import './style.css'
 import Markdown from 'src/components/Markdown'
 
-export default function MdeEditor() {
-  const [value, setValue] = React.useState('**Hello world!!!**')
+export default function MdeEditor({ onChange, value = '', }) {
   const [selectedTab, setSelectedTab] = React.useState('write')
 
   return (
     <ReactMde
       value={value}
-      onChange={setValue}
+      onChange={onChange}
       selectedTab={selectedTab}
       onTabChange={setSelectedTab}
       generateMarkdownPreview={(source) => Promise.resolve(<Markdown

@@ -17,11 +17,7 @@ function CreateRecord({ content, onAddRecord }) {
   const [isShow, setIsShow] = useState(false)
   const [subtitle, setSubTitle] = useState('')
   const [typeRecord, setTypeRecord] = useState('text')
-
-  const [recordText, setRecordText] = useState({
-    type: 'text',
-    data: null
-  })
+  const [contentRecord, setContentRecord] = useState({})
 
   const CONTENT_TYPES = [
     {
@@ -53,16 +49,17 @@ function CreateRecord({ content, onAddRecord }) {
 
   const changeContent = ({ type, data }) => {
     // set from editor record
-    setRecordText({
+    setContentRecord({
       type, data
     })
   }
 
   const onSave = () => {
     const common = {
-      id: Date.now(), subtitle
+      id: Date.now(),
+      subtitle
     }
-    onAddRecord({ ...recordText, ...common }) // inherit function
+    onAddRecord({ ...contentRecord, ...common }) // inherit function
   }
   const onAdd = () => {
     if (isShow && window.confirm('Начать новую запись, текущее изминение будет потеряно')) {
@@ -137,20 +134,20 @@ function CreateRecord({ content, onAddRecord }) {
               {typeRecord === 'text'
                 ? (
                   <SunEditor
-                    value={recordText.data}
-                    content={recordText.data}
-                    onChange={(value) => {
-                      changeContent({ type: 'text', data: value })
+                    value={contentRecord.data}
+                    // content={contentRecord.data}
+                    onChange={(data) => {
+                      changeContent({ type: 'text', data })
                     }}
                   />
                 ) : null }
               {typeRecord === 'markdown'
                 ? (
                   <MdeEditor
-                    value={recordText.data}
-                    content={recordText.data}
-                    onChange={(value) => {
-                      changeContent({ type: 'markdown', data: value })
+                    value={contentRecord.data}
+                    // content={contentRecord.data}
+                    onChange={(data) => {
+                      changeContent({ type: 'markdown', data })
                     }}
                   />
 
