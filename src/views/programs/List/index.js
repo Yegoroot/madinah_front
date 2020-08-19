@@ -4,13 +4,13 @@ import React, {
 import {
   Box,
   Container,
+  Typography,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
-import Header from './Header'
 // import Filter from './Filter'
 import Results from './Results'
 
@@ -45,11 +45,17 @@ function ProgramBrowseView() {
       title="Program List"
     >
       <Container maxWidth="lg">
-        <Header />
-        {/* <Box mt={3}>
+
+        {/* <Box>
           <Filter />
         </Box> */}
-        <Box mt={6}>
+        <Typography
+          variant="h1"
+          color="textPrimary"
+        >
+          Choose program for learning
+        </Typography>
+        <Box mt={2}>
           <Results programs={data} />
         </Box>
       </Container>
