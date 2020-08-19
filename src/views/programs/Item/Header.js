@@ -1,100 +1,121 @@
 import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
   Box,
   Button,
-  Grid,
+  Container,
   Hidden,
   Typography,
+  IconButton,
+  Tooltip,
   makeStyles
 } from '@material-ui/core'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import useAuth from 'src/hooks/useAuth'
+import MoreIcon from '@material-ui/icons/MoreVert'
+import { IMAGES_BASE_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  cover: {
+    position: 'relative',
+    height: 400,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    '&:before': {
+      position: 'absolute',
+      content: '" "',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%',
+      backgroundImage: 'linear-gradient(-180deg, rgb(28 32 37 / 0%) 40%, rgb(28 32 37 / 24%) 60%, rgb(28 32 37 / 49%) 70%, rgb(28 32 37 / 65%) 85%, rgb(28 32 37) 100%)'
+    },
+  },
+  title: {
+    position: 'absolute',
+    top: -130,
+    left: -20,
+    padding: 20
+  },
   action: {
-    backgroundColor: theme.palette.common.white
-  },
-  actionIcon: {
-    marginRight: theme.spacing(1)
-  },
-  image: {
-    width: '100%',
-    maxHeight: 400
+    marginLeft: theme.spacing(1)
   }
 }))
 
-function Header({ className, ...rest }) {
+const Header = ({
+  className, program, ...rest
+}) => {
   const classes = useStyles()
-  const { user } = useAuth()
+
+  const backgroundImage = program.photo ? `url(${IMAGES_BASE_URL}/${program.photo})` : null
 
   return (
     <div
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Grid
-        alignItems="center"
-        container
-        justify="space-between"
-        spacing={3}
-      >
-        <Grid
-          item
-          md={6}
-          xs={12}
+      <div
+        className={classes.cover}
+        style={{ backgroundImage }}
+      />
+      <Container maxWidth="lg">
+        <Box
+          position="relative"
+          mt={1}
+          display="flex"
+          alignItems="center"
         >
-          <Typography
-            variant="overline"
-            color="textSecondary"
-          >
-            Home
-          </Typography>
-          <Typography
-            variant="h3"
-            color="textPrimary"
-          >
-            Good Morning,
-            {' '}
-            {user.firstName}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            color="textPrimary"
-          >
-            Here’s what’s happening with your projects today
-          </Typography>
-          <Box mt={2}>
-            <Button
-              className={classes.action}
-              variant="contained"
+
+          <Box className={classes.title}>
+            <Typography
+              variant="h1"
+              color="textSecondary"
             >
-              <BarChartIcon className={classes.actionIcon} />
-              View summary
-            </Button>
+              {program.title}
+            </Typography>
+            <Typography
+              variant="h4"
+              color="textPrimary"
+            >
+              {program.description}
+            </Typography>
           </Box>
-        </Grid>
-        <Hidden smDown>
-          <Grid
-            item
-            md={6}
-          >
-            <img
-              alt="Cover"
-              className={classes.image}
-              src="/static/images/undraw_growth_analytics_8btt.svg"
-            />
-          </Grid>
-        </Hidden>
-      </Grid>
+          <Box flexGrow={1} />
+          <Hidden smDown>
+            <Button
+              size="small"
+              variant="outlined"
+              className={classes.action}
+            >
+              Pending
+            </Button>
+            <Button
+              color="secondary"
+              component={RouterLink}
+              size="small"
+              to="/app/chat"
+              variant="contained"
+              className={classes.action}
+            >
+              Send message
+            </Button>
+          </Hidden>
+          <Tooltip title="More options">
+            <IconButton className={classes.action}>
+              <MoreIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Container>
     </div>
   )
 }
 
 Header.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  program: PropTypes.object.isRequired
 }
 
 export default Header

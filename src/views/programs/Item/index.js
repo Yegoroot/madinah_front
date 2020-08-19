@@ -1,33 +1,44 @@
-import React, { useEffect } from 'react'
+import React, {
+  useState,
+  useEffect
+} from 'react'
 import {
-  // Box,
+  Box,
   Container,
+  Divider,
+  Tab,
+  Tabs,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
-// import Statistics from './Statistics'
-// import Notifications from './Notifications'
-// import Projects from './Projects'
-// import Todos from './Todos'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramItemRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Header from './Header'
+import Topics from './Topics'
+import Files from './Files'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3)
+    minHeight: '100%'
   }
 }))
 
-function OverviewView({ match }) {
-  const classes = useStyles()
+const ProfileView = ({ match }) => {
   const { programId } = match.params
-
   const dispatch = useDispatch()
-  const { loading, data } = useSelector((state) => state[module].item)
+  const { loading, data, topics } = useSelector((state) => state[module].item)
+  const classes = useStyles()
+  const [currentTab, setCurrentTab] = useState('topics')
+  const tabs = [
+    { value: 'topics', label: 'Topics' },
+    { value: 'files', label: 'Files' },
+  ]
+
+  const handleTabsChange = (event, value) => {
+    setCurrentTab(value)
+  }
 
   useEffect(() => {
     dispatch(getProgramItemRequest({ id: programId }))
@@ -43,25 +54,38 @@ function OverviewView({ match }) {
   return (
     <Page
       className={classes.root}
-      title="Overview"
+      title={data.title}
     >
+      <Header program={data} />
       <Container maxWidth="lg">
-        <Header />
-        {/* <Box mt={3}>
-          <Statistics />
+        <Box mt={3}>
+          <Tabs
+            onChange={handleTabsChange}
+            scrollButtons="auto"
+            value={currentTab}
+            textColor="secondary"
+            variant="scrollable"
+          >
+            {tabs.map((tab) => (
+              <Tab
+                key={tab.value}
+                label={tab.label}
+                value={tab.value}
+              />
+            ))}
+          </Tabs>
         </Box>
-        <Box mt={6}>
-          <Notifications />
+        <Divider />
+        <Box
+          py={3}
+          pb={6}
+        >
+          {currentTab === 'topics' && <Topics topics={topics} />}
+          {currentTab === 'files' && <Files files={[]} />}
         </Box>
-        <Box mt={6}>
-          <Projects />
-        </Box>
-        <Box mt={6}>
-          <Todos />
-        </Box> */}
       </Container>
     </Page>
   )
 }
 
-export default OverviewView
+export default ProfileView
