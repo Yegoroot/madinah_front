@@ -20,6 +20,33 @@ Once the installation is done, you can now run your app by running `npm start` o
 npm start
 ```
 
+```js
+
+export default function MdeEditor() {
+  const [value, setValue] = React.useState('**Hello world!!!**')
+  const [selectedTab, setSelectedTab] = React.useState('write')
+
+  return (
+    <div className="container">
+      <ReactMde
+        value={value}
+        onChange={setValue}
+        selectedTab={selectedTab}
+        onTabChange={setSelectedTab}
+        generateMarkdownPreview={(source) => Promise.resolve(<Render source={source} />)}
+        // loadSuggestions={loadSuggestions}
+        childProps={{
+          writeButton: {
+            tabIndex: -1
+          }
+        }}
+      />
+    </div>
+  )
+}
+
+```
+
 You will see something similar to:
 
 ```sh

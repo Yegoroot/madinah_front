@@ -23,18 +23,3 @@ export const ENABLE_REDUX_LOGGER = false
 
 export const DEBUG_I18 = false // for deb
 export const DEFAULT_LANGUAGE = 'en'
-
-export const CONTENT_TYPES = [
-  {
-    type: 'text',
-    title: 'Текстовая запись'
-  },
-  {
-    type: 'md',
-    title: 'Markdown'
-  },
-  {
-    type: 'audio',
-    title: 'Аудио дорожка'
-  }
-]

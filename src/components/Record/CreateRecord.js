@@ -3,39 +3,40 @@ import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box,
   Button,
-  // Select,
-  // InputLabel,
-  // Input,
-  // FormControl,
-  // MenuItem,
   Card,
   CardContent,
   CardHeader,
   Divider,
-  // FormControlLabel,
-  // Switch,
-  // FormHelperText,
   Grid,
-  // Paper,
   TextField,
-  // Typography,
-  // makeStyles,
-  // IconButton,
-  // Chip,
-  // SvgIcon,
 } from '@material-ui/core'
 import SunEditor from 'src/components/SunEditor'
-import { CONTENT_TYPES } from 'src/constants'
+import MdeEditor from 'src/components/MdeEditor/index'
 
 function CreateRecord({ content, onAddRecord }) {
   const [isShow, setIsShow] = useState(false)
   const [subtitle, setSubTitle] = useState('')
-  const [typeRecord,] = useState('text')
+  const [typeRecord, setTypeRecord] = useState('text')
 
   const [recordText, setRecordText] = useState({
     type: 'text',
     data: null
   })
+
+  const CONTENT_TYPES = [
+    {
+      type: 'text',
+      title: 'Текстовая запись'
+    },
+    {
+      type: 'markdown',
+      title: 'Markdown'
+    },
+    {
+      type: 'audio',
+      title: 'Аудио дорожка'
+    }
+  ]
 
   // useEffect(() => {
   //   const initTopics = async () => {
@@ -50,9 +51,6 @@ function CreateRecord({ content, onAddRecord }) {
 
   }
 
-  const handleChange = (e) => {
-
-  }
   const changeContent = ({ type, data }) => {
     // set from editor record
     setRecordText({
@@ -99,7 +97,7 @@ function CreateRecord({ content, onAddRecord }) {
                 <TextField
                   fullWidth
                   name="option"
-                  onChange={(event) => handleChange(event.target.value)}
+                  onChange={(event) => setTypeRecord(event.target.value)}
                   select
                   SelectProps={{ native: true }}
                   // value={initialValue.temp}
@@ -145,6 +143,17 @@ function CreateRecord({ content, onAddRecord }) {
                       changeContent({ type: 'text', data: value })
                     }}
                   />
+                ) : null }
+              {typeRecord === 'markdown'
+                ? (
+                  <MdeEditor
+                    value={recordText.data}
+                    content={recordText.data}
+                    onChange={(value) => {
+                      changeContent({ type: 'markdown', data: value })
+                    }}
+                  />
+
                 ) : null }
             </Box>
 
