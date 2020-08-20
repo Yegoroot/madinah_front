@@ -171,7 +171,7 @@ const Hero = ({ className, ...rest }) => {
               <div className={classes.image}>
                 <img
                   alt="Presentation"
-                  src="/static/home/dark-light.png"
+                  src="/static/images/calligraphy/calligraphy8.jpg"
                 />
               </div>
             </Box>

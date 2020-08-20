@@ -24,14 +24,14 @@ function TopicCreateView({ match }) {
   const [initialValue] = useState({
     title: '',
     description: '',
-    content: [],
-    minimumSkill: [],
+    contents: [],
+    tags: [],
     topic: [],
     publish: false,
   })
 
-  const topics = useSelector((state) => state[moduleTopic].list.data)
-  const { data, loading } = useSelector((state) => state[moduleNote].item)
+  const topics = useSelector((state) => state[moduleTopic].list)
+  const note = useSelector((state) => state[moduleNote].item)
 
   useEffect(() => {
     if (noteId) {
@@ -40,20 +40,21 @@ function TopicCreateView({ match }) {
     dispatch(getTopicListRequest({ }))
   }, [dispatch, noteId])
 
-  if (loading || (noteId && !data)) {
+  if (note.loading || (noteId && !note.data)) {
     return <LoadingScreen />
   }
+
   return (
     <Page
       className={classes.root}
-      title={noteId ? 'Topic Edit' : 'Topic Create'}
+      title={noteId ? 'Note Edit' : 'Note Create'}
     >
       <Container maxWidth="lg">
         <Header id={noteId} />
         <NoteCreateForm
           id={noteId}
-          topics={topics}
-          initialValue={noteId ? data : initialValue}
+          topics={topics.data}
+          initialValue={noteId ? note.data : initialValue}
         />
       </Container>
     </Page>

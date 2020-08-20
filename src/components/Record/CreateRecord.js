@@ -1,5 +1,4 @@
 import React, { useState, /* useEffect */ } from 'react'
-import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box,
   Button,
@@ -13,174 +12,132 @@ import {
 import SunEditor from 'src/components/SunEditor'
 import MdeEditor from 'src/components/MdeEditor/index'
 
-function CreateRecord({ content, onAddRecord }) {
-  const [isShow, setIsShow] = useState(false)
-  const [subtitle, setSubTitle] = useState('')
-  const [typeRecord, setTypeRecord] = useState('text')
-  const [contentRecord, setContentRecord] = useState({})
+const CONTENT_TYPES = [
+  {
+    type: 'text',
+    title: 'Текстовая запись'
+  },
+  {
+    type: 'markdown',
+    title: 'Markdown'
+  },
+  {
+    type: 'audio',
+    title: 'Аудио дорожка'
+  }
+]
 
-  const CONTENT_TYPES = [
-    {
-      type: 'text',
-      title: 'Текстовая запись'
-    },
-    {
-      type: 'markdown',
-      title: 'Markdown'
-    },
-    {
-      type: 'audio',
-      title: 'Аудио дорожка'
-    }
-  ]
+function CreateRecord({ initialValues, onCancel, onSave }) {
+  const defaultValues = {
+    type: 'text',
+    data: '',
+    subtitle: ''
+  }
+  const [contentRecord, setContentRecord] = useState(initialValues || defaultValues)
 
-  // useEffect(() => {
-  //   const initTopics = async () => {
-  //     if (id) {
-
-  //     }
-  //   }
-  //   initTopics()
-  // }, [setInitialValue, id])
-
-  const onReset = () => {
-
+  const onSaveHandler = () => {
+    onSave({ ...contentRecord })
+    setContentRecord({ ...defaultValues })
   }
 
-  const changeContent = ({ type, data }) => {
-    // set from editor record
-    setContentRecord({
-      type, data
-    })
-  }
-
-  const onSave = () => {
-    const common = {
-      id: Date.now(),
-      subtitle
-    }
-    onAddRecord({ ...contentRecord, ...common }) // inherit function
-  }
-  const onAdd = () => {
-    if (isShow && window.confirm('Начать новую запись, текущее изминение будет потеряно')) {
-      onSave()
-      onReset()
-    } else {
-      setIsShow(true)
-    }
-  }
-  const onCancel = () => {
-    setIsShow(false)
+  const onCancelHandler = () => {
+    onCancel()
+    setContentRecord({ ...defaultValues })
+    // setIsShow(false)
   }
 
   return (
     <>
 
-      {!isShow ? null : (
-        <Card>
-
-          <CardHeader title="Добавить запись в заметку" />
-          <Divider />
-          <CardContent>
+      <Card>
+        <CardHeader title="Добавить запись в заметку" />
+        <Divider />
+        <CardContent>
+          <Grid
+            container
+            spacing={2}
+          >
             <Grid
-              container
-              spacing={2}
+              item
+              xs={12}
+              md={4}
             >
-              <Grid
-                item
-                xs={12}
-                md={4}
+              <TextField
+                fullWidth
+                name="option"
+                onChange={(event) => setContentRecord({ ...defaultValues, subtitle: contentRecord.subtitle, type: event.target.value })}
+                select
+                SelectProps={{ native: true }}
+                value={contentRecord.type}
+                variant="outlined"
               >
-                <TextField
-                  fullWidth
-                  name="option"
-                  onChange={(event) => setTypeRecord(event.target.value)}
-                  select
-                  SelectProps={{ native: true }}
-                  // value={initialValue.temp}
-                  variant="outlined"
-                >
-                  {CONTENT_TYPES.map(({ type, title }) => (
-                    <option
-                      key={type}
-                      value={type}
-                    >
-                      {title}
-                    </option>
-                  ))}
-                </TextField>
+                {CONTENT_TYPES.map(({ type, title }) => (
+                  <option
+                    key={type}
+                    value={type}
+                  >
+                    {title}
+                  </option>
+                ))}
+              </TextField>
 
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={8}
-              >
-                <TextField
-                  fullWidth
-                  label="Подзаголовок"
-                  onChange={(e) => setSubTitle(e.target.value)}
-                  name="option"
-                  value={subtitle}
-                  variant="outlined"
-                />
-              </Grid>
             </Grid>
-
-            <Box
-              mt={3}
-              mb={3}
+            <Grid
+              item
+              xs={12}
+              md={8}
             >
-              {typeRecord === 'text'
-                ? (
-                  <SunEditor
-                    value={contentRecord.data}
-                    // content={contentRecord.data}
-                    onChange={(data) => {
-                      changeContent({ type: 'text', data })
-                    }}
-                  />
-                ) : null }
-              {typeRecord === 'markdown'
-                ? (
-                  <MdeEditor
-                    value={contentRecord.data}
-                    // content={contentRecord.data}
-                    onChange={(data) => {
-                      changeContent({ type: 'markdown', data })
-                    }}
-                  />
+              <TextField
+                fullWidth
+                label="Подзаголовок"
+                onChange={(e) => setContentRecord({ ...contentRecord, subtitle: e.target.value })}
+                name="subtitle"
+                id="subtitle"
+                value={contentRecord.subtitle}
+                variant="outlined"
+              />
+            </Grid>
+          </Grid>
 
-                ) : null }
-            </Box>
+          <Box
+            mt={3}
+            mb={3}
+          >
+            {contentRecord.type === 'text'
+              ? (
+                <SunEditor
+                  value={contentRecord.data}
+                  content={contentRecord.data}
+                  onChange={(data) => setContentRecord((prev) => ({ ...prev, type: 'text', data }))}
+                />
+              ) : null }
+            {contentRecord.type === 'markdown'
+              ? (
+                <MdeEditor
+                  value={contentRecord.data}
+                  onChange={(data) => setContentRecord((prev) => ({ ...prev, type: 'markdown', data }))}
+                />
 
+              ) : null }
+          </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+          >
             <Button
-              onClick={onCancel}
-            >
-              Отмена
-            </Button>
-            <Button
-              onClick={onSave}
+              onClick={onSaveHandler}
               variant="contained"
             >
-              Сохранить
+              Сохранить запись
             </Button>
-          </CardContent>
-        </Card>
-      )}
+            <Box flexGrow={1} />
+            <Button onClick={onCancelHandler}>
+              Отмена
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
 
-      <Box
-        mt={3}
-        mb={3}
-      >
-        <Button
-          variant="contained"
-          onClick={onAdd}
-          startIcon={<AddOutlined />}
-        >
-          {isShow ? 'Добавить еще запись' : 'Добавить запись'}
-        </Button>
-      </Box>
     </>
   )
 }

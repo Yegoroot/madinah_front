@@ -1,8 +1,9 @@
 {
   "translations": {
-    "notification": {
-      "note": {
-        "was_created": "Note was create"
+    "note": {
+      "notify": {
+        "was_created": "Note was created",
+        "was_update": "Note was update"
       }
     },
     "components": {

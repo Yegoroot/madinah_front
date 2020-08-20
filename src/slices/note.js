@@ -30,6 +30,7 @@ const slice = createSlice({
     getNoteItem(note, action) {
       const { data } = action.payload
       note.item.data = data
+      note.item.data.topic = note.item.data.topic.map((e) => e.id) // INFO multi select work with Array[String], but we get Array{Object}
       note.item.loading = false
     },
     deleteSeveralNotes(note, action) {
@@ -76,6 +77,7 @@ export const getNoteItemRequest = ({ id }) => async (dispatch) => {
 }
 
 export const deleteSeveralNotes = ({ ids }) => async (dispatch) => {
+  console.log(ids)
   try {
     await axios.delete(`${API_BASE_URL}/notes/?ids=${ids}`)
     dispatch(slice.actions.deleteSeveralNotes({ ids }))

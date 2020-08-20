@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { useSnackbar } from 'notistack'
+import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box,
   Button,
@@ -21,9 +22,7 @@ import {
   Switch,
   FormHelperText,
   Grid,
-  // Paper,
   TextField,
-  // Typography,
   makeStyles,
   IconButton,
   Chip,
@@ -54,45 +53,58 @@ function ProductCreateForm({
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
-  const [skill, setSkill] = useState('')
-
+  const [tag, setTag] = useState('')
   const { t } = useTranslation()
+  const [isShow, setIsShow] = useState(false)
+  const [contents, setContents] = useState([])
 
-  const onAddRecord = (data) => {
-    console.log(data)
+  const onAdd = () => {
+    setIsShow(true)
+  }
+
+  const onSave = (record) => {
+    setIsShow(false)
+    if (!record.data) {
+      return false
+    }
+    setContents([...contents, record])
+  }
+
+  const onCancel = () => {
+    setIsShow(false)
+    console.log('cancel and contents is', contents)
   }
 
   return (
     <Formik
       initialValues={initialValue}
       validationSchema={Yup.object().shape({
-        // level: Yup.number().required(),
         topic: Yup.array().required(),
         title: Yup.string().max(255).required(),
         description: Yup.string().required().max(1500),
-        content: Yup.array(),
-        minimumSkill: Yup.array(),
+        tags: Yup.array(),
       })}
       onSubmit={async (values, {
         setErrors,
         setStatus,
         setSubmitting
       }) => {
+        const data = { ...values, contents }
         try {
           if (id) {
             instanceAxios
-              .put(`${API_BASE_URL}/notes/${id}`, values)
+              .put(`${API_BASE_URL}/notes/${id}`, data)
               .then(() => {
-                enqueueSnackbar('Note Updated', { variant: 'success' })
+                enqueueSnackbar('note.notify.was_update', { variant: 'success' })
                 setStatus({ success: true })
                 setSubmitting(false)
                 history.push(`${NOTES_URL}`)
               })
           } else {
             instanceAxios
-              .post(`${API_BASE_URL}/notes`, values)
+              .post(`${API_BASE_URL}/notes`, data)
               .then(() => {
-                enqueueSnackbar(t('notification.note.was_created'), { variant: 'success' })
+                enqueueSnackbar(t('note.notify.was_created'), { variant: 'success' })
                 setStatus({ success: true })
                 setSubmitting(false)
                 history.push(`${NOTES_URL}`)
@@ -235,22 +247,22 @@ function ProductCreateForm({
                   >
                     <TextField
                       fullWidth
-                      label="Skills"
-                      name="minimumSkill"
-                      value={skill}
-                      onChange={(event) => setSkill(event.target.value)}
+                      label="tags"
+                      name="tags"
+                      value={tag}
+                      onChange={(event) => setTag(event.target.value)}
                       variant="outlined"
                     />
                     <IconButton
                       variant="contained"
                       className={classes.addTab}
                       onClick={() => {
-                        if (!skill) {
+                        if (!tag) {
                           return
                         }
 
-                        setFieldValue('minimumSkill', [...values.minimumSkill, skill])
-                        setSkill('')
+                        setFieldValue('tags', [...values.tags, tag])
+                        setTag('')
                       }}
                     >
                       <SvgIcon>
@@ -259,15 +271,15 @@ function ProductCreateForm({
                     </IconButton>
                   </Box>
                   <Box mt={2}>
-                    {values.minimumSkill.map((skl, i) => (
+                    {values.tags.map((tg, i) => (
                       <Chip
                         variant="outlined"
                         key={i}
-                        label={skl}
-                        className={classes.skill}
+                        label={tg}
+                        className={classes.tag}
                         onDelete={() => {
-                          const newSkills = values.minimumSkill.filter((t) => t !== skl)
-                          setFieldValue('minimumSkill', newSkills)
+                          const newTg = values.tags.filter((t) => t !== tg)
+                          setFieldValue('tags', newTg)
                         }}
                       />
                     ))}
@@ -281,11 +293,25 @@ function ProductCreateForm({
               lg={12}
               item
             >
-              <CreateRecord
-                content={values.content}
-                onAddRecord={onAddRecord}
-              />
+              {!isShow ? null : (
+                <CreateRecord
+                  onCancel={onCancel}
+                  onSave={onSave}
+                />
+              )}
 
+              {isShow ? null
+                : (
+                  <Box mt={2}>
+                    <Button
+                      variant="contained"
+                      onClick={onAdd}
+                      startIcon={<AddOutlined />}
+                    >
+                      Добавить запись
+                    </Button>
+                  </Box>
+                )}
             </Grid>
           </Grid>
 
@@ -296,7 +322,7 @@ function ProductCreateForm({
             </FormHelperText>
           </Box>
           )}
-          <Box mt={2}>
+          <Box mt={5}>
             <Button
               color="secondary"
               variant="contained"

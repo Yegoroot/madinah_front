@@ -144,7 +144,7 @@ function Results() {
   }
 
   const deleteNotesHandler = async (selected) => {
-    dispatch(deleteSeveralNotes(selected))
+    dispatch(deleteSeveralNotes({ ids: selected }))
     setSelectedNotes([])
   }
 
