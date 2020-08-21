@@ -20,6 +20,7 @@ const Editor = ({ onChange, content }) => (
       codeMirror: CodeMirror, // window.CodeMirror,
       height: 200,
       minHeight: 200,
+      formats: ['p', 'div', 'blockquote', 'h3', 'h4', 'h5', 'h6'],
       font: ['Droid Arabic Naskh'],
       colorList: [['#f44336', '#3949ab', '#1c2025'], ['#4caf50', '#e6e5e8', '#8a85ff']],
       fontSize: [14, 21, 27],

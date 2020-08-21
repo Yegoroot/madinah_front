@@ -44,7 +44,7 @@ function Header({ className, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Breadcrumbs
+        {/* <Breadcrumbs
           separator={<NavigateNextIcon fontSize="small" />}
           aria-label="breadcrumb"
         >
@@ -70,9 +70,9 @@ function Header({ className, ...rest }) {
           >
             Topics
           </Typography>
-        </Breadcrumbs>
+        </Breadcrumbs> */}
         <Typography
-          variant="h3"
+          variant="h1"
           color="textPrimary"
         >
           All Topics

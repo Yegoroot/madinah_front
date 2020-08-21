@@ -3,14 +3,13 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
-  Breadcrumbs,
   Button,
   Grid,
-  Link,
+  Box,
   Typography,
   makeStyles
 } from '@material-ui/core'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+
 import { NOTES_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
@@ -29,31 +28,14 @@ function Header({ className, id, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app"
-            component={RouterLink}
-          >
-            Dashboard
-          </Link>
+        <Box pb="3">
           <Typography
-            variant="body1"
+            variant="h1"
             color="textPrimary"
           >
-            Notes
+            {id ? `Edit Note ${id}` : 'Create a new note' }
           </Typography>
-        </Breadcrumbs>
-        <Typography
-          variant="h3"
-          color="textPrimary"
-        >
-          {id ? `Edit Note ${id}` : 'Create a new note' }
-        </Typography>
+        </Box>
       </Grid>
       <Grid item>
         <Button

@@ -1,0 +1,45 @@
+/*
+  Droid Arabic Naskh
+*/
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  src: url('../fonts/DroidArabic/DroidArabicNaskhBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Arabic Naskh';
+  src: url('../fonts/DroidArabic/DroidArabicNaskhRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* @font-face {
+  font-family: 'Cairo';
+  src: url('../fonts/Cairo/Cairo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('../fonts/Cairo/Cairo-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Amiri';
+  src: url('../fonts/Amiri/Amiri-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Amiri';
+  src: url('../fonts/Amiri/Amiri-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+} */

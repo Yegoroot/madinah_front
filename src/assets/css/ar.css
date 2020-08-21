@@ -1,0 +1,67 @@
+/*
+  WORD
+*/
+.arword {
+  padding: 0;
+  font-size: 30px;
+  list-style: none;
+  margin-top: 0;
+  text-align: right;
+  margin-bottom: 0;
+}
+.arword__prefix, .arword__suffix {
+  color: #f44336;
+}
+/*
+SENTENCE
+*/
+.arsent {
+  /* justify-content: flex-start; */
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+      direction: rtl;
+  flex-wrap: wrap;
+  /*ORIGINAL*/
+  line-height: 1.9;
+  font-size: 30px;
+}
+
+.arsent__translate {
+  padding-right: 20px !important;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+/*
+temp
+*/
+h1.title {
+  margin-bottom: 52px;
+  font-size: 50px;
+  direction: rtl;
+}
+h2.title.h2ar {
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+.desc {
+  margin-bottom: 40px;
+  direction: ltr;
+    text-align: right;
+}
+/* .MuiCardContent-root {
+  direction: rtl;
+} */
+span.desc__ar {
+  font-weight: bold;
+}
+span.contrast {
+  color: #f44336;
+}

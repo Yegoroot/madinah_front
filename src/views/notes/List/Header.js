@@ -43,27 +43,8 @@ function Header({ className, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app"
-            component={RouterLink}
-          >
-            Dashboard
-          </Link>
-          <Typography
-            variant="body1"
-            color="textPrimary"
-          >
-            Notes
-          </Typography>
-        </Breadcrumbs>
         <Typography
-          variant="h3"
+          variant="h1"
           color="textPrimary"
         >
           All Notes

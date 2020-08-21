@@ -149,7 +149,7 @@ function Results() {
       <Container maxWidth={false}>
         <Header />
 
-        <Box mt={5}>
+        <Box mt={3}>
           <Card>
             {enableBulkOperations && (
               <div className={classes.bulkOperations}>

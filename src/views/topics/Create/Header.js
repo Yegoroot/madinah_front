@@ -29,38 +29,8 @@ function Header({ className, topic, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app"
-            component={RouterLink}
-          >
-            Dashboard
-          </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to={`${TOPICS_URL}`}
-            component={RouterLink}
-          >
-            Topics
-          </Link>
-          {topic ? (
-            <Typography
-              variant="body1"
-              color="textPrimary"
-            >
-              {topic.title}
-            </Typography>
-          ) : null}
-
-        </Breadcrumbs>
         <Typography
-          variant="h3"
+          variant="h1"
           color="textPrimary"
         >
           {topic ? 'Edit topic' : 'Create a new topic'}

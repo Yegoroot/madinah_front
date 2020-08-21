@@ -28,11 +28,12 @@ import {
   Chip,
   SvgIcon,
 } from '@material-ui/core'
-import CreateRecord from 'src/components/Record/CreateRecord'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, NOTES_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
+import SectionCreate from 'src/components/Section/Create'
+import SectionList from 'src/components/Section/List/index'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -288,13 +289,31 @@ function ProductCreateForm({
               </Card>
             </Grid>
 
+            { !contents.length ? null
+              : (
+                <Grid
+                  xs={12}
+                  lg={12}
+                  item
+                >
+                  <Card>
+                    <CardHeader title="Content" />
+                    <Divider />
+                    <CardContent>
+                      <SectionList contents={contents} />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ) }
+
             <Grid
               xs={12}
               lg={12}
               item
             >
+
               {!isShow ? null : (
-                <CreateRecord
+                <SectionCreate
                   onCancel={onCancel}
                   onSave={onSave}
                 />

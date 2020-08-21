@@ -27,23 +27,22 @@ const CONTENT_TYPES = [
   }
 ]
 
-function CreateRecord({ initialValues, onCancel, onSave }) {
+function SectionCreate({ initialValues, onCancel, onSave }) {
   const defaultValues = {
     type: 'text',
     data: '',
     subtitle: ''
   }
-  const [contentRecord, setContentRecord] = useState(initialValues || defaultValues)
+  const [section, setSection] = useState(initialValues || defaultValues)
 
   const onSaveHandler = () => {
-    onSave({ ...contentRecord })
-    setContentRecord({ ...defaultValues })
+    onSave({ ...section })
+    setSection({ ...defaultValues })
   }
 
   const onCancelHandler = () => {
     onCancel()
-    setContentRecord({ ...defaultValues })
-    // setIsShow(false)
+    setSection({ ...defaultValues })
   }
 
   return (
@@ -65,10 +64,10 @@ function CreateRecord({ initialValues, onCancel, onSave }) {
               <TextField
                 fullWidth
                 name="option"
-                onChange={(event) => setContentRecord({ ...defaultValues, subtitle: contentRecord.subtitle, type: event.target.value })}
+                onChange={(event) => setSection({ ...defaultValues, subtitle: section.subtitle, type: event.target.value })}
                 select
                 SelectProps={{ native: true }}
-                value={contentRecord.type}
+                value={section.type}
                 variant="outlined"
               >
                 {CONTENT_TYPES.map(({ type, title }) => (
@@ -90,10 +89,10 @@ function CreateRecord({ initialValues, onCancel, onSave }) {
               <TextField
                 fullWidth
                 label="Подзаголовок"
-                onChange={(e) => setContentRecord({ ...contentRecord, subtitle: e.target.value })}
+                onChange={(e) => setSection({ ...section, subtitle: e.target.value })}
                 name="subtitle"
                 id="subtitle"
-                value={contentRecord.subtitle}
+                value={section.subtitle}
                 variant="outlined"
               />
             </Grid>
@@ -103,19 +102,19 @@ function CreateRecord({ initialValues, onCancel, onSave }) {
             mt={3}
             mb={3}
           >
-            {contentRecord.type === 'text'
+            {section.type === 'text'
               ? (
                 <SunEditor
-                  value={contentRecord.data}
-                  content={contentRecord.data}
-                  onChange={(data) => setContentRecord((prev) => ({ ...prev, type: 'text', data }))}
+                  value={section.data}
+                  content={section.data}
+                  onChange={(data) => setSection((prev) => ({ ...prev, type: 'text', data }))}
                 />
               ) : null }
-            {contentRecord.type === 'markdown'
+            {section.type === 'markdown'
               ? (
                 <MdeEditor
-                  value={contentRecord.data}
-                  onChange={(data) => setContentRecord((prev) => ({ ...prev, type: 'markdown', data }))}
+                  value={section.data}
+                  onChange={(data) => setSection((prev) => ({ ...prev, type: 'markdown', data }))}
                 />
 
               ) : null }
@@ -142,4 +141,4 @@ function CreateRecord({ initialValues, onCancel, onSave }) {
   )
 }
 
-export default CreateRecord
+export default SectionCreate
