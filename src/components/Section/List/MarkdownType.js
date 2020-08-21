@@ -6,15 +6,19 @@ const MarkdownType = ({ content }) => {
   const { subtitle, data /* , id */ } = content
 
   useEffect(() => {
-    console.log(Prism)
     Prism.highlightAll()
   }, [])
 
   return (
-    <Markdown
-      escapeHtml={false}
-      source={data}
-    />
+    <>
+      {subtitle ? (
+        <h2>{subtitle}</h2>
+      ) : null}
+      <Markdown
+        escapeHtml={false}
+        source={data}
+      />
+    </>
   )
 }
 

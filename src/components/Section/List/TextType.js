@@ -29,13 +29,9 @@ const TextType = ({ content }) => {
 
   return (
     <Box>
-
-      <h2
-        variant="h2"
-        color="textPrimary"
-      >
-        {subtitle}
-      </h2>
+      {subtitle ? (
+        <h2>{subtitle}</h2>
+      ) : null}
       <div dangerouslySetInnerHTML={{ __html: data }} />
     </Box>
   )

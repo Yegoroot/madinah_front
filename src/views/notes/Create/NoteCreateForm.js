@@ -57,29 +57,34 @@ function ProductCreateForm({
   const [tag, setTag] = useState('')
   const { t } = useTranslation()
   const [isShow, setIsShow] = useState(false)
-  const [myContents, setMyContents] = useState([])
+  const [contents, setContents] = useState(initialValue.contents)
 
-  const onAdd = () => {
-    setIsShow(true)
-  }
+  console.log(contents)
+
+  const onAdd = () => setIsShow(true)
+
+  const onCancel = () => setIsShow(false)
 
   const onSave = (record) => {
     setIsShow(false)
-    if (!record.data) {
-      return false
-    }
-    setMyContents([...myContents, record])
+    if (!record.data) return false
+    setContents([...contents, record])
   }
 
-  const onCancel = () => {
-    setIsShow(false)
-    console.log('cancel and myContents is', myContents)
+  const onDelete = (id) => {
+    const filtering = contents.filter((content) => content.id !== id)
+    setContents(filtering)
+  }
+
+  const onEdit = (id) => {
+    console.log(id)
   }
 
   return (
     <Formik
       initialValues={initialValue}
       validationSchema={Yup.object().shape({
+        contents: Yup.array().required(),
         topic: Yup.array().required(),
         title: Yup.string().max(255).required(),
         description: Yup.string().required().max(1500),
@@ -90,7 +95,6 @@ function ProductCreateForm({
         setStatus,
         setSubmitting
       }) => {
-        const contents = [...myContents, ...values.contents]
         const data = { ...values, contents }
         try {
           if (id) {
@@ -185,8 +189,6 @@ function ProductCreateForm({
               lg={4}
             >
               <Card>
-                {/* <CardHeader title="Organize" /> */}
-                {/* <Divider /> */}
                 <CardContent>
                   <Box
                     px={1}
@@ -290,7 +292,7 @@ function ProductCreateForm({
               </Card>
             </Grid>
 
-            { !values.contents.length ? null
+            { !contents.length ? null
               : (
                 <Grid
                   xs={12}
@@ -301,7 +303,11 @@ function ProductCreateForm({
                     <CardHeader title="Content" />
                     <Divider />
                     <CardContent>
-                      <SectionList contents={values.contents} />
+                      <SectionList
+                        contents={contents}
+                        onDelete={onDelete}
+                        onEdit={onEdit}
+                      />
                     </CardContent>
                   </Card>
                 </Grid>

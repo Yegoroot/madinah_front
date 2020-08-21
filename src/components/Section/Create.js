@@ -9,6 +9,7 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core'
+import { v4 as uuidv4 } from 'uuid'
 import SunEditor from 'src/components/SunEditor'
 import MdeEditor from 'src/components/MdeEditor/index'
 
@@ -36,7 +37,7 @@ function SectionCreate({ initialValues, onCancel, onSave }) {
   const [section, setSection] = useState(initialValues || defaultValues)
 
   const onSaveHandler = () => {
-    onSave({ ...section })
+    onSave({ ...section, id: uuidv4() })
     setSection({ ...defaultValues })
   }
 
