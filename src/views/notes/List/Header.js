@@ -3,11 +3,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
-  // Box,
-  Breadcrumbs,
   Button,
   Grid,
-  Link,
   SvgIcon,
   Typography,
   makeStyles
@@ -15,7 +12,6 @@ import {
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { NOTES_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({

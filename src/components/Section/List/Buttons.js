@@ -66,7 +66,11 @@ const GenericMoreButton = ({ className, onHandle, id }) => {
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </MenuItem>
-        <MenuItem onClick={() => onHandle({ event: 'edit', id })}>
+        <MenuItem onClick={() => {
+          onHandle({ event: 'edit', id })
+          setOpenMenu(false)
+        }}
+        >
           <ListItemIcon>
             <Edit />
           </ListItemIcon>

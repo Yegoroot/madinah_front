@@ -9,6 +9,7 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 import SunEditor from 'src/components/SunEditor'
 import MdeEditor from 'src/components/MdeEditor/index'
@@ -28,7 +29,9 @@ const CONTENT_TYPES = [
   }
 ]
 
-function SectionCreate({ initialValues, onCancel, onSave }) {
+function SectionCreate({
+  initialValues, onCancel, onSave, isUpdate
+}) {
   const defaultValues = {
     type: 'text',
     data: '',
@@ -37,7 +40,8 @@ function SectionCreate({ initialValues, onCancel, onSave }) {
   const [section, setSection] = useState(initialValues || defaultValues)
 
   const onSaveHandler = () => {
-    onSave({ ...section, id: uuidv4() })
+    const id = section.id ? section.id : uuidv4() // если запись на update
+    onSave({ record: { ...section, id } })
     setSection({ ...defaultValues })
   }
 
@@ -65,7 +69,11 @@ function SectionCreate({ initialValues, onCancel, onSave }) {
               <TextField
                 fullWidth
                 name="option"
-                onChange={(event) => setSection({ ...defaultValues, subtitle: section.subtitle, type: event.target.value })}
+                onChange={(event) => setSection({
+                  ...defaultValues,
+                  subtitle: section.subtitle,
+                  type: event.target.value
+                })}
                 select
                 SelectProps={{ native: true }}
                 value={section.type}
@@ -128,7 +136,7 @@ function SectionCreate({ initialValues, onCancel, onSave }) {
               onClick={onSaveHandler}
               variant="contained"
             >
-              Сохранить запись
+              {isUpdate ? 'Обновить запись' : 'Сохранить запись'}
             </Button>
             <Box flexGrow={1} />
             <Button onClick={onCancelHandler}>
@@ -140,6 +148,13 @@ function SectionCreate({ initialValues, onCancel, onSave }) {
 
     </>
   )
+}
+
+SectionCreate.propTypes = {
+  initialValues: PropTypes.object,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func,
+  isUpdate: PropTypes.bool,
 }
 
 export default SectionCreate

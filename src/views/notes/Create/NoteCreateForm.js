@@ -59,25 +59,30 @@ function ProductCreateForm({
   const [isShow, setIsShow] = useState(false)
   const [contents, setContents] = useState(initialValue.contents)
 
-  console.log(contents)
-
   const onAdd = () => setIsShow(true)
-
   const onCancel = () => setIsShow(false)
 
-  const onSave = (record) => {
-    setIsShow(false)
-    if (!record.data) return false
-    setContents([...contents, record])
+  const onSave = ({ record, action, index }) => {
+    setIsShow(false) // закрываем окно
+    if (!record.data) return false // если контент пустой то не сохраняем
+    if (action === 'update') { // обновить запись
+      const newContents = [...contents]
+      newContents[index] = { ...record }
+      setContents(newContents)
+      console.log(index, record)
+    } else {
+      setContents([...contents, record]) // добавить запись
+    }
+    return false
   }
 
-  const onDelete = (id) => {
-    const filtering = contents.filter((content) => content.id !== id)
+  const onDelete = (recordId) => {
+    const filtering = contents.filter((content) => content.id !== recordId)
     setContents(filtering)
   }
 
-  const onEdit = (id) => {
-    console.log(id)
+  const onEdit = (recordId) => {
+    console.log(recordId)
   }
 
   return (
@@ -96,6 +101,7 @@ function ProductCreateForm({
         setSubmitting
       }) => {
         const data = { ...values, contents }
+        console.log(data)
         try {
           if (id) {
             instanceAxios
@@ -275,14 +281,14 @@ function ProductCreateForm({
                     </IconButton>
                   </Box>
                   <Box mt={2}>
-                    {values.tags.map((tg, i) => (
+                    {values.tags.map((tg) => (
                       <Chip
                         variant="outlined"
-                        key={i}
+                        key={tg}
                         label={tg}
                         className={classes.tag}
                         onDelete={() => {
-                          const newTg = values.tags.filter((t) => t !== tg)
+                          const newTg = values.tags.filter((val) => val !== tg)
                           setFieldValue('tags', newTg)
                         }}
                       />
@@ -304,6 +310,8 @@ function ProductCreateForm({
                     <Divider />
                     <CardContent>
                       <SectionList
+                        onCancel={onCancel}
+                        onSave={onSave}
                         contents={contents}
                         onDelete={onDelete}
                         onEdit={onEdit}
@@ -369,7 +377,8 @@ ProductCreateForm.propTypes = {
   className: PropTypes.string,
   id: PropTypes.any,
   topics: PropTypes.array,
-  initialValue: PropTypes.object
+  initialValue: PropTypes.object,
+  match: PropTypes.object
 }
 
 export default ProductCreateForm

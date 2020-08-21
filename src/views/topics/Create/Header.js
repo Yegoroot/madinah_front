@@ -3,14 +3,11 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
-  Breadcrumbs,
   Button,
   Grid,
-  Link,
   Typography,
   makeStyles
 } from '@material-ui/core'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
@@ -49,7 +46,8 @@ function Header({ className, topic, ...rest }) {
 }
 
 Header.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  topic: PropTypes.object,
 }
 
 export default Header
