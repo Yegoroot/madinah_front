@@ -1,3 +1,76 @@
+
+/* body {
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+} */
+body {
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+button {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: 35px;
+  font-weight: 500;
+  line-height: 1.167;
+  letter-spacing: -0.24px;
+}
+h2 {
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.24px;
+}
+h3 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.167;
+  letter-spacing: -0.06px;
+}
+h4 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.235;
+  letter-spacing: -0.06px;
+}
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.334;
+  letter-spacing: -0.05px;
+}
+h6 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.05px;
+}
+/* subtitle1 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+}
+subtitle2 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.57;
+  letter-spacing: 0.00714em;
+} */
+
+
+
 button:focus, textarea:focus {
   outline: none;
 }
@@ -5,16 +78,16 @@ li {
   list-style: none;
 }
 
-/* body {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-}
+
+
+/* 
 h2 {
   font-size: 50px;
   direction: rtl;
 } */
 
 /**/
-/* h1.MuiTypography-root {
+/* h1root {
   font-size: 40px;
   line-height: 48px;
 } */

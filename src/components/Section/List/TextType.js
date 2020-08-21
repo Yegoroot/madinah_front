@@ -25,16 +25,18 @@ import {
 } from '@material-ui/core'
 
 const TextType = ({ content }) => {
-  const { subtitle, /* data, id */ } = content
+  const { subtitle, data/* , id */ } = content
 
   return (
     <Box>
-      <Typography
-        variant="body1"
-        color="primaryText"
+
+      <h2
+        variant="h2"
+        color="textPrimary"
       >
         {subtitle}
-      </Typography>
+      </h2>
+      <div dangerouslySetInnerHTML={{ __html: data }} />
     </Box>
   )
 }

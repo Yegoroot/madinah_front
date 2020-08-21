@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import {
   Button,
   Grid,
-  Box,
   Typography,
   makeStyles
 } from '@material-ui/core'
@@ -16,9 +15,8 @@ const useStyles = makeStyles(() => ({
   root: {}
 }))
 
-function Header({ className, id, ...rest }) {
+function Header({ className, title, ...rest }) {
   const classes = useStyles()
-
   return (
     <Grid
       className={clsx(classes.root, className)}
@@ -28,14 +26,12 @@ function Header({ className, id, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Box pb="3">
-          <Typography
-            variant="h1"
-            color="textPrimary"
-          >
-            {id ? `Edit Note ${id}` : 'Create a new note' }
-          </Typography>
-        </Box>
+        <Typography
+          variant="h1"
+          color="textPrimary"
+        >
+          {title ? `Edit Note ${title}` : 'Create a new note' }
+        </Typography>
       </Grid>
       <Grid item>
         <Button

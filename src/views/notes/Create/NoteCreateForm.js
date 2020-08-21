@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function ProductCreateForm({
-  className, initialValue, id, topics, ...rest
+  className, initialValue, id, match, topics, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
@@ -57,7 +57,7 @@ function ProductCreateForm({
   const [tag, setTag] = useState('')
   const { t } = useTranslation()
   const [isShow, setIsShow] = useState(false)
-  const [contents, setContents] = useState([])
+  const [myContents, setMyContents] = useState([])
 
   const onAdd = () => {
     setIsShow(true)
@@ -68,12 +68,12 @@ function ProductCreateForm({
     if (!record.data) {
       return false
     }
-    setContents([...contents, record])
+    setMyContents([...myContents, record])
   }
 
   const onCancel = () => {
     setIsShow(false)
-    console.log('cancel and contents is', contents)
+    console.log('cancel and myContents is', myContents)
   }
 
   return (
@@ -90,6 +90,7 @@ function ProductCreateForm({
         setStatus,
         setSubmitting
       }) => {
+        const contents = [...myContents, ...values.contents]
         const data = { ...values, contents }
         try {
           if (id) {
@@ -143,7 +144,7 @@ function ProductCreateForm({
               lg={8}
             >
               <Card>
-                <CardHeader title="Organize" />
+                {/* <CardHeader title="Organize" /> */}
                 <Divider />
                 <CardContent>
                   <TextField
@@ -289,7 +290,7 @@ function ProductCreateForm({
               </Card>
             </Grid>
 
-            { !contents.length ? null
+            { !values.contents.length ? null
               : (
                 <Grid
                   xs={12}
@@ -300,7 +301,7 @@ function ProductCreateForm({
                     <CardHeader title="Content" />
                     <Divider />
                     <CardContent>
-                      <SectionList contents={contents} />
+                      <SectionList contents={values.contents} />
                     </CardContent>
                   </Card>
                 </Grid>

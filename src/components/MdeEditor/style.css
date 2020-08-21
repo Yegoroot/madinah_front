@@ -5,3 +5,7 @@
 .mde-tabs button {
   padding: 6px 10px;
 }
+
+.mde-preview-content > div {
+  padding: 20px;
+}

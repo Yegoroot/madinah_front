@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, makeStyles } from '@material-ui/core'
+import { Container, makeStyles, Box } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useSelector, useDispatch } from 'src/store'
@@ -50,10 +50,12 @@ function TopicCreateView({ match }) {
       title={noteId ? 'Note Edit' : 'Note Create'}
     >
       <Container maxWidth="lg">
-        <Header id={noteId} />
+        <Box mb={2}>
+          <Header title={noteId ? note.data.title : null} />
+        </Box>
         <NoteCreateForm
-          id={noteId}
           topics={topics.data}
+          id={noteId}
           initialValue={noteId ? note.data : initialValue}
         />
       </Container>
