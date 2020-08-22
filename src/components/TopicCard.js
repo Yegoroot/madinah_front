@@ -28,7 +28,7 @@ import {
   Edit as EditIcon,
 } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
-import { PROGRAMS_URL, TOPICS_URL, IMAGES_BASE_URL } from 'src/constants'
+import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
 import { deleteSeveralTopics } from 'src/slices/topic'
 
 const useStyles = makeStyles((theme) => ({

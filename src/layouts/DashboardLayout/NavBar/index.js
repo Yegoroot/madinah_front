@@ -174,7 +174,7 @@ const useStyles = makeStyles(() => ({
     width: 256
   },
   progress: {
-    top: 244,
+    top: 115,
     left: '50%',
     height: 10,
     position: 'absolute',
@@ -197,7 +197,7 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles()
   const location = useLocation()
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const [menuList, setMenuList] = useState(sections)
   const { loading, topics } = useSelector((state) => state.program.item)
   const dispatch = useDispatch()
@@ -232,14 +232,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           <Box
             p={2}
             display="flex"
-            justifyContent="center"
+            // justifyContent="center"
           >
             <RouterLink to="/">
               <Logo />
             </RouterLink>
           </Box>
         </Hidden>
-        <Box p={2}>
+        {/* <Box p={2}>
           <Box
             display="flex"
             justifyContent="center"
@@ -265,22 +265,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             >
               {user.name}
             </Link>
-            {/* <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              Your tier:
-              {' '}
-              <Link
-                component={RouterLink}
-                to="/pricing"
-              >
-                {user.tier}
-              </Link>
-            </Typography> */}
           </Box>
         </Box>
         <Divider />
+        */}
         {loading && loading !== 'reload' ? (
           <Box className={classes.progress}>
             <LinearProgress />
