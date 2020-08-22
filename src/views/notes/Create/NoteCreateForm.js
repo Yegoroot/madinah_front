@@ -89,45 +89,52 @@ function ProductCreateForm({
     <Formik
       initialValues={initialValue}
       validationSchema={Yup.object().shape({
-        contents: Yup.array().required(),
+        contents: Yup.array(),
         topic: Yup.array().required(),
         title: Yup.string().max(255).required(),
         description: Yup.string().required().max(1500),
         tags: Yup.array(),
       })}
-      onSubmit={async (values, {
-        setErrors,
-        setStatus,
-        setSubmitting
-      }) => {
-        const data = { ...values, contents }
-        console.log(data)
-        try {
-          if (id) {
-            instanceAxios
-              .put(`${API_BASE_URL}/notes/${id}`, data)
-              .then(() => {
-                enqueueSnackbar('note.notify.was_update', { variant: 'success' })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${NOTES_URL}`)
-              })
-          } else {
-            instanceAxios
-              .post(`${API_BASE_URL}/notes`, data)
-              .then(() => {
-                enqueueSnackbar(t('note.notify.was_created'), { variant: 'success' })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${NOTES_URL}`)
-              })
+      onSubmit={
+
+        async (values, {
+          setErrors,
+          setStatus,
+          setSubmitting
+        }) => {
+          const data = { ...values, contents }
+          if (!contents.length) {
+            setErrors({ submit: 'Добавьте одну или несколько записей' })
+            setSubmitting(false)
+            return false
           }
-        } catch (err) {
-          setErrors({ submit: err.response.data.error })
-          setStatus({ success: false })
-          setSubmitting(false)
+          try {
+            if (id) {
+              instanceAxios
+                .put(`${API_BASE_URL}/notes/${id}`, data)
+                .then(() => {
+                  enqueueSnackbar('note.notify.was_update', { variant: 'success' })
+                  setStatus({ success: true })
+                  setSubmitting(false)
+                  history.push(`${NOTES_URL}`)
+                })
+            } else {
+              instanceAxios
+                .post(`${API_BASE_URL}/notes`, data)
+                .then(() => {
+                  enqueueSnackbar(t('note.notify.was_created'), { variant: 'success' })
+                  setStatus({ success: true })
+                  setSubmitting(false)
+                  history.push(`${NOTES_URL}`)
+                })
+            }
+          } catch (err) {
+            setErrors({ submit: err.response.data.error })
+            setStatus({ success: false })
+            setSubmitting(false)
+          }
         }
-      }}
+}
     >
       {({
         errors,
