@@ -20,6 +20,7 @@ import {
 import { Settings as SettingsIcon } from 'react-feather'
 import useSettings from 'src/hooks/useSettings'
 import { THEMES } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   badge: {
@@ -40,11 +41,15 @@ const Settings = () => {
   const ref = useRef(null)
   const { settings, saveSettings } = useSettings()
   const [isOpen, setOpen] = useState(false)
+  const { t, i18n } = useTranslation()
   const [values, setValues] = useState({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
-    theme: settings.theme
+    theme: settings.theme,
+    lang: settings.lang
   })
+
+  const langs = ['ar', 'ru', 'en']
 
   const handleOpen = () => {
     setOpen(true)
@@ -55,13 +60,19 @@ const Settings = () => {
   }
 
   const handleChange = (field, value) => {
+    let direction = 'ltr'
+    if (value === 'ar') {
+      direction = 'rtl'
+    }
     setValues({
       ...values,
+      direction,
       [field]: value
     })
   }
 
   const handleSave = () => {
+    i18n.changeLanguage(values.lang)
     saveSettings(values)
     setOpen(false)
   }
@@ -111,6 +122,7 @@ const Settings = () => {
                 checked={values.direction === 'rtl'}
                 edge="start"
                 name="direction"
+                disabled={values.lang === 'ar'}
                 onChange={(event) => handleChange('direction', event.target.checked ? 'rtl' : 'ltr')}
               />
             )}
@@ -132,6 +144,27 @@ const Settings = () => {
             )}
             label="Responsive font sizes"
           />
+        </Box>
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            label="Language"
+            name="lang"
+            onChange={(event) => handleChange('lang', event.target.value)}
+            select
+            SelectProps={{ native: true }}
+            value={values.lang}
+            variant="outlined"
+          >
+            {langs.map((lang) => (
+              <option
+                key={lang}
+                value={lang}
+              >
+                {capitalCase(lang)}
+              </option>
+            ))}
+          </TextField>
         </Box>
         <Box mt={2}>
           <TextField
@@ -161,7 +194,7 @@ const Settings = () => {
             fullWidth
             onClick={handleSave}
           >
-            Save Settings
+            {t('settings.save_settings')}
           </Button>
         </Box>
       </Popover>

@@ -6,10 +6,8 @@
         "was_update": "Note was update"
       }
     },
-    "components": {
-      "settings": {
-        "title": "Настройки"
-      }
+    "settings": {
+      "save_settings": "Сохранить Настройки"
     },
     "menu": {
       "manage": {

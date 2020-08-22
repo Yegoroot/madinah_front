@@ -4,12 +4,17 @@ import React, {
   useState
 } from 'react'
 import _ from 'lodash'
-import { THEMES } from 'src/constants'
+import { THEMES, DEFAULT_LANGUAGE } from 'src/constants'
+
+const lang = localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE
+
+console.log('language', lang)
 
 const defaultSettings = {
-  direction: 'ltr',
+  direction: lang === 'ar' ? 'rtl' : 'ltr',
   responsiveFontSizes: true,
-  theme: THEMES.ONE_DARK
+  theme: THEMES.ONE_DARK,
+  lang
 }
 
 export const restoreSettings = () => {

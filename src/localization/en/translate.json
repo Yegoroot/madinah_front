@@ -6,10 +6,8 @@
         "was_update": "Note was update"
       }
     },
-    "components": {
-      "settings": {
-        "title": "Settings"
-      }
+    "settings": {
+      "save_settings": "Save Settings"
     },
     "menu": {
       "manage": {
