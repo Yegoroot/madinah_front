@@ -264,7 +264,10 @@ function ProductCreateForm({
                           <Select
                             labelId="form-select-1"
                             name="program"
-                            value={values.program}
+                            // program: {id} (get object from mongoDb)
+                            // or
+                            // program (MenuItem value after onChange)
+                            value={values.program.id || values.program}
                             displayEmpty
                             onChange={handleChange}
                             input={<Input id="select-multiple-chip" />}

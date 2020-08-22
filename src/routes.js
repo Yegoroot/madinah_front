@@ -212,7 +212,7 @@ const routes = [
       {
         exact: true,
         path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/:topicId/edit`,
-        component: lazy(() => import('src/views/topics/Item'))
+        component: lazy(() => import('src/views/topics/Create'))
       },
 
       /**

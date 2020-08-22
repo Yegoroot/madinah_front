@@ -202,7 +202,7 @@ function TopicCard({
 
         <IconButton
           component={RouterLink}
-          to={`${TOPICS_URL}/${topic.id}/edit`}
+          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/edit`}
         >
           <SvgIcon
             fontSize="small"
