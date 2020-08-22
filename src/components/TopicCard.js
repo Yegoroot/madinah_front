@@ -19,7 +19,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { Rating } from '@material-ui/lab'
+// import { Rating } from '@material-ui/lab'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import {

@@ -1,18 +1,18 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+// import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
   Box,
-  Button,
+  // Button,
   Container,
-  Hidden,
+  // Hidden,
   Typography,
-  IconButton,
-  Tooltip,
+  // IconButton,
+  // Tooltip,
   makeStyles
 } from '@material-ui/core'
-import MoreIcon from '@material-ui/icons/MoreVert'
+// import MoreIcon from '@material-ui/icons/MoreVert'
 import { IMAGES_BASE_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
