@@ -54,8 +54,6 @@ function TopicCard({
   const [isLiked, setLiked] = useState(topic.isLiked)
   // const [likes, setLikes] = useState(data.likes)
 
-  console.log(programId)
-
   const handleLike = () => {
     setLiked(true)
     // setLikes((prevLikes) => prevLikes + 1)
