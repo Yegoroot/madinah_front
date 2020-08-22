@@ -92,7 +92,35 @@ function TopicCard({
           image={image}
         />
       </Link>
-      <Box p={3}>
+
+      <Box
+        p={3}
+        pb={1}
+      >
+        <Link
+          color="textPrimary"
+          component={RouterLink}
+          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
+          variant="h3"
+        >
+          {topic.title}
+        </Link>
+        <Box
+          pt={1}
+        >
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {topic.description}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box
+        p={3}
+        pt={0}
+      >
         <Box
           display="flex"
           alignItems="center"
@@ -105,14 +133,6 @@ function TopicCard({
             {getInitials(topic.user.name)}
           </Avatar>
           <Box ml={2}>
-            <Link
-              color="textPrimary"
-              component={RouterLink}
-              to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
-              variant="h5"
-            >
-              {topic.title}
-            </Link>
             <Typography
               variant="body2"
               color="textSecondary"
@@ -135,17 +155,7 @@ function TopicCard({
           </Box>
         </Box>
       </Box>
-      <Box
-        pb={2}
-        px={3}
-      >
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {topic.description}
-        </Typography>
-      </Box>
+
       <Box
         py={2}
         px={3}
@@ -215,12 +225,12 @@ function TopicCard({
             <TrashIcon />
           </SvgIcon>
         </IconButton>
-        <Box flexGrow={1} />
+        {/* <Box flexGrow={1} />
         <Rating
           value={topic.rating}
           size="small"
           readOnly
-        />
+        /> */}
       </Box>
     </Card>
   )

@@ -19,7 +19,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { Rating } from '@material-ui/lab'
+// import { Rating } from '@material-ui/lab'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import {
@@ -77,18 +77,44 @@ function ProgramCard({ program, className, ...rest }) {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box p={3}>
+      <Link
+        color="textPrimary"
+        component={RouterLink}
+        to={`${PROGRAMS_URL}/${program.id}`}
+        variant="h5"
+      >
+        <CardMedia
+          className={classes.media}
+          image={image}
+        />
+      </Link>
+      <Box
+        p={3}
+        pb={1}
+      >
         <Link
           color="textPrimary"
           component={RouterLink}
           to={`${PROGRAMS_URL}/${program.id}`}
-          variant="h5"
+          variant="h3"
         >
-          <CardMedia
-            className={classes.media}
-            image={image}
-          />
+          {program.title}
         </Link>
+        <Box
+          pt={1}
+        >
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {program.description}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        p={3}
+        pt={0}
+      >
         <Box
           display="flex"
           alignItems="center"
@@ -101,14 +127,6 @@ function ProgramCard({ program, className, ...rest }) {
             {getInitials(program.user.name)}
           </Avatar>
           <Box ml={2}>
-            <Link
-              color="textPrimary"
-              component={RouterLink}
-              to={`${PROGRAMS_URL}/${program.id}`}
-              variant="h5"
-            >
-              {program.title}
-            </Link>
             <Typography
               variant="body2"
               color="textSecondary"
@@ -130,17 +148,6 @@ function ProgramCard({ program, className, ...rest }) {
             </Typography>
           </Box>
         </Box>
-      </Box>
-      <Box
-        pb={2}
-        px={3}
-      >
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {program.description}
-        </Typography>
       </Box>
       <Box
         py={2}
@@ -265,12 +272,12 @@ function ProgramCard({ program, className, ...rest }) {
         >
           {program.subscribers}
         </Typography> */}
-        <Box flexGrow={1} />
+        {/* <Box flexGrow={1} />
         <Rating
           value={program.rating}
           size="small"
           readOnly
-        />
+        /> */}
       </Box>
     </Card>
   )

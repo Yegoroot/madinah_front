@@ -63,7 +63,6 @@ const topicsMenu = (topics) => {
 }
 
 export const generateTopicsMenu = (topics, loading) => {
-  console.log(topics, loading)
   if (loading || !topics.length) {
     return [
       ...initialMenu,

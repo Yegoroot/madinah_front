@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
+import wait from 'src/utils/wait'
 
 const initialState = {
   list: {
@@ -32,6 +33,9 @@ const slice = createSlice({
       topic.item.data = data
       topic.item.loading = false
     },
+    getTopicItemError(topic) {
+      topic.item.loading = 'reload'
+    },
     deleteSeveralTopics(topic, action) {
       const { ids } = action.payload
       topic.list.data = topic.list.data.filter((topic) => {
@@ -48,6 +52,9 @@ const slice = createSlice({
       const { data } = action.payload
       topic.list = { ...initialState.list, ...data }
       topic.list.loading = false
+    },
+    getTopicListError(topic) {
+      topic.list.loading = 'reload'
     },
 
   }
@@ -70,8 +77,8 @@ export const getTopicItem = ({ id }) => async (dispatch) => {
   }
 }
 
-export const getTopicItemRequest = ({ id }) => async (dispatch) => {
-  console.log(id)
+export const getTopicItemRequest = ({ id, reload }) => async (dispatch) => {
+  if (reload) await wait(1000)
   dispatch(slice.actions.getTopicItemRequest())
   dispatch(getTopicItem({ id }))
 }
@@ -96,9 +103,11 @@ export const getTopicList = ({ params = {} }) => async (dispatch) => {
     dispatch(slice.actions.getTopicList({ data }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
+    dispatch(slice.actions.getTopicListError())
   }
 }
-export const getTopicListRequest = ({ params = {} }) => async (dispatch) => {
+export const getTopicListRequest = ({ params = {}, reload }) => async (dispatch) => {
+  if (reload) await wait(1000)
   dispatch(slice.actions.getTopicListRequest())
   dispatch(getTopicList({ params }))
 }

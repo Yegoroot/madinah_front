@@ -20,10 +20,11 @@ import { getTopicItemRequest, module } from 'src/slices/topic'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => {
-  const hex1 = hexToRgb(`${theme.palette.background.dark}d4`)
-  const hex2 = hexToRgb(`${theme.palette.background.dark}63`)
+  const hex1 = hexToRgb(`${theme.palette.background.dark}c9`) // d4
+  const hex2 = hexToRgb(`${theme.palette.background.dark}8c`) // 63
   return {
     root: {
+      color: theme.palette.text.primary,
       minHeight: '100%',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
@@ -49,9 +50,15 @@ function TopicDetailsView({ match }) {
   }, [dispatch, topicId])
 
   if (loading === 'reload') {
-    return <span onClick={() => dispatch(getTopicItemRequest({ topicId, reload: true }))}>Перезагрузить</span>
+    return (
+      <Card
+        onClick={() => dispatch(getTopicItemRequest({ topicId, reload: true }))}
+      >
+        <CardContent>Перезагрузить</CardContent>
+      </Card>
+    )
   }
-  console.log(loading, data)
+
   if (loading || !data) {
     return <LoadingScreen />
   }
@@ -87,15 +94,9 @@ function TopicDetailsView({ match }) {
               md={12}
               xs={12}
             >
-              <Box>
-                <Card>
-                  <CardHeader title="Content" />
-                  <Divider />
-                  <CardContent>
-                    <div dangerouslySetInnerHTML={{ __html: data.content }} />
-                  </CardContent>
-                </Card>
-              </Box>
+
+              <Box dangerouslySetInnerHTML={{ __html: data.content }} />
+
               {!data.notes.length ? null : (
                 <Box mt={3}>
                   <Card>

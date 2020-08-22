@@ -14,7 +14,7 @@ import {
 import {
   ToggleButtonGroup,
   ToggleButton,
-  Pagination
+  // Pagination
 } from '@material-ui/lab'
 import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -92,14 +92,14 @@ function Results({ className, programs, ...rest }) {
           display="flex"
           alignItems="center"
         >
-          <Button
+          {/* <Button
             className={classes.sortButton}
             onClick={handleSortOpen}
             ref={sortRef}
           >
             {selectedSort}
             <ArrowDropDownIcon />
-          </Button>
+          </Button> */}
           <ToggleButtonGroup
             exclusive
             onChange={handleModeChange}
@@ -128,14 +128,14 @@ function Results({ className, programs, ...rest }) {
           </Grid>
         ))}
       </Grid>
-      <Box
+      {/* <Box
         mt={6}
         display="flex"
         justifyContent="center"
       >
         <Pagination count={3} />
-      </Box>
-      <Menu
+      </Box> */}
+      {/* <Menu
         anchorEl={sortRef.current}
         className={classes.menu}
         onClose={handleSortClose}
@@ -152,7 +152,7 @@ function Results({ className, programs, ...rest }) {
             </MenuItem>
           )
         )}
-      </Menu>
+      </Menu> */}
     </div>
   )
 }

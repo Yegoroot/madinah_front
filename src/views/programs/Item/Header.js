@@ -82,31 +82,7 @@ const Header = ({
               {program.description}
             </Typography>
           </Box>
-          <Box flexGrow={1} />
-          <Hidden smDown>
-            <Button
-              size="small"
-              variant="outlined"
-              className={classes.action}
-            >
-              Pending
-            </Button>
-            <Button
-              color="secondary"
-              component={RouterLink}
-              size="small"
-              to="/app/chat"
-              variant="contained"
-              className={classes.action}
-            >
-              Send message
-            </Button>
-          </Hidden>
-          <Tooltip title="More options">
-            <IconButton className={classes.action}>
-              <MoreIcon />
-            </IconButton>
-          </Tooltip>
+
         </Box>
       </Container>
     </div>
