@@ -1,19 +1,17 @@
 import React, {
-  useState,
   useEffect
 } from 'react'
-import { Lightbox } from 'react-modal-image'
 import {
   Box,
   Container,
   Card,
   CardContent,
   makeStyles,
-  CardActionArea,
-  CardMedia,
   Divider, CardHeader,
   Grid
 } from '@material-ui/core'
+import { hexToRgb } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 import Page from 'src/components/Page'
 import { IMAGES_BASE_URL } from 'src/constants'
 import { useSelector, useDispatch } from 'src/store'
@@ -21,24 +19,28 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import { getTopicItemRequest, module } from 'src/slices/topic'
 import Header from './Header'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3)
-  },
-  media: {
-    height: 500,
-    backgroundPosition: 'top'
+const useStyles = makeStyles((theme) => {
+  const hex1 = hexToRgb(`${theme.palette.background.dark}d4`)
+  const hex2 = hexToRgb(`${theme.palette.background.dark}63`)
+  return {
+    root: {
+      minHeight: '100%',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed'
+    },
+    back: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      minHeight: '100vh',
+      background: `linear-gradient(0deg, ${theme.palette.background.dark}, ${hex1} 50%,  ${hex2} 75%)`
+    },
   }
-}))
+})
 
 function TopicDetailsView({ match }) {
   const classes = useStyles()
   const { topicId } = match.params
-  const [openedFile, setOpenedFile] = useState(null)
-
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
 
@@ -66,10 +68,13 @@ function TopicDetailsView({ match }) {
   return (
     <Page
       className={classes.root}
-      title="Topic Details"
+      title={data.title}
+      style={{ backgroundImage: data.photo ? `url(${image})` : 'none' }}
     >
-
-      <Container maxWidth="lg">
+      <Container
+        className={classes.back}
+        maxWidth="lg"
+      >
         <Header topic={data} />
 
         <Box mt={2}>
@@ -79,8 +84,7 @@ function TopicDetailsView({ match }) {
           >
             <Grid
               item
-              md={data.photo ? 8 : 12}
-              // sm={7}
+              md={12}
               xs={12}
             >
               <Box>
@@ -104,40 +108,15 @@ function TopicDetailsView({ match }) {
                 </Box>
               )}
             </Grid>
-            {data.photo && (
-            <Grid
-              item
-              md={4}
-              sm={5}
-              xs={12}
-            >
-              <CardActionArea onClick={() => setOpenedFile(image)}>
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                />
-              </CardActionArea>
-
-            </Grid>
-            )}
           </Grid>
         </Box>
-        {/* <Box mt={3}>
-          <Card>
-            <CardContent>
-              <div dangerouslySetInnerHTML={{ __html: topic.content }} />
-            </CardContent>
-          </Card>
-        </Box> */}
       </Container>
-      {openedFile && (
-        <Lightbox
-          large={openedFile}
-          onClose={() => setOpenedFile(null)}
-        />
-      )}
     </Page>
   )
+}
+
+TopicDetailsView.propTypes = {
+  match: PropTypes.object.isRequired,
 }
 
 export default TopicDetailsView

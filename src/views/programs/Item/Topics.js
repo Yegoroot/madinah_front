@@ -8,7 +8,9 @@ const useStyles = makeStyles(() => ({
   root: {}
 }))
 
-const Timeline = ({ className, topics, ...rest }) => {
+const Topics = ({
+  className, topics, programId, ...rest
+}) => {
   const classes = useStyles()
 
   return (
@@ -29,7 +31,10 @@ const Timeline = ({ className, topics, ...rest }) => {
             lg={4}
             key={topic.id}
           >
-            <TopicCard topic={topic} />
+            <TopicCard
+              programId={programId}
+              topic={topic}
+            />
           </Grid>
         ))}
       </Grid>
@@ -37,9 +42,10 @@ const Timeline = ({ className, topics, ...rest }) => {
   )
 }
 
-Timeline.propTypes = {
+Topics.propTypes = {
   className: PropTypes.string,
-  topics: PropTypes.array.isRequired
+  topics: PropTypes.array.isRequired,
+  programId: PropTypes.string.isRequired
 }
 
-export default Timeline
+export default Topics

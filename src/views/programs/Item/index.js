@@ -80,7 +80,12 @@ const ProfileView = ({ match }) => {
           py={3}
           pb={6}
         >
-          {currentTab === 'topics' && <Topics topics={topics} />}
+          {currentTab === 'topics' && (
+          <Topics
+            topics={topics}
+            programId={programId}
+          />
+          )}
           {currentTab === 'files' && <Files files={[]} />}
         </Box>
       </Container>

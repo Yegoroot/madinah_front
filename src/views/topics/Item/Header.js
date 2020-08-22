@@ -23,6 +23,7 @@ import {
 } from 'react-feather'
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import { PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -47,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ topic, className, ...rest }) {
   const classes = useStyles()
-
 
   const tags = () => {
     if (!topic.tags.length) return null
@@ -79,32 +79,24 @@ function Header({ topic, className, ...rest }) {
             <Link
               variant="body1"
               color="inherit"
-              to="/app"
+              to={`${PROGRAMS_URL}`}
               component={RouterLink}
             >
-              Dashboard
+              Programs
             </Link>
             <Link
               variant="body1"
               color="inherit"
-              to="/app/management"
+              to={`${PROGRAMS_URL}/${topic.program ? topic.program.id : PROGRAMS_URL}`}
               component={RouterLink}
             >
-              Management
-            </Link>
-            <Link
-              variant="body1"
-              color="inherit"
-              to="/app/management/topics"
-              component={RouterLink}
-            >
-              Topics
+              {`${topic.program ? topic.program.title : 'none'}`}
             </Link>
             <Typography
               variant="body1"
               color="textPrimary"
             >
-              {topic._id}
+              {topic.title}
             </Typography>
           </Breadcrumbs>
         </Grid>
@@ -147,7 +139,6 @@ function Header({ topic, className, ...rest }) {
         justify="space-between"
       >
         <Grid item>
-
 
           <Typography
             variant="h1"

@@ -28,7 +28,7 @@ import {
   Edit as EditIcon,
 } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
-import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
+import { PROGRAMS_URL, TOPICS_URL, IMAGES_BASE_URL } from 'src/constants'
 import { deleteSeveralTopics } from 'src/slices/topic'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,12 +47,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function TopicCard({
-  data, className, topic, ...rest
+  data, className, topic, programId, ...rest
 }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const [isLiked, setLiked] = useState(topic.isLiked)
   // const [likes, setLikes] = useState(data.likes)
+
+  console.log(programId)
 
   const handleLike = () => {
     setLiked(true)
@@ -82,7 +84,7 @@ function TopicCard({
       <Link
         color="textPrimary"
         component={RouterLink}
-        to={`${PROGRAMS_URL}/${topic.id}`}
+        to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
         variant="h5"
       >
         <CardMedia
@@ -106,7 +108,7 @@ function TopicCard({
             <Link
               color="textPrimary"
               component={RouterLink}
-              to={`${PROGRAMS_URL}/${topic.id}`}
+              to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
               variant="h5"
             >
               {topic.title}
@@ -154,42 +156,7 @@ function TopicCard({
           justify="space-between"
           spacing={3}
         >
-          {/* <Grid item>
-            <Typography
-              variant="h5"
-              color="textPrimary"
-            >
-              {topic.location}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              Location
-            </Typography>
-          </Grid>
           <Grid item>
-            <Typography
-              variant="h5"
-              color="textPrimary"
-            >
-              {topic.type}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              Type
-            </Typography>
-          </Grid> */}
-          <Grid item>
-
-            {/* <Typography
-                variant="h5"
-                color="textPrimary"
-              >
-                {topic.publish}
-              </Typography> */}
             <Typography
               variant="body2"
               color={topic.publish ? 'secondary' : 'inherit'}
@@ -227,7 +194,7 @@ function TopicCard({
 
         <IconButton
           component={RouterLink}
-          to={`${PROGRAMS_URL}/${topic.id}/edit`}
+          to={`${TOPICS_URL}/${topic.id}/edit`}
         >
           <SvgIcon
             fontSize="small"
@@ -248,25 +215,6 @@ function TopicCard({
             <TrashIcon />
           </SvgIcon>
         </IconButton>
-        {/* <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >
-          {likes}
-        </Typography>
-        <SvgIcon
-          fontSize="small"
-          color="action"
-          className={classes.subscribersIcon}
-        >
-          <UsersIcon />
-        </SvgIcon>
-        <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >
-          {topic.subscribers}
-        </Typography> */}
         <Box flexGrow={1} />
         <Rating
           value={topic.rating}
@@ -280,7 +228,8 @@ function TopicCard({
 
 TopicCard.propTypes = {
   className: PropTypes.string,
-  topic: PropTypes.object.isRequired
+  topic: PropTypes.object.isRequired,
+  programId: PropTypes.string.isRequired
 }
 
 export default TopicCard

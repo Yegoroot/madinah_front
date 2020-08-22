@@ -135,12 +135,6 @@ const routes = [
         path: `${PROGRAMS_URL}/:programId/edit`,
         component: lazy(() => import('src/views/programs/Create'))
       },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId`,
-        component: lazy(() => import('src/views/topics/Item'))
-      },
-
       /**
        * topics
        */
@@ -163,6 +157,21 @@ const routes = [
         exact: true,
         path: `${TOPICS_URL}/:topicId/edit`,
         component: lazy(() => import('src/views/topics/Create'))
+      },
+      {
+        exact: true,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId`,
+        component: lazy(() => import('src/views/topics/Item'))
+      },
+      {
+        exact: true,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes`,
+        component: lazy(() => import('src/views/notes/List'))
+      },
+      {
+        exact: true,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
+        component: lazy(() => import('src/views/notes/Item'))
       },
       /**
        * notes
