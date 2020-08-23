@@ -5,7 +5,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  Avatar,
+  // Avatar,
   Box,
   Divider,
   Drawer,
@@ -17,94 +17,15 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
-import { PROGRAMS_URL, TOPICS_URL, NOTES_URL } from 'src/constants'
+
 import i18n from 'i18next'
-import {
-  Folder as FolderIcon,
-  User as UserIcon,
-  FolderPlus as FolderPlusIcon,
-  Plus as PlusIcon,
-  Paperclip as PaperclipIcon,
-  Layers as LayersIcon,
-  // Heart as HeartIcon,
-  // Server as ServerIcon,
-} from 'react-feather'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
 import { matchPathProgram } from 'src/utils/urls'
 import { resetTopicsProgram } from 'src/slices/program'
 import NavItem from './NavItem'
 import { generateTopicsMenu } from './topicsMenu'
-
-const sections = [
-
-  {
-    subheader: 'Education',
-    items: [
-      {
-        title: 'Program List',
-        href: `${PROGRAMS_URL}`,
-        icon: FolderIcon
-      },
-      {
-        title: 'Create',
-        href: `${PROGRAMS_URL}/create`,
-        icon: FolderPlusIcon,
-      },
-
-      // {
-      //   title: 'Favorite Programs',
-      //   href: `${PROGRAMS_URL}`,
-      //   icon: HeartIcon
-      // },
-    ]
-  },
-  {
-    subheader: 'Managment',
-    items: [
-
-      {
-        title: 'Topics',
-        href: '#',
-        icon: LayersIcon,
-        items: [
-          {
-            title: 'List Topics',
-            href: `${TOPICS_URL}`,
-            icon: LayersIcon,
-          },
-          {
-            title: 'Create',
-            href: `${TOPICS_URL}/create`,
-            icon: PlusIcon,
-          },
-        ]
-      },
-      {
-        title: 'Notes',
-        href: '#',
-        icon: PaperclipIcon,
-        items: [
-          {
-            title: 'List Notes',
-            href: `${NOTES_URL}`,
-            icon: PaperclipIcon,
-          },
-          {
-            title: 'Create',
-            href: `${NOTES_URL}/create`,
-            icon: PlusIcon,
-          },
-        ]
-      },
-      {
-        title: 'Account',
-        href: '/app/account',
-        icon: UserIcon
-      },
-    ]
-  },
-]
+import { defineSectionsByRole } from './mainMenuByRole'
 
 function renderNavItems({
   items,
@@ -197,7 +118,9 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles()
   const location = useLocation()
-  // const { user } = useAuth()
+  const { user } = useAuth()
+
+  const sections = defineSectionsByRole({ role: user.role })
   const [menuList, setMenuList] = useState(sections)
   const { loading, topics } = useSelector((state) => state.program.item)
   const dispatch = useDispatch()

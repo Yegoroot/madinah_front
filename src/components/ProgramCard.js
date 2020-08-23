@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -13,32 +13,24 @@ import {
   IconButton,
   Link,
   SvgIcon,
-  Tooltip,
   Typography,
-  colors,
+  // colors,
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-// import { Rating } from '@material-ui/lab'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import {
-  // Users as UsersIcon,
-  Trash as TrashIcon,
-  Edit as EditIcon,
-} from 'react-feather'
+import { Trash as TrashIcon, Edit as EditIcon } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
 import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
 import { deleteProgram } from 'src/slices/program'
+// eslint-disable-next-line camelcase
+import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   media: {
     height: 200,
     backgroundColor: theme.palette.background.dark
-  },
-  likedButton: {
-    color: colors.red[600]
   },
   subscribersIcon: {
     marginLeft: theme.spacing(2),
@@ -49,22 +41,10 @@ const useStyles = makeStyles((theme) => ({
 function ProgramCard({ program, className, ...rest }) {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const [isLiked, setLiked] = useState(program.isLiked)
-  // const [likes, setLikes] = useState(program.likes)
-
-  const handleLike = () => {
-    setLiked(true)
-    // setLikes((prevLikes) => prevLikes + 1)
-  }
-
-  const handleUnlike = () => {
-    setLiked(false)
-    // setLikes((prevLikes) => prevLikes - 1)
-  }
-
+  const { user } = useAuth()
+  const { role } = user
   const handleDelete = () => {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm('delete program and all content inside?')) {
+    if (window.confirm('delete program and all content inside?')) {
       dispatch(deleteProgram({ id: program.id }))
     }
   }
@@ -159,42 +139,9 @@ function ProgramCard({ program, className, ...rest }) {
           justify="space-between"
           spacing={3}
         >
-          {/* <Grid item>
-            <Typography
-              variant="h5"
-              color="textPrimary"
-            >
-              {program.location}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              Location
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="h5"
-              color="textPrimary"
-            >
-              {program.type}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              Type
-            </Typography>
-          </Grid> */}
+
           <Grid item>
 
-            {/* <Typography
-                variant="h5"
-                color="textPrimary"
-              >
-                {program.publish}
-              </Typography> */}
             <Typography
               variant="body2"
               color={program.publish ? 'secondary' : 'inherit'}
@@ -205,80 +152,44 @@ function ProgramCard({ program, className, ...rest }) {
           </Grid>
         </Grid>
       </Box>
-      <Divider />
-      <Box
-        py={2}
-        pl={2}
-        pr={3}
-        display="flex"
-        alignItems="center"
-      >
-        {isLiked ? (
-          <Tooltip title="Unlike">
-            <IconButton
-              className={classes.likedButton}
-              onClick={handleUnlike}
+      { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
+        : (
+          <>
+            <Divider />
+            <Box
+              py={2}
+              pl={2}
+              pr={3}
+              display="flex"
+              alignItems="center"
             >
-              <FavoriteIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Like">
-            <IconButton onClick={handleLike}>
-              <FavoriteBorderIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
 
-        <IconButton
-          component={RouterLink}
-          to={`${PROGRAMS_URL}/${program.id}/edit`}
-        >
-          <SvgIcon
-            fontSize="small"
-            color="inherit"
-            className={classes.edit}
-          >
-            <EditIcon />
-          </SvgIcon>
-        </IconButton>
-        <IconButton
-          onClick={handleDelete}
-        >
-          <SvgIcon
-            fontSize="small"
-            color="error"
-            className={classes.delete}
-          >
-            <TrashIcon />
-          </SvgIcon>
-        </IconButton>
-        {/* <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >
-          {likes}
-        </Typography>
-        <SvgIcon
-          fontSize="small"
-          color="action"
-          className={classes.subscribersIcon}
-        >
-          <UsersIcon />
-        </SvgIcon>
-        <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >
-          {program.subscribers}
-        </Typography> */}
-        {/* <Box flexGrow={1} />
-        <Rating
-          value={program.rating}
-          size="small"
-          readOnly
-        /> */}
-      </Box>
+              <IconButton
+                component={RouterLink}
+                to={`${PROGRAMS_URL}/${program.id}/edit`}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="inherit"
+                  className={classes.edit}
+                >
+                  <EditIcon />
+                </SvgIcon>
+              </IconButton>
+              <IconButton
+                onClick={handleDelete}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="error"
+                  className={classes.delete}
+                >
+                  <TrashIcon />
+                </SvgIcon>
+              </IconButton>
+            </Box>
+          </>
+        )}
     </Card>
   )
 }
