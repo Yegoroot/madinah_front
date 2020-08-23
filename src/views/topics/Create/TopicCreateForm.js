@@ -53,10 +53,13 @@ function ProductCreateForm({
   const [tag, setTag] = useState('')
 
   const srcPhoto = initialValue.photo ? `${IMAGES_BASE_URL}/${initialValue.photo}` : null
+  const initialValuesProgramHack = id // program: {id} (get object from mongoDb)
+    ? { ...initialValue, program: initialValue.program.id }
+    : initialValue
 
   return (
     <Formik
-      initialValues={initialValue}
+      initialValues={initialValuesProgramHack}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
         description: Yup.string().max(1500).required(),
@@ -264,10 +267,7 @@ function ProductCreateForm({
                           <Select
                             labelId="form-select-1"
                             name="program"
-                            // program: {id} (get object from mongoDb)
-                            // or
-                            // program (MenuItem value after onChange)
-                            value={values.program.id || values.program}
+                            value={values.program}
                             displayEmpty
                             onChange={handleChange}
                             input={<Input id="select-multiple-chip" />}
@@ -355,6 +355,7 @@ function ProductCreateForm({
 }
 
 ProductCreateForm.propTypes = {
+  programs: PropTypes.array.isRequired,
   className: PropTypes.string,
   initialValue: PropTypes.object,
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -13,15 +13,15 @@ import {
   IconButton,
   Link,
   SvgIcon,
-  Tooltip,
+  // Tooltip,
   Typography,
   colors,
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 // import { Rating } from '@material-ui/lab'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+// import FavoriteIcon from '@material-ui/icons/Favorite'
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import {
   // Users as UsersIcon,
   Trash as TrashIcon,
@@ -30,6 +30,9 @@ import {
 import getInitials from 'src/utils/getInitials'
 import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
 import { deleteSeveralTopics } from 'src/slices/topic'
+// eslint-disable-next-line camelcase
+import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -51,18 +54,8 @@ function TopicCard({
 }) {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const [isLiked, setLiked] = useState(topic.isLiked)
-  // const [likes, setLikes] = useState(data.likes)
-
-  const handleLike = () => {
-    setLiked(true)
-    // setLikes((prevLikes) => prevLikes + 1)
-  }
-
-  const handleUnlike = () => {
-    setLiked(false)
-    // setLikes((prevLikes) => prevLikes - 1)
-  }
+  const { user } = useAuth()
+  const { role } = user
 
   const handleDelete = () => {
     // eslint-disable-next-line no-restricted-globals
@@ -175,61 +168,45 @@ function TopicCard({
           </Grid>
         </Grid>
       </Box>
-      <Divider />
-      <Box
-        py={2}
-        pl={2}
-        pr={3}
-        display="flex"
-        alignItems="center"
-      >
-        {isLiked ? (
-          <Tooltip title="Unlike">
-            <IconButton
-              className={classes.likedButton}
-              onClick={handleUnlike}
-            >
-              <FavoriteIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Like">
-            <IconButton onClick={handleLike}>
-              <FavoriteBorderIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
 
-        <IconButton
-          component={RouterLink}
-          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/edit`}
-        >
-          <SvgIcon
-            fontSize="small"
-            color="inherit"
-            className={classes.edit}
-          >
-            <EditIcon />
-          </SvgIcon>
-        </IconButton>
-        <IconButton
-          onClick={handleDelete}
-        >
-          <SvgIcon
-            fontSize="small"
-            color="error"
-            className={classes.delete}
-          >
-            <TrashIcon />
-          </SvgIcon>
-        </IconButton>
-        {/* <Box flexGrow={1} />
-        <Rating
-          value={topic.rating}
-          size="small"
-          readOnly
-        /> */}
-      </Box>
+      { !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
+        : (
+          <>
+            <Divider />
+            <Box
+              py={2}
+              pl={2}
+              pr={3}
+              display="flex"
+              alignItems="center"
+            >
+
+              <IconButton
+                component={RouterLink}
+                to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/edit`}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="inherit"
+                  className={classes.edit}
+                >
+                  <EditIcon />
+                </SvgIcon>
+              </IconButton>
+              <IconButton
+                onClick={handleDelete}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="error"
+                  className={classes.delete}
+                >
+                  <TrashIcon />
+                </SvgIcon>
+              </IconButton>
+            </Box>
+          </>
+        )}
     </Card>
   )
 }
