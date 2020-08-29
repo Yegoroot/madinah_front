@@ -15,7 +15,9 @@ export const TOPICS_URL = '/app/topics'
 export const NOTES_URL = '/app/notes'
 export const USERS_URL = '/app/users'
 
-export const DOMEN = 'http://localhost:5000'
+export const DOMEN = process.env.NODE_ENV === 'production'
+  ? 'http://localhost'
+  : 'http://localhost:5000'
 
 export const API_BASE_URL = `${DOMEN}/api/v1`
 export const IMAGES_BASE_URL = `${DOMEN}/uploads/images`
