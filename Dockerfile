@@ -25,7 +25,7 @@ RUN npm install react-scripts -g --silent
 COPY . .
 
 # Build the application
-RUN yarn build
+RUN npm run build
 
 # Build nginx server
 FROM nginx:latest
