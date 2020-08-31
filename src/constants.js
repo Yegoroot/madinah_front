@@ -1,5 +1,5 @@
 // or get from process.env.REACT_APP_{var} to handle PROD and DEV environments
-export const APP_VERSION = '3.1.0'
+export const APP_VERSION = '1.0.0'
 
 export const ENABLE_REDUX_DEV_TOOLS = true
 
