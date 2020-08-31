@@ -2,6 +2,7 @@ import React from 'react'
 // import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import { hexToRgb } from '@material-ui/core/styles'
 import {
   Box,
   // Button,
@@ -15,34 +16,42 @@ import {
 // import MoreIcon from '@material-ui/icons/MoreVert'
 import { IMAGES_BASE_URL } from 'src/constants'
 
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  cover: {
-    position: 'relative',
-    height: 400,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    '&:before': {
-      position: 'absolute',
-      content: '" "',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      backgroundImage: 'linear-gradient(-180deg, rgb(28 32 37 / 0%) 40%, rgb(28 32 37 / 24%) 60%, rgb(28 32 37 / 49%) 70%, rgb(28 32 37 / 65%) 85%, rgb(28 32 37) 100%)'
+const useStyles = makeStyles((theme) => {
+  const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
+  const hex2 = hexToRgb(`${theme.palette.background.dark}3d`) // 63
+  const hex3 = hexToRgb(`${theme.palette.background.dark}7d`) // 63
+  const hex4 = hexToRgb(`${theme.palette.background.dark}a6`) // 63
+  const hex5 = hexToRgb(`${theme.palette.background.dark}`) // 63
+
+  return {
+    root: {},
+    cover: {
+      position: 'relative',
+      height: 400,
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      '&:before': {
+        position: 'absolute',
+        content: '" "',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+        background: `linear-gradient(-180deg,  ${hex1} 40%,  ${hex2} 60%,  ${hex3} 70%, ${hex4} 85%, ${hex5} 100%)`
+      },
     },
-  },
-  title: {
-    position: 'absolute',
-    top: -130,
-    left: -20,
-    padding: 20
-  },
-  action: {
-    marginLeft: theme.spacing(1)
+    title: {
+      position: 'absolute',
+      top: -130,
+      left: -20,
+      padding: 20
+    },
+    action: {
+      marginLeft: theme.spacing(1)
+    }
   }
-}))
+})
 
 const Header = ({
   className, program, ...rest
