@@ -34,7 +34,7 @@ const FAQS = ({ className, ...rest }) => {
           variant="h1"
           color="textPrimary"
         >
-          Frequently asked questions
+          Potentialy questions
         </Typography>
         <Box my={3}>
           <Divider />

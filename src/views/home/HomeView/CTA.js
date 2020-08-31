@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -34,14 +35,14 @@ const CTA = ({ className, ...rest }) => {
           align="center"
           color="textPrimary"
         >
-          Ready to start building?
+          Ready to expolore?
         </Typography>
         <Typography
           variant="h1"
           align="center"
           color="secondary"
         >
-          Download Devias Material Kit today.
+          Lets get started with Programs of Education
         </Typography>
         <Box
           mt={6}
@@ -51,11 +52,11 @@ const CTA = ({ className, ...rest }) => {
         >
           <Button
             color="secondary"
-            component="a"
-            href="https://material-ui.com/store/items/devias-kit-pro"
+            component={RouterLink}
+            to="/app"
             variant="contained"
           >
-            Get the kit
+            Go to Programs
           </Button>
         </Box>
       </Container>

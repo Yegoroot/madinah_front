@@ -8,6 +8,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+import { APP_NAME } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 60
     }
   },
-  technologyIcon: {
-    height: 40,
-    margin: theme.spacing(1)
-  },
+  // technologyIcon: {
+  //   height: 40,
+  //   margin: theme.spacing(1)
+  // },
   image: {
     perspectiveOrigin: 'left center',
     transformStyle: 'preserve-3d',
@@ -74,26 +75,25 @@ const Hero = ({ className, ...rest }) => {
                 variant="overline"
                 color="secondary"
               >
-                Introducing
+                Absolutly free
               </Typography>
               <Typography
                 variant="h1"
                 color="textPrimary"
               >
-                Devias React Material Kit - PRO
+                {APP_NAME}
+                {' '}
+                - useful materials for self-study
               </Typography>
               <Box mt={3}>
                 <Typography
                   variant="body1"
                   color="textSecondary"
                 >
-                  A professional kit that comes with ready-to-use Material-UI© components
-                  developed with one common goal in mind, help you build faster &amp; beautiful
-                  applications. Each component is fully customizable,
-                  responsive and easy to integrate.
+                  A simple platform for digital content about something usefull. We students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
                 </Typography>
               </Box>
-              <Box mt={3}>
+              {/* <Box mt={3}>
                 <Grid
                   container
                   spacing={3}
@@ -153,7 +153,7 @@ const Hero = ({ className, ...rest }) => {
                   className={classes.technologyIcon}
                   src="/static/images/typescript.svg"
                 />
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
           <Grid
