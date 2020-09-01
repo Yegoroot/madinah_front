@@ -21,7 +21,7 @@ import {
   AlertTriangle as AlertIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import { NOTES_URL } from 'src/constants'
+import { PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -44,8 +44,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Header({ note, }) {
+function Header({ note, match }) {
   const classes = useStyles()
+
+  const { topicId } = match.params
+
+  const topic = note.topic.find((_topic) => _topic.id === topicId)
 
   return (
     <>
@@ -63,18 +67,26 @@ function Header({ note, }) {
             <Link
               variant="body1"
               color="inherit"
-              to="/app"
+              to={PROGRAMS_URL}
               component={RouterLink}
             >
-              Dashboard
+              Programs
             </Link>
             <Link
               variant="body1"
               color="inherit"
-              to={`${NOTES_URL}`}
+              to={`${PROGRAMS_URL}/${topic.program.id}`}
               component={RouterLink}
             >
-              Notes
+              {topic.program.title}
+            </Link>
+            <Link
+              variant="body1"
+              color="inherit"
+              to={`${PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+              component={RouterLink}
+            >
+              {topic.title}
             </Link>
             <Typography
               variant="body1"
@@ -168,7 +180,7 @@ function Header({ note, }) {
                 color="inherit"
                 component="span"
               >
-                {`Ending ${moment(note.endDate).fromNow()}`}
+                {`Created ${moment(note.endDate).fromNow()}`}
               </Typography>
             </div>
           </Box>
@@ -180,7 +192,8 @@ function Header({ note, }) {
 }
 
 Header.propTypes = {
-  note: PropTypes.object.isRequired
+  note: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 }
 
 Header.defaultProps = {}

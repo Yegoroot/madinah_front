@@ -3,7 +3,6 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import moment from 'moment'
-import Label from 'src/components/Label'
 import {
   Box,
   Card,

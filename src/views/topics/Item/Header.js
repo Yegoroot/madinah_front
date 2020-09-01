@@ -15,7 +15,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Label from 'src/components/Label'
-import NoteCard from 'src/components/NoteCard'
+// import NoteCard from 'src/components/NoteCard'
 import {
   Share2 as ShareIcon,
   Check as CheckIcon,
