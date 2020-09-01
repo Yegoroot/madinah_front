@@ -81,7 +81,7 @@ function TopicCard({
           color="textPrimary"
           component={RouterLink}
           to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
-          variant="h3"
+          variant="h2"
         >
           {topic.title}
         </Link>

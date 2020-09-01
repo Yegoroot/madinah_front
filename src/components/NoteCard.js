@@ -68,7 +68,7 @@ function NoteCard({
           color="textPrimary"
           component={RouterLink}
           to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/notes/${note.id}`}
-          variant="h3"
+          variant="h2"
         >
           {note.title}
         </Link>
