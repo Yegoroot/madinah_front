@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import wait from 'src/utils/wait'
+import { getProgramItemRequest } from './program'
 
 const initialState = {
   list: {
@@ -66,9 +67,9 @@ export const { reducer } = slice
  *
  * topic
  */
-export const getTopicItem = ({ id }) => async (dispatch) => {
+export const getTopicItem = ({ topicId }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/topics/${id}`)
+    const response = await axios.get(`${API_BASE_URL}/topics/${topicId}`)
     const { data } = response.data
     dispatch(slice.actions.getTopicItem({ data }))
   } catch (error) {
@@ -77,10 +78,11 @@ export const getTopicItem = ({ id }) => async (dispatch) => {
   }
 }
 
-export const getTopicItemRequest = ({ id, reload }) => async (dispatch) => {
+export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch) => {
   if (reload) await wait(1000)
+  dispatch(getProgramItemRequest({ id: programId }))
   dispatch(slice.actions.getTopicItemRequest())
-  dispatch(getTopicItem({ id }))
+  dispatch(getTopicItem({ topicId }))
 }
 
 export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {

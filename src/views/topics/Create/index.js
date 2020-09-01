@@ -36,7 +36,7 @@ function TopicCreateView({ match }) {
 
   useEffect(() => {
     if (topicId) {
-      dispatch(getTopicItemRequest({ id: topicId })) // get topic item
+      dispatch(getTopicItemRequest({ topicId })) // get topic item
     }
     dispatch(getProgramListRequest({ })) // get program list
   }, [dispatch, topicId])

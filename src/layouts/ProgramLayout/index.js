@@ -1,37 +1,42 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { MDXProvider } from '@mdx-js/react'
-import { Container, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import NavBar from './NavBar'
 import TopBar from './TopBar'
-import components from './mdx'
 
 const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    backgroundColor: theme.palette.background.default,
+  root: {
+    backgroundColor: theme.palette.background.dark,
     display: 'flex',
     height: '100%',
     overflow: 'hidden',
-    paddingTop: 64,
+    width: '100%'
+  },
+  wrapper: {
+    display: 'flex',
+    flex: '1 1 auto',
+    overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
       paddingLeft: 256
     }
   },
   contentContainer: {
+    display: 'flex',
     flex: '1 1 auto',
-    overflow: 'auto'
+    overflow: 'hidden'
   },
   content: {
-    paddingBottom: 120
+    flex: '1 1 auto',
+    height: '100%',
+    overflow: 'auto'
   }
 }))
 
-const DocsLayout = ({ children }) => {
+const ProgramLayout = ({ children }) => {
   const classes = useStyles()
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
-
   return (
-    <>
+    <div className={classes.root}>
       <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
       <NavBar
         onMobileClose={() => setMobileNavOpen(false)}
@@ -39,22 +44,17 @@ const DocsLayout = ({ children }) => {
       />
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
-          <Container
-            maxWidth="md"
-            className={classes.content}
-          >
-            <MDXProvider components={components}>
-              {children}
-            </MDXProvider>
-          </Container>
+          <div className={classes.content}>
+            {children}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-DocsLayout.propTypes = {
+ProgramLayout.propTypes = {
   children: PropTypes.node
 }
 
-export default DocsLayout
+export default ProgramLayout

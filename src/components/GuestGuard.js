@@ -1,13 +1,14 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { PROGRAMS_URL } from 'src/constants'
 import useAuth from '../hooks/useAuth'
 
 const GuestGuard = ({ children }) => {
   const { isAuthenticated } = useAuth()
 
   if (isAuthenticated) {
-    return <Redirect to="/app/account" />
+    return <Redirect to={PROGRAMS_URL} />
   }
 
   return (

@@ -59,26 +59,6 @@ const TopBar = ({ className, ...rest }) => {
         >
           Dashboard
         </Link>
-        <Link
-          className={classes.link}
-          color="textSecondary"
-          component={RouterLink}
-          to="/programs"
-          underline="none"
-          variant="body2"
-        >
-          Programs
-        </Link>
-        {/* <Divider className={classes.divider} />
-        <Button
-          color="secondary"
-          component="a"
-          href="#"
-          variant="contained"
-          size="small"
-        >
-          Contacts
-        </Button> */}
       </Toolbar>
     </AppBar>
   )

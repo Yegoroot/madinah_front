@@ -9,16 +9,16 @@ import {
   Route
 } from 'react-router-dom'
 import DashboardLayout from 'src/layouts/DashboardLayout'
-import DocsLayout from 'src/layouts/DocsLayout'
+import ProgramLayout from 'src/layouts/ProgramLayout'
+import ProgramListLayout from 'src/layouts/ProgramListLayout'
 import MainLayout from 'src/layouts/MainLayout'
 import HomeView from 'src/views/home/HomeView'
 import LoadingScreen from 'src/components/LoadingScreen'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
-import { PROGRAMS_URL, TOPICS_URL, NOTES_URL } from 'src/constants'
-
-const PROGRAM_TOPICS = ':programId/topics'
-const TOPIC_NOTES = ':topicId/notes'
+import {
+  PROGRAMS_URL, PUBLIC_PROGRAMS_URL, TOPICS_URL, NOTES_URL
+} from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -196,22 +196,17 @@ const routes = [
        */
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}`,
-        component: lazy(() => import('src/views/programs/Item'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/create`,
+        path: `${PROGRAMS_URL}/:programId/topics/create`,
         component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/:topicId`,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId`,
         component: lazy(() => import('src/views/topics/Item'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/:topicId/edit`,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/edit`,
         component: lazy(() => import('src/views/topics/Create'))
       },
 
@@ -220,22 +215,17 @@ const routes = [
        */
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/${TOPIC_NOTES}`,
-        component: lazy(() => import('src/views/notes/List'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/${TOPIC_NOTES}/create`,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/create`,
         component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/${TOPIC_NOTES}/:noteId`,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
         component: lazy(() => import('src/views/notes/Item'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/${PROGRAM_TOPICS}/${TOPIC_NOTES}/:noteId/edit`,
+        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId/edit`,
         component: lazy(() => import('src/views/topics/Create'))
       },
 
@@ -245,29 +235,67 @@ const routes = [
     ]
   },
   {
-    path: '/docs',
-    layout: DocsLayout,
+    path: `${PUBLIC_PROGRAMS_URL}`,
+    layout: ProgramListLayout,
     routes: [
       {
         exact: true,
-        path: '/docs',
-        component: () => <Redirect to="/docs/welcome" />
+        path: `${PUBLIC_PROGRAMS_URL}`,
+        component: lazy(() => import('src/views/public/programList'))
       },
       {
-        exact: true,
-        path: '/docs/welcome',
-        component: lazy(() => import('src/views/docs/WelcomeView'))
+        layout: ProgramLayout,
+        routes: [
+          {
+            exact: true,
+            path: `${PUBLIC_PROGRAMS_URL}/:programId`,
+            component: lazy(() => import('src/views/public/programItem'))
+          },
+          {
+            exact: true,
+            path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId`,
+            component: lazy(() => import('src/views/public/topicItem'))
+          },
+          {
+            exact: true,
+            path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
+            component: lazy(() => import('src/views/public/noteItem'))
+          },
+          {
+            component: () => <Redirect to="/404" />
+          }
+        ]
       },
-      {
-        exact: true,
-        path: '/docs/getting-started',
-        component: lazy(() => import('src/views/docs/GettingStartedView'))
-      },
+
       {
         component: () => <Redirect to="/404" />
       }
     ]
   },
+  // {
+  //   path: '/docs',
+  //   layout: DocsLayout,
+  //   routes: [
+  //     {
+  //       exact: true,
+  //       path: '/docs',
+  //       component: () => <Redirect to="/docs/welcome" />
+  //     },
+  //     {
+  //       exact: true,
+  //       path: '/docs/welcome',
+  //       component: lazy(() => import('src/views/docs/WelcomeView'))
+  //     },
+  //     {
+  //       exact: true,
+  //       path: '/docs/getting-started',
+  //       component: lazy(() => import('src/views/docs/GettingStartedView'))
+  //     },
+  //     {
+  //       component: () => <Redirect to="/404" />
+  //     }
+  //   ]
+  // },
   {
     path: '*',
     layout: MainLayout,

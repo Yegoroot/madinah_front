@@ -53,7 +53,7 @@ const CTA = ({ className, ...rest }) => {
           <Button
             color="secondary"
             component={RouterLink}
-            to="/app"
+            to="/programs"
             variant="contained"
           >
             Go to Programs
