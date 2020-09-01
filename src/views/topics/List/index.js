@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
+import { /* IMAGES_BASE_URL, */TOPICS_URL } from 'src/constants'
 import {
-  Avatar,
+  // Avatar,
   Box,
   Button,
   Card,
@@ -23,7 +23,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
-import getInitials from 'src/utils/getInitials'
+// import getInitials from 'src/utils/getInitials'
 import {
   // Image as ImageIcon,
   Edit as EditIcon,
@@ -181,7 +181,7 @@ function Results() {
                           onChange={handleSelectAllTopics}
                         />
                       </TableCell>
-                      <TableCell />
+                      {/* <TableCell /> */}
                       <TableCell>
                         Title
                       </TableCell>
@@ -219,7 +219,7 @@ function Results() {
                               value={isTopicSelected}
                             />
                           </TableCell>
-                          <TableCell className={classes.imageCell}>
+                          {/* <TableCell className={classes.imageCell}>
                             {topic.photo ? (
                               <img
                                 alt="Topic"
@@ -236,7 +236,7 @@ function Results() {
                               </Avatar>
 
                             )}
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell>
                             <Box
                               display="flex"

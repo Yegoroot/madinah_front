@@ -5,32 +5,22 @@ import clsx from 'clsx'
 import moment from 'moment'
 import Label from 'src/components/Label'
 import {
-  // Avatar,
   Box,
   Card,
-  // CardMedia,
-  // Divider,
-  // Grid,
   IconButton,
   Link,
   SvgIcon,
-  // Tooltip,
   Typography,
   colors,
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-// import { Rating } from '@material-ui/lab'
-// import FavoriteIcon from '@material-ui/icons/Favorite'
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import {
-  // Users as UsersIcon,
   Trash as TrashIcon,
   Edit as EditIcon,
 } from 'react-feather'
-// import getInitials from 'src/utils/getInitials'
-import { PROGRAMS_URL, /* IMAGES_BASE_URL */ } from 'src/constants'
-import { deleteSeveralTopics } from 'src/slices/topic'
+import { PROGRAMS_URL } from 'src/constants'
+import { deleteSeveralNotes } from 'src/slices/note'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
@@ -50,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function TopicCard({
-  data, className, topic, programId, ...rest
+function NoteCard({
+  data, className, note, topic, programId, ...rest
 }) {
   const dispatch = useDispatch()
   const classes = useStyles()
@@ -60,13 +50,10 @@ function TopicCard({
 
   const handleDelete = () => {
     // eslint-disable-next-line no-restricted-globals
-    if (confirm('delete topic and all content inside?')) {
-      dispatch(deleteSeveralTopics({ id: topic.id }))
+    if (confirm('delete note and all content inside?')) {
+      dispatch(deleteSeveralNotes({ id: note.id }))
     }
   }
-
-  // const programPhoto = topic.photo ? topic.photo : 'no-photo.png'
-  // const image = `${IMAGES_BASE_URL}/${programPhoto}`
 
   return (
     <Card
@@ -80,10 +67,10 @@ function TopicCard({
         <Link
           color="textPrimary"
           component={RouterLink}
-          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}`}
+          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/notes/${note.id}`}
           variant="h3"
         >
-          {topic.title}
+          {note.title}
         </Link>
         <Box
           pt={1}
@@ -92,24 +79,24 @@ function TopicCard({
             color="textSecondary"
             variant="body2"
           >
-            {topic.description}
+            {note.description}
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           pt={1}
         >
           <Typography
             color="textSecondary"
             variant="body2"
           >
-            {topic.tags.map((tag) => (
+            {note.tags.map((tag) => (
               <Label key={tag}>
                 {' '}
                 {tag}
               </Label>
             ))}
           </Typography>
-        </Box>
+        </Box> */}
 
         <Box
           display="flex"
@@ -123,38 +110,15 @@ function TopicCard({
             >
               Created
               {' '}
-              {moment(topic.updatedAt).fromNow()}
+              {moment(note.updatedAt).fromNow()}
             </Typography>
           </Box>
         </Box>
       </Box>
 
-      {/* <Box
-        py={2}
-        px={3}
-      >
-        <Grid
-          alignItems="center"
-          container
-          justify="space-between"
-          spacing={3}
-        >
-          <Grid item>
-            <Typography
-              variant="body2"
-              color={topic.publish ? 'secondary' : 'inherit'}
-            >
-              {topic.publish ? 'Publish' : 'Unpublish'}
-            </Typography>
-
-          </Grid>
-        </Grid>
-      </Box> */}
-
       { !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
         : (
           <>
-            {/* <Divider /> */}
             <Box
               py={2}
               pt={0}
@@ -166,7 +130,7 @@ function TopicCard({
 
               <IconButton
                 component={RouterLink}
-                to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/edit`}
+                to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/notes/${note.id}/edit`}
               >
                 <SvgIcon
                   fontSize="small"
@@ -194,10 +158,11 @@ function TopicCard({
   )
 }
 
-TopicCard.propTypes = {
+NoteCard.propTypes = {
   className: PropTypes.string,
-  topic: PropTypes.object.isRequired,
-  programId: PropTypes.string.isRequired
+  note: PropTypes.object.isRequired,
+  programId: PropTypes.string.isRequired,
+  topic: PropTypes.string.isRequired
 }
 
-export default TopicCard
+export default NoteCard

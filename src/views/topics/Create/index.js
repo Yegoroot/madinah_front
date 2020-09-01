@@ -24,7 +24,7 @@ function TopicCreateView({ match }) {
   const [initialValue] = useState({
     title: '',
     description: '',
-    content: '',
+    // content: '',
     file: '',
     tags: [],
     publish: true,

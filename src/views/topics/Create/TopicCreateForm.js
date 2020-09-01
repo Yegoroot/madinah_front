@@ -14,9 +14,9 @@ import {
   Divider,
   FormHelperText,
   Grid,
-  Paper,
+  // Paper,
   TextField,
-  Typography,
+  // Typography,
   makeStyles,
   IconButton,
   FormControlLabel,
@@ -29,11 +29,11 @@ import {
   Chip,
   SvgIcon,
 } from '@material-ui/core'
-import SunEditor from 'src/components/SunEditor'
-import FilesDropzone from 'src/components/FilesDropzone'
+// import SunEditor from 'src/components/SunEditor'
+// import FilesDropzone from 'src/components/FilesDropzone'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
-import { API_BASE_URL, IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
+import { API_BASE_URL, /* IMAGES_BASE_URL, */ TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -52,7 +52,7 @@ function ProductCreateForm({
   const { enqueueSnackbar } = useSnackbar()
   const [tag, setTag] = useState('')
 
-  const srcPhoto = initialValue.photo ? `${IMAGES_BASE_URL}/${initialValue.photo}` : null
+  // const srcPhoto = initialValue.photo ? `${IMAGES_BASE_URL}/${initialValue.photo}` : null
   const initialValuesProgramHack = id // program: {id} (get object from mongoDb)
     ? { ...initialValue, program: initialValue.program.id }
     : initialValue
@@ -62,8 +62,8 @@ function ProductCreateForm({
       initialValues={initialValuesProgramHack}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
-        description: Yup.string().max(1500).required(),
-        content: Yup.string().max(5000),
+        description: Yup.string().max(1500),
+        // content: Yup.string().max(5000),
         tags: Yup.array(),
         program: Yup.string().required()
       })}
@@ -76,12 +76,12 @@ function ProductCreateForm({
           const formData = new FormData()
           formData.set('title', values.title)
           formData.set('description', values.description)
-          formData.set('content', values.content)
+          // formData.set('content', values.content)
           formData.set('program', values.program)
           formData.set('publish', values.publish)
-          if (values.file) {
-            formData.append('photo', values.file)
-          }
+          // if (values.file) {
+          //   formData.append('photo', values.file)
+          // }
           if (values.tags.length) {
             formData.append('tags', JSON.stringify(values.tags))
           }
@@ -164,7 +164,7 @@ function ProductCreateForm({
                     variant="outlined"
                   />
                   <Box
-                    mt={3}
+                    mt={2}
                     mb={1}
                   >
                     <TextField
@@ -178,112 +178,6 @@ function ProductCreateForm({
                       value={values.description}
                       variant="outlined"
                     />
-                  </Box>
-                  <Box
-                    mt={3}
-                    mb={1}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      color="textSecondary"
-                    >
-                      content
-                    </Typography>
-                  </Box>
-                  <Paper variant="outlined">
-                    <SunEditor
-                      className={classes.editor}
-                      value={values.content}
-                      content={values.content}
-                      onChange={(value) => setFieldValue('content', value)}
-                    />
-                  </Paper>
-                  {(touched.content && errors.content) && (
-                    <Box mt={2}>
-                      <FormHelperText error>
-                        {errors.content}
-                      </FormHelperText>
-                    </Box>
-                  )}
-                </CardContent>
-              </Card>
-
-              {errors.submit && (
-              <Box mt={3}>
-                <FormHelperText error>
-                  {errors.submit}
-                </FormHelperText>
-              </Box>
-              )}
-              <Box mt={2}>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {id ? 'Update Topic' : 'Create Topic'}
-                </Button>
-              </Box>
-
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              lg={4}
-            >
-              <Card>
-                <CardHeader title="Organize" />
-                <Divider />
-                <CardContent>
-                  <Box
-                    px={1}
-                  >
-                    <FormControlLabel
-                      control={(
-                        <Switch
-                          checked={values.publish}
-                          edge="start"
-                          name="publish"
-                          onChange={(event) => setFieldValue('publish', event.target.checked)}
-                        />
-                      )}
-                      label="Publish"
-                    />
-                  </Box>
-                  <Box
-                    mt={2}
-                    display="flex"
-                    alignItems="center"
-                  >
-                    {!programs ? null
-                      : (
-                        <FormControl
-                          fullWidth
-                          className={classes.formControl}
-                          error={Boolean(touched.program && errors.program)}
-                        >
-                          <InputLabel id="form-select-1">Программа обучения</InputLabel>
-                          <Select
-                            labelId="form-select-1"
-                            name="program"
-                            value={values.program}
-                            displayEmpty
-                            onChange={handleChange}
-                            input={<Input id="select-multiple-chip" />}
-                          >
-                            {programs.map((program) => (
-                              <MenuItem
-                                key={program.id}
-                                value={program.id}
-                              >
-                                {program.title}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText>{touched.program && errors.program}</FormHelperText>
-                        </FormControl>
-                      )}
                   </Box>
                   <Box
                     mt={2}
@@ -329,9 +223,115 @@ function ProductCreateForm({
                       />
                     ))}
                   </Box>
+                  {/* <Box
+                    mt={3}
+                    mb={1}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                    >
+                      content
+                    </Typography>
+                  </Box>
+                  <Paper variant="outlined">
+                    <SunEditor
+                      className={classes.editor}
+                      value={values.content}
+                      content={values.content}
+                      onChange={(value) => setFieldValue('content', value)}
+                    />
+                  </Paper>
+                  {(touched.content && errors.content) && (
+                    <Box mt={2}>
+                      <FormHelperText error>
+                        {errors.content}
+                      </FormHelperText>
+                    </Box>
+                  )} */}
                 </CardContent>
               </Card>
+
+              {errors.submit && (
               <Box mt={3}>
+                <FormHelperText error>
+                  {errors.submit}
+                </FormHelperText>
+              </Box>
+              )}
+
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              lg={4}
+            >
+              <Card>
+                <CardHeader title="Organize" />
+                <Divider />
+                <CardContent>
+                  <Box
+                    px={1}
+                  >
+                    <FormControlLabel
+                      control={(
+                        <Switch
+                          checked={values.publish}
+                          edge="start"
+                          name="publish"
+                          onChange={(event) => setFieldValue('publish', event.target.checked)}
+                        />
+                      )}
+                      label="Publish"
+                    />
+                  </Box>
+                  <Box
+                    mt={1}
+                    display="flex"
+                    alignItems="center"
+                  >
+                    {!programs ? null
+                      : (
+                        <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.program && errors.program)}
+                        >
+                          <InputLabel id="form-select-1">Программа обучения</InputLabel>
+                          <Select
+                            labelId="form-select-1"
+                            name="program"
+                            value={values.program}
+                            displayEmpty
+                            onChange={handleChange}
+                            input={<Input id="select-multiple-chip" />}
+                          >
+                            {programs.map((program) => (
+                              <MenuItem
+                                key={program.id}
+                                value={program.id}
+                              >
+                                {program.title}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.program && errors.program}</FormHelperText>
+                        </FormControl>
+                      )}
+                  </Box>
+                </CardContent>
+              </Card>
+              <Box mt={2}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {id ? 'Update Topic' : 'Create Topic'}
+                </Button>
+              </Box>
+              {/* <Box mt={3}>
                 <Card>
                   <CardHeader title="Upload Images" />
                   <Divider />
@@ -344,7 +344,7 @@ function ProductCreateForm({
                     />
                   </CardContent>
                 </Card>
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
 

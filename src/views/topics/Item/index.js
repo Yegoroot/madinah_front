@@ -7,37 +7,38 @@ import {
   Card,
   CardContent,
   makeStyles,
-  Divider, CardHeader,
   Grid
 } from '@material-ui/core'
-import { hexToRgb } from '@material-ui/core/styles'
+// import { hexToRgb } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import Page from 'src/components/Page'
-import { IMAGES_BASE_URL } from 'src/constants'
+// import { IMAGES_BASE_URL } from 'src/constants'
 import { useSelector, useDispatch } from 'src/store'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { getTopicItemRequest, module } from 'src/slices/topic'
 import Header from './Header'
+import Notes from './Notes'
 
-const useStyles = makeStyles((theme) => {
-  const hex1 = hexToRgb(`${theme.palette.background.dark}c9`) // d4
-  const hex2 = hexToRgb(`${theme.palette.background.dark}8c`) // 63
-  return {
+const useStyles = makeStyles((theme) =>
+  // const hex1 = hexToRgb(`${theme.palette.background.dark}c9`) // d4
+  // const hex2 = hexToRgb(`${theme.palette.background.dark}8c`) // 63
+  ({
     root: {
       color: theme.palette.text.primary,
       minHeight: '100%',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed'
-    },
-    back: {
+      backgroundAttachment: 'fixed',
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
-      minHeight: '100vh',
-      background: `linear-gradient(0deg, ${theme.palette.background.dark}, ${hex1} 50%,  ${hex2} 75%)`
     },
-  }
-})
+    // back: {
+    // paddingTop: theme.spacing(3),
+    // paddingBottom: theme.spacing(3),
+    //   minHeight: '100vh',
+    //   background: `linear-gradient(0deg, ${theme.palette.background.dark}, ${hex1} 50%,  ${hex2} 75%)`
+    // },
+  }))
 
 function TopicDetailsView({ match }) {
   const classes = useStyles()
@@ -63,23 +64,14 @@ function TopicDetailsView({ match }) {
     return <LoadingScreen />
   }
 
-  const image = `${IMAGES_BASE_URL}/${data.photo}`
-  const notes = () => data.notes.map((note) => (
-    <span key={note.id}>
-      {note.title}
-      -
-      {note.id}
-    </span>
-  ))
-
   return (
     <Page
       className={classes.root}
       title={data.title}
-      style={{ backgroundImage: data.photo ? `url(${image})` : 'none' }}
+      // style={{ backgroundImage: data.photo ? `url(${image})` : 'none' }}
     >
       <Container
-        className={classes.back}
+        // className={classes.back}
         maxWidth="lg"
       >
         <Header topic={data} />
@@ -95,18 +87,21 @@ function TopicDetailsView({ match }) {
               xs={12}
             >
 
-              <Box dangerouslySetInnerHTML={{ __html: data.content }} />
+              {/* <Box dangerouslySetInnerHTML={{ __html: data.content }} /> */}
 
               {!data.notes.length ? null : (
-                <Box mt={3}>
-                  <Card>
-                    <CardHeader title="Notes" />
-                    <Divider />
-                    <CardContent>
-                      {notes()}
-                    </CardContent>
-                  </Card>
-                </Box>
+                <>
+                  <h2>Notes</h2>
+                  <Box mt={3}>
+
+                    <Notes
+                      topic={data}
+                      notes={data.notes}
+                      programId={data.program.id}
+                    />
+
+                  </Box>
+                </>
               )}
             </Grid>
           </Grid>

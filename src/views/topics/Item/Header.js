@@ -14,7 +14,8 @@ import {
   // CardContent, Card,
   makeStyles
 } from '@material-ui/core'
-
+import Label from 'src/components/Label'
+import NoteCard from 'src/components/NoteCard'
 import {
   Share2 as ShareIcon,
   Check as CheckIcon,
@@ -52,11 +53,12 @@ function Header({ topic, className, ...rest }) {
   const tags = () => {
     if (!topic.tags.length) return null
 
-    return topic.tags.map((el) => (
-      <span key={el}>
-        {el}
+    return topic.tags.map((tag) => (
+
+      <Label key={tag}>
+        {tag}
         &nbsp;
-      </span>
+      </Label>
     ))
   }
 
@@ -189,7 +191,7 @@ function Header({ topic, className, ...rest }) {
                 {`Created ${moment(topic.createdAt).fromNow()}`}
               </Typography>
             </div>
-            <div className={classes.badge}>
+            {/* <div className={classes.badge}>
               <SvgIcon
                 fontSize="small"
                 className={classes.badgeIcon}
@@ -203,7 +205,7 @@ function Header({ topic, className, ...rest }) {
               >
                 {`Updated ${moment(topic.updatedAt).fromNow()}`}
               </Typography>
-            </div>
+            </div> */}
           </Box>
         </Grid>
       </Grid>
