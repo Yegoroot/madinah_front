@@ -1,7 +1,7 @@
 import {
   Folder as FolderIcon,
   User as UserIcon,
-  ArrowLeft as ArrowLeftIcon,
+  BookOpen,
 } from 'react-feather'
 
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
@@ -10,8 +10,8 @@ const initialMenu = [{
   subheader: 'menu.manage.program',
   items: [
     {
-      title: 'Back to Programs',
-      icon: ArrowLeftIcon,
+      title: 'All Programs',
+      icon: BookOpen,
       href: `${PUBLIC_PROGRAMS_URL}`
     }
   ]

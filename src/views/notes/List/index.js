@@ -29,7 +29,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import { getNoteListRequest, deleteSeveralNotes, module } from 'src/slices/note'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
-import { PROGRAMS_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -227,7 +227,7 @@ function Results() {
                                 color="textPrimary"
                                 component={RouterLink}
                                 underline="none"
-                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
+                                to={`${PUBLIC_PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
                               >
                                 {note.title}
                               </Link>
@@ -258,7 +258,7 @@ function Results() {
                             >
                               <IconButton
                                 component={RouterLink}
-                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}/edit`}
+                                to={`/app/notes/${note.id}/edit`}
                               >
                                 <SvgIcon fontSize="small">
                                   <EditIcon />
@@ -266,7 +266,7 @@ function Results() {
                               </IconButton>
                               <IconButton
                                 component={RouterLink}
-                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
+                                to={`${PUBLIC_PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
                               >
                                 <SvgIcon fontSize="small">
                                   <ArrowRightIcon />

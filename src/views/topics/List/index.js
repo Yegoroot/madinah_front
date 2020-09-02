@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { /* IMAGES_BASE_URL, */TOPICS_URL } from 'src/constants'
+import { /* IMAGES_BASE_URL, */TOPICS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import {
   // Avatar,
   Box,
@@ -247,7 +247,7 @@ function Results() {
                                 <Link
                                   color="inherit"
                                   component={RouterLink}
-                                  to={`${TOPICS_URL}/${topic.id}`}
+                                  to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
                                   variant="h6"
                                 >
                                   {topic.title}
@@ -281,7 +281,7 @@ function Results() {
                           <TableCell align="right">
                             <IconButton
                               component={RouterLink}
-                              to={`${TOPICS_URL}/${topic._id}/edit`}
+                              to={`${TOPICS_URL}/${topic.id}/edit`}
                             >
                               <SvgIcon fontSize="small">
                                 <EditIcon />
@@ -289,7 +289,7 @@ function Results() {
                             </IconButton>
                             <IconButton
                               component={RouterLink}
-                              to={`${TOPICS_URL}/${topic.id}`}
+                              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
                             >
                               <SvgIcon fontSize="small">
                                 <ArrowRightIcon />
