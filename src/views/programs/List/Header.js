@@ -11,6 +11,8 @@ import {
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
+import { Link as RouterLink } from 'react-router-dom'
+import { PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -68,7 +70,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          All Topics
+          My Programs
         </Typography>
         {/* <Box mt={2}>
           <Button className={classes.action}>
@@ -96,6 +98,8 @@ function Header({ className, ...rest }) {
           color="secondary"
           variant="contained"
           className={classes.action}
+          component={RouterLink}
+          to={`${PROGRAMS_URL}/create`}
         >
           <SvgIcon
             fontSize="small"
@@ -103,7 +107,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Topic
+          New Programs
         </Button>
       </Grid>
     </Grid>

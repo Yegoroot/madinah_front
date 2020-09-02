@@ -11,6 +11,8 @@ import {
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
+import { TOPICS_URL } from 'src/constants'
+import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -100,6 +102,8 @@ function Header({ className, ...rest }) {
           <SvgIcon
             fontSize="small"
             className={classes.actionIcon}
+            component={RouterLink}
+            to={`${TOPICS_URL}/create`}
           >
             <PlusCircleIcon />
           </SvgIcon>

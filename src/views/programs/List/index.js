@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { /* IMAGES_BASE_URL, */TOPICS_URL } from 'src/constants'
+import { /* IMAGES_BASE_URL, */PROGRAMS_URL } from 'src/constants'
+import Label from 'src/components/Label'
 import {
   // Avatar,
   Box,
@@ -31,7 +32,7 @@ import {
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import { useSelector, useDispatch } from 'react-redux'
-import { getTopicListRequest, deleteSeveralTopics, module } from 'src/slices/topic'
+import { getProgramListRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import moment from 'moment'
 import Header from './Header'
@@ -79,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 function Results() {
   const classes = useStyles()
   // const [currentTab, setCurrentTab] = useState('all')
-  const [selectedTopics, setSelectedTopics] = useState([])
+  const [selectedPrograms, setSelectedPrograms] = useState([])
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
 
@@ -97,33 +98,33 @@ function Results() {
     const params = {
       page, limit
     }
-    dispatch(getTopicListRequest({ params }))
+    dispatch(getProgramListRequest({ params }))
   }, [dispatch, page, limit, filters])
 
   const onDelete = () => {
-    dispatch(deleteSeveralTopics({ ids: selectedTopics }))
+    // dispatch(deleteSeveralPrograms({ ids: selectedPrograms }))
   }
 
   if (loading === 'reload') {
     const params = {
       page, limit
     }
-    return <span onClick={() => dispatch(getTopicListRequest({ params, reload: true }))}>Перезагрузить</span>
+    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}>Перезагрузить</span>
   } if (loading || !data) {
     return <LoadingScreen />
   }
 
-  const handleSelectAllTopics = (event) => {
-    setSelectedTopics(event.target.checked
-      ? data.map((topic) => topic.id)
+  const handleSelectAllPrograms = (event) => {
+    setSelectedPrograms(event.target.checked
+      ? data.map((program) => program.id)
       : [])
   }
 
-  const handleSelectOneTopic = (event, topicId) => {
-    if (!selectedTopics.includes(topicId)) {
-      setSelectedTopics((prevSelected) => [...prevSelected, topicId])
+  const handleSelectOneProgram = (event, programId) => {
+    if (!selectedPrograms.includes(programId)) {
+      setSelectedPrograms((prevSelected) => [...prevSelected, programId])
     } else {
-      setSelectedTopics((prevSelected) => prevSelected.filter((id) => id !== topicId))
+      setSelectedPrograms((prevSelected) => prevSelected.filter((id) => id !== programId))
     }
   }
 
@@ -137,14 +138,14 @@ function Results() {
   }
 
   // Usually query is done on backend with indexing solutions
-  const enableBulkOperations = selectedTopics.length > 0
-  const selectedSomeTopics = selectedTopics.length > 0 && selectedTopics.length < data.length
-  const selectedAllTopics = selectedTopics.length === data.length
+  const enableBulkOperations = selectedPrograms.length > 0
+  const selectedSomePrograms = selectedPrograms.length > 0 && selectedPrograms.length < data.length
+  const selectedAllPrograms = selectedPrograms.length === data.length
 
   return (
     <Page
       className={classes.root}
-      title="Topic List"
+      title="Program List"
     >
       <Container maxWidth={false}>
         <Header />
@@ -155,9 +156,9 @@ function Results() {
               <div className={classes.bulkOperations}>
                 <div className={classes.bulkActions}>
                   <Checkbox
-                    checked={selectedAllTopics}
-                    indeterminate={selectedSomeTopics}
-                    onChange={handleSelectAllTopics}
+                    checked={selectedAllPrograms}
+                    indeterminate={selectedSomePrograms}
+                    onChange={handleSelectAllPrograms}
                   />
                   <Button
                     variant="outlined"
@@ -176,9 +177,9 @@ function Results() {
                     <TableRow>
                       <TableCell padding="checkbox">
                         <Checkbox
-                          checked={selectedAllTopics}
-                          indeterminate={selectedSomeTopics}
-                          onChange={handleSelectAllTopics}
+                          checked={selectedAllPrograms}
+                          indeterminate={selectedSomePrograms}
+                          onChange={handleSelectAllPrograms}
                         />
                       </TableCell>
                       {/* <TableCell /> */}
@@ -192,10 +193,10 @@ function Results() {
                         Status
                       </TableCell>
                       <TableCell>
-                        Created
+                        Topics
                       </TableCell>
                       <TableCell>
-                        Updated
+                        Created
                       </TableCell>
                       <TableCell align="right">
                         Actions
@@ -203,27 +204,27 @@ function Results() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.map((topic) => {
-                      const isTopicSelected = selectedTopics.includes(topic.id)
+                    {data.map((program) => {
+                      const isProgramSelected = selectedPrograms.includes(program.id)
 
                       return (
                         <TableRow
                           hover
-                          key={topic.id}
-                          selected={isTopicSelected}
+                          key={program.id}
+                          selected={isProgramSelected}
                         >
                           <TableCell padding="checkbox">
                             <Checkbox
-                              checked={isTopicSelected}
-                              onChange={(event) => handleSelectOneTopic(event, topic.id)}
-                              value={isTopicSelected}
+                              checked={isProgramSelected}
+                              onChange={(event) => handleSelectOneProgram(event, program.id)}
+                              value={isProgramSelected}
                             />
                           </TableCell>
                           {/* <TableCell className={classes.imageCell}>
-                            {topic.photo ? (
+                            {program.photo ? (
                               <img
-                                alt="Topic"
-                                src={`${IMAGES_BASE_URL}/${topic.photo}`}
+                                alt="Program"
+                                src={`${IMAGES_BASE_URL}/${program.photo}`}
                                 className={classes.image}
                               />
                             ) : (
@@ -232,7 +233,7 @@ function Results() {
                                 variant="square"
                                 className={classes.image}
                               >
-                                { getInitials(topic.title)}
+                                { getInitials(program.title)}
                               </Avatar>
 
                             )}
@@ -247,41 +248,47 @@ function Results() {
                                 <Link
                                   color="inherit"
                                   component={RouterLink}
-                                  to={`${TOPICS_URL}/${topic.id}`}
+                                  to={`${PROGRAMS_URL}/${program.id}`}
                                   variant="h6"
                                 >
-                                  {topic.title}
+                                  {program.title}
                                 </Link>
                                 <Typography
                                   variant="body2"
                                   tag="span"
                                   color="textSecondary"
                                 >
-                                  {topic.description}
+                                  {program.description}
                                 </Typography>
                               </div>
                             </Box>
                           </TableCell>
 
                           <TableCell>
-                            {topic.user.name}
+                            {program.user.name}
                             <br />
-                            {topic.user.email}
+                            {program.user.email}
                           </TableCell>
                           <TableCell>
-                            <IsPublishLabel isPublish={topic.publish} />
+                            <IsPublishLabel isPublish={program.publish} />
                           </TableCell>
                           <TableCell>
-                            {moment(topic.createdAt).format('DD.MM.YYYY')}
+                            {program.topics.map((topic) => (
+                              <Label>
+                                {' '}
+                                {topic.title}
+                                {' '}
+                              </Label>
+                            ))}
                           </TableCell>
                           <TableCell>
-                            {moment(topic.updatedAt).format('DD.MM.YYYY')}
+                            {moment(program.createdAt).format('DD.MM.YYYY')}
                           </TableCell>
 
                           <TableCell align="right">
                             <IconButton
                               component={RouterLink}
-                              to={`${TOPICS_URL}/${topic._id}/edit`}
+                              to={`${PROGRAMS_URL}/${program._id}/edit`}
                             >
                               <SvgIcon fontSize="small">
                                 <EditIcon />
@@ -289,7 +296,7 @@ function Results() {
                             </IconButton>
                             <IconButton
                               component={RouterLink}
-                              to={`${TOPICS_URL}/${topic.id}`}
+                              to={`${PROGRAMS_URL}/${program.id}`}
                             >
                               <SvgIcon fontSize="small">
                                 <ArrowRightIcon />
