@@ -16,9 +16,7 @@ import HomeView from 'src/views/home/HomeView'
 import LoadingScreen from 'src/components/LoadingScreen'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
-import {
-  PROGRAMS_URL, PUBLIC_PROGRAMS_URL, TOPICS_URL
-} from 'src/constants'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -172,7 +170,7 @@ const routes = [
       {
         exact: true,
         path: '/app/programs',
-        component: lazy(() => import('src/views/programs/PrivateList'))
+        component: lazy(() => import('src/views/programs/List'))
       },
       {
         exact: true,
@@ -205,7 +203,7 @@ const routes = [
       {
         exact: true,
         path: `${PUBLIC_PROGRAMS_URL}`,
-        component: lazy(() => import('src/views/programs/List'))
+        component: lazy(() => import('src/views/programs/PublicList'))
       },
       {
         layout: ProgramLayout,
@@ -213,17 +211,17 @@ const routes = [
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId`,
-            component: lazy(() => import('src/views/programs/Item'))
+            component: lazy(() => import('src/views/programs/PublicItem'))
           },
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId`,
-            component: lazy(() => import('src/views/topics/Item'))
+            component: lazy(() => import('src/views/topics/PublicItem'))
           },
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
-            component: lazy(() => import('src/views/notes/Item'))
+            component: lazy(() => import('src/views/notes/PublicItem'))
           },
           {
             component: () => <Redirect to="/404" />
