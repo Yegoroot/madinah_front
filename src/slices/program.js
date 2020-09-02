@@ -114,4 +114,17 @@ export const resetTopicsProgram = () => (dispatch) => {
   dispatch(slice.actions.resetTopicsProgram())
 }
 
+/**
+ * menu program
+ * we need to get program (for menu) if open topic page directly from google
+ */
+export const getMenuProgram = (programId) => (dispatch, getState) => {
+  if (programId) {
+    const program = getState().program.item.data
+    if (!program || program.id !== programId) {
+      dispatch(getProgramItemRequest({ programId }))
+    }
+  }
+}
+
 export default slice

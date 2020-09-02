@@ -9,51 +9,54 @@ import {
   makeStyles,
   Grid
 } from '@material-ui/core'
-// import { hexToRgb } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import Page from 'src/components/Page'
-// import { IMAGES_BASE_URL } from 'src/constants'
 import { useSelector, useDispatch } from 'src/store'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { getTopicItemRequest, module } from 'src/slices/topic'
 import Header from './Header'
 import Notes from './Notes'
 
-const useStyles = makeStyles((theme) =>
-  // const hex1 = hexToRgb(`${theme.palette.background.dark}c9`) // d4
-  // const hex2 = hexToRgb(`${theme.palette.background.dark}8c`) // 63
-  ({
-    root: {
-      color: theme.palette.text.primary,
-      minHeight: '100%',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-    },
-    // back: {
-    // paddingTop: theme.spacing(3),
-    // paddingBottom: theme.spacing(3),
-    //   minHeight: '100vh',
-    //   background: `linear-gradient(0deg, ${theme.palette.background.dark}, ${hex1} 50%,  ${hex2} 75%)`
-    // },
-  }))
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: theme.palette.text.primary,
+    minHeight: '100%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+}))
 
 function TopicDetailsView({ match }) {
   const classes = useStyles()
-  const { topicId } = match.params
+  const { topicId, programId } = match.params
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
 
+  // const getNote = useCallback(() => {
+  //   instanceAxios
+  //     .get(`${API_BASE_URL}/notes/${noteId}`)
+  //     .then((response) => {
+  //       if (isMountedRef.current) {
+  //         setNote(response.data.data)
+  //       }
+  //     })
+  // }, [isMountedRef, noteId, programId])
+
+  // useEffect(() => {
+  //   getNote()
+  // }, [getNote])
+
   useEffect(() => {
-    dispatch(getTopicItemRequest({ topicId }))
-  }, [dispatch, topicId])
+    dispatch(getTopicItemRequest({ topicId, programId }))
+  }, [dispatch, topicId, programId])
 
   if (loading === 'reload') {
     return (
       <Card
-        onClick={() => dispatch(getTopicItemRequest({ topicId, reload: true }))}
+        onClick={() => dispatch(getTopicItemRequest({ topicId, programId, reload: true }))}
       >
         <CardContent>Перезагрузить</CardContent>
       </Card>
@@ -68,10 +71,8 @@ function TopicDetailsView({ match }) {
     <Page
       className={classes.root}
       title={data.title}
-      // style={{ backgroundImage: data.photo ? `url(${image})` : 'none' }}
     >
       <Container
-        // className={classes.back}
         maxWidth="lg"
       >
         <Header topic={data} />
@@ -86,8 +87,6 @@ function TopicDetailsView({ match }) {
               md={12}
               xs={12}
             >
-
-              {/* <Box dangerouslySetInnerHTML={{ __html: data.content }} /> */}
 
               {!data.notes.length ? null : (
                 <>

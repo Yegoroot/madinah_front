@@ -29,7 +29,7 @@ const Notes = ({
             xs={12}
             md={6}
             lg={4}
-            key={topic.id}
+            key={note.id}
           >
             <NoteCard
               note={note}

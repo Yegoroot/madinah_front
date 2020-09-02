@@ -86,7 +86,7 @@ NoteCard.propTypes = {
   className: PropTypes.string,
   note: PropTypes.object.isRequired,
   programId: PropTypes.string.isRequired,
-  topic: PropTypes.string.isRequired
+  topic: PropTypes.object.isRequired
 }
 
 export default NoteCard

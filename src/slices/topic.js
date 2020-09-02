@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import wait from 'src/utils/wait'
-import { getProgramItemRequest } from './program'
+import { getMenuProgram } from './program'
 
 const initialState = {
   list: {
@@ -78,9 +78,11 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
   }
 }
 
-export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch) => {
+export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch, getState) => {
   if (reload) await wait(1000)
-  // dispatch(getProgramItemRequest({ programId }))
+
+  dispatch(getMenuProgram(programId)) // set menu
+
   dispatch(slice.actions.getTopicItemRequest())
   dispatch(getTopicItem({ topicId }))
 }
