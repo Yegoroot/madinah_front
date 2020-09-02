@@ -20,7 +20,6 @@ import { matchPathProgramNotAuth } from 'src/utils/urls'
 import { resetTopicsProgram } from 'src/slices/program'
 import NavItem from './NavItem'
 import { generateTopicsMenu } from './topicsMenu'
-import { defineSectionsByRole } from './mainMenuByRole'
 
 function renderNavItems({
   items,
@@ -114,8 +113,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles()
   const location = useLocation()
 
-  const sections = defineSectionsByRole({ role: null })
-  const [menuList, setMenuList] = useState(sections)
+  const [menuList, setMenuList] = useState([])
   const { loading, topics } = useSelector((state) => state.program.item)
   const dispatch = useDispatch()
 
@@ -136,12 +134,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
      */
     if (matchPathProgramNotAuth(`${location.pathname}`)) {
       setMenuList(generateTopicsMenu(topics, loading))
-    } else {
-      if (topics.length) {
-        dispatch(resetTopicsProgram())
-      }
-
-      setMenuList(sections)
+    } else if (topics.length) {
+      dispatch(resetTopicsProgram())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, location.pathname, topics, loading])
