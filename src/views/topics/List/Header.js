@@ -98,12 +98,12 @@ function Header({ className, ...rest }) {
           color="secondary"
           variant="contained"
           className={classes.action}
+          component={RouterLink}
+          to={`${TOPICS_URL}/create`}
         >
           <SvgIcon
             fontSize="small"
             className={classes.actionIcon}
-            component={RouterLink}
-            to={`${TOPICS_URL}/create`}
           >
             <PlusCircleIcon />
           </SvgIcon>

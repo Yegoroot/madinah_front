@@ -3,15 +3,12 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
-  Breadcrumbs,
   Button,
   Grid,
-  Link,
   SvgIcon,
   Typography,
   makeStyles
 } from '@material-ui/core'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
@@ -41,38 +38,12 @@ function Header({ className, ...rest }) {
       {...rest}
     >
       <Grid item>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app"
-            component={RouterLink}
-          >
-            Dashboard
-          </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app/management"
-            component={RouterLink}
-          >
-            Management
-          </Link>
-          <Typography
-            variant="body1"
-            color="textPrimary"
-          >
-            Users
-          </Typography>
-        </Breadcrumbs>
+
         <Typography
-          variant="h3"
+          variant="h1"
           color="textPrimary"
         >
-          All Users
+          Users
         </Typography>
       </Grid>
       <Grid item>
@@ -80,6 +51,8 @@ function Header({ className, ...rest }) {
           color="secondary"
           variant="contained"
           className={classes.action}
+          component={RouterLink}
+          to="/app/users/create"
         >
           <SvgIcon
             fontSize="small"
@@ -87,7 +60,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Customer
+          New User
         </Button>
       </Grid>
     </Grid>
