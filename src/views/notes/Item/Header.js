@@ -19,7 +19,7 @@ import {
   AlertTriangle as AlertIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import { PROGRAMS_URL } from 'src/constants'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -61,7 +61,7 @@ function Header({ note }) {
             <Link
               variant="body1"
               color="inherit"
-              to={PROGRAMS_URL}
+              to={PUBLIC_PROGRAMS_URL}
               component={RouterLink}
             >
               Programs
@@ -69,7 +69,7 @@ function Header({ note }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}/${note.topic.program.id}`}
+              to={`${PUBLIC_PROGRAMS_URL}/${note.topic.program.id}`}
               component={RouterLink}
             >
               {note.topic.program.title}
@@ -77,7 +77,7 @@ function Header({ note }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}`}
+              to={`${PUBLIC_PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}`}
               component={RouterLink}
             >
               {note.topic.title}

@@ -48,7 +48,7 @@ function TopicDetailsView({ match }) {
 
   useEffect(() => {
     dispatch(getTopicItemRequest({ topicId, programId }))
-  }, [dispatch, topicId])
+  }, [dispatch, topicId, programId])
 
   if (loading === 'reload') {
     return (

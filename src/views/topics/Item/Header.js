@@ -24,7 +24,7 @@ import {
 } from 'react-feather'
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import { PROGRAMS_URL } from 'src/constants'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -81,7 +81,7 @@ function Header({ topic, className, ...rest }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}`}
+              to={`${PUBLIC_PROGRAMS_URL}`}
               component={RouterLink}
             >
               Programs
@@ -89,7 +89,7 @@ function Header({ topic, className, ...rest }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}/${topic.program ? topic.program.id : PROGRAMS_URL}`}
+              to={`${PUBLIC_PROGRAMS_URL}/${topic.program ? topic.program.id : PUBLIC_PROGRAMS_URL}`}
               component={RouterLink}
             >
               {`${topic.program ? topic.program.title : 'none'}`}
