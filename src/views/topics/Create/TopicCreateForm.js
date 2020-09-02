@@ -14,9 +14,7 @@ import {
   Divider,
   FormHelperText,
   Grid,
-  // Paper,
   TextField,
-  // Typography,
   makeStyles,
   IconButton,
   FormControlLabel,
@@ -29,11 +27,9 @@ import {
   Chip,
   SvgIcon,
 } from '@material-ui/core'
-// import SunEditor from 'src/components/SunEditor'
-// import FilesDropzone from 'src/components/FilesDropzone'
 import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
-import { API_BASE_URL, /* IMAGES_BASE_URL, */ TOPICS_URL } from 'src/constants'
+import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -52,8 +48,7 @@ function ProductCreateForm({
   const { enqueueSnackbar } = useSnackbar()
   const [tag, setTag] = useState('')
 
-  // const srcPhoto = initialValue.photo ? `${IMAGES_BASE_URL}/${initialValue.photo}` : null
-  const initialValuesProgramHack = id // program: {id} (get object from mongoDb)
+  const initialValuesProgramHack = id
     ? { ...initialValue, program: initialValue.program.id }
     : initialValue
 
@@ -63,7 +58,6 @@ function ProductCreateForm({
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
         description: Yup.string().max(1500),
-        // content: Yup.string().max(5000),
         tags: Yup.array(),
         program: Yup.string().required()
       })}
@@ -76,12 +70,8 @@ function ProductCreateForm({
           const formData = new FormData()
           formData.set('title', values.title)
           formData.set('description', values.description)
-          // formData.set('content', values.content)
           formData.set('program', values.program)
           formData.set('publish', values.publish)
-          // if (values.file) {
-          //   formData.append('photo', values.file)
-          // }
           if (values.tags.length) {
             formData.append('tags', JSON.stringify(values.tags))
           }
@@ -223,32 +213,6 @@ function ProductCreateForm({
                       />
                     ))}
                   </Box>
-                  {/* <Box
-                    mt={3}
-                    mb={1}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      color="textSecondary"
-                    >
-                      content
-                    </Typography>
-                  </Box>
-                  <Paper variant="outlined">
-                    <SunEditor
-                      className={classes.editor}
-                      value={values.content}
-                      content={values.content}
-                      onChange={(value) => setFieldValue('content', value)}
-                    />
-                  </Paper>
-                  {(touched.content && errors.content) && (
-                    <Box mt={2}>
-                      <FormHelperText error>
-                        {errors.content}
-                      </FormHelperText>
-                    </Box>
-                  )} */}
                 </CardContent>
               </Card>
 
@@ -331,20 +295,6 @@ function ProductCreateForm({
                   {id ? 'Update Topic' : 'Create Topic'}
                 </Button>
               </Box>
-              {/* <Box mt={3}>
-                <Card>
-                  <CardHeader title="Upload Images" />
-                  <Divider />
-                  <CardContent>
-                    <FilesDropzone
-                      setFieldValue={setFieldValue}
-                      srcPhoto={srcPhoto}
-                      one
-                      photo
-                    />
-                  </CardContent>
-                </Card>
-              </Box> */}
             </Grid>
           </Grid>
 

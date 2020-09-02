@@ -61,7 +61,7 @@ function TopicCard({
   const handleDelete = () => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('delete topic and all content inside?')) {
-      dispatch(deleteSeveralTopics({ id: topic.id }))
+      dispatch(deleteSeveralTopics({ topicId: topic.id }))
     }
   }
 

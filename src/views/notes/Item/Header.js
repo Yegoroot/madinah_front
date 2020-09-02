@@ -5,7 +5,6 @@ import moment from 'moment'
 import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
-  Button,
   Grid,
   SvgIcon,
   Breadcrumbs,
@@ -15,7 +14,6 @@ import {
 } from '@material-ui/core'
 
 import {
-  Share2 as ShareIcon,
   Check as CheckIcon,
   Calendar as CalendarIcon,
   AlertTriangle as AlertIcon,
@@ -44,12 +42,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Header({ note, match }) {
+function Header({ note }) {
   const classes = useStyles()
-
-  const { topicId } = match.params
-
-  const topic = note.topic.find((_topic) => _topic.id === topicId)
 
   return (
     <>
@@ -75,18 +69,18 @@ function Header({ note, match }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}/${topic.program.id}`}
+              to={`${PROGRAMS_URL}/${note.topic.program.id}`}
               component={RouterLink}
             >
-              {topic.program.title}
+              {note.topic.program.title}
             </Link>
             <Link
               variant="body1"
               color="inherit"
-              to={`${PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+              to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}`}
               component={RouterLink}
             >
-              {topic.title}
+              {note.topic.title}
             </Link>
             <Typography
               variant="body1"
@@ -95,37 +89,6 @@ function Header({ note, match }) {
               {note.title}
             </Typography>
           </Breadcrumbs>
-        </Grid>
-        <Grid item>
-          <Button className={classes.action}>
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
-            >
-              <ShareIcon />
-            </SvgIcon>
-            Share
-          </Button>
-          {/* <Button
-          className={classes.action}
-          onClick={handleApplicationOpen}
-          variant="contained"
-          color="secondary"
-        >
-          <SvgIcon
-            fontSize="small"
-            className={classes.actionIcon}
-          >
-            <SendIcon />
-          </SvgIcon>
-          Apply for a role
-        </Button>
-        <Application
-          author={note.author}
-          onApply={handleApplicationClose}
-          onClose={handleApplicationClose}
-          open={openApplication}
-        /> */}
         </Grid>
       </Grid>
       <Grid
@@ -193,7 +156,6 @@ function Header({ note, match }) {
 
 Header.propTypes = {
   note: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
 }
 
 Header.defaultProps = {}

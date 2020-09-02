@@ -84,13 +84,16 @@ function ProductCreateForm({
   const onEdit = (recordId) => {
     console.log(recordId)
   }
+  const initialValuesTopicHack = id
+    ? { ...initialValue, topic: initialValue.topic.id }
+    : initialValue
 
   return (
     <Formik
-      initialValues={initialValue}
+      initialValues={initialValuesTopicHack}
       validationSchema={Yup.object().shape({
         contents: Yup.array(),
-        topic: Yup.array().required(),
+        topic: Yup.string().required(),
         title: Yup.string().max(255).required(),
         description: Yup.string().required().max(1500),
         tags: Yup.array(),
@@ -161,14 +164,13 @@ function ProductCreateForm({
               lg={8}
             >
               <Card>
-                {/* <CardHeader title="Organize" /> */}
                 <Divider />
                 <CardContent>
                   <TextField
                     error={Boolean(touched.title && errors.title)}
                     fullWidth
                     helperText={touched.title && errors.title}
-                    label="Topic Title"
+                    label="Note Title"
                     name="title"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -183,7 +185,7 @@ function ProductCreateForm({
                       error={Boolean(touched.description && errors.description)}
                       fullWidth
                       helperText={touched.description && errors.description}
-                      label="Topic description"
+                      label="Note description"
                       name="description"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -226,37 +228,28 @@ function ProductCreateForm({
                         className={classes.formControl}
                         error={Boolean(touched.topic && errors.topic)}
                       >
-                        <InputLabel id="demo-mutiple-chip-label">Выберите тему</InputLabel>
+                        <InputLabel id="form-select-1">Выберите тему</InputLabel>
                         <Select
-                          labelId="demo-mutiple-chip-label"
+                          labelId="form-select-1"
                           name="topic"
-                          multiple
                           value={values.topic}
+                          displayEmpty
                           onChange={handleChange}
                           input={<Input id="select-multiple-chip" />}
-                          renderValue={(selected) => (
-                            <div className={classes.chips}>
-                              {selected.map((value) => (
-                                <Chip
-                                  key={value}
-                                  label={topics.find((el) => el.id === value).title}
-                                />
-                              ))}
-                            </div>
-                          )}
                         >
-                          {topics.map((name) => (
+                          {topics.map((topic) => (
                             <MenuItem
-                              key={name.id}
-                              value={name.id}
+                              key={topic.id}
+                              value={topic.id}
                             >
-                              {name.title}
+                              {topic.title}
                             </MenuItem>
                           ))}
                         </Select>
                         <FormHelperText>{touched.topic && errors.topic}</FormHelperText>
                       </FormControl>
-                    ) }
+                    )}
+
                   <Box
                     mt={3}
                     display="flex"

@@ -132,17 +132,6 @@ const routes = [
         path: `${NOTES_URL}/create`,
         component: lazy(() => import('src/views/notes/Create'))
       },
-      {
-        exact: true,
-        path: `${NOTES_URL}/:noteId`,
-        component: lazy(() => import('src/views/notes/Item'))
-      },
-      {
-        exact: true,
-        path: `${NOTES_URL}/:noteId/edit`,
-
-        component: lazy(() => import('src/views/notes/Create'))
-      },
       /**
        * TOPIC
        */
@@ -216,7 +205,7 @@ const routes = [
       {
         exact: true,
         path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/create`,
-        component: lazy(() => import('src/views/topics/Create'))
+        component: lazy(() => import('src/views/notes/Create'))
       },
       {
         exact: true,
@@ -226,7 +215,7 @@ const routes = [
       {
         exact: true,
         path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId/edit`,
-        component: lazy(() => import('src/views/topics/Create'))
+        component: lazy(() => import('src/views/notes/Create'))
       },
 
       {
@@ -259,7 +248,7 @@ const routes = [
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
-            component: lazy(() => import('src/views/public/noteItem'))
+            component: lazy(() => import('src/views/notes/Item'))
           },
           {
             component: () => <Redirect to="/404" />

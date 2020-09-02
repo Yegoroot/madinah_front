@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
+import { getMenuProgram } from 'src/slices/program'
 
 const initialState = {
   list: {
@@ -30,7 +31,6 @@ const slice = createSlice({
     getNoteItem(note, action) {
       const { data } = action.payload
       note.item.data = data
-      note.item.data.topic = note.item.data.topic.map((e) => e.id) // INFO multi select work with Array[String], but we get Array{Object}
       note.item.loading = false
     },
     deleteSeveralNotes(note, action) {
@@ -71,7 +71,8 @@ export const getNoteItem = ({ noteId }) => async (dispatch) => {
   }
 }
 
-export const getNoteItemRequest = ({ noteId }) => async (dispatch) => {
+export const getNoteItemRequest = ({ noteId, programId }) => async (dispatch) => {
+  dispatch(getMenuProgram(programId)) // set menu
   dispatch(slice.actions.getNoteItemRequest())
   dispatch(getNoteItem({ noteId }))
 }

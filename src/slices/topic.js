@@ -39,8 +39,8 @@ const slice = createSlice({
     },
     deleteSeveralTopics(topic, action) {
       const { ids } = action.payload
-      topic.list.data = topic.list.data.filter((topic) => {
-        const find = ids.find((id) => id === topic.id)
+      topic.list.data = topic.list.data.filter((_topic) => {
+        const find = ids.find((id) => id === _topic.id)
         return !find
       })
     },

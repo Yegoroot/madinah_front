@@ -20,53 +20,17 @@ import {
   makeStyles
 } from '@material-ui/core'
 import {
-  Image as ImageIcon,
   Edit as EditIcon,
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
-// import Label from 'src/components/Label'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { getNoteListRequest, deleteSeveralNotes, module } from 'src/slices/note'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
-import { NOTES_URL } from 'src/constants'
+import { PROGRAMS_URL } from 'src/constants'
 import Header from './Header'
-
-// function getInventoryLabel(inventoryType) {
-//   const getObj = (level) => {
-//     switch (level) {
-//       case 1:
-//         return {
-//           text: 'Первый Уровень',
-//           color: 'success'
-//         }
-//       case 2:
-//         return {
-//           text: 'Второй Уровень',
-//           color: 'success'
-//         }
-//       // eslint-disable-next-line no-sequences
-//       case 3, 4, 5, 6:
-//         return {
-//           text: 'Третий Уровень',
-//           color: 'warning'
-//         }
-//       default:
-//         return {
-//           text: 'Не определен',
-//           color: 'error'
-//         }
-//     }
-//   }
-//   const { text, color } = getObj(inventoryType)
-//   return (
-//     <Label color={color}>
-//       {text}
-//     </Label>
-//   )
-// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -133,7 +97,6 @@ function Results() {
     inStock: null,
     isShippable: null
   })
-  // const [sort, setSort] = useState(sortOptions[0].value)
 
   useEffect(() => {
     dispatch(getNoteListRequest({ page, limit }))
@@ -178,7 +141,7 @@ function Results() {
   return (
     <Page
       className={classes.root}
-      title="Notes List"
+      title="My Notes List"
     >
       <Container maxWidth={false}>
         <Header />
@@ -214,7 +177,6 @@ function Results() {
                           onChange={handleSelectAllNotes}
                         />
                       </TableCell>
-                      <TableCell />
                       <TableCell>
                         Title
                       </TableCell>
@@ -224,17 +186,14 @@ function Results() {
                       <TableCell>
                         User
                       </TableCell>
-                      {/* <TableCell>
-                        Level
-                      </TableCell> */}
                       <TableCell>
-                        Topics
+                        Program
+                      </TableCell>
+                      <TableCell>
+                        Topic
                       </TableCell>
                       <TableCell>
                         Create
-                      </TableCell>
-                      <TableCell>
-                        Update
                       </TableCell>
                       <TableCell align="right">
                         Actions
@@ -258,24 +217,6 @@ function Results() {
                               value={isNoteSelected}
                             />
                           </TableCell>
-                          <TableCell className={classes.imageCell}>
-                            {note.image ? (
-                              <img
-                                alt="Note"
-                                src={note.image}
-                                className={classes.image}
-                              />
-                            ) : (
-                              <Box
-                                p={2}
-                                bgcolor="background.dark"
-                              >
-                                <SvgIcon>
-                                  <ImageIcon />
-                                </SvgIcon>
-                              </Box>
-                            )}
-                          </TableCell>
                           <TableCell>
                             <Box
                               display="flex"
@@ -286,7 +227,7 @@ function Results() {
                                 color="textPrimary"
                                 component={RouterLink}
                                 underline="none"
-                                to={`${NOTES_URL}/${note.id}`}
+                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
                               >
                                 {note.title}
                               </Link>
@@ -300,26 +241,24 @@ function Results() {
                             <br />
                             {note.user.email}
                           </TableCell>
-                          {/* <TableCell>
-                            {getInventoryLabel(note.level)}
-                          </TableCell> */}
                           <TableCell>
-                            {note.topic.length > 0 ? `Topics: ${note.topic.map((item) => item.title)}` : 'Не определен'}
+                            {`${note.topic.program.title}`}
+                          </TableCell>
+                          <TableCell>
+                            {`${note.topic.title}`}
                           </TableCell>
                           <TableCell>
                             {moment(note.createdAt).format('DD.MM.YYYY')}
-                          </TableCell>
-                          <TableCell>
-                            {moment(note.updatedAt).format('DD.MM.YYYY')}
                           </TableCell>
                           <TableCell align="right">
                             <Box
                               display="flex"
                               alignItems="center"
+                              justifyContent="flex-end"
                             >
                               <IconButton
                                 component={RouterLink}
-                                to={`${NOTES_URL}/${note.id}/edit`}
+                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}/edit`}
                               >
                                 <SvgIcon fontSize="small">
                                   <EditIcon />
@@ -327,7 +266,7 @@ function Results() {
                               </IconButton>
                               <IconButton
                                 component={RouterLink}
-                                to={`${NOTES_URL}/${note.id}`}
+                                to={`${PROGRAMS_URL}/${note.topic.program.id}/topics/${note.topic.id}/notes/${note.id}`}
                               >
                                 <SvgIcon fontSize="small">
                                   <ArrowRightIcon />

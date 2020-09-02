@@ -43,7 +43,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          All Notes
+          My Notes
         </Typography>
       </Grid>
       <Grid item>

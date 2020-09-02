@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 function TopicCreateView({ match }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { noteId } = match.params
+  const { noteId, programId } = match.params
   const [initialValue] = useState({
     title: '',
     description: '',
     contents: [],
     tags: [],
     topic: [],
-    publish: false,
+    publish: true,
   })
 
   const topics = useSelector((state) => state[moduleTopic].list)
@@ -35,10 +35,10 @@ function TopicCreateView({ match }) {
 
   useEffect(() => {
     if (noteId) {
-      dispatch(getNoteItemRequest({ noteId }))
+      dispatch(getNoteItemRequest({ noteId, programId }))
     }
     dispatch(getTopicListRequest({ }))
-  }, [dispatch, noteId])
+  }, [dispatch, noteId, programId])
 
   if (note.loading || (noteId && !note.data)) {
     return <LoadingScreen />

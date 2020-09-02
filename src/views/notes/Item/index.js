@@ -1,18 +1,16 @@
-import React, {
-  useCallback,
-  useState,
-  useEffect
-} from 'react'
+import React, { useEffect } from 'react'
 import {
   Box,
   Container,
+  CardContent,
+  Card,
   makeStyles
 } from '@material-ui/core'
-import useIsMountedRef from 'src/hooks/useIsMountedRef'
+import { useSelector, useDispatch } from 'src/store'
+import { getNoteItemRequest, module } from 'src/slices/note'
+import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
-import { API_BASE_URL } from 'src/constants'
-import { instanceAxios } from 'src/utils/axios'
-import Header from './Header.js'
+import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,41 +24,42 @@ const useStyles = makeStyles((theme) => ({
 
 function NoteDetailsView({ match }) {
   const classes = useStyles()
-  const isMountedRef = useIsMountedRef()
-  const [note, setNote] = useState(null)
-  const { noteId } = match.params
-
-  const getNote = useCallback(() => {
-    instanceAxios
-      .get(`${API_BASE_URL}/notes/${noteId}`)
-      .then((response) => {
-        if (isMountedRef.current) {
-          setNote(response.data.data)
-        }
-      })
-  }, [isMountedRef, noteId])
+  const dispatch = useDispatch()
+  const { loading, data } = useSelector((state) => state[module].item)
+  const { noteId, programId } = match.params
 
   useEffect(() => {
-    getNote()
-  }, [getNote])
+    dispatch(getNoteItemRequest({ noteId, programId }))
+  }, [dispatch, noteId, programId])
 
-  if (!note) {
-    return null
+  if (loading === 'reload') {
+    return (
+      <Card
+        onClick={() => dispatch(getNoteItemRequest({ noteId, programId, reload: true }))}
+      >
+        <CardContent>Перезагрузить</CardContent>
+      </Card>
+    )
   }
+
+  if (loading || !data) {
+    return <LoadingScreen />
+  }
+
+  console.log(data)
 
   return (
     <Page
       className={classes.root}
-      title={note.title}
+      title={data.title}
     >
       <Container maxWidth="lg">
         <Header
-          note={note}
-          match={match}
+          note={data}
         />
         <Box mt={3}>
 
-          {note.contents.map((content) => (
+          {data.contents.map((content) => (
             // FIXME тут только выводит пока ткустовый вариант
             <div
               key={content.id}
