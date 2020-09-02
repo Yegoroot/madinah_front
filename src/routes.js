@@ -158,21 +158,13 @@ const routes = [
 
       /**
        * PROGRAM
+       * Create, Edit
        */
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}`,
-        component: lazy(() => import('src/views/programs/List'))
-      },
+
       {
         exact: true,
         path: `${PROGRAMS_URL}/create`,
         component: lazy(() => import('src/views/programs/Create'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId`,
-        component: lazy(() => import('src/views/programs/Item'))
       },
       {
         exact: true,
@@ -238,7 +230,7 @@ const routes = [
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId`,
-            component: lazy(() => import('src/views/public/programItem'))
+            component: lazy(() => import('src/views/programs/Item'))
           },
           {
             exact: true,
