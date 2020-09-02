@@ -9,18 +9,16 @@ import {
   Card,
   CardMedia,
   Divider,
-  Grid,
   IconButton,
   Link,
   SvgIcon,
   Typography,
-  // colors,
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { Trash as TrashIcon, Edit as EditIcon } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
-import { PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
 import { deleteProgram } from 'src/slices/program'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
@@ -42,7 +40,7 @@ function ProgramCard({ program, className, ...rest }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const { user } = useAuth()
-  const { role } = user
+  const role = user ? user.role : null
   const handleDelete = () => {
     if (window.confirm('delete program and all content inside?')) {
       dispatch(deleteProgram({ id: program.id }))
@@ -60,7 +58,7 @@ function ProgramCard({ program, className, ...rest }) {
       <Link
         color="textPrimary"
         component={RouterLink}
-        to={`${PROGRAMS_URL}/${program.id}`}
+        to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
         variant="h5"
       >
         <CardMedia
@@ -75,7 +73,7 @@ function ProgramCard({ program, className, ...rest }) {
         <Link
           color="textPrimary"
           component={RouterLink}
-          to={`${PROGRAMS_URL}/${program.id}`}
+          to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
           variant="h3"
         >
           {program.title}
@@ -122,36 +120,14 @@ function ProgramCard({ program, className, ...rest }) {
                 {program.user.name}
               </Link>
               {' '}
-              | Updated
+              | Created
               {' '}
-              {moment(program.updatedAt).fromNow()}
+              {moment(program.createdAt).fromNow()}
             </Typography>
           </Box>
         </Box>
       </Box>
-      <Box
-        py={2}
-        px={3}
-      >
-        <Grid
-          alignItems="center"
-          container
-          justify="space-between"
-          spacing={3}
-        >
 
-          <Grid item>
-
-            <Typography
-              variant="body2"
-              color={program.publish ? 'secondary' : 'inherit'}
-            >
-              {program.publish ? 'Publish' : 'Unpublish'}
-            </Typography>
-
-          </Grid>
-        </Grid>
-      </Box>
       { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
         : (
           <>

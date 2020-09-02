@@ -230,7 +230,7 @@ const routes = [
       {
         exact: true,
         path: `${PUBLIC_PROGRAMS_URL}`,
-        component: lazy(() => import('src/views/public/programList'))
+        component: lazy(() => import('src/views/programs/List'))
       },
       {
         layout: ProgramLayout,

@@ -114,6 +114,7 @@ function Results({ className, programs, ...rest }) {
           <Grid
             item
             key={program.id}
+            lg={mode === 'grid' ? 3 : 12}
             md={mode === 'grid' ? 4 : 12}
             sm={mode === 'grid' ? 6 : 12}
             xs={12}
