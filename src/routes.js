@@ -17,7 +17,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
 import {
-  PROGRAMS_URL, PUBLIC_PROGRAMS_URL, TOPICS_URL, NOTES_URL
+  PROGRAMS_URL, PUBLIC_PROGRAMS_URL, TOPICS_URL
 } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
@@ -82,6 +82,9 @@ const routes = [
     path: '/register-unprotected',
     component: lazy(() => import('src/views/auth/RegisterView'))
   },
+  /**
+   * PRIVATE ROUTES
+   */
   {
     path: '/app',
     guard: AuthGuard,
@@ -94,7 +97,7 @@ const routes = [
       {
         exact: true,
         path: '/app',
-        component: () => <Redirect to={`${PROGRAMS_URL}`} />
+        component: () => <Redirect to="/app/programs" />
       },
       {
         exact: true,
@@ -120,94 +123,66 @@ const routes = [
         component: lazy(() => import('src/views/users/Create'))
       },
       /**
-     * NOTE
+     * List Notes
+     * Create Note
+     * Edit Note
      */
       {
         exact: true,
-        path: `${NOTES_URL}`,
+        path: '/app/notes',
         component: lazy(() => import('src/views/notes/List'))
       },
       {
         exact: true,
-        path: `${NOTES_URL}/create`,
+        path: '/app/notes/create',
+        component: lazy(() => import('src/views/notes/Create'))
+      },
+      {
+        exact: true,
+        path: '/app/notes/:noteId/edit',
         component: lazy(() => import('src/views/notes/Create'))
       },
       /**
-       * TOPIC
+       * List Topics
+       * Create Topic
+       * Edit Topic
        */
       {
         exact: true,
-        path: `${TOPICS_URL}`,
+        path: '/app/topics',
         component: lazy(() => import('src/views/topics/List'))
       },
       {
         exact: true,
-        path: `${TOPICS_URL}/create`,
+        path: '/app/topics/create',
         component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
-        path: `${TOPICS_URL}/:topicId`,
-        component: lazy(() => import('src/views/topics/Item'))
-      },
-      {
-        exact: true,
-        path: `${TOPICS_URL}/:topicId/edit`,
+        path: '/app/topics/:topicId/edit',
         component: lazy(() => import('src/views/topics/Create'))
       },
 
       /**
-       * PROGRAM
-       * Create, Edit
+       * List Programs
+       * Create Program
+       * Edit Program
        */
 
       {
         exact: true,
-        path: `${PROGRAMS_URL}/create`,
+        path: '/app/programs',
+        component: lazy(() => import('src/views/programs/PrivateList'))
+      },
+      {
+        exact: true,
+        path: '/app/programs/create',
         component: lazy(() => import('src/views/programs/Create'))
       },
       {
         exact: true,
-        path: `${PROGRAMS_URL}/:programId/edit`,
+        path: '/app/programs/:programId/edit',
         component: lazy(() => import('src/views/programs/Create'))
-      },
-
-      /**
-       * PROGRAM TOPICS
-       */
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/create`,
-        component: lazy(() => import('src/views/topics/Create'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId`,
-        component: lazy(() => import('src/views/topics/Item'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId/edit`,
-        component: lazy(() => import('src/views/topics/Create'))
-      },
-
-      /**
-       * PROGRAM TOPIC NOTE
-       */
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/create`,
-        component: lazy(() => import('src/views/notes/Create'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
-        component: lazy(() => import('src/views/notes/Item'))
-      },
-      {
-        exact: true,
-        path: `${PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId/edit`,
-        component: lazy(() => import('src/views/notes/Create'))
       },
 
       {
@@ -215,6 +190,14 @@ const routes = [
       },
     ]
   },
+  /**
+   * PUBLIC ROUTES
+   *
+   * Program List
+   * Program Item
+   * Topic Item
+   * Note Item
+   */
   {
     path: `${PUBLIC_PROGRAMS_URL}`,
     layout: ProgramListLayout,
@@ -253,30 +236,6 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: '/docs',
-  //   layout: DocsLayout,
-  //   routes: [
-  //     {
-  //       exact: true,
-  //       path: '/docs',
-  //       component: () => <Redirect to="/docs/welcome" />
-  //     },
-  //     {
-  //       exact: true,
-  //       path: '/docs/welcome',
-  //       component: lazy(() => import('src/views/docs/WelcomeView'))
-  //     },
-  //     {
-  //       exact: true,
-  //       path: '/docs/getting-started',
-  //       component: lazy(() => import('src/views/docs/GettingStartedView'))
-  //     },
-  //     {
-  //       component: () => <Redirect to="/404" />
-  //     }
-  //   ]
-  // },
   {
     path: '*',
     layout: MainLayout,
