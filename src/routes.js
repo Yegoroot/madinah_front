@@ -235,7 +235,7 @@ const routes = [
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId`,
-            component: lazy(() => import('src/views/public/topicItem'))
+            component: lazy(() => import('src/views/topics/Item'))
           },
           {
             exact: true,

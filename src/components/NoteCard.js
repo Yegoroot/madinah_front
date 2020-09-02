@@ -18,7 +18,7 @@ import {
   Trash as TrashIcon,
   Edit as EditIcon,
 } from 'react-feather'
-import { PROGRAMS_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import { deleteSeveralNotes } from 'src/slices/note'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
@@ -45,7 +45,7 @@ function NoteCard({
   const dispatch = useDispatch()
   const classes = useStyles()
   const { user } = useAuth()
-  const { role } = user
+  const role = user ? user.role : null
 
   const handleDelete = () => {
     // eslint-disable-next-line no-restricted-globals
@@ -66,7 +66,7 @@ function NoteCard({
         <Link
           color="textPrimary"
           component={RouterLink}
-          to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/notes/${note.id}`}
+          to={`${PUBLIC_PROGRAMS_URL}/${programId}/topics/${topic.id}/notes/${note.id}`}
           variant="h2"
         >
           {note.title}
@@ -115,7 +115,7 @@ function NoteCard({
         </Box>
       </Box>
 
-      { !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
+      { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
         : (
           <>
             <Box

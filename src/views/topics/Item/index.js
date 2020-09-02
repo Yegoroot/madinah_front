@@ -42,18 +42,18 @@ const useStyles = makeStyles((theme) =>
 
 function TopicDetailsView({ match }) {
   const classes = useStyles()
-  const { topicId } = match.params
+  const { topicId, programId } = match.params
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
 
   useEffect(() => {
-    dispatch(getTopicItemRequest({ topicId }))
+    dispatch(getTopicItemRequest({ topicId, programId }))
   }, [dispatch, topicId])
 
   if (loading === 'reload') {
     return (
       <Card
-        onClick={() => dispatch(getTopicItemRequest({ topicId, reload: true }))}
+        onClick={() => dispatch(getTopicItemRequest({ topicId, programId, reload: true }))}
       >
         <CardContent>Перезагрузить</CardContent>
       </Card>
