@@ -7,6 +7,7 @@ import {
   Box,
   Hidden,
   IconButton,
+  Button,
   Toolbar,
   makeStyles,
   SvgIcon
@@ -68,6 +69,15 @@ const TopBar = ({
           ml={2}
           flexGrow={1}
         />
+        <Button
+          color="secondary"
+          component={RouterLink}
+          to="/programs"
+          variant="contained"
+          size="small"
+        >
+          Go To Programs
+        </Button>
         {/* <Search /> */}
         <Settings />
         <Box ml={2}>

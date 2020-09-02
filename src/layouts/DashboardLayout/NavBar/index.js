@@ -1,9 +1,8 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, matchPath, Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   // Avatar,
   Box,
@@ -21,10 +20,7 @@ import {
 import i18n from 'i18next'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
-import { matchPathProgram } from 'src/utils/urls'
-import { resetTopicsProgram } from 'src/slices/program'
 import NavItem from './NavItem'
-import { generateTopicsMenu } from './topicsMenu'
 import { defineSectionsByRole } from './mainMenuByRole'
 
 function renderNavItems({
@@ -121,28 +117,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const { user } = useAuth()
 
   const sections = defineSectionsByRole({ role: user.role })
-  const [menuList, setMenuList] = useState(sections)
-  const { loading, topics } = useSelector((state) => state.program.item)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose()
     }
 
-    /**
-     * If needed urls show subtopics
-     */
-    if (matchPathProgram(`${location.pathname}`)) {
-      setMenuList(generateTopicsMenu(topics, loading))
-    } else {
-      if (topics.length) {
-        dispatch(resetTopicsProgram())
-      }
-      setMenuList(sections)
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, location.pathname, topics, loading])
+  }, [location.pathname,])
 
   const content = (
     <Box
@@ -155,51 +137,15 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           <Box
             p={2}
             display="flex"
-            // justifyContent="center"
           >
             <RouterLink to="/">
               <Logo />
             </RouterLink>
           </Box>
         </Hidden>
-        {/* <Box p={2}>
-          <Box
-            display="flex"
-            justifyContent="center"
-          >
-            <RouterLink to="/app/account">
-              <Avatar
-                alt="User"
-                className={classes.avatar}
-                src={user.avatar}
-              />
-            </RouterLink>
-          </Box>
-          <Box
-            mt={2}
-            textAlign="center"
-          >
-            <Link
-              component={RouterLink}
-              to="/app/account"
-              variant="h5"
-              color="textPrimary"
-              underline="none"
-            >
-              {user.name}
-            </Link>
-          </Box>
-        </Box>
-        <Divider />
-        */}
-        {loading && loading !== 'reload' ? (
-          <Box className={classes.progress}>
-            <LinearProgress />
-          </Box>
-        ) : null }
 
         <Box p={2}>
-          {menuList.map((section) => (
+          {sections.map((section) => (
             <List
               key={section.subheader}
               subheader={(

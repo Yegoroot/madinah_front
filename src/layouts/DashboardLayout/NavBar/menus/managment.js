@@ -1,8 +1,10 @@
 import {
-  Users, UserPlus, Layers, Plus, Paperclip
+  Users, UserPlus, Layers, Plus, Paperclip,
+  Folder, FolderPlus,
 } from 'react-feather'
+
 import {
-  USERS_URL, TOPICS_URL, NOTES_URL,
+  USERS_URL, TOPICS_URL, NOTES_URL, PROGRAMS_URL
 } from 'src/constants'
 // eslint-disable-next-line camelcase
 import { perm_work_with_users } from 'src/utils/permissions'
@@ -34,7 +36,23 @@ export const defineManagment = (role) => {
     {
       subheader: 'Managment',
       items: [
-        ...accessToUser,
+        {
+          title: 'Programs',
+          href: '#',
+          icon: Folder,
+          items: [
+            {
+              title: 'List Program',
+              href: `${PROGRAMS_URL}`,
+              icon: Folder
+            },
+            {
+              title: 'Create',
+              href: `${PROGRAMS_URL}/create`,
+              icon: FolderPlus,
+            },
+          ]
+        },
         {
           title: 'Topics',
           href: '#',
@@ -69,6 +87,7 @@ export const defineManagment = (role) => {
             },
           ]
         },
+        ...accessToUser,
       ]
     },
   ]
