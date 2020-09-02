@@ -41,7 +41,7 @@ const ProfileView = ({ match }) => {
   }
 
   useEffect(() => {
-    dispatch(getProgramItemRequest({ id: programId }))
+    dispatch(getProgramItemRequest({ programId }))
   }, [dispatch, programId])
 
   if (loading === 'reload') {

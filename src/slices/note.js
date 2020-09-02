@@ -60,9 +60,9 @@ export const { reducer } = slice
  *
  * note
  */
-export const getNoteItem = ({ id }) => async (dispatch) => {
+export const getNoteItem = ({ noteId }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/notes/${id}`)
+    const response = await axios.get(`${API_BASE_URL}/notes/${noteId}`)
     const { data } = response.data
     dispatch(slice.actions.getNoteItem({ data }))
   } catch (error) {
@@ -71,9 +71,9 @@ export const getNoteItem = ({ id }) => async (dispatch) => {
   }
 }
 
-export const getNoteItemRequest = ({ id }) => async (dispatch) => {
+export const getNoteItemRequest = ({ noteId }) => async (dispatch) => {
   dispatch(slice.actions.getNoteItemRequest())
-  dispatch(getNoteItem({ id }))
+  dispatch(getNoteItem({ noteId }))
 }
 
 export const deleteSeveralNotes = ({ ids }) => async (dispatch) => {

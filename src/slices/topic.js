@@ -80,7 +80,7 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
 
 export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch) => {
   if (reload) await wait(1000)
-  dispatch(getProgramItemRequest({ id: programId }))
+  // dispatch(getProgramItemRequest({ programId }))
   dispatch(slice.actions.getTopicItemRequest())
   dispatch(getTopicItem({ topicId }))
 }

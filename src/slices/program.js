@@ -69,10 +69,10 @@ export const { reducer } = slice
  *
  * Program
  */
-export const getProgramItem = ({ id }) => async (dispatch) => {
+export const getProgramItem = ({ programId }) => async (dispatch) => {
   try {
-    const programResponse = await axios.get(`${API_BASE_URL}/programs/${id}`)
-    const topicsResponse = await axios.get(`${API_BASE_URL}/programs/${id}/topics`)
+    const programResponse = await axios.get(`${API_BASE_URL}/programs/${programId}`)
+    const topicsResponse = await axios.get(`${API_BASE_URL}/programs/${programId}/topics`)
     dispatch(slice.actions.getProgramItem({
       programData: programResponse.data.data,
       topicsData: topicsResponse.data.data
@@ -82,15 +82,15 @@ export const getProgramItem = ({ id }) => async (dispatch) => {
   }
 }
 
-export const getProgramItemRequest = ({ id }) => async (dispatch) => {
+export const getProgramItemRequest = ({ programId }) => async (dispatch) => {
   dispatch(slice.actions.getProgramItemRequest())
-  dispatch(getProgramItem({ id }))
+  dispatch(getProgramItem({ programId }))
 }
 
-export const deleteProgram = ({ id }) => async (dispatch) => {
+export const deleteProgram = ({ programId }) => async (dispatch) => {
   try {
-    await axios.delete(`${API_BASE_URL}/programs/${id}`)
-    dispatch(slice.actions.deleteProgram({ id }))
+    await axios.delete(`${API_BASE_URL}/programs/${programId}`)
+    dispatch(slice.actions.deleteProgram({ programId }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
   }

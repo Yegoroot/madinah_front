@@ -35,7 +35,7 @@ function TopicCreateView({ match }) {
 
   useEffect(() => {
     if (noteId) {
-      dispatch(getNoteItemRequest({ id: noteId }))
+      dispatch(getNoteItemRequest({ noteId }))
     }
     dispatch(getTopicListRequest({ }))
   }, [dispatch, noteId])

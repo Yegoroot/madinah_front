@@ -1,5 +1,5 @@
 import { matchPath } from 'react-router'
-import { PROGRAMS_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 export const matchPathProgram = (path) => {
   // const match = matchPath(`${path}`, { path: '/app/programs/:id', exact: true, strict: false })
@@ -11,7 +11,7 @@ export const matchPathProgram = (path) => {
 }
 
 export const matchPathProgramNotAuth = (path) => {
-  const match = matchPath(`${path}`, { path: '/programs/:id' })
+  const match = matchPath(`${path}`, { path: `${PUBLIC_PROGRAMS_URL}/:id` })
 
   return !!match
 }

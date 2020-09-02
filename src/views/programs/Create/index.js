@@ -31,7 +31,7 @@ function ProgramCreateView({ match }) {
 
   useEffect(() => {
     if (programId) {
-      dispatch(getProgramItemRequest({ id: programId }))
+      dispatch(getProgramItemRequest({ programId }))
     }
   }, [programId, dispatch])
 
