@@ -6,7 +6,6 @@ import React, {
 import {
   Box,
   Container,
-  Divider,
   Typography,
   makeStyles
 } from '@material-ui/core'
@@ -28,16 +27,17 @@ function UserDetailsView({ match }) {
   const classes = useStyles()
   const isMountedRef = useIsMountedRef()
   const [user, setUser] = useState(null)
+  const { userId } = match.params
 
   const getUser = useCallback(() => {
     instanceAxios
-      .get(`${API_BASE_URL}/users/${match.params.userId}`)
+      .get(`${API_BASE_URL}/users/${userId}`)
       .then((response) => {
         if (isMountedRef.current) {
           setUser(response.data.data)
         }
       })
-  }, [isMountedRef])
+  }, [isMountedRef, userId])
 
   useEffect(() => {
     getUser()

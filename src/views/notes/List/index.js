@@ -29,7 +29,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import { getNoteListRequest, deleteSeveralNotes, module } from 'src/slices/note'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
-import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({

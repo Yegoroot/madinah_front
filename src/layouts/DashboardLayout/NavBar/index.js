@@ -10,7 +10,6 @@ import {
   Drawer,
   Hidden,
   Link,
-  LinearProgress,
   List,
   ListSubheader,
   Typography,
@@ -124,7 +123,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname,])
+  }, [location.pathname, ])
 
   const content = (
     <Box
