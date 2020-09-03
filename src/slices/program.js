@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
+import { theSameDocument } from 'src/utils/slice'
 
 // import { enqueueSnackbar } from 'src/logic/notification'
 
@@ -82,7 +83,13 @@ export const getProgramItem = ({ programId }) => async (dispatch) => {
   }
 }
 
-export const getProgramItemRequest = ({ programId }) => async (dispatch) => {
+export const getProgramItemRequest = ({ programId }) => async (dispatch, getState) => {
+  if (
+    theSameDocument({ documentId: programId, getState, module })
+  ) {
+    return false
+  }
+
   dispatch(slice.actions.getProgramItemRequest())
   dispatch(getProgramItem({ programId }))
 }

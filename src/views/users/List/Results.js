@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Results({ className, ...rest }) {
   const classes = useStyles()
-  const [selectedCustomers, setSelectedCustomers] = useState([])
+  const [selectedUsers, setSelectedUsers] = useState([])
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
 
@@ -75,23 +75,23 @@ function Results({ className, ...rest }) {
  * --------------
  */
   const isMountedRef = useIsMountedRef()
-  const [customers, setCustomers] = useState([])
+  const [users, setUsers] = useState([])
 
-  const getCustomers = useCallback(() => {
+  const getUsers = useCallback(() => {
     instanceAxios
       .get(`${API_BASE_URL}/users`)
       .then((response) => {
         if (isMountedRef.current) {
-          setCustomers(response.data.data)
+          setUsers(response.data.data)
         }
       })
   }, [isMountedRef])
 
   useEffect(() => {
-    getCustomers()
-  }, [getCustomers])
+    getUsers()
+  }, [getUsers])
 
-  // if (!customers.length) {
+  // if (!users.length) {
   //   // return <LoadingScreen />
   // }
   /**
@@ -101,17 +101,17 @@ function Results({ className, ...rest }) {
 * -------------------
 */
 
-  const handleSelectAllCustomers = (event) => {
-    setSelectedCustomers(event.target.checked
-      ? customers.map((customer) => customer._id)
+  const handleSelectAllUsers = (event) => {
+    setSelectedUsers(event.target.checked
+      ? users.map((user) => user._id)
       : [])
   }
 
-  const handleSelectOneCustomer = (event, customerId) => {
-    if (!selectedCustomers.includes(customerId)) {
-      setSelectedCustomers((prevSelected) => [...prevSelected, customerId])
+  const handleSelectOneUser = (event, userId) => {
+    if (!selectedUsers.includes(userId)) {
+      setSelectedUsers((prevSelected) => [...prevSelected, userId])
     } else {
-      setSelectedCustomers((prevSelected) => prevSelected.filter((id) => id !== customerId))
+      setSelectedUsers((prevSelected) => prevSelected.filter((id) => id !== userId))
     }
   }
 
@@ -123,10 +123,10 @@ function Results({ className, ...rest }) {
     setLimit(event.target.value)
   }
 
-  const paginatedCustomers = customers
-  const enableBulkOperations = selectedCustomers.length > 0
-  const selectedSomeCustomers = selectedCustomers.length > 0 && selectedCustomers.length < customers.length
-  const selectedAllCustomers = selectedCustomers.length === customers.length
+  const paginatedUsers = users
+  const enableBulkOperations = selectedUsers.length > 0
+  const selectedSomeUsers = selectedUsers.length > 0 && selectedUsers.length < users.length
+  const selectedAllUsers = selectedUsers.length === users.length
 
   return (
     <Card
@@ -138,9 +138,9 @@ function Results({ className, ...rest }) {
         <div className={classes.bulkOperations}>
           <div className={classes.bulkActions}>
             <Checkbox
-              checked={selectedAllCustomers}
-              indeterminate={selectedSomeCustomers}
-              onChange={handleSelectAllCustomers}
+              checked={selectedAllUsers}
+              indeterminate={selectedSomeUsers}
+              onChange={handleSelectAllUsers}
             />
             <Button
               variant="outlined"
@@ -164,9 +164,9 @@ function Results({ className, ...rest }) {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedAllCustomers}
-                    indeterminate={selectedSomeCustomers}
-                    onChange={handleSelectAllCustomers}
+                    checked={selectedAllUsers}
+                    indeterminate={selectedSomeUsers}
+                    onChange={handleSelectAllUsers}
                   />
                 </TableCell>
                 <TableCell>
@@ -184,20 +184,20 @@ function Results({ className, ...rest }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {paginatedCustomers.map((customer) => {
-                const isCustomerSelected = selectedCustomers.includes(customer._id)
+              {paginatedUsers.map((user) => {
+                const isUserSelected = selectedUsers.includes(user._id)
 
                 return (
                   <TableRow
                     hover
-                    key={customer._id}
-                    selected={isCustomerSelected}
+                    key={user._id}
+                    selected={isUserSelected}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
-                        checked={isCustomerSelected}
-                        onChange={(event) => handleSelectOneCustomer(event, customer._id)}
-                        value={isCustomerSelected}
+                        checked={isUserSelected}
+                        onChange={(event) => handleSelectOneUser(event, user._id)}
+                        value={isUserSelected}
                       />
                     </TableCell>
                     <TableCell>
@@ -207,39 +207,39 @@ function Results({ className, ...rest }) {
                       >
                         <Avatar
                           className={classes.avatar}
-                          src={customer.avatar}
+                          src={user.avatar}
                         >
-                          {getInitials(customer.name)}
+                          {getInitials(user.name)}
                         </Avatar>
                         <div>
                           <Link
                             color="inherit"
                             component={RouterLink}
-                            to="/app/management/customers/1"
+                            to={`/app/users/${user._id}`}
                             variant="h6"
                           >
-                            {customer.name}
+                            {user.name}
                           </Link>
                           <Typography
                             variant="body2"
                             color="textSecondary"
                           >
-                            {customer.email}
+                            {user.email}
                           </Typography>
                         </div>
                       </Box>
                     </TableCell>
                     <TableCell>
-                      {customer.role}
+                      {user.role}
                     </TableCell>
                     <TableCell>
-                      {customer._id}
+                      {user._id}
                     </TableCell>
 
                     <TableCell align="right">
                       <IconButton
                         component={RouterLink}
-                        to="/app/management/customers/1/edit"
+                        to={`/app/users/${user._id}/edit`}
                       >
                         <SvgIcon fontSize="small">
                           <EditIcon />
@@ -247,7 +247,7 @@ function Results({ className, ...rest }) {
                       </IconButton>
                       <IconButton
                         component={RouterLink}
-                        to="/app/management/customers/1"
+                        to={`/app/users/${user._id}`}
                       >
                         <SvgIcon fontSize="small">
                           <ArrowRightIcon />
@@ -263,7 +263,7 @@ function Results({ className, ...rest }) {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={users.length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleLimitChange}
         page={page}
@@ -276,11 +276,11 @@ function Results({ className, ...rest }) {
 
 Results.propTypes = {
   className: PropTypes.string,
-  customers: PropTypes.array
+  users: PropTypes.array
 }
 
 Results.defaultProps = {
-  customers: []
+  users: []
 }
 
 export default Results

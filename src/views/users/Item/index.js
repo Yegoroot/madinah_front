@@ -7,17 +7,13 @@ import {
   Box,
   Container,
   Divider,
-  Tab,
-  Tabs,
+  Typography,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
-import axios from 'src/utils/axios'
+import { instanceAxios } from 'src/utils/axios'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
-import Header from './Header'
-import Details from './Details'
-import Invoices from './Invoices'
-import Logs from './Logs'
+import { API_BASE_URL } from 'src/constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,73 +24,50 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function CustomerDetailsView() {
+function UserDetailsView({ match }) {
   const classes = useStyles()
   const isMountedRef = useIsMountedRef()
-  const [customer, setCustomer] = useState(null)
-  const [currentTab, setCurrentTab] = useState('details')
-  const tabs = [
-    { value: 'details', label: 'Details' },
-    { value: 'invoices', label: 'Invoices' },
-    { value: 'logs', label: 'Logs' }
-  ]
+  const [user, setUser] = useState(null)
 
-  const handleTabsChange = (event, value) => {
-    setCurrentTab(value)
-  }
-
-  const getCustomer = useCallback(() => {
-    axios
-      .get('/api/management/customers/1')
+  const getUser = useCallback(() => {
+    instanceAxios
+      .get(`${API_BASE_URL}/users/${match.params.userId}`)
       .then((response) => {
         if (isMountedRef.current) {
-          setCustomer(response.data.customer)
+          setUser(response.data.data)
         }
       })
   }, [isMountedRef])
 
   useEffect(() => {
-    getCustomer()
-  }, [getCustomer])
+    getUser()
+  }, [getUser])
 
-  if (!customer) {
+  if (!user) {
     return null
   }
 
   return (
     <Page
       className={classes.root}
-      title="Customer Details"
+      title="User Details"
     >
       <Container maxWidth={false}>
-        <Header customer={customer} />
+
         <Box mt={3}>
-          <Tabs
-            onChange={handleTabsChange}
-            scrollButtons="auto"
-            value={currentTab}
-            variant="scrollable"
-            textColor="secondary"
-            className={classes.tabs}
-          >
-            {tabs.map((tab) => (
-              <Tab
-                key={tab.value}
-                label={tab.label}
-                value={tab.value}
-              />
-            ))}
-          </Tabs>
-        </Box>
-        <Divider />
-        <Box mt={3}>
-          {currentTab === 'details' && <Details customer={customer} />}
-          {currentTab === 'invoices' && <Invoices />}
-          {currentTab === 'logs' && <Logs />}
+          <Typography color="primary">
+            {user.name}
+            {' '}
+            -
+            {user.email}
+            {' '}
+            -
+            {user.role}
+          </Typography>
         </Box>
       </Container>
     </Page>
   )
 }
 
-export default CustomerDetailsView
+export default UserDetailsView

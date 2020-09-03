@@ -76,7 +76,7 @@ const TopBar = ({
           variant="contained"
           size="small"
         >
-          Go To Programs
+          Programs
         </Button>
         {/* <Search /> */}
         <Settings />

@@ -16,6 +16,8 @@ import HomeView from 'src/views/home/HomeView'
 import LoadingScreen from 'src/components/LoadingScreen'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
+import UserGuard from 'src/components/UserGuard'
+import ProgramGuard from 'src/components/ProgramGuard'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
@@ -66,18 +68,8 @@ const routes = [
   },
   {
     exact: true,
-    path: '/login-unprotected',
-    component: lazy(() => import('src/views/auth/LoginView'))
-  },
-  {
-    exact: true,
     guard: GuestGuard,
     path: '/register',
-    component: lazy(() => import('src/views/auth/RegisterView'))
-  },
-  {
-    exact: true,
-    path: '/register-unprotected',
     component: lazy(() => import('src/views/auth/RegisterView'))
   },
   /**
@@ -107,36 +99,48 @@ const routes = [
        */
       {
         exact: true,
+        guard: UserGuard,
         path: '/app/users',
         component: lazy(() => import('src/views/users/List'))
       },
       {
         exact: true,
+        guard: UserGuard,
+        path: '/app/users/create',
+        component: lazy(() => import('src/views/users/Create'))
+      },
+      {
+        exact: true,
+        guard: UserGuard,
         path: '/app/users/:userId',
         component: lazy(() => import('src/views/users/Item'))
       },
       {
         exact: true,
+        guard: UserGuard,
         path: '/app/users/:userId/edit',
         component: lazy(() => import('src/views/users/Create'))
       },
       /**
-     * List Notes
+       * List Notes
      * Create Note
      * Edit Note
      */
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/notes',
         component: lazy(() => import('src/views/notes/List'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/notes/create',
         component: lazy(() => import('src/views/notes/Create'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/notes/:noteId/edit',
         component: lazy(() => import('src/views/notes/Create'))
       },
@@ -147,16 +151,19 @@ const routes = [
        */
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/topics',
         component: lazy(() => import('src/views/topics/List'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/topics/create',
         component: lazy(() => import('src/views/topics/Create'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/topics/:topicId/edit',
         component: lazy(() => import('src/views/topics/Create'))
       },
@@ -169,16 +176,19 @@ const routes = [
 
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/programs',
         component: lazy(() => import('src/views/programs/List'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/programs/create',
         component: lazy(() => import('src/views/programs/Create'))
       },
       {
         exact: true,
+        guard: ProgramGuard,
         path: '/app/programs/:programId/edit',
         component: lazy(() => import('src/views/programs/Create'))
       },

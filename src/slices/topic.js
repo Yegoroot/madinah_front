@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import wait from 'src/utils/wait'
+import { theSameDocument } from 'src/utils/slice'
 import { getMenuProgram } from './program'
 
 const initialState = {
@@ -80,6 +81,12 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
 
 export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch, getState) => {
   if (reload) await wait(1000)
+
+  if (
+    theSameDocument({ documentId: topicId, getState, module })
+  ) {
+    return false
+  }
 
   dispatch(getMenuProgram(programId)) // set menu
 
