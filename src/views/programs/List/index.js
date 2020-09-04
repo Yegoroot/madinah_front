@@ -7,9 +7,7 @@ import Label from 'src/components/Label'
 import {
   // Avatar,
   Box,
-  Button,
   Card,
-  Checkbox,
   IconButton,
   Link,
   SvgIcon,
@@ -19,20 +17,20 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   Container,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
-// import getInitials from 'src/utils/getInitials'
+
 import {
   // Image as ImageIcon,
+  Trash as DeleteIcon,
   Edit as EditIcon,
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProgramListRequest, module } from 'src/slices/program'
+import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import moment from 'moment'
 import Header from './Header'
@@ -79,8 +77,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Results() {
   const classes = useStyles()
-  // const [currentTab, setCurrentTab] = useState('all')
-  const [selectedPrograms, setSelectedPrograms] = useState([])
+
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
 
@@ -92,7 +89,8 @@ function Results() {
   })
 
   const dispatch = useDispatch()
-  const { loading, data, total } = useSelector((state) => state[module].list)
+  const { loading, data, } = useSelector((state) => state[module].list)
+  let { total } = useSelector((state) => state[module].list)
 
   useEffect(() => {
     const params = {
@@ -101,8 +99,11 @@ function Results() {
     dispatch(getProgramListRequest({ params }))
   }, [dispatch, page, limit, filters])
 
-  const onDelete = () => {
-    // dispatch(deleteSeveralPrograms({ ids: selectedPrograms }))
+  const onDelete = (programId) => {
+    if (window.confirm('Delete program and all topics inside')) {
+      dispatch(deleteProgram({ programId }))
+      total -= 1
+    }
   }
 
   if (loading === 'reload') {
@@ -114,20 +115,6 @@ function Results() {
     return <LoadingScreen />
   }
 
-  const handleSelectAllPrograms = (event) => {
-    setSelectedPrograms(event.target.checked
-      ? data.map((program) => program.id)
-      : [])
-  }
-
-  const handleSelectOneProgram = (event, programId) => {
-    if (!selectedPrograms.includes(programId)) {
-      setSelectedPrograms((prevSelected) => [...prevSelected, programId])
-    } else {
-      setSelectedPrograms((prevSelected) => prevSelected.filter((id) => id !== programId))
-    }
-  }
-
   const handlePageChange = (event, newPage) => {
     setPage(newPage)
   }
@@ -136,11 +123,6 @@ function Results() {
     setPage(0)
     setLimit(event.target.value)
   }
-
-  // Usually query is done on backend with indexing solutions
-  const enableBulkOperations = selectedPrograms.length > 0
-  const selectedSomePrograms = selectedPrograms.length > 0 && selectedPrograms.length < data.length
-  const selectedAllPrograms = selectedPrograms.length === data.length
 
   return (
     <Page
@@ -152,37 +134,11 @@ function Results() {
 
         <Box mt={3}>
           <Card>
-            {enableBulkOperations && (
-              <div className={classes.bulkOperations}>
-                <div className={classes.bulkActions}>
-                  <Checkbox
-                    checked={selectedAllPrograms}
-                    indeterminate={selectedSomePrograms}
-                    onChange={handleSelectAllPrograms}
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={onDelete}
-                    className={classes.bulkAction}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            )}
             <PerfectScrollbar>
               <Box minWidth={700}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={selectedAllPrograms}
-                          indeterminate={selectedSomePrograms}
-                          onChange={handleSelectAllPrograms}
-                        />
-                      </TableCell>
-                      {/* <TableCell /> */}
                       <TableCell>
                         Title
                       </TableCell>
@@ -204,108 +160,71 @@ function Results() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.map((program) => {
-                      const isProgramSelected = selectedPrograms.includes(program.id)
+                    {data.map((program) => (
+                      <TableRow
+                        hover
+                        key={program.id}
+                      >
+                        <TableCell>
+                          <Link
+                            color="inherit"
+                            component={RouterLink}
+                            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
+                            variant="h6"
+                          >
+                            {program.title}
+                          </Link>
 
-                      return (
-                        <TableRow
-                          hover
-                          key={program.id}
-                          selected={isProgramSelected}
-                        >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={isProgramSelected}
-                              onChange={(event) => handleSelectOneProgram(event, program.id)}
-                              value={isProgramSelected}
-                            />
-                          </TableCell>
-                          {/* <TableCell className={classes.imageCell}>
-                            {program.photo ? (
-                              <img
-                                alt="Program"
-                                src={`${IMAGES_BASE_URL}/${program.photo}`}
-                                className={classes.image}
-                              />
-                            ) : (
+                        </TableCell>
 
-                              <Avatar
-                                variant="square"
-                                className={classes.image}
-                              >
-                                { getInitials(program.title)}
-                              </Avatar>
+                        <TableCell>
+                          {program.user.name}
+                          <br />
+                          {program.user.email}
+                        </TableCell>
+                        <TableCell>
+                          <IsPublishLabel isPublish={program.publish} />
+                        </TableCell>
+                        <TableCell>
+                          {program.topics.map((topic) => (
+                            <Label>
+                              {' '}
+                              {topic.title}
+                              {' '}
+                            </Label>
+                          ))}
+                        </TableCell>
+                        <TableCell>
+                          {moment(program.createdAt).format('DD.MM.YYYY')}
+                        </TableCell>
 
-                            )}
-                          </TableCell> */}
-                          <TableCell>
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                            >
-
-                              <div>
-                                <Link
-                                  color="inherit"
-                                  component={RouterLink}
-                                  to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
-                                  variant="h6"
-                                >
-                                  {program.title}
-                                </Link>
-                                <Typography
-                                  variant="body2"
-                                  tag="span"
-                                  color="textSecondary"
-                                >
-                                  {program.description}
-                                </Typography>
-                              </div>
-                            </Box>
-                          </TableCell>
-
-                          <TableCell>
-                            {program.user.name}
-                            <br />
-                            {program.user.email}
-                          </TableCell>
-                          <TableCell>
-                            <IsPublishLabel isPublish={program.publish} />
-                          </TableCell>
-                          <TableCell>
-                            {program.topics.map((topic) => (
-                              <Label>
-                                {' '}
-                                {topic.title}
-                                {' '}
-                              </Label>
-                            ))}
-                          </TableCell>
-                          <TableCell>
-                            {moment(program.createdAt).format('DD.MM.YYYY')}
-                          </TableCell>
-
-                          <TableCell align="right">
-                            <IconButton
-                              component={RouterLink}
-                              to={`${PROGRAMS_URL}/${program.id}/edit`}
-                            >
-                              <SvgIcon fontSize="small">
-                                <EditIcon />
-                              </SvgIcon>
-                            </IconButton>
-                            <IconButton
-                              component={RouterLink}
-                              to={`${PROGRAMS_URL}/${program.id}`}
-                            >
-                              <SvgIcon fontSize="small">
-                                <ArrowRightIcon />
-                              </SvgIcon>
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
+                        <TableCell align="right">
+                          <IconButton
+                            onClick={() => onDelete(program.id)}
+                          >
+                            <SvgIcon fontSize="small">
+                              <DeleteIcon />
+                            </SvgIcon>
+                          </IconButton>
+                          <IconButton
+                            component={RouterLink}
+                            to={`${PROGRAMS_URL}/${program.id}/edit`}
+                          >
+                            <SvgIcon fontSize="small">
+                              <EditIcon />
+                            </SvgIcon>
+                          </IconButton>
+                          <IconButton
+                            component={RouterLink}
+                            to={`${PROGRAMS_URL}/${program.id}`}
+                          >
+                            <SvgIcon fontSize="small">
+                              <ArrowRightIcon />
+                            </SvgIcon>
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </Box>

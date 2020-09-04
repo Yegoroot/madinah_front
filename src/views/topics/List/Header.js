@@ -43,7 +43,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          My Notes
+          My Topics
         </Typography>
       </Grid>
       <Grid item>
@@ -60,7 +60,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Note
+          New Topic
         </Button>
       </Grid>
     </Grid>
