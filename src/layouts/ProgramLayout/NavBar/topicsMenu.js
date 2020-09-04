@@ -1,5 +1,5 @@
 import {
-  Folder as FolderIcon,
+  Feather,
   User as UserIcon,
   BookOpen,
 } from 'react-feather'
@@ -41,7 +41,7 @@ const topicsMenu = (topics) => {
     {
       title,
       href: `${PUBLIC_PROGRAMS_URL}/${programId}/topics/${id}`,
-      icon: FolderIcon
+      icon: Feather
     }
 
   ))

@@ -46,7 +46,7 @@ function SectionCreate({
   }
 
   const onCancelHandler = () => {
-    onCancel()
+    onCancel(section.id)
     setSection({ ...defaultValues })
   }
 

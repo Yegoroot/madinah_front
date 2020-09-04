@@ -33,7 +33,7 @@ import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 import SectionCreate from 'src/components/Section/Create'
-import SectionList from 'src/components/Section/List/index'
+import SectionList from 'src/components/Section/List'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -310,7 +310,6 @@ function ProductCreateForm({
                     <Divider />
                     <CardContent>
                       <SectionList
-                        onCancel={onCancel}
                         onSave={onSave}
                         contents={contents}
                         onDelete={onDelete}
