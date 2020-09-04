@@ -6,6 +6,7 @@ import {
   AppBar,
   Box,
   Toolbar,
+  Hidden,
   Link,
   makeStyles
 } from '@material-ui/core'
@@ -45,9 +46,11 @@ const TopBar = ({ className, ...rest }) => {
       {...rest}
     >
       <Toolbar className={classes.toolbar}>
-        <RouterLink to="/">
-          <Logo className={classes.logo} />
-        </RouterLink>
+        <Hidden mdDown>
+          <RouterLink to="/">
+            <Logo className={classes.logo} />
+          </RouterLink>
+        </Hidden>
         <Box flexGrow={1} />
         <Link
           className={classes.link}
