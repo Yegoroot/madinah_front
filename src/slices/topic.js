@@ -2,9 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
-import wait from 'src/utils/wait'
-import { theSameDocument } from 'src/utils/slice'
-import { getMenuProgram } from './program'
+import { getMenuProgram } from 'src/slices/program'
 
 const initialState = {
   list: {
@@ -35,16 +33,13 @@ const slice = createSlice({
       topic.item.data = data
       topic.item.loading = false
     },
-    getTopicItemError(topic) {
-      topic.item.loading = 'reload'
-    },
-    deleteSeveralTopics(topic, action) {
-      const { ids } = action.payload
-      topic.list.data = topic.list.data.filter((_topic) => {
-        const find = ids.find((id) => id === _topic.id)
-        return !find
-      })
-    },
+    // deleteSeveralTopics(topic, action) {
+    //   const { ids } = action.payload
+    //   topic.list.data = topic.list.data.filter((nte) => {
+    //     const find = ids.find((id) => id === nte.id)
+    //     return !find
+    //   })
+    // },
     /** Topics */
     getTopicListRequest(topic) {
       topic.list = { ...initialState.list }
@@ -54,9 +49,6 @@ const slice = createSlice({
       const { data } = action.payload
       topic.list = { ...initialState.list, ...data }
       topic.list.loading = false
-    },
-    getTopicListError(topic) {
-      topic.list.loading = 'reload'
     },
 
   }
@@ -79,17 +71,8 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
   }
 }
 
-export const getTopicItemRequest = ({ topicId, reload, programId }) => async (dispatch, getState) => {
-  if (reload) await wait(1000)
-
-  if (
-    theSameDocument({ documentId: topicId, getState, module })
-  ) {
-    return false
-  }
-
+export const getTopicItemRequest = ({ topicId, programId }) => async (dispatch) => {
   dispatch(getMenuProgram(programId)) // set menu
-
   dispatch(slice.actions.getTopicItemRequest())
   dispatch(getTopicItem({ topicId }))
 }
@@ -114,11 +97,9 @@ export const getTopicList = ({ params = {} }) => async (dispatch) => {
     dispatch(slice.actions.getTopicList({ data }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
-    dispatch(slice.actions.getTopicListError())
   }
 }
-export const getTopicListRequest = ({ params = {}, reload }) => async (dispatch) => {
-  if (reload) await wait(1000)
+export const getTopicListRequest = ({ params = {} }) => async (dispatch) => {
   dispatch(slice.actions.getTopicListRequest())
   dispatch(getTopicList({ params }))
 }

@@ -1,28 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import clsx from 'clsx'
-import { Link as RouterLink } from 'react-router-dom'
+// import clsx from 'clsx'
 import moment from 'moment'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
-  Button,
   Grid,
-  Link,
   SvgIcon,
-  Typography,
   Breadcrumbs,
-  // CardContent, Card,
+  Link,
+  Typography,
   makeStyles
 } from '@material-ui/core'
-import Label from 'src/components/Label'
-// import NoteCard from 'src/components/NoteCard'
+
 import {
-  Share2 as ShareIcon,
   Check as CheckIcon,
   Calendar as CalendarIcon,
   AlertTriangle as AlertIcon,
 } from 'react-feather'
-
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
@@ -47,31 +42,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Header({ topic, className, ...rest }) {
+function Header({ topic }) {
   const classes = useStyles()
-
-  const tags = () => {
-    if (!topic.tags.length) return null
-
-    return topic.tags.map((tag) => (
-
-      <Label key={tag}>
-        {tag}
-        &nbsp;
-      </Label>
-    ))
-  }
 
   return (
     <>
-
       <Grid
         container
         spacing={3}
         justify="space-between"
         alignItems="center"
-        className={clsx(classes.root, className)}
-        {...rest}
       >
         <Grid item>
           <Breadcrumbs
@@ -81,7 +61,7 @@ function Header({ topic, className, ...rest }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PUBLIC_PROGRAMS_URL}`}
+              to={PUBLIC_PROGRAMS_URL}
               component={RouterLink}
             >
               Programs
@@ -89,10 +69,10 @@ function Header({ topic, className, ...rest }) {
             <Link
               variant="body1"
               color="inherit"
-              to={`${PUBLIC_PROGRAMS_URL}/${topic.program ? topic.program.id : PUBLIC_PROGRAMS_URL}`}
+              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}`}
               component={RouterLink}
             >
-              {`${topic.program ? topic.program.title : 'none'}`}
+              {topic.program.title}
             </Link>
             <Typography
               variant="body1"
@@ -102,46 +82,13 @@ function Header({ topic, className, ...rest }) {
             </Typography>
           </Breadcrumbs>
         </Grid>
-        <Grid item>
-          <Button className={classes.action}>
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
-            >
-              <ShareIcon />
-            </SvgIcon>
-            Share
-          </Button>
-          {/* <Button
-          className={classes.action}
-          onClick={handleApplicationOpen}
-          variant="contained"
-          color="secondary"
-        >
-          <SvgIcon
-            fontSize="small"
-            className={classes.actionIcon}
-          >
-            <SendIcon />
-          </SvgIcon>
-          Apply for a role
-        </Button>
-        <Application
-          author={topic.author}
-          onApply={handleApplicationClose}
-          onClose={handleApplicationClose}
-          open={openApplication}
-        /> */}
-        </Grid>
       </Grid>
-
       <Grid
         container
         spacing={3}
         justify="space-between"
       >
         <Grid item>
-
           <Typography
             variant="h1"
             color="textPrimary"
@@ -188,44 +135,19 @@ function Header({ topic, className, ...rest }) {
                 color="inherit"
                 component="span"
               >
-                {`Created ${moment(topic.createdAt).fromNow()}`}
+                {`Created ${moment(topic.endDate).fromNow()}`}
               </Typography>
             </div>
-            {/* <div className={classes.badge}>
-              <SvgIcon
-                fontSize="small"
-                className={classes.badgeIcon}
-              >
-                <CalendarIcon />
-              </SvgIcon>
-              <Typography
-                variant="body2"
-                color="inherit"
-                component="span"
-              >
-                {`Updated ${moment(topic.updatedAt).fromNow()}`}
-              </Typography>
-            </div> */}
           </Box>
         </Grid>
-      </Grid>
 
-      <Box
-        mb={3}
-        display="flex"
-        color="text.secondary"
-        alignItems="center"
-        flexWrap="wrap"
-      >
-        {tags()}
-      </Box>
+      </Grid>
     </>
   )
 }
 
 Header.propTypes = {
-  className: PropTypes.string,
-  topic: PropTypes.object.isRequired
+  topic: PropTypes.object.isRequired,
 }
 
 Header.defaultProps = {}

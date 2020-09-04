@@ -54,8 +54,8 @@ const slice = createSlice({
       program.list.loading = false
     },
     deleteProgram(program, action) {
-      const { id } = action.payload
-      program.list.data = program.list.data.filter((el) => el.id !== id)
+      const { programId } = action.payload
+      program.list.data = program.list.data.filter((el) => el.id !== programId)
       // if (!program.list.data.length) {
       //   program.list.data = null
       // }

@@ -8,15 +8,15 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+
 import { TOPICS_URL } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {}
 }))
 
-function Header({ className, topic, ...rest }) {
+function Header({ className, title, ...rest }) {
   const classes = useStyles()
-
   return (
     <Grid
       className={clsx(classes.root, className)}
@@ -30,7 +30,7 @@ function Header({ className, topic, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          {topic ? 'Edit topic' : 'Create a new topic'}
+          {title ? `Edit Topic ${title}` : 'Create a new topic' }
         </Typography>
       </Grid>
       <Grid item>
@@ -46,8 +46,7 @@ function Header({ className, topic, ...rest }) {
 }
 
 Header.propTypes = {
-  className: PropTypes.string,
-  topic: PropTypes.object,
+  className: PropTypes.string
 }
 
 export default Header

@@ -5,31 +5,35 @@ import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { useSnackbar } from 'notistack'
+import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box,
   Button,
+  Select,
+  InputLabel,
+  Input,
+  FormControl,
+  MenuItem,
   Card,
   CardContent,
   CardHeader,
   Divider,
+  FormControlLabel,
+  Switch,
   FormHelperText,
   Grid,
   TextField,
   makeStyles,
-  IconButton,
-  FormControlLabel,
-  FormControl,
-  MenuItem,
-  InputLabel,
-  Input,
-  Select,
-  Switch,
-  Chip,
-  SvgIcon,
+  // IconButton,
+  // Chip,
+  // SvgIcon,
 } from '@material-ui/core'
-import { Plus as PlusIcon } from 'react-feather'
+// import { Plus as PlusIcon } from 'react-feather'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
+import SectionCreate from 'src/components/Section/Create'
+import SectionList from 'src/components/Section/List/index'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -37,17 +41,49 @@ const useStyles = makeStyles(() => ({
     '& .ql-editor': {
       height: 400
     }
-  }
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
 }))
 
 function ProductCreateForm({
-  className, initialValue, id, programs, ...rest
+  className, initialValue, id, match, programs, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
-  const [tag, setTag] = useState('')
+  // const [tag, setTag] = useState('')
+  const { t } = useTranslation()
+  const [isShow, setIsShow] = useState(false)
+  const [contents, setContents] = useState(initialValue.contents)
 
+  const onAdd = () => setIsShow(true)
+  const onCancel = () => setIsShow(false)
+
+  const onSave = ({ record, action, index }) => {
+    setIsShow(false) // закрываем окно
+    if (!record.data) return false // если контент пустой то не сохраняем
+    if (action === 'update') { // обновить запись
+      const newContents = [...contents]
+      newContents[index] = { ...record }
+      setContents(newContents)
+      console.log(index, record)
+    } else {
+      setContents([...contents, record]) // добавить запись
+    }
+    return false
+  }
+
+  const onDelete = (recordId) => {
+    const filtering = contents.filter((content) => content.id !== recordId)
+    setContents(filtering)
+  }
+
+  const onEdit = (recordId) => {
+    console.log(recordId)
+  }
   const initialValuesProgramHack = id
     ? { ...initialValue, program: initialValue.program.id }
     : initialValue
@@ -56,65 +92,52 @@ function ProductCreateForm({
     <Formik
       initialValues={initialValuesProgramHack}
       validationSchema={Yup.object().shape({
+        contents: Yup.array(),
+        program: Yup.string().required(),
         title: Yup.string().max(255).required(),
-        description: Yup.string().max(1500),
-        tags: Yup.array(),
-        program: Yup.string().required()
+        description: Yup.string().required().max(1500),
+        // tags: Yup.array(),
       })}
-      onSubmit={async (values, {
-        setErrors,
-        setStatus,
-        setSubmitting
-      }) => {
-        try {
-          const formData = new FormData()
-          formData.set('title', values.title)
-          formData.set('description', values.description)
-          formData.set('program', values.program)
-          formData.set('publish', values.publish)
-          if (values.tags.length) {
-            formData.append('tags', JSON.stringify(values.tags))
-          }
+      onSubmit={
 
-          if (id) {
-            instanceAxios.put(`${API_BASE_URL}/topics/${id}`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-              .then(() => {
-                enqueueSnackbar(`Topic ${values.title} Updated `, {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${TOPICS_URL}`)
-              })
-              .catch((err) => { setErrors({ submit: err.response.data.error }) })
-          } else {
-            instanceAxios.post(`${API_BASE_URL}/topics`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-              .then(() => {
-                enqueueSnackbar(`Topic ${values.title} Created `, {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${TOPICS_URL}`)
-              })
-              .catch((err) => { setErrors({ submit: err.response.data.error }) })
+        async (values, {
+          setErrors,
+          setStatus,
+          setSubmitting
+        }) => {
+          const data = { ...values, contents }
+          if (!contents.length) {
+            setErrors({ submit: 'Добавьте одну или несколько записей' })
+            setSubmitting(false)
+            return false
           }
-        } catch (err) {
-          setErrors({ submit: err.response.data.error })
-          setStatus({ success: false })
-          setSubmitting(false)
+          try {
+            if (id) {
+              instanceAxios
+                .put(`${API_BASE_URL}/topics/${id}`, data)
+                .then(() => {
+                  enqueueSnackbar('topic.notify.was_update', { variant: 'success' })
+                  setStatus({ success: true })
+                  setSubmitting(false)
+                  history.push(`${TOPICS_URL}`)
+                })
+            } else {
+              instanceAxios
+                .post(`${API_BASE_URL}/topics`, data)
+                .then(() => {
+                  enqueueSnackbar(t('topic.notify.was_created'), { variant: 'success' })
+                  setStatus({ success: true })
+                  setSubmitting(false)
+                  history.push(`${TOPICS_URL}`)
+                })
+            }
+          } catch (err) {
+            setErrors({ submit: err.response.data.error })
+            setStatus({ success: false })
+            setSubmitting(false)
+          }
         }
-      }}
+}
     >
       {({
         errors,
@@ -141,6 +164,7 @@ function ProductCreateForm({
               lg={8}
             >
               <Card>
+                <Divider />
                 <CardContent>
                   <TextField
                     error={Boolean(touched.title && errors.title)}
@@ -154,7 +178,7 @@ function ProductCreateForm({
                     variant="outlined"
                   />
                   <Box
-                    mt={2}
+                    mt={3}
                     mb={1}
                   >
                     <TextField
@@ -169,14 +193,71 @@ function ProductCreateForm({
                       variant="outlined"
                     />
                   </Box>
+
+                </CardContent>
+              </Card>
+
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              lg={4}
+            >
+              <Card>
+                <CardContent>
                   <Box
-                    mt={2}
+                    px={1}
+                    mb={2}
+                  >
+                    <FormControlLabel
+                      control={(
+                        <Switch
+                          checked={values.publish}
+                          edge="start"
+                          name="publish"
+                          onChange={(event) => setFieldValue('publish', event.target.checked)}
+                        />
+                      )}
+                      label="Publish"
+                    />
+                  </Box>
+                  {!programs ? null
+                    : (
+                      <FormControl
+                        fullWidth
+                        className={classes.formControl}
+                        error={Boolean(touched.program && errors.program)}
+                      >
+                        <InputLabel id="form-select-1">Выберите тему</InputLabel>
+                        <Select
+                          labelId="form-select-1"
+                          name="program"
+                          value={values.program}
+                          displayEmpty
+                          onChange={handleChange}
+                          input={<Input id="select-multiple-chip" />}
+                        >
+                          {programs.map((program) => (
+                            <MenuItem
+                              key={program.id}
+                              value={program.id}
+                            >
+                              {program.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <FormHelperText>{touched.program && errors.program}</FormHelperText>
+                      </FormControl>
+                    )}
+
+                  {/* <Box
+                    mt={3}
                     display="flex"
                     alignItems="center"
                   >
                     <TextField
                       fullWidth
-                      label="Tags"
+                      label="tags"
                       name="tags"
                       value={tag}
                       onChange={(event) => setTag(event.target.value)}
@@ -200,103 +281,91 @@ function ProductCreateForm({
                     </IconButton>
                   </Box>
                   <Box mt={2}>
-                    {values.tags.map((tagEl, i) => (
+                    {values.tags.map((tg) => (
                       <Chip
                         variant="outlined"
-                        key={i}
-                        label={tagEl}
+                        key={tg}
+                        label={tg}
                         className={classes.tag}
                         onDelete={() => {
-                          const newTags = values.tags.filter((t) => t !== tagEl)
-                          setFieldValue('tags', newTags)
+                          const newTg = values.tags.filter((val) => val !== tg)
+                          setFieldValue('tags', newTg)
                         }}
                       />
                     ))}
-                  </Box>
+                  </Box> */}
                 </CardContent>
               </Card>
+            </Grid>
 
-              {errors.submit && (
-              <Box mt={3}>
-                <FormHelperText error>
-                  {errors.submit}
-                </FormHelperText>
-              </Box>
+            { !contents.length ? null
+              : (
+                <Grid
+                  xs={12}
+                  lg={12}
+                  item
+                >
+                  <Card>
+                    <CardHeader title="Content" />
+                    <Divider />
+                    <CardContent>
+                      <SectionList
+                        onCancel={onCancel}
+                        onSave={onSave}
+                        contents={contents}
+                        onDelete={onDelete}
+                        onEdit={onEdit}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ) }
+
+            <Grid
+              xs={12}
+              lg={12}
+              item
+            >
+
+              {!isShow ? null : (
+                <SectionCreate
+                  onCancel={onCancel}
+                  onSave={onSave}
+                />
               )}
 
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              lg={4}
-            >
-              <Card>
-                <CardHeader title="Organize" />
-                <Divider />
-                <CardContent>
-                  <Box
-                    px={1}
-                  >
-                    <FormControlLabel
-                      control={(
-                        <Switch
-                          checked={values.publish}
-                          edge="start"
-                          name="publish"
-                          onChange={(event) => setFieldValue('publish', event.target.checked)}
-                        />
-                      )}
-                      label="Publish"
-                    />
+              {isShow ? null
+                : (
+                  <Box mt={2}>
+                    <Button
+                      variant="contained"
+                      onClick={onAdd}
+                      startIcon={<AddOutlined />}
+                    >
+                      Добавить запись
+                    </Button>
                   </Box>
-                  <Box
-                    mt={1}
-                    display="flex"
-                    alignItems="center"
-                  >
-                    {!programs ? null
-                      : (
-                        <FormControl
-                          fullWidth
-                          className={classes.formControl}
-                          error={Boolean(touched.program && errors.program)}
-                        >
-                          <InputLabel id="form-select-1">Программа обучения</InputLabel>
-                          <Select
-                            labelId="form-select-1"
-                            name="program"
-                            value={values.program}
-                            displayEmpty
-                            onChange={handleChange}
-                            input={<Input id="select-multiple-chip" />}
-                          >
-                            {programs.map((program) => (
-                              <MenuItem
-                                key={program.id}
-                                value={program.id}
-                              >
-                                {program.title}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText>{touched.program && errors.program}</FormHelperText>
-                        </FormControl>
-                      )}
-                  </Box>
-                </CardContent>
-              </Card>
-              <Box mt={2}>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {id ? 'Update Topic' : 'Create Topic'}
-                </Button>
-              </Box>
+                )}
             </Grid>
           </Grid>
+
+          {errors.submit && (
+          <Box mt={3}>
+            <FormHelperText error>
+              {errors.submit}
+            </FormHelperText>
+          </Box>
+          )}
+          <Box mt={5}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {id ? 'Update Topic' : 'Save topic' }
+            </Button>
+          </Box>
 
         </form>
       )}
@@ -305,9 +374,11 @@ function ProductCreateForm({
 }
 
 ProductCreateForm.propTypes = {
-  programs: PropTypes.array.isRequired,
   className: PropTypes.string,
+  id: PropTypes.any,
+  programs: PropTypes.array,
   initialValue: PropTypes.object,
+  match: PropTypes.object
 }
 
 export default ProductCreateForm

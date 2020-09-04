@@ -3,34 +3,23 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import moment from 'moment'
-import Label from 'src/components/Label'
 import {
-  // Avatar,
   Box,
   Card,
-  // CardMedia,
-  // Divider,
-  // Grid,
   IconButton,
   Link,
   SvgIcon,
-  // Tooltip,
   Typography,
   colors,
   makeStyles
 } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
-// import { Rating } from '@material-ui/lab'
-// import FavoriteIcon from '@material-ui/icons/Favorite'
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+// import { useDispatch } from 'react-redux'
 import {
-  // Users as UsersIcon,
-  Trash as TrashIcon,
+  // Trash as TrashIcon,
   Edit as EditIcon,
 } from 'react-feather'
-// import getInitials from 'src/utils/getInitials'
-import { PUBLIC_PROGRAMS_URL, PROGRAMS_URL, /* IMAGES_BASE_URL */ } from 'src/constants'
-import { deleteSeveralTopics } from 'src/slices/topic'
+import { PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
+// import { deleteTopic } from 'src/slices/topic'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
@@ -53,20 +42,17 @@ const useStyles = makeStyles((theme) => ({
 function TopicCard({
   data, className, topic, programId, ...rest
 }) {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const classes = useStyles()
   const { user } = useAuth()
   const role = user ? user.role : null
 
-  const handleDelete = () => {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm('delete topic and all content inside?')) {
-      dispatch(deleteSeveralTopics({ topicId: topic.id }))
-    }
-  }
-
-  // const programPhoto = topic.photo ? topic.photo : 'no-photo.png'
-  // const image = `${IMAGES_BASE_URL}/${programPhoto}`
+  // const handleDelete = () => {
+  //   // eslint-disable-next-line no-restricted-globals
+  //   if (confirm('delete topic and all content inside?')) {
+  //     dispatch(deleteTopic({ topicId: topic.id }))
+  //   }
+  // }
 
   return (
     <Card
@@ -95,7 +81,7 @@ function TopicCard({
             {topic.description}
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           pt={1}
         >
           <Typography
@@ -109,7 +95,7 @@ function TopicCard({
               </Label>
             ))}
           </Typography>
-        </Box>
+        </Box> */}
 
         <Box
           display="flex"
@@ -129,32 +115,9 @@ function TopicCard({
         </Box>
       </Box>
 
-      {/* <Box
-        py={2}
-        px={3}
-      >
-        <Grid
-          alignItems="center"
-          container
-          justify="space-between"
-          spacing={3}
-        >
-          <Grid item>
-            <Typography
-              variant="body2"
-              color={topic.publish ? 'secondary' : 'inherit'}
-            >
-              {topic.publish ? 'Publish' : 'Unpublish'}
-            </Typography>
-
-          </Grid>
-        </Grid>
-      </Box> */}
-
       { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
         : (
           <>
-            {/* <Divider /> */}
             <Box
               py={2}
               pt={0}
@@ -166,7 +129,7 @@ function TopicCard({
 
               <IconButton
                 component={RouterLink}
-                to={`${PROGRAMS_URL}/${programId}/topics/${topic.id}/edit`}
+                to={`${TOPICS_URL}/${topic.id}/edit`}
               >
                 <SvgIcon
                   fontSize="small"
@@ -176,7 +139,7 @@ function TopicCard({
                   <EditIcon />
                 </SvgIcon>
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 onClick={handleDelete}
               >
                 <SvgIcon
@@ -186,7 +149,7 @@ function TopicCard({
                 >
                   <TrashIcon />
                 </SvgIcon>
-              </IconButton>
+              </IconButton> */}
             </Box>
           </>
         )}

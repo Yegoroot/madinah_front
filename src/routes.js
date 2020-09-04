@@ -122,33 +122,10 @@ const routes = [
         component: lazy(() => import('src/views/users/Create'))
       },
       /**
-       * List Notes
-     * Create Note
-     * Edit Note
-     */
-      {
-        exact: true,
-        guard: ProgramGuard,
-        path: '/app/notes',
-        component: lazy(() => import('src/views/notes/List'))
-      },
-      {
-        exact: true,
-        guard: ProgramGuard,
-        path: '/app/notes/create',
-        component: lazy(() => import('src/views/notes/Create'))
-      },
-      {
-        exact: true,
-        guard: ProgramGuard,
-        path: '/app/notes/:noteId/edit',
-        component: lazy(() => import('src/views/notes/Create'))
-      },
-      /**
        * List Topics
-       * Create Topic
-       * Edit Topic
-       */
+     * Create Topic
+     * Edit Topic
+     */
       {
         exact: true,
         guard: ProgramGuard,
@@ -204,7 +181,6 @@ const routes = [
    * Program List
    * Program Item
    * Topic Item
-   * Note Item
    */
   {
     path: `${PUBLIC_PROGRAMS_URL}`,
@@ -227,11 +203,6 @@ const routes = [
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId`,
             component: lazy(() => import('src/views/topics/PublicItem'))
-          },
-          {
-            exact: true,
-            path: `${PUBLIC_PROGRAMS_URL}/:programId/topics/:topicId/notes/:noteId`,
-            component: lazy(() => import('src/views/notes/PublicItem'))
           },
           {
             component: () => <Redirect to="/404" />

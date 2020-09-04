@@ -15,7 +15,6 @@ export const THEMES = {
 export const PUBLIC_PROGRAMS_URL = '/programs'
 export const PROGRAMS_URL = '/app/programs'
 export const TOPICS_URL = '/app/topics'
-export const NOTES_URL = '/app/notes'
 export const USERS_URL = '/app/users'
 
 export const DOMEN = process.env.NODE_ENV === 'production'

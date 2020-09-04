@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { /* IMAGES_BASE_URL, */TOPICS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import {
-  // Avatar,
   Box,
   Button,
   Card,
+  Container,
   Checkbox,
   IconButton,
   Link,
@@ -18,22 +17,19 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-  Container,
   makeStyles
 } from '@material-ui/core'
-import Page from 'src/components/Page'
-// import getInitials from 'src/utils/getInitials'
 import {
-  // Image as ImageIcon,
   Edit as EditIcon,
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
-import { useSelector, useDispatch } from 'react-redux'
-import { getTopicListRequest, deleteSeveralTopics, module } from 'src/slices/topic'
+import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
+import { getTopicListRequest, deleteSeveralTopics, module } from 'src/slices/topic'
+import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,10 +37,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3)
-  },
-  queryField: {
-    width: 500
+    paddingBottom: 100
   },
   bulkOperations: {
     position: 'relative'
@@ -61,6 +54,22 @@ const useStyles = makeStyles((theme) => ({
   bulkAction: {
     marginLeft: theme.spacing(2)
   },
+  queryField: {
+    width: 500
+  },
+  categoryField: {
+    flexBasis: 200
+  },
+  availabilityField: {
+    marginLeft: theme.spacing(2),
+    flexBasis: 200
+  },
+  stockField: {
+    marginLeft: theme.spacing(2)
+  },
+  shippableField: {
+    marginLeft: theme.spacing(2)
+  },
   imageCell: {
     fontSize: 0,
     width: 68,
@@ -69,8 +78,6 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0
   },
   image: {
-    backgroundColor: theme.palette.background.dark,
-    color: '#fff',
     height: 68,
     width: 68
   }
@@ -78,39 +85,30 @@ const useStyles = makeStyles((theme) => ({
 
 function Results() {
   const classes = useStyles()
-  // const [currentTab, setCurrentTab] = useState('all')
   const [selectedTopics, setSelectedTopics] = useState([])
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
-
-  // const [sort, setSort] = useState(sortOptions[0].value)
-  const [filters] = useState({
-    isProspect: null,
-    isReturning: null,
-    acceptsMarketing: null
-  })
-
   const dispatch = useDispatch()
   const { loading, data, total } = useSelector((state) => state[module].list)
 
-  useEffect(() => {
-    const params = {
-      page, limit
-    }
-    dispatch(getTopicListRequest({ params }))
-  }, [dispatch, page, limit, filters])
+  const [filters] = useState({
+    category: null,
+    availability: null,
+    inStock: null,
+    isShippable: null
+  })
 
-  const onDelete = () => {
-    dispatch(deleteSeveralTopics({ ids: selectedTopics }))
+  useEffect(() => {
+    dispatch(getTopicListRequest({ page, limit }))
+  }, [dispatch, filters, page, limit])
+
+  if (loading || !data) {
+    return <LoadingScreen />
   }
 
-  if (loading === 'reload') {
-    const params = {
-      page, limit
-    }
-    return <span onClick={() => dispatch(getTopicListRequest({ params, reload: true }))}>Перезагрузить</span>
-  } if (loading || !data) {
-    return <LoadingScreen />
+  const deleteTopicsHandler = async (selected) => {
+    dispatch(deleteSeveralTopics({ ids: selected }))
+    setSelectedTopics([])
   }
 
   const handleSelectAllTopics = (event) => {
@@ -136,7 +134,6 @@ function Results() {
     setLimit(event.target.value)
   }
 
-  // Usually query is done on backend with indexing solutions
   const enableBulkOperations = selectedTopics.length > 0
   const selectedSomeTopics = selectedTopics.length > 0 && selectedTopics.length < data.length
   const selectedAllTopics = selectedTopics.length === data.length
@@ -144,11 +141,10 @@ function Results() {
   return (
     <Page
       className={classes.root}
-      title="Topic List"
+      title="My Topics List"
     >
       <Container maxWidth={false}>
         <Header />
-
         <Box mt={3}>
           <Card>
             {enableBulkOperations && (
@@ -161,7 +157,7 @@ function Results() {
                   />
                   <Button
                     variant="outlined"
-                    onClick={onDelete}
+                    onClick={() => deleteTopicsHandler(selectedTopics)}
                     className={classes.bulkAction}
                   >
                     Delete
@@ -170,7 +166,7 @@ function Results() {
               </div>
             )}
             <PerfectScrollbar>
-              <Box minWidth={700}>
+              <Box minWidth={1200}>
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -181,21 +177,20 @@ function Results() {
                           onChange={handleSelectAllTopics}
                         />
                       </TableCell>
-                      {/* <TableCell /> */}
                       <TableCell>
                         Title
-                      </TableCell>
-                      <TableCell>
-                        User
                       </TableCell>
                       <TableCell>
                         Status
                       </TableCell>
                       <TableCell>
-                        Created
+                        User
                       </TableCell>
                       <TableCell>
-                        Updated
+                        Program
+                      </TableCell>
+                      <TableCell>
+                        Create
                       </TableCell>
                       <TableCell align="right">
                         Actions
@@ -219,99 +214,76 @@ function Results() {
                               value={isTopicSelected}
                             />
                           </TableCell>
-                          {/* <TableCell className={classes.imageCell}>
-                            {topic.photo ? (
-                              <img
-                                alt="Topic"
-                                src={`${IMAGES_BASE_URL}/${topic.photo}`}
-                                className={classes.image}
-                              />
-                            ) : (
-
-                              <Avatar
-                                variant="square"
-                                className={classes.image}
-                              >
-                                { getInitials(topic.title)}
-                              </Avatar>
-
-                            )}
-                          </TableCell> */}
                           <TableCell>
                             <Box
                               display="flex"
                               alignItems="center"
                             >
-
-                              <div>
-                                <Link
-                                  color="inherit"
-                                  component={RouterLink}
-                                  to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
-                                  variant="h6"
-                                >
-                                  {topic.title}
-                                </Link>
-                                <Typography
-                                  variant="body2"
-                                  tag="span"
-                                  color="textSecondary"
-                                >
-                                  {topic.description}
-                                </Typography>
-                              </div>
+                              <Link
+                                variant="subtitle2"
+                                color="textPrimary"
+                                component={RouterLink}
+                                underline="none"
+                                to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+                              >
+                                {topic.title}
+                              </Link>
                             </Box>
                           </TableCell>
-
+                          <TableCell>
+                            <IsPublishLabel isPublish={topic.publish} />
+                          </TableCell>
                           <TableCell>
                             {topic.user.name}
                             <br />
                             {topic.user.email}
                           </TableCell>
                           <TableCell>
-                            <IsPublishLabel isPublish={topic.publish} />
+                            {`${topic.program.title}`}
                           </TableCell>
                           <TableCell>
                             {moment(topic.createdAt).format('DD.MM.YYYY')}
                           </TableCell>
-                          <TableCell>
-                            {moment(topic.updatedAt).format('DD.MM.YYYY')}
-                          </TableCell>
-
                           <TableCell align="right">
-                            <IconButton
-                              component={RouterLink}
-                              to={`${TOPICS_URL}/${topic.id}/edit`}
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="flex-end"
                             >
-                              <SvgIcon fontSize="small">
-                                <EditIcon />
-                              </SvgIcon>
-                            </IconButton>
-                            <IconButton
-                              component={RouterLink}
-                              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
-                            >
-                              <SvgIcon fontSize="small">
-                                <ArrowRightIcon />
-                              </SvgIcon>
-                            </IconButton>
+                              <IconButton
+                                component={RouterLink}
+                                to={`/app/topics/${topic.id}/edit`}
+                              >
+                                <SvgIcon fontSize="small">
+                                  <EditIcon />
+                                </SvgIcon>
+                              </IconButton>
+                              <IconButton
+                                component={RouterLink}
+                                to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+                              >
+                                <SvgIcon fontSize="small">
+                                  <ArrowRightIcon />
+                                </SvgIcon>
+                              </IconButton>
+                            </Box>
                           </TableCell>
                         </TableRow>
                       )
                     })}
                   </TableBody>
                 </Table>
+                <TablePagination
+                  component="div"
+                  count={total}
+                  onChangePage={handlePageChange}
+                  onChangeRowsPerPage={handleLimitChange}
+                  page={page}
+                  rowsPerPage={limit}
+                  rowsPerPageOptions={[5, 10, 25]}
+                />
               </Box>
             </PerfectScrollbar>
-            <TablePagination
-              component="div"
-              count={total}
-              onChangePage={handlePageChange}
-              onChangeRowsPerPage={handleLimitChange}
-              page={page}
-              rowsPerPage={limit}
-              rowsPerPageOptions={[5, 10, 25]}
-            />
           </Card>
         </Box>
       </Container>

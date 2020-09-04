@@ -43,7 +43,7 @@ function ProgramCard({ program, className, ...rest }) {
   const role = user ? user.role : null
   const handleDelete = () => {
     if (window.confirm('delete program and all content inside?')) {
-      dispatch(deleteProgram({ id: program.id }))
+      dispatch(deleteProgram({ programId: program.id }))
     }
   }
 

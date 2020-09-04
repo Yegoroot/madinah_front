@@ -29,18 +29,6 @@ const additionalMenu = [{
   ]
 }]
 
-const notesMenu = (notes, programId, topicId) => {
-  if (!notes.length) {
-    return null
-  }
-  return notes.map(({ title, id }) => ({
-
-    title,
-    href: `${PUBLIC_PROGRAMS_URL}/${programId}/topics/${topicId}/notes/${id}`,
-  }
-  ))
-}
-
 const topicsMenu = (topics) => {
   const programId = topics[0].program.id
   const programTitle = topics[0].program.title
@@ -49,12 +37,11 @@ const topicsMenu = (topics) => {
     href: `${PUBLIC_PROGRAMS_URL}/${topics[0].program.id}`
   }
 
-  program.items = topics.map(({ title, id, notes }) => (
+  program.items = topics.map(({ title, id }) => (
     {
       title,
       href: `${PUBLIC_PROGRAMS_URL}/${programId}/topics/${id}`,
-      icon: FolderIcon,
-      items: notesMenu(notes, programId, id)
+      icon: FolderIcon
     }
 
   ))

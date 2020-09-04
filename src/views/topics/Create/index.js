@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Container, makeStyles } from '@material-ui/core'
+import { Container, makeStyles, Box } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useSelector, useDispatch } from 'src/store'
-import { getProgramListRequest, module as moduleProgram } from 'src/slices/program'
-import { getTopicItemRequest, module as moduleTopic } from 'src/slices/topic'
+import { module as moduleTopic, getTopicItemRequest } from 'src/slices/topic'
+import { module as moduleProgram, getProgramListRequest } from 'src/slices/program'
+
 import Header from './Header'
 import TopicCreateForm from './TopicCreateForm'
 
@@ -19,20 +20,18 @@ const useStyles = makeStyles((theme) => ({
 
 function TopicCreateView({ match }) {
   const classes = useStyles()
-  const { topicId } = match.params
   const dispatch = useDispatch()
+  const { topicId, } = match.params
   const [initialValue] = useState({
     title: '',
     description: '',
-    // content: '',
-    file: '',
-    tags: [],
+    contents: [],
+    // tags: [],
     publish: true,
-    program: ''
   })
 
   const programs = useSelector((state) => state[moduleProgram].list.data)
-  const { data, loading } = useSelector((state) => state[moduleTopic].item)
+  const topic = useSelector((state) => state[moduleTopic].item)
 
   useEffect(() => {
     if (topicId) {
@@ -41,21 +40,23 @@ function TopicCreateView({ match }) {
     dispatch(getProgramListRequest({ })) // get program list
   }, [dispatch, topicId])
 
-  if (loading || (topicId && !data)) {
+  if (topic.loading || (topicId && !topic.data)) {
     return <LoadingScreen />
   }
 
   return (
     <Page
       className={classes.root}
-      title={topicId ? 'Edit Topic' : 'Create Topic'}
+      title={topicId ? 'Topic Edit' : 'Topic Create'}
     >
       <Container maxWidth="lg">
-        <Header topic={topicId ? data : null} />
+        <Box mb={2}>
+          <Header title={topicId ? topic.data.title : null} />
+        </Box>
         <TopicCreateForm
-          id={topicId}
-          initialValue={topicId ? data : initialValue}
           programs={programs}
+          id={topicId}
+          initialValue={topicId ? topic.data : initialValue}
         />
       </Container>
     </Page>
