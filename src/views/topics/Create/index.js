@@ -27,6 +27,7 @@ function TopicCreateView({ match }) {
     description: '',
     contents: [],
     // tags: [],
+    program: '',
     publish: true,
   })
 

@@ -33,13 +33,13 @@ const slice = createSlice({
       topic.item.data = data
       topic.item.loading = false
     },
-    // deleteSeveralTopics(topic, action) {
-    //   const { ids } = action.payload
-    //   topic.list.data = topic.list.data.filter((nte) => {
-    //     const find = ids.find((id) => id === nte.id)
-    //     return !find
-    //   })
-    // },
+    deleteSeveralTopics(topic, action) {
+      const { ids } = action.payload
+      topic.list.data = topic.list.data.filter((nte) => {
+        const find = ids.find((id) => id === nte.id)
+        return !find
+      })
+    },
     /** Topics */
     getTopicListRequest(topic) {
       topic.list = { ...initialState.list }

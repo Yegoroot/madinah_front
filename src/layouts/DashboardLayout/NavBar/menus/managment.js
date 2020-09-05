@@ -30,7 +30,6 @@ const usersButton = [
 ]
 
 export const defineManagment = (role) => {
-  console.log(role)
   const accessToUser = perm_work_with_users(role) ? usersButton : []
   return [
     {
