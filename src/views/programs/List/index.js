@@ -96,7 +96,7 @@ function Results() {
     const params = {
       page, limit
     }
-    dispatch(getProgramListRequest({ params }))
+    dispatch(getProgramListRequest({ params, type: 'private' }))
   }, [dispatch, page, limit, filters])
 
   const onDelete = (programId) => {
@@ -110,7 +110,7 @@ function Results() {
     const params = {
       page, limit
     }
-    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}>Перезагрузить</span>
+    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true, type: 'private' }))}>Перезагрузить</span>
   } if (loading || !data) {
     return <LoadingScreen />
   }
@@ -216,7 +216,7 @@ function Results() {
                           </IconButton>
                           <IconButton
                             component={RouterLink}
-                            to={`${PROGRAMS_URL}/${program.id}`}
+                            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
                           >
                             <SvgIcon fontSize="small">
                               <ArrowRightIcon />

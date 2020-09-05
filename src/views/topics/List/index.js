@@ -99,7 +99,7 @@ function Results() {
   })
 
   useEffect(() => {
-    dispatch(getTopicListRequest({ page, limit }))
+    dispatch(getTopicListRequest({ page, limit, type: 'private' }))
   }, [dispatch, filters, page, limit])
 
   if (loading || !data) {

@@ -36,9 +36,9 @@ function TopicCreateView({ match }) {
 
   useEffect(() => {
     if (topicId) {
-      dispatch(getTopicItemRequest({ topicId })) // get topic item
+      dispatch(getTopicItemRequest({ topicId, type: 'private' })) // get topic item
     }
-    dispatch(getProgramListRequest({ })) // get program list
+    dispatch(getProgramListRequest({ type: 'private' })) // get program list
   }, [dispatch, topicId])
 
   if (topic.loading || (topicId && !topic.data)) {

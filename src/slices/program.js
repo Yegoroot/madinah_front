@@ -66,14 +66,13 @@ const slice = createSlice({
 
 export const { reducer } = slice
 
-/**
- *
- * Program
- */
-export const getProgramItem = ({ programId }) => async (dispatch) => {
+export const prefix = (type) => (type === 'private' ? '/my' : '')
+
+// INSIDE
+export const getProgramItem = ({ programId, type }) => async (dispatch) => {
   try {
-    const programResponse = await axios.get(`${API_BASE_URL}/programs/${programId}`)
-    const topicsResponse = await axios.get(`${API_BASE_URL}/topics/?program=${programId}`)
+    const programResponse = await axios.get(`${API_BASE_URL}/programs${prefix(type)}/${programId}`)
+    const topicsResponse = await axios.get(`${API_BASE_URL}/topics${prefix(type)}?program=${programId}`)
     dispatch(slice.actions.getProgramItem({
       programData: programResponse.data.data,
       topicsData: topicsResponse.data.data
@@ -83,17 +82,18 @@ export const getProgramItem = ({ programId }) => async (dispatch) => {
   }
 }
 
-export const getProgramItemRequest = ({ programId }) => async (dispatch, getState) => {
+// OUTSIDE
+export const getProgramItemRequest = ({ programId, type }) => async (dispatch, getState) => {
   if (
     theSameDocument({ documentId: programId, getState, module })
   ) {
     return false
   }
-
   dispatch(slice.actions.getProgramItemRequest())
-  dispatch(getProgramItem({ programId }))
+  dispatch(getProgramItem({ programId, type }))
 }
 
+// OUTSIDE
 export const deleteProgram = ({ programId }) => async (dispatch) => {
   try {
     await axios.delete(`${API_BASE_URL}/programs/${programId}`)
@@ -103,20 +103,20 @@ export const deleteProgram = ({ programId }) => async (dispatch) => {
   }
 }
 
-/**
- *
- * Programs
- */
-export const getProgramList = ({ params } = {}) => async (dispatch) => {
-  const response = await axios.get(`${API_BASE_URL}/programs/`, { params })
+// INSIDE
+export const getProgramList = ({ params, type }) => async (dispatch) => {
+  const response = await axios.get(`${API_BASE_URL}/programs${prefix(type)}`, { params })
   const { data } = response
   dispatch(slice.actions.getProgramList({ data }))
 }
-export const getProgramListRequest = ({ params } = {}) => async (dispatch) => {
+
+// OUTSIDE
+export const getProgramListRequest = ({ params, type }) => async (dispatch) => {
   dispatch(slice.actions.getProgramListRequest())
-  dispatch(getProgramList({ params }))
+  dispatch(getProgramList({ params, type }))
 }
 
+// OUTSIDE
 export const resetTopicsProgram = () => (dispatch) => {
   dispatch(slice.actions.resetTopicsProgram())
 }

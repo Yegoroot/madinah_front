@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
-import { getMenuProgram } from 'src/slices/program'
+import { getMenuProgram, prefix } from 'src/slices/program'
 
 const initialState = {
   list: {
@@ -56,27 +56,25 @@ const slice = createSlice({
 
 export const { reducer } = slice
 
-/**
- *
- * topic
- */
-export const getTopicItem = ({ topicId }) => async (dispatch) => {
+// INSIDE
+export const getTopicItem = ({ topicId, type }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/topics/${topicId}`)
+    const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}/${topicId}`)
     const { data } = response.data
     dispatch(slice.actions.getTopicItem({ data }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
-    dispatch(slice.actions.getTopicItemError())
   }
 }
 
-export const getTopicItemRequest = ({ topicId, programId }) => async (dispatch) => {
+// OUTSIDE
+export const getTopicItemRequest = ({ topicId, programId, type }) => async (dispatch) => {
   dispatch(getMenuProgram(programId)) // set menu
   dispatch(slice.actions.getTopicItemRequest())
-  dispatch(getTopicItem({ topicId }))
+  dispatch(getTopicItem({ topicId, type }))
 }
 
+// OUTSIDE
 export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {
   try {
     await axios.delete(`${API_BASE_URL}/topics/?ids=${ids}`)
@@ -86,22 +84,21 @@ export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {
   }
 }
 
-/**
- *
- * topics
- */
-export const getTopicList = ({ params = {} }) => async (dispatch) => {
+// INSIDE
+export const getTopicList = ({ params, type }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/topics/`, { params })
+    const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}`, { params })
     const { data } = response
     dispatch(slice.actions.getTopicList({ data }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
   }
 }
-export const getTopicListRequest = ({ params = {} }) => async (dispatch) => {
+
+// OUTSIDE
+export const getTopicListRequest = ({ params, type }) => async (dispatch) => {
   dispatch(slice.actions.getTopicListRequest())
-  dispatch(getTopicList({ params }))
+  dispatch(getTopicList({ params, type }))
 }
 
 export default slice
