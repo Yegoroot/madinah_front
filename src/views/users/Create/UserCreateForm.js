@@ -47,7 +47,7 @@ function ProductCreateForm({
         name: Yup.string().max(255).required(),
         email: Yup.string().email().required(),
         role: Yup.string(),
-        password: Yup.string().min(6, 'Min 6').required()
+        // password: Yup.string().min(6, 'Min 6').required()
       })}
       onSubmit={async (values, {
         setErrors,
@@ -55,18 +55,12 @@ function ProductCreateForm({
         setSubmitting
       }) => {
         try {
-          const formData = new FormData()
-          formData.set('name', values.name)
-          formData.set('email', values.email)
-          formData.set('role', values.role)
-          formData.set('password', values.password)
+          if (id) {
+            delete values.password
+          }
 
           if (id) {
-            instanceAxios.put(`${API_BASE_URL}/users/${id}`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
+            instanceAxios.put(`${API_BASE_URL}/users/${id}`, values)
               .then(() => {
                 enqueueSnackbar(`User ${values.title} Updated `, {
                   variant: 'success',
@@ -78,11 +72,7 @@ function ProductCreateForm({
               })
               .catch((err) => { setErrors({ submit: err.response.data.error }) })
           } else {
-            instanceAxios.post(`${API_BASE_URL}/users`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
+            instanceAxios.post(`${API_BASE_URL}/users`, values)
               .then(() => {
                 enqueueSnackbar(`User ${values.title} Created `, {
                   variant: 'success',
@@ -185,22 +175,25 @@ function ProductCreateForm({
                     </FormControl>
 
                   </Box>
-                  <Box
-                    mt={2}
-                    mb={1}
-                  >
-                    <TextField
-                      error={Boolean(touched.password && errors.password)}
-                      fullWidth
-                      helperText={touched.password && errors.password}
-                      label="User password"
-                      name="password"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.password}
-                      variant="outlined"
-                    />
-                  </Box>
+                  {id ? null
+                    : (
+                      <Box
+                        mt={2}
+                        mb={1}
+                      >
+                        <TextField
+                          error={Boolean(touched.password && errors.password)}
+                          fullWidth
+                          helperText={touched.password && errors.password}
+                          label="User password"
+                          name="password"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.password}
+                          variant="outlined"
+                        />
+                      </Box>
+                    )}
 
                 </CardContent>
               </Card>
