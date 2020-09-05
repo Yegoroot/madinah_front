@@ -22,17 +22,23 @@ import {
 } from '@material-ui/core'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, USERS_URL } from 'src/constants'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles(() => ({
   root: {},
 }))
 
 function ProductCreateForm({
-  className, initialValue, id, programs, ...rest
+  className, initialValue, id, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
+  const { user } = useAuth()
+
+  const allowUsers = user.role === 'superadmin'
+    ? ['superadmin', 'admin', 'teacher', 'user']
+    : ['teacher', 'user']
 
   return (
     <Formik
@@ -166,7 +172,7 @@ function ProductCreateForm({
                         onChange={handleChange}
                         input={<Input id="select-multiple-chip" />}
                       >
-                        {['superadmin', 'admin', 'teacher', 'user'].map((role) => (
+                        {allowUsers.map((role) => (
                           <MenuItem
                             key={role}
                             value={role}
@@ -233,7 +239,6 @@ function ProductCreateForm({
 }
 
 ProductCreateForm.propTypes = {
-  programs: PropTypes.array.isRequired,
   className: PropTypes.string,
   initialValue: PropTypes.object,
 }

@@ -187,7 +187,7 @@ function Results() {
                         </TableCell>
                         <TableCell>
                           {program.topics.map((topic) => (
-                            <Label>
+                            <Label key={topic.id}>
                               {' '}
                               {topic.title}
                               {' '}
