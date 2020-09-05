@@ -74,9 +74,9 @@ subtitle2 {
 button:focus, textarea:focus {
   outline: none;
 }
-li {
+/* li {
   list-style: none;
-}
+} */
 
 
 

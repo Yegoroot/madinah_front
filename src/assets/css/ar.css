@@ -26,6 +26,9 @@ SENTENCE
   line-height: 1.9;
   font-size: 30px;
 }
+.arsent li {
+  list-style: none;
+}  
 
 .arsent__translate {
   padding-right: 20px !important;

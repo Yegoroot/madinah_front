@@ -2,7 +2,7 @@
 import React from 'react'
 import SunEditor from 'suneditor-react'
 import {
-  font, formatBlock, fontSize, link, fontColor, hiliteColor
+  font, formatBlock, fontSize, list, link, fontColor, hiliteColor
 } from 'suneditor/src/plugins'
 import PluginArWord from './plugins/ArWord/ArWord'
 import PluginArSentence from './plugins/ArSentence/ArSentence'
@@ -26,7 +26,7 @@ const Editor = ({ onChange, content }) => (
       fontSize: [14, 21, 27],
       plugins: [PluginArWord, PluginArSentence],
       buttonList: [
-        ['ar_word', 'ar_sentence'], [fontColor, hiliteColor, 'bold', link], [font, fontSize, formatBlock], ['fullScreen', 'showBlocks', 'codeView', 'undo', 'redo']
+        ['ar_word', 'ar_sentence'], [fontColor, hiliteColor, 'bold', link], [font, list, fontSize, formatBlock], ['fullScreen', 'showBlocks', 'codeView', 'undo', 'redo']
       ]
     }}
     lang="ru"
