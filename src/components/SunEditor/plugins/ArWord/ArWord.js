@@ -56,7 +56,7 @@ export const PluginArWord = {
     const listDiv = this.util.createElement('DIV')
     // @Required
     // A "se-submenu" class is required for the top level element.
-    listDiv.className = 'se-submenu se-list-layer'
+    listDiv.className = 'se-submenu se-list-layer se-arword-wrapper'
     listDiv.innerHTML = ''
           + '<div class="se-arword">'
               + '<div class="se-arword__inputs">'
@@ -80,12 +80,10 @@ export const PluginArWord = {
     this.context.customSubmenu.textElementRoot.focus()
   },
 
-
   onClick() {
     const textElementRoot = this.context.customSubmenu.textElementRoot.value.trim()
     const textElementPrefix = this.context.customSubmenu.textElementPrefix.value.trim()
     const textElementSuffix = this.context.customSubmenu.textElementSuffix.value.trim()
-
 
     if (!textElementRoot) return
 
@@ -96,10 +94,8 @@ export const PluginArWord = {
 
     this.context.customSubmenu.textElementRoot.value = ''
 
-
     this.submenuOff()
   }
 }
-
 
 export default PluginArWord

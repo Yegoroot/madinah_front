@@ -21,11 +21,11 @@ export const PluginArSentence = {
 
   setSubmenu() {
     const listDiv = this.util.createElement('DIV')
-    listDiv.className = 'se-submenu se-list-layer'
+    listDiv.className = 'se-submenu se-list-layer se-arsentence-wrapper'
     listDiv.innerHTML = ''
           + '<div class="se-arsentence">'
               + '<div class="se-arsentence__inputs">'
-              + '<input class="se-arsentence__input se-origin" type="text" placeholder="Origin" />'
+              + '<textarea class="se-arsentence__input se-origin" type="text" placeholder="Origin" ></textarea>'
               + '<input class="se-arsentence__input se-translate" type="text" placeholder="Translate" />'
               + '</div>'
               + '<div class="se-arsentence__buttons">'
@@ -41,7 +41,6 @@ export const PluginArSentence = {
     this.context.submenuArSentence.textElementOrigin.focus()
   },
 
-
   onClick() {
     const textElementOrigin = this.context.submenuArSentence.textElementOrigin.value.trim()
     const textElementTranslate = this.context.submenuArSentence.textElementTranslate.value.trim()
@@ -55,6 +54,5 @@ export const PluginArSentence = {
     this.submenuOff()
   }
 }
-
 
 export default PluginArSentence
