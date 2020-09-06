@@ -1,20 +1,20 @@
 import React from 'react'
-// import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { hexToRgb } from '@material-ui/core/styles'
 import {
   Box,
-  // Button,
   Container,
-  // Hidden,
   Typography,
-  // IconButton,
-  // Tooltip,
+  Button,
+  SvgIcon,
   makeStyles
 } from '@material-ui/core'
-// import MoreIcon from '@material-ui/icons/MoreVert'
-import { IMAGES_BASE_URL } from 'src/constants'
+import { IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
+import { PlusCircle as PlusCircleIcon } from 'react-feather'
+import { Link as RouterLink } from 'react-router-dom'
+import { document_is_my_own } from 'src/utils/permissions'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
@@ -24,7 +24,17 @@ const useStyles = makeStyles((theme) => {
   const hex5 = hexToRgb(`${theme.palette.background.dark}`) // 63
 
   return {
-    root: {},
+    root: {
+      position: 'relative',
+    },
+    actionIcon: {
+      marginRight: theme.spacing(1)
+    },
+    button: {
+      position: 'absolute',
+      top: 30,
+      right: 20
+    },
     cover: {
       position: 'relative',
       height: 400,
@@ -53,11 +63,10 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-const Header = ({
-  className, program, ...rest
-}) => {
+const Header = ({ className, program, ...rest }) => {
   const classes = useStyles()
 
+  const { user } = useAuth()
   const backgroundImage = program.photo ? `url(${IMAGES_BASE_URL}/${program.photo})` : null
 
   return (
@@ -91,9 +100,35 @@ const Header = ({
               {program.description}
             </Typography>
           </Box>
-
         </Box>
       </Container>
+      {
+        !user || !document_is_my_own(user, program.user._id) ? null
+          : (
+            <Box className={classes.button}>
+              <Button
+                color="secondary"
+                variant="contained"
+                className={classes.action}
+                component={RouterLink}
+                to={{
+                  pathname: `${TOPICS_URL}/create`,
+                  state: {
+                    programId: program.id
+                  }
+                }}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  className={classes.actionIcon}
+                >
+                  <PlusCircleIcon />
+                </SvgIcon>
+                add topic
+              </Button>
+            </Box>
+          )
+}
     </div>
   )
 }

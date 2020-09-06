@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function ProductCreateForm({
-  className, initialValue, id, match, programs, ...rest
+  className, initialValue, id, /* match, */ location, programs, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
@@ -57,6 +57,7 @@ function ProductCreateForm({
   // const [tag, setTag] = useState('')
   const { t } = useTranslation()
   const [isShow, setIsShow] = useState(false)
+  const [redirect, setRedirect] = useState('continue')
   const [contents, setContents] = useState(initialValue.contents)
 
   const onAdd = () => setIsShow(true)
@@ -88,6 +89,11 @@ function ProductCreateForm({
     ? { ...initialValue, program: initialValue.program.id }
     : initialValue
 
+  const programId = location && location.state && location.state.programId
+  if (programId) {
+    initialValue.program = programId
+  }
+
   return (
     <Formik
       initialValues={initialValuesProgramHack}
@@ -112,25 +118,22 @@ function ProductCreateForm({
             return false
           }
           try {
-            if (id) {
-              instanceAxios
-                .put(`${API_BASE_URL}/topics/${id}`, data)
-                .then(() => {
-                  enqueueSnackbar('topic.notify.was_update', { variant: 'success' })
-                  setStatus({ success: true })
-                  setSubmitting(false)
-                  history.push(`${TOPICS_URL}`)
-                })
-            } else {
-              instanceAxios
-                .post(`${API_BASE_URL}/topics`, data)
-                .then(() => {
-                  enqueueSnackbar(t('topic.notify.was_created'), { variant: 'success' })
-                  setStatus({ success: true })
-                  setSubmitting(false)
-                  history.push(`${TOPICS_URL}`)
-                })
-            }
+            const method = id ? 'put' : 'post'
+            const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
+            const message = id ? t('notify.topic.was_update') : t('notify.topic.was_create')
+
+            instanceAxios[method](url, data)
+              .then((response) => {
+                const topic = response.data.data
+                const redirectUrl = redirect === 'open'
+                  ? `/programs/${topic.program}/topics/${topic.id}`
+                  : TOPICS_URL
+
+                setStatus({ success: true })
+                setSubmitting(false)
+                enqueueSnackbar(message, { variant: 'success' })
+                history.push(`${redirectUrl}`)
+              })
           } catch (err) {
             setErrors({ submit: err.response.data.error })
             setStatus({ success: false })
@@ -228,7 +231,7 @@ function ProductCreateForm({
                         className={classes.formControl}
                         error={Boolean(touched.program && errors.program)}
                       >
-                        <InputLabel id="form-select-1">Выберите тему</InputLabel>
+                        <InputLabel id="form-select-1">Выберите программу</InputLabel>
                         <Select
                           labelId="form-select-1"
                           name="program"
@@ -249,51 +252,6 @@ function ProductCreateForm({
                         <FormHelperText>{touched.program && errors.program}</FormHelperText>
                       </FormControl>
                     )}
-
-                  {/* <Box
-                    mt={3}
-                    display="flex"
-                    alignItems="center"
-                  >
-                    <TextField
-                      fullWidth
-                      label="tags"
-                      name="tags"
-                      value={tag}
-                      onChange={(event) => setTag(event.target.value)}
-                      variant="outlined"
-                    />
-                    <IconButton
-                      variant="contained"
-                      className={classes.addTab}
-                      onClick={() => {
-                        if (!tag) {
-                          return
-                        }
-
-                        setFieldValue('tags', [...values.tags, tag])
-                        setTag('')
-                      }}
-                    >
-                      <SvgIcon>
-                        <PlusIcon />
-                      </SvgIcon>
-                    </IconButton>
-                  </Box>
-                  <Box mt={2}>
-                    {values.tags.map((tg) => (
-                      <Chip
-                        variant="outlined"
-                        key={tg}
-                        label={tg}
-                        className={classes.tag}
-                        onDelete={() => {
-                          const newTg = values.tags.filter((val) => val !== tg)
-                          setFieldValue('tags', newTg)
-                        }}
-                      />
-                    ))}
-                  </Box> */}
                 </CardContent>
               </Card>
             </Grid>
@@ -359,10 +317,29 @@ function ProductCreateForm({
             <Button
               color="secondary"
               variant="contained"
-              type="submit"
+              style={{ marginRight: 16 }}
+              onClick={
+                () => {
+                  setRedirect('open')
+                  handleSubmit()
+                }
+              }
               disabled={isSubmitting}
             >
-              {id ? 'Update Topic' : 'Save topic' }
+              {id ? 'Update and open' : 'Save and open' }
+            </Button>
+            <Button
+              onClick={
+              () => {
+                setRedirect('continue')
+                handleSubmit()
+              }
+            }
+              color="secondary"
+              variant="contained"
+              disabled={isSubmitting}
+            >
+              {id ? 'Update and continue' : 'Save and continue' }
             </Button>
           </Box>
 
@@ -377,7 +354,8 @@ ProductCreateForm.propTypes = {
   id: PropTypes.any,
   programs: PropTypes.array,
   initialValue: PropTypes.object,
-  match: PropTypes.object
+  // match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default ProductCreateForm

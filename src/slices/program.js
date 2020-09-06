@@ -84,11 +84,11 @@ export const getProgramItem = ({ programId, type }) => async (dispatch) => {
 
 // OUTSIDE
 export const getProgramItemRequest = ({ programId, type }) => async (dispatch, getState) => {
-  if (
-    theSameDocument({ documentId: programId, getState, module })
-  ) {
-    return false
-  }
+  // if (
+  //   theSameDocument({ documentId: programId, getState, module })
+  // ) {
+  //   return false
+  // }
   dispatch(slice.actions.getProgramItemRequest())
   dispatch(getProgramItem({ programId, type }))
 }

@@ -19,6 +19,7 @@ import {
   FormControlLabel,
   Switch,
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 import FilesDropzone from 'src/components/FilesDropzone'
 import { instanceAxios } from 'src/utils/axios'
 import { IMAGES_BASE_URL, API_BASE_URL, PROGRAMS_URL } from 'src/constants'
@@ -38,7 +39,7 @@ function ProductCreateForm({
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
-
+  const { t } = useTranslation()
   const srcPhoto = initialValues.photo ? `${IMAGES_BASE_URL}/${initialValues.photo}` : null
 
   return (
@@ -59,47 +60,23 @@ function ProductCreateForm({
           formData.set('title', values.title)
           formData.set('description', values.description)
           formData.set('publish', values.publish)
-          if (values.file) {
-            formData.append('photo', values.file)
-          }
+          if (values.file) { formData.append('photo', values.file) }
 
-          if (id) {
-            instanceAxios.put(`${API_BASE_URL}/programs/${id}`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
+          const method = id ? 'put' : 'post'
+          const url = id ? `${API_BASE_URL}/programs/${id}` : `${API_BASE_URL}/programs/`
+          const setErr = (err) => (id ? err.response.data.error : err.message)
+          const message = id ? t('notify.program.was_update') : t('notify.program.was_created')
+
+          instanceAxios[method](url, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then((res) => {
+              enqueueSnackbar(message, { variant: 'success', autoHideDuration: 2000 })
+              setStatus({ success: true })
+              setSubmitting(false)
+              history.push(`/programs/${res.data.data.id}`)
             })
-              .then(() => {
-                enqueueSnackbar(`Program ${values.title} Updated `, {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${PROGRAMS_URL}`)
-              })
-              .catch((err) => {
-                setErrors({ submit: err.response.data.error })
-              })
-          } else {
-            instanceAxios.post(`${API_BASE_URL}/programs`, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
+            .catch((err) => {
+              setErrors({ submit: setErr(err) })
             })
-              .then(() => {
-                enqueueSnackbar(`Program ${values.title} Created `, {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
-                setStatus({ success: true })
-                setSubmitting(false)
-                history.push(`${PROGRAMS_URL}`)
-              })
-              .catch((err) => {
-                setErrors({ submit: err.message })
-              })
-          }
         } catch (err) {
           setErrors({ submit: err.message })
           setStatus({ success: false })

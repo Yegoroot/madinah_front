@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function TopicCreateView({ match }) {
+function TopicCreateView({ match, location }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { topicId, } = match.params
@@ -55,6 +55,7 @@ function TopicCreateView({ match }) {
           <Header title={topicId ? topic.data.title : null} />
         </Box>
         <TopicCreateForm
+          location={location}
           programs={programs}
           id={topicId}
           initialValue={topicId ? topic.data : initialValue}
