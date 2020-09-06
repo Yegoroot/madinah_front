@@ -23,19 +23,26 @@ SENTENCE
       direction: rtl;
   flex-wrap: wrap;
   /*ORIGINAL*/
-  line-height: 1.4;
+  line-height: 1.2;
   font-size: 30px;
+  padding-bottom: 10px;
 }
 .arsent li {
   list-style: none;
 }  
 
+.arsent__original {
+  padding-left: 20px;
+}
+
 .arsent__translate {
-  padding-right: 20px !important;
-  line-height: 1.5;
+  line-height: 1.2;
   font-size: 14px;
 }
 
+li.arsent__original + li.arsent__translate {
+    padding-top: 10px;
+}
 
 
 
