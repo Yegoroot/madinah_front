@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+// import PerfectScrollbar from 'react-perfect-scrollbar'
 import { /* IMAGES_BASE_URL, */PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Label from 'src/components/Label'
 import {
@@ -133,107 +133,105 @@ function Results() {
         <Header />
 
         <Box mt={3}>
-          <Card>
-            <PerfectScrollbar>
-              <Box minWidth={700}>
-                <Table stickyHeader>
-                  <TableHead>
-                    <TableRow>
+          <Card style={{ overflow: 'auto' }}>
+            <Box minWidth={700}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      Title
+                    </TableCell>
+                    <TableCell>
+                      User
+                    </TableCell>
+                    <TableCell>
+                      Status
+                    </TableCell>
+                    <TableCell>
+                      Topics
+                    </TableCell>
+                    <TableCell>
+                      Created
+                    </TableCell>
+                    <TableCell align="right">
+                      Actions
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map((program) => (
+                    <TableRow
+                      hover
+                      key={program.id}
+                    >
                       <TableCell>
-                        Title
+                        <Link
+                          color="inherit"
+                          component={RouterLink}
+                          to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
+                          variant="h6"
+                        >
+                          {program.title}
+                        </Link>
+
+                      </TableCell>
+
+                      <TableCell>
+                        {program.user.name}
+                        <br />
+                        {program.user.email}
                       </TableCell>
                       <TableCell>
-                        User
+                        <IsPublishLabel isPublish={program.publish} />
                       </TableCell>
                       <TableCell>
-                        Status
+                        {program.topics.map((topic) => (
+                          <Label key={topic.id}>
+                            {' '}
+                            {topic.title}
+                            {' '}
+                          </Label>
+                        ))}
                       </TableCell>
                       <TableCell>
-                        Topics
+                        {moment(program.createdAt).format('DD.MM.YYYY')}
                       </TableCell>
-                      <TableCell>
-                        Created
-                      </TableCell>
+
                       <TableCell align="right">
-                        Actions
+                        <IconButton
+                          onClick={() => onDelete(program.id)}
+                        >
+                          <SvgIcon fontSize="small">
+                            <DeleteIcon />
+                          </SvgIcon>
+                        </IconButton>
+                        <IconButton
+                          component={RouterLink}
+                          to={`${PROGRAMS_URL}/${program.id}/edit`}
+                        >
+                          <SvgIcon fontSize="small">
+                            <EditIcon />
+                          </SvgIcon>
+                        </IconButton>
+                        <IconButton
+                          component={RouterLink}
+                          to={{
+                            pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
+                            state: {
+                              fromDashboard: true
+                            }
+                          }}
+                        >
+                          <SvgIcon fontSize="small">
+                            <ArrowRightIcon />
+                          </SvgIcon>
+                        </IconButton>
                       </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.map((program) => (
-                      <TableRow
-                        hover
-                        key={program.id}
-                      >
-                        <TableCell>
-                          <Link
-                            color="inherit"
-                            component={RouterLink}
-                            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
-                            variant="h6"
-                          >
-                            {program.title}
-                          </Link>
-
-                        </TableCell>
-
-                        <TableCell>
-                          {program.user.name}
-                          <br />
-                          {program.user.email}
-                        </TableCell>
-                        <TableCell>
-                          <IsPublishLabel isPublish={program.publish} />
-                        </TableCell>
-                        <TableCell>
-                          {program.topics.map((topic) => (
-                            <Label key={topic.id}>
-                              {' '}
-                              {topic.title}
-                              {' '}
-                            </Label>
-                          ))}
-                        </TableCell>
-                        <TableCell>
-                          {moment(program.createdAt).format('DD.MM.YYYY')}
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <IconButton
-                            onClick={() => onDelete(program.id)}
-                          >
-                            <SvgIcon fontSize="small">
-                              <DeleteIcon />
-                            </SvgIcon>
-                          </IconButton>
-                          <IconButton
-                            component={RouterLink}
-                            to={`${PROGRAMS_URL}/${program.id}/edit`}
-                          >
-                            <SvgIcon fontSize="small">
-                              <EditIcon />
-                            </SvgIcon>
-                          </IconButton>
-                          <IconButton
-                            component={RouterLink}
-                            to={{
-                              pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
-                              state: {
-                                fromDashboard: true
-                              }
-                            }}
-                          >
-                            <SvgIcon fontSize="small">
-                              <ArrowRightIcon />
-                            </SvgIcon>
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            </PerfectScrollbar>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
             <TablePagination
               component="div"
               count={total}

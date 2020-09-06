@@ -165,7 +165,7 @@ function Results() {
                 </div>
               </div>
             )}
-            <PerfectScrollbar>
+            <PerfectScrollbar options={{ suppressScrollX: false, suppressScrollY: false, }}>
               <Box minWidth={1200}>
                 <Table>
                   <TableHead>
