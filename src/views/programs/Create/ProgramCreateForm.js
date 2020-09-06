@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import FilesDropzone from 'src/components/FilesDropzone'
 import { instanceAxios } from 'src/utils/axios'
-import { IMAGES_BASE_URL, API_BASE_URL, PROGRAMS_URL } from 'src/constants'
+import { IMAGES_BASE_URL, API_BASE_URL, /* PROGRAMS_URL */ } from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
