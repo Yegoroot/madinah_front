@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable camelcase */
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -10,11 +12,15 @@ import {
   SvgIcon,
   makeStyles
 } from '@material-ui/core'
-import { IMAGES_BASE_URL, TOPICS_URL } from 'src/constants'
-import { PlusCircle as PlusCircleIcon } from 'react-feather'
+import { IMAGES_BASE_URL, TOPICS_URL, DOMEN } from 'src/constants'
+import {
+  PlusCircle as PlusCircleIcon,
+  Share2 as ShareIcon,
+} from 'react-feather'
 import { Link as RouterLink } from 'react-router-dom'
 import { document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
+import { onShare } from 'src/utils/urls'
 
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
@@ -91,7 +97,21 @@ const Header = ({ className, program, ...rest }) => {
               variant="h1"
               color="textSecondary"
             >
+
               {program.title}
+              <Button
+                className={classes.action}
+                onClick={() => onShare(`${DOMEN}/programs/${program.id}`)}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  className={classes.actionIcon}
+                >
+                  <ShareIcon />
+                </SvgIcon>
+                Share
+              </Button>
+
             </Typography>
             <Typography
               variant="h4"

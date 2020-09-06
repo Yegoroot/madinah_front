@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable camelcase */
 import React from 'react'
 import PropTypes from 'prop-types'
 // import clsx from 'clsx'
@@ -9,19 +11,22 @@ import {
   SvgIcon,
   Breadcrumbs,
   Link,
+  Button,
   Typography,
   makeStyles
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
-
+import { DOMEN, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import {
   Check as CheckIcon,
   Calendar as CalendarIcon,
   AlertTriangle as AlertIcon,
+  Share2 as ShareIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import { PUBLIC_PROGRAMS_URL } from 'src/constants'
+
 import { document_is_my_own } from 'src/utils/permissions'
+import { onShare } from 'src/utils/urls'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -84,6 +89,20 @@ function Header({ topic }) {
               {topic.title}
             </Typography>
           </Breadcrumbs>
+        </Grid>
+        <Grid item>
+          <Button
+            className={classes.action}
+            onClick={() => onShare(`${DOMEN}/programs/${topic.program.id}/topics/${topic.id}`)}
+          >
+            <SvgIcon
+              fontSize="small"
+              className={classes.actionIcon}
+            >
+              <ShareIcon />
+            </SvgIcon>
+            Share
+          </Button>
         </Grid>
       </Grid>
       <Grid
