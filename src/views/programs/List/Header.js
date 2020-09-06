@@ -107,7 +107,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Programs
+          New Program
         </Button>
       </Grid>
     </Grid>

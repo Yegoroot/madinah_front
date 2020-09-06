@@ -2,6 +2,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   Container,
@@ -14,6 +15,9 @@ import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramItemRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
+import useAuth from 'src/hooks/useAuth'
+// eslint-disable-next-line camelcase
+import { get_item } from 'src/utils/permissions'
 import Header from './Header'
 import Topics from './Topics'
 import Files from './Files'
@@ -25,27 +29,33 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ProfileView = ({ match }) => {
+const ProgramItem = ({ match, location }) => {
   const { programId } = match.params
   const dispatch = useDispatch()
   const { loading, data, topics } = useSelector((state) => state[module].item)
   const classes = useStyles()
   const [currentTab, setCurrentTab] = useState('topics')
+  const { user } = useAuth()
   const tabs = [
     { value: 'topics', label: 'Topics' },
     { value: 'files', label: 'Files' },
   ]
-
   const handleTabsChange = (event, value) => {
     setCurrentTab(value)
   }
 
+  const type = get_item({ location, user }) ? 'private' : ''
+
   useEffect(() => {
-    dispatch(getProgramItemRequest({ programId }))
-  }, [dispatch, programId])
+    dispatch(getProgramItemRequest({ programId, type }))
+  }, [dispatch, programId, type])
 
   if (loading === 'reload') {
-    return <span onClick={() => dispatch(getProgramItemRequest({ programId, reload: true }))}>Перезагрузить</span>
+    return (
+      <span onClick={() => dispatch(getProgramItemRequest({ programId, type, reload: true }))}>
+        Перезагрузить
+      </span>
+    )
   }
   if (loading || !data) {
     return <LoadingScreen />
@@ -93,4 +103,8 @@ const ProfileView = ({ match }) => {
   )
 }
 
-export default ProfileView
+ProgramItem.propTypes = {
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+}
+export default ProgramItem

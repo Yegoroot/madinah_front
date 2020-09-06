@@ -12,6 +12,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+import useAuth from 'src/hooks/useAuth'
 
 import {
   Check as CheckIcon,
@@ -20,6 +21,7 @@ import {
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { document_is_my_own } from 'src/utils/permissions'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ topic }) {
   const classes = useStyles()
-
+  const { user, isAuthenticated } = useAuth()
   return (
     <>
       <Grid
@@ -52,6 +54,7 @@ function Header({ topic }) {
         spacing={3}
         justify="space-between"
         alignItems="center"
+
       >
         <Grid item>
           <Breadcrumbs
@@ -108,21 +111,24 @@ function Header({ topic }) {
             alignItems="center"
             flexWrap="wrap"
           >
-            <div className={classes.badge}>
-              <SvgIcon
-                fontSize="small"
-                className={classes.badgeIcon}
-              >
-                {topic.publish ? <CheckIcon /> : <AlertIcon /> }
-              </SvgIcon>
-              <Typography
-                variant="body2"
-                color="inherit"
-                component="span"
-              >
-                {topic.publish ? 'Active' : 'Inactive'}
-              </Typography>
-            </div>
+            { !isAuthenticated || !document_is_my_own(user, topic.user._id) ? null
+              : (
+                <div className={classes.badge}>
+                  <SvgIcon
+                    fontSize="small"
+                    className={classes.badgeIcon}
+                  >
+                    {topic.publish ? <CheckIcon /> : <AlertIcon /> }
+                  </SvgIcon>
+                  <Typography
+                    variant="body2"
+                    color="inherit"
+                    component="span"
+                  >
+                    {topic.publish ? 'Active' : 'Inactive'}
+                  </Typography>
+                </div>
+              )}
             <div className={classes.badge}>
               <SvgIcon
                 fontSize="small"

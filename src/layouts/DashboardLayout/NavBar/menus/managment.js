@@ -41,7 +41,7 @@ export const defineManagment = (role) => {
           icon: Folder,
           items: [
             {
-              title: 'List Program',
+              title: 'My Program',
               href: `${PROGRAMS_URL}`,
               icon: Folder
             },

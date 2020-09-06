@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   Container,
@@ -10,6 +12,8 @@ import { useSelector, useDispatch } from 'src/store'
 import { getTopicItemRequest, module } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
+import useAuth from 'src/hooks/useAuth'
+import { get_item } from 'src/utils/permissions'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -22,20 +26,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function TopicDetailsView({ match }) {
+function TopicItem({ match, location }) {
+  const { user } = useAuth()
   const classes = useStyles()
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
   const { topicId, programId } = match.params
 
+  const type = get_item({ location, user }) ? 'private' : ''
+
   useEffect(() => {
-    dispatch(getTopicItemRequest({ topicId, programId }))
-  }, [dispatch, topicId, programId])
+    dispatch(getTopicItemRequest({ topicId, programId, type }))
+  }, [dispatch, topicId, programId, type])
 
   if (loading === 'reload') {
     return (
       <Card
-        onClick={() => dispatch(getTopicItemRequest({ topicId, programId, reload: true }))}
+        onClick={() => dispatch(getTopicItemRequest({
+          topicId, programId, type, reload: true
+        }))}
       >
         <CardContent>Перезагрузить</CardContent>
       </Card>
@@ -73,4 +82,8 @@ function TopicDetailsView({ match }) {
   )
 }
 
-export default TopicDetailsView
+TopicItem.propTypes = {
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+}
+export default TopicItem

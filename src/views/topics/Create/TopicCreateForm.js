@@ -95,7 +95,7 @@ function ProductCreateForm({
         contents: Yup.array(),
         program: Yup.string().required(),
         title: Yup.string().max(255).required(),
-        description: Yup.string().required().max(1500),
+        description: Yup.string().max(1500),
         // tags: Yup.array(),
       })}
       onSubmit={

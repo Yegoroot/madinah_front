@@ -224,7 +224,12 @@ function Results() {
                                 color="textPrimary"
                                 component={RouterLink}
                                 underline="none"
-                                to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+                                to={{
+                                  pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
+                                  state: {
+                                    fromDashboard: true
+                                  }
+                                }}
                               >
                                 {topic.title}
                               </Link>

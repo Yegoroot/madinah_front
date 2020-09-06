@@ -216,7 +216,12 @@ function Results() {
                           </IconButton>
                           <IconButton
                             component={RouterLink}
-                            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
+                            to={{
+                              pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
+                              state: {
+                                fromDashboard: true
+                              }
+                            }}
                           >
                             <SvgIcon fontSize="small">
                               <ArrowRightIcon />

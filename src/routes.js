@@ -146,7 +146,7 @@ const routes = [
       },
 
       /**
-       * List Programs
+       * My Programs
        * Create Program
        * Edit Program
        */

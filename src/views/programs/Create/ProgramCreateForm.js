@@ -46,7 +46,7 @@ function ProductCreateForm({
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
-        description: Yup.string().max(1500).required(),
+        description: Yup.string().max(1500),
         // tags: Yup.array(),
       })}
       onSubmit={async (values, {
