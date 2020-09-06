@@ -2478,14 +2478,9 @@ textarea.se-arsentence__input.se-origin {
 }
 
 @media screen and (max-width: 776px) {
-.se-submenu.se-list-layer.se-arsentence-wrapper, {
+.se-submenu.se-list-layer.se-arsentence-wrapper, .se-arword-wrapper {
   width: calc(100% + 40px);
   min-width: 300px;
   left: -20px !important;
-}
-.se-arword-wrapper  {
-  width: calc(100% + 30px);
-  min-width: 300px;
-  left: 0px !important;
 }
 }

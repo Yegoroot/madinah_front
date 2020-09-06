@@ -136,7 +136,7 @@ function Results() {
           <Card>
             <PerfectScrollbar>
               <Box minWidth={700}>
-                <Table>
+                <Table stickyHeader>
                   <TableHead>
                     <TableRow>
                       <TableCell>
