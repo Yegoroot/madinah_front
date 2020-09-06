@@ -146,7 +146,7 @@ function Results() {
       <Container maxWidth={false}>
         <Header />
         <Box mt={3}>
-          <Card>
+          <Card style={{ overflow: 'auto' }}>
             {enableBulkOperations && (
               <div className={classes.bulkOperations}>
                 <div className={classes.bulkActions}>

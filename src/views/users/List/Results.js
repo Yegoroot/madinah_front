@@ -129,6 +129,7 @@ function Results({ className, ...rest }) {
 
   return (
     <Card
+      style={{ overflow: 'auto' }}
       className={clsx(classes.root, className)}
       {...rest}
     >
