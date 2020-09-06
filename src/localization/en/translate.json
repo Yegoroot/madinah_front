@@ -3,11 +3,11 @@
     "notify": {
       "topic": {
         "was_created": "Topic was created",
-        "was_update": "Topic was update"
+        "was_updated": "Topic was update"
       },
       "program": {
         "was_created": "Program was created",
-        "was_update": "Program was update"
+        "was_updated": "Program was update"
       }
     },
     "settings": {

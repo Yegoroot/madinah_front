@@ -65,7 +65,7 @@ function ProductCreateForm({
           const method = id ? 'put' : 'post'
           const url = id ? `${API_BASE_URL}/programs/${id}` : `${API_BASE_URL}/programs/`
           const setErr = (err) => (id ? err.response.data.error : err.message)
-          const message = id ? t('notify.program.was_update') : t('notify.program.was_created')
+          const message = id ? t('notify.program.was_updated') : t('notify.program.was_created')
 
           instanceAxios[method](url, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then((res) => {

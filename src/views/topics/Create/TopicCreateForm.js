@@ -120,7 +120,7 @@ function ProductCreateForm({
           try {
             const method = id ? 'put' : 'post'
             const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
-            const message = id ? t('notify.topic.was_update') : t('notify.topic.was_create')
+            const message = id ? t('notify.topic.was_updated') : t('notify.topic.was_created')
 
             instanceAxios[method](url, data)
               .then((response) => {
@@ -317,7 +317,7 @@ function ProductCreateForm({
             <Button
               color="secondary"
               variant="contained"
-              style={{ marginRight: 16 }}
+              style={{ marginRight: 16, marginBottom: 8 }}
               onClick={
                 () => {
                   setRedirect('open')
