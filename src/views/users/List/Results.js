@@ -7,7 +7,6 @@ import React, {
 import { Link as RouterLink } from 'react-router-dom'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   Avatar,
   Box,
@@ -157,110 +156,108 @@ function Results({ className, ...rest }) {
           </div>
         </div>
       )}
-      <PerfectScrollbar>
-        <Box minWidth={700}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedAllUsers}
-                    indeterminate={selectedSomeUsers}
-                    onChange={handleSelectAllUsers}
-                  />
-                </TableCell>
-                <TableCell>
-                  Name
-                </TableCell>
-                <TableCell>
-                  Role
-                </TableCell>
-                <TableCell>
-                  Id
-                </TableCell>
-                <TableCell align="right">
-                  Actions
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {paginatedUsers.map((user) => {
-                const isUserSelected = selectedUsers.includes(user._id)
+      <Box minWidth={700}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={selectedAllUsers}
+                  indeterminate={selectedSomeUsers}
+                  onChange={handleSelectAllUsers}
+                />
+              </TableCell>
+              <TableCell>
+                Name
+              </TableCell>
+              <TableCell>
+                Role
+              </TableCell>
+              <TableCell>
+                Id
+              </TableCell>
+              <TableCell align="right">
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedUsers.map((user) => {
+              const isUserSelected = selectedUsers.includes(user._id)
 
-                return (
-                  <TableRow
-                    hover
-                    key={user._id}
-                    selected={isUserSelected}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isUserSelected}
-                        onChange={(event) => handleSelectOneUser(event, user._id)}
-                        value={isUserSelected}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Box
-                        display="flex"
-                        alignItems="center"
+              return (
+                <TableRow
+                  hover
+                  key={user._id}
+                  selected={isUserSelected}
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={isUserSelected}
+                      onChange={(event) => handleSelectOneUser(event, user._id)}
+                      value={isUserSelected}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <Avatar
+                        className={classes.avatar}
+                        src={user.avatar}
                       >
-                        <Avatar
-                          className={classes.avatar}
-                          src={user.avatar}
+                        {getInitials(user.name)}
+                      </Avatar>
+                      <div>
+                        <Link
+                          color="inherit"
+                          component={RouterLink}
+                          to={`/app/users/${user._id}`}
+                          variant="h6"
                         >
-                          {getInitials(user.name)}
-                        </Avatar>
-                        <div>
-                          <Link
-                            color="inherit"
-                            component={RouterLink}
-                            to={`/app/users/${user._id}`}
-                            variant="h6"
-                          >
-                            {user.name}
-                          </Link>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                          >
-                            {user.email}
-                          </Typography>
-                        </div>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      {user.role}
-                    </TableCell>
-                    <TableCell>
-                      {user._id}
-                    </TableCell>
+                          {user.name}
+                        </Link>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                        >
+                          {user.email}
+                        </Typography>
+                      </div>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {user.role}
+                  </TableCell>
+                  <TableCell>
+                    {user._id}
+                  </TableCell>
 
-                    <TableCell align="right">
-                      <IconButton
-                        component={RouterLink}
-                        to={`/app/users/${user._id}/edit`}
-                      >
-                        <SvgIcon fontSize="small">
-                          <EditIcon />
-                        </SvgIcon>
-                      </IconButton>
-                      <IconButton
-                        component={RouterLink}
-                        to={`/app/users/${user._id}`}
-                      >
-                        <SvgIcon fontSize="small">
-                          <ArrowRightIcon />
-                        </SvgIcon>
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
+                  <TableCell align="right">
+                    <IconButton
+                      component={RouterLink}
+                      to={`/app/users/${user._id}/edit`}
+                    >
+                      <SvgIcon fontSize="small">
+                        <EditIcon />
+                      </SvgIcon>
+                    </IconButton>
+                    <IconButton
+                      component={RouterLink}
+                      to={`/app/users/${user._id}`}
+                    >
+                      <SvgIcon fontSize="small">
+                        <ArrowRightIcon />
+                      </SvgIcon>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </Box>
       <TablePagination
         component="div"
         count={users.length}

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+
 import {
   Box,
   Button,
@@ -165,130 +165,128 @@ function Results() {
                 </div>
               </div>
             )}
-            <PerfectScrollbar options={{ suppressScrollX: false, suppressScrollY: false, }}>
-              <Box minWidth={1200}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={selectedAllTopics}
-                          indeterminate={selectedSomeTopics}
-                          onChange={handleSelectAllTopics}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        Title
-                      </TableCell>
-                      <TableCell>
-                        Status
-                      </TableCell>
-                      <TableCell>
-                        User
-                      </TableCell>
-                      <TableCell>
-                        Program
-                      </TableCell>
-                      <TableCell>
-                        Create
-                      </TableCell>
-                      <TableCell align="right">
-                        Actions
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.map((topic) => {
-                      const isTopicSelected = selectedTopics.includes(topic.id)
+            <Box minWidth={1200}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={selectedAllTopics}
+                        indeterminate={selectedSomeTopics}
+                        onChange={handleSelectAllTopics}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      Title
+                    </TableCell>
+                    <TableCell>
+                      Status
+                    </TableCell>
+                    <TableCell>
+                      User
+                    </TableCell>
+                    <TableCell>
+                      Program
+                    </TableCell>
+                    <TableCell>
+                      Create
+                    </TableCell>
+                    <TableCell align="right">
+                      Actions
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map((topic) => {
+                    const isTopicSelected = selectedTopics.includes(topic.id)
 
-                      return (
-                        <TableRow
-                          hover
-                          key={topic.id}
-                          selected={isTopicSelected}
-                        >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={isTopicSelected}
-                              onChange={(event) => handleSelectOneTopic(event, topic.id)}
-                              value={isTopicSelected}
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <Box
-                              display="flex"
-                              alignItems="center"
+                    return (
+                      <TableRow
+                        hover
+                        key={topic.id}
+                        selected={isTopicSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isTopicSelected}
+                            onChange={(event) => handleSelectOneTopic(event, topic.id)}
+                            value={isTopicSelected}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                          >
+                            <Link
+                              variant="subtitle2"
+                              color="textPrimary"
+                              component={RouterLink}
+                              underline="none"
+                              to={{
+                                pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
+                                state: {
+                                  fromDashboard: true
+                                }
+                              }}
                             >
-                              <Link
-                                variant="subtitle2"
-                                color="textPrimary"
-                                component={RouterLink}
-                                underline="none"
-                                to={{
-                                  pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
-                                  state: {
-                                    fromDashboard: true
-                                  }
-                                }}
-                              >
-                                {topic.title}
-                              </Link>
-                            </Box>
-                          </TableCell>
-                          <TableCell>
-                            <IsPublishLabel isPublish={topic.publish} />
-                          </TableCell>
-                          <TableCell>
-                            {topic.user.name}
-                            <br />
-                            {topic.user.email}
-                          </TableCell>
-                          <TableCell>
-                            {`${topic.program.title}`}
-                          </TableCell>
-                          <TableCell>
-                            {moment(topic.createdAt).format('DD.MM.YYYY')}
-                          </TableCell>
-                          <TableCell align="right">
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="flex-end"
+                              {topic.title}
+                            </Link>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <IsPublishLabel isPublish={topic.publish} />
+                        </TableCell>
+                        <TableCell>
+                          {topic.user.name}
+                          <br />
+                          {topic.user.email}
+                        </TableCell>
+                        <TableCell>
+                          {`${topic.program.title}`}
+                        </TableCell>
+                        <TableCell>
+                          {moment(topic.createdAt).format('DD.MM.YYYY')}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="flex-end"
+                          >
+                            <IconButton
+                              component={RouterLink}
+                              to={`/app/topics/${topic.id}/edit`}
                             >
-                              <IconButton
-                                component={RouterLink}
-                                to={`/app/topics/${topic.id}/edit`}
-                              >
-                                <SvgIcon fontSize="small">
-                                  <EditIcon />
-                                </SvgIcon>
-                              </IconButton>
-                              <IconButton
-                                component={RouterLink}
-                                to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
-                              >
-                                <SvgIcon fontSize="small">
-                                  <ArrowRightIcon />
-                                </SvgIcon>
-                              </IconButton>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </TableBody>
-                </Table>
-                <TablePagination
-                  component="div"
-                  count={total}
-                  onChangePage={handlePageChange}
-                  onChangeRowsPerPage={handleLimitChange}
-                  page={page}
-                  rowsPerPage={limit}
-                  rowsPerPageOptions={[5, 10, 25]}
-                />
-              </Box>
-            </PerfectScrollbar>
+                              <SvgIcon fontSize="small">
+                                <EditIcon />
+                              </SvgIcon>
+                            </IconButton>
+                            <IconButton
+                              component={RouterLink}
+                              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+                            >
+                              <SvgIcon fontSize="small">
+                                <ArrowRightIcon />
+                              </SvgIcon>
+                            </IconButton>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+              <TablePagination
+                component="div"
+                count={total}
+                onChangePage={handlePageChange}
+                onChangeRowsPerPage={handleLimitChange}
+                page={page}
+                rowsPerPage={limit}
+                rowsPerPageOptions={[5, 10, 25]}
+              />
+            </Box>
           </Card>
         </Box>
       </Container>
