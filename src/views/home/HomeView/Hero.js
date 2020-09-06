@@ -83,7 +83,7 @@ const Hero = ({ className, ...rest }) => {
               >
                 {APP_NAME}
                 {' '}
-                - useful materials for self-study
+                - useful materials for self-education
               </Typography>
               <Box mt={3}>
                 <Typography
