@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core'
-import TopBar from '../ProgramLayout/TopBar'
+import TopBar from './TopBar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
