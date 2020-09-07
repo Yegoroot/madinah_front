@@ -24,7 +24,6 @@ export const matchPathProgramNotAuth = (path) => {
  * share url in mobile device
  */
 export const onShare = async (url) => {
-  alert('share is ok')
   if (navigator.share) {
     await navigator.share({ title: 'Share this content', url })
       .then(() => { })
