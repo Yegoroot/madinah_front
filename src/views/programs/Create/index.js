@@ -4,6 +4,8 @@ import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useSelector, useDispatch } from 'src/store'
 import { getProgramItemRequest, module } from 'src/slices/program'
+import { instanceAxios } from 'src/utils/axios'
+import { API_BASE_URL, TYPES_URL } from 'src/constants'
 import Header from './Header'
 import ProgramCreateForm from './ProgramCreateForm'
 
@@ -21,11 +23,12 @@ function ProgramCreateView({ match }) {
   const { programId } = match.params
   const { loading, data } = useSelector((state) => state[module].item)
   const dispatch = useDispatch()
+  const [allTypes, setTypes] = useState([])
   const [initialValues] = useState({
     title: '',
     description: '',
     file: '',
-    tags: [],
+    types: [],
     publish: true
   })
 
@@ -33,10 +36,18 @@ function ProgramCreateView({ match }) {
     if (programId) {
       dispatch(getProgramItemRequest({ programId, type: 'private' }))
     }
+    instanceAxios.get(`${API_BASE_URL}/types/`).then((res) => { setTypes(res.data.data) })
   }, [programId, dispatch])
 
   if ((loading || (programId && !data))) {
     return <LoadingScreen />
+  }
+
+  // for multiselect we need ['', ''] not [{}, {}]
+
+  const program = {
+    ...data,
+    types: data.types.map((typeObj) => typeObj._id)
   }
 
   return (
@@ -48,7 +59,8 @@ function ProgramCreateView({ match }) {
         <Header id={programId} />
         <ProgramCreateForm
           id={programId}
-          initialValues={programId ? data : initialValues}
+          allTypes={allTypes}
+          initialValues={programId ? program : initialValues}
         />
       </Container>
     </Page>

@@ -53,7 +53,7 @@ function CustomerListView() {
   return (
     <Page
       className={classes.root}
-      title="User List"
+      title="Types List"
     >
       <Container maxWidth={false}>
         <Header />

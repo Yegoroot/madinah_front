@@ -8,26 +8,23 @@ import { Link as RouterLink } from 'react-router-dom'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import {
-  Avatar,
   Box,
   Card,
   IconButton,
-  Link,
   SvgIcon,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  // TablePagination,
   TableRow,
-  Typography,
   makeStyles
 } from '@material-ui/core'
 import {
   Edit as EditIcon,
   Trash,
 } from 'react-feather'
-import getInitials from 'src/utils/getInitials'
+
+// import LoadingScreen from 'src/components/LoadingScreen'
 import { instanceAxios } from 'src/utils/axios'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import { API_BASE_URL } from 'src/constants'
@@ -61,52 +58,46 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Results({ className, ...rest }) {
-  const classes = useStyles()
-  // const [page, setPage] = useState(0)
-  // const [limit, setLimit] = useState(10)
   const { enqueueSnackbar } = useSnackbar()
+  const classes = useStyles()
 
-  // const dispatch = useDispatch()
+  /**
+ *
+ *
+ * --------------
+ */
   const isMountedRef = useIsMountedRef()
-  const [users, setUsers] = useState([])
+  const [types, setTypes] = useState([])
 
-  const getUsers = useCallback(() => {
+  const getTypes = useCallback(() => {
     instanceAxios
-      .get(`${API_BASE_URL}/users`)
+      .get(`${API_BASE_URL}/types`)
       .then((response) => {
         if (isMountedRef.current) {
-          setUsers(response.data.data)
+          setTypes(response.data.data)
         }
       })
   }, [isMountedRef])
 
   useEffect(() => {
-    getUsers()
-  }, [getUsers])
+    getTypes()
+  }, [getTypes])
 
   const onDelete = (id) => {
-    if (window.confirm('do you want to delete this user?')) {
+    if (window.confirm('do you want to delete this type?')) {
       instanceAxios
-        .delete(`${API_BASE_URL}/users/${id}`)
+        .delete(`${API_BASE_URL}/types/${id}`)
         .then(() => {
-          enqueueSnackbar('User was deleted', { variant: 'success' })
-          const newUsers = users.filter((u) => u._id !== id)
-          console.log(newUsers)
-          setUsers(newUsers)
+          enqueueSnackbar('Type was deleted', { variant: 'success' })
+          const newTypes = types.filter((u) => u._id !== id)
+          console.log(newTypes)
+          setTypes(newTypes)
         })
         .catch(() => {
-          enqueueSnackbar('User wasnt deleted', { variant: 'error' })
+          enqueueSnackbar('Type wasnt deleted', { variant: 'error' })
         })
     }
   }
-
-  // const handlePageChange = (event, newPage) => {
-  //   setPage(newPage)
-  // }
-
-  // const handleLimitChange = (event) => {
-  //   setLimit(event.target.value)
-  // }
 
   return (
     <Card
@@ -120,10 +111,13 @@ function Results({ className, ...rest }) {
           <TableHead>
             <TableRow>
               <TableCell>
-                Name
+                Title
               </TableCell>
               <TableCell>
-                Role
+                alias
+              </TableCell>
+              <TableCell>
+                color
               </TableCell>
               <TableCell>
                 Id
@@ -134,60 +128,35 @@ function Results({ className, ...rest }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {types.map((type) => (
               <TableRow
                 hover
-                key={user._id}
+                key={type._id}
               >
-
                 <TableCell>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                  >
-                    <Avatar
-                      className={classes.avatar}
-                      src={user.avatar}
-                    >
-                      {getInitials(user.name)}
-                    </Avatar>
-                    <div>
-                      <Link
-                        color="inherit"
-                        component={RouterLink}
-                        to={`/app/users/${user._id}`}
-                        variant="h6"
-                      >
-                        {user.name}
-                      </Link>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                      >
-                        {user.email}
-                      </Typography>
-                    </div>
-                  </Box>
+                  {type.title}
                 </TableCell>
                 <TableCell>
-                  {user.role}
+                  {type.alias}
                 </TableCell>
                 <TableCell>
-                  {user._id}
+                  <span style={{ color: type.color }}>{type.color}</span>
+                </TableCell>
+                <TableCell>
+                  {type._id}
                 </TableCell>
 
                 <TableCell align="right">
                   <IconButton
                     component={RouterLink}
-                    to={`/app/users/${user._id}/edit`}
+                    to={`/app/types/${type._id}/edit`}
                   >
                     <SvgIcon fontSize="small">
                       <EditIcon />
                     </SvgIcon>
                   </IconButton>
                   <IconButton
-                    component={RouterLink}
-                    onClick={() => onDelete(user._id)}
+                    onClick={() => onDelete(type._id)}
                   >
                     <SvgIcon fontSize="small">
                       <Trash />
@@ -199,26 +168,17 @@ function Results({ className, ...rest }) {
           </TableBody>
         </Table>
       </Box>
-      {/* <TablePagination
-        component="div"
-        count={users.length}
-        onChangePage={handlePageChange}
-        onChangeRowsPerPage={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      /> */}
     </Card>
   )
 }
 
 Results.propTypes = {
   className: PropTypes.string,
-  users: PropTypes.array
+  types: PropTypes.array
 }
 
 Results.defaultProps = {
-  users: []
+  types: []
 }
 
 export default Results

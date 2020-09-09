@@ -18,6 +18,7 @@ import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
 import UserGuard from 'src/components/UserGuard'
 import ProgramGuard from 'src/components/ProgramGuard'
+import SuperadminGuard from 'src/components/SuperadminGuard'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
@@ -170,6 +171,29 @@ const routes = [
         component: lazy(() => import('src/views/programs/Create'))
       },
 
+      /**
+       * List Types
+     * Create Type
+     * Edit Type
+     */
+      {
+        exact: true,
+        guard: SuperadminGuard,
+        path: '/app/types',
+        component: lazy(() => import('src/views/types/List'))
+      },
+      {
+        exact: true,
+        guard: SuperadminGuard,
+        path: '/app/types/create',
+        component: lazy(() => import('src/views/types/Create'))
+      },
+      {
+        exact: true,
+        guard: SuperadminGuard,
+        path: '/app/types/:typeId/edit',
+        component: lazy(() => import('src/views/types/Create'))
+      },
       {
         component: () => <Redirect to="/404" />
       },

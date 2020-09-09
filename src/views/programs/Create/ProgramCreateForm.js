@@ -15,8 +15,14 @@ import {
   FormHelperText,
   Grid,
   TextField,
+  Chip,
   makeStyles,
   FormControlLabel,
+  InputLabel,
+  Select,
+  MenuItem,
+  Input,
+  FormControl,
   Switch,
 } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
@@ -34,7 +40,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function ProductCreateForm({
-  className, initialValues, id, ...rest
+  className, initialValues, id, allTypes, ...rest
 }) {
   const classes = useStyles()
   const history = useHistory()
@@ -48,7 +54,7 @@ function ProductCreateForm({
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
         description: Yup.string().max(1500),
-        // tags: Yup.array(),
+        types: Yup.array(),
       })}
       onSubmit={async (values, {
         setErrors,
@@ -60,6 +66,7 @@ function ProductCreateForm({
           formData.set('title', values.title)
           formData.set('description', values.description)
           formData.set('publish', values.publish)
+          formData.set('types', JSON.stringify(values.types))
           if (values.file) { formData.append('photo', values.file) }
 
           const method = id ? 'put' : 'post'
@@ -123,7 +130,7 @@ function ProductCreateForm({
                   />
                   <Box
                     mt={3}
-                    mb={1}
+                    mb={3}
                   >
                     <TextField
                       error={Boolean(touched.description && errors.description)}
@@ -138,6 +145,73 @@ function ProductCreateForm({
                       variant="outlined"
                     />
                   </Box>
+                  {!allTypes.length ? null
+                    : (
+                      <FormControl
+                        fullWidth
+                        className={classes.formControl}
+                        error={Boolean(touched.types && errors.types)}
+                      >
+                        <InputLabel id="demo-mutiple-chip-label">Choose type of program (if you want)</InputLabel>
+                        <Select
+                          labelId="demo-mutiple-chip-label"
+                          name="types"
+                          multiple
+                          value={values.types}
+                          onChange={handleChange}
+                          input={<Input id="select-multiple-chip" />}
+                          renderValue={(selected) => (
+                            <div className={classes.chips}>
+                              {selected.map((value) => (
+                                <Chip
+                                  key={value}
+                                  label={allTypes.find((el) => el._id === value).title}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        >
+                          {allTypes.map((name) => (
+                            <MenuItem
+                              key={name._id}
+                              value={name._id}
+                            >
+                              {name.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <FormHelperText>{touched.types && errors.types}</FormHelperText>
+                      </FormControl>
+                    ) }
+                  {/*
+                  {!allTypes ? null
+                    : (
+                      <FormControl
+                        fullWidth
+                        className={classes.formControl}
+                        error={Boolean(touched.types && errors.types)}
+                      >
+                        <InputLabel id="form-select-1">Choose types</InputLabel>
+                        <Select
+                          labelId="form-select-1"
+                          name="types"
+                          value={values.program}
+                          displayEmpty
+                          onChange={handleChange}
+                          input={<Input id="select-multiple-chip" />}
+                        >
+                          {allTypes.map((t) => (
+                            <MenuItem
+                              key={t._id}
+                              value={t._id}
+                            >
+                              {t.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <FormHelperText>{touched.types && errors.types}</FormHelperText>
+                      </FormControl>
+                    )} */}
                 </CardContent>
               </Card>
 
@@ -211,6 +285,7 @@ function ProductCreateForm({
 ProductCreateForm.propTypes = {
   className: PropTypes.string,
   initialValues: PropTypes.object,
+  allTypes: PropTypes.array.isRequired
 }
 
 export default ProductCreateForm

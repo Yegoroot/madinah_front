@@ -16,6 +16,7 @@ export const PUBLIC_PROGRAMS_URL = '/programs'
 export const PROGRAMS_URL = '/app/programs'
 export const TOPICS_URL = '/app/topics'
 export const USERS_URL = '/app/users'
+export const TYPES_URL = '/app/types'
 
 export const DOMEN = 'madinah.best'
 
