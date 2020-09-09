@@ -21,6 +21,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
 import { onShare } from 'src/utils/urls'
+import Type from 'src/components/Type'
 
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
@@ -120,6 +121,16 @@ const Header = ({ className, program, ...rest }) => {
               {program.description}
             </Typography>
           </Box>
+
+          {program.types.map((type) => (
+            <Type
+              color={type.color}
+              key={type._id}
+            >
+              {type.title}
+            </Type>
+          ))}
+
         </Box>
       </Container>
       {

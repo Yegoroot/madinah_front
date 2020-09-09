@@ -5,7 +5,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import { useSelector, useDispatch } from 'src/store'
 import { getProgramItemRequest, module } from 'src/slices/program'
 import { instanceAxios } from 'src/utils/axios'
-import { API_BASE_URL, TYPES_URL } from 'src/constants'
+import { API_BASE_URL } from 'src/constants'
 import Header from './Header'
 import ProgramCreateForm from './ProgramCreateForm'
 

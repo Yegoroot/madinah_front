@@ -23,6 +23,7 @@ import { deleteProgram } from 'src/slices/program'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
+import Type from 'src/components/Type'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -88,6 +89,22 @@ function ProgramCard({ program, className, ...rest }) {
             {program.description}
           </Typography>
         </Box>
+      </Box>
+
+      <Box
+        p={3}
+        pb={0}
+        pt={0}
+      >
+        {program.types.map((type) => (
+          <Type
+            color={type.color}
+            key={type._id}
+          >
+            {type.title}
+          </Type>
+        ))}
+
       </Box>
       <Box
         p={3}

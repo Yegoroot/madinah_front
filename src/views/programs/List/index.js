@@ -33,6 +33,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import moment from 'moment'
+import Type from 'src/components/Type'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -145,6 +146,9 @@ function Results() {
                       User
                     </TableCell>
                     <TableCell>
+                      Types
+                    </TableCell>
+                    <TableCell>
                       Status
                     </TableCell>
                     <TableCell>
@@ -181,16 +185,23 @@ function Results() {
                         <br />
                         {program.user.email}
                       </TableCell>
+
+                      <TableCell>
+                        {program.types.map((type) => (
+                          <Type
+                            color={type.color}
+                            key={type._id}
+                          >
+                            {type.title}
+                          </Type>
+                        ))}
+                      </TableCell>
                       <TableCell>
                         <IsPublishLabel isPublish={program.publish} />
                       </TableCell>
                       <TableCell>
                         {program.topics.map((topic) => (
-                          <Label key={topic.id}>
-                            {' '}
-                            {topic.title}
-                            {' '}
-                          </Label>
+                          <Label key={topic.id}>{topic.title}</Label>
                         ))}
                       </TableCell>
                       <TableCell>
