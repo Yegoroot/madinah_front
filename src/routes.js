@@ -95,6 +95,16 @@ const routes = [
         path: '/app/account',
         component: lazy(() => import('src/views/account/AccountView'))
       },
+      {
+        exact: true,
+        path: '/app/info',
+        component: lazy(() => import('src/views/info/ChangelogView'))
+      },
+      {
+        exact: true,
+        path: '/app/feedback',
+        component: lazy(() => import('src/views/info/FeedbackView'))
+      },
       /**
        *USER
        */

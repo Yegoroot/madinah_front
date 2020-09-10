@@ -45,9 +45,12 @@ function ProgramCreateView({ match }) {
 
   // for multiselect we need ['', ''] not [{}, {}]
 
-  const program = {
-    ...data,
-    types: data.types.map((typeObj) => typeObj._id)
+  let program = {}
+  if (data) {
+    program = {
+      ...data,
+      types: data.types.map((typeObj) => typeObj._id)
+    }
   }
 
   return (

@@ -123,7 +123,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, ])
+  }, [location.pathname,])
 
   const content = (
     <Box
@@ -174,15 +174,26 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               variant="h6"
               color="textPrimary"
             >
-              Need Help?
+              What is happening?
             </Typography>
             <Link
               variant="subtitle1"
               color="secondary"
               component={RouterLink}
-              to="/docs"
+              to="/app/info"
             >
-              Check our docs
+              Realise and Plan
+            </Link>
+            ,
+            {'  '}
+
+            <Link
+              variant="subtitle1"
+              color="secondary"
+              component={RouterLink}
+              to="/app/feedback"
+            >
+              Feedback
             </Link>
           </Box>
         </Box>
