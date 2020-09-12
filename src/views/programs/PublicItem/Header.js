@@ -12,7 +12,7 @@ import {
   SvgIcon,
   makeStyles
 } from '@material-ui/core'
-import { IMAGES_BASE_URL, TOPICS_URL, DOMEN } from 'src/constants'
+import { UPLOADS_URL, TOPICS_URL, DOMEN } from 'src/constants'
 import {
   PlusCircle as PlusCircleIcon,
   Share2 as ShareIcon,
@@ -74,7 +74,9 @@ const Header = ({ className, program, ...rest }) => {
   const classes = useStyles()
 
   const { user } = useAuth()
-  const backgroundImage = program.photo ? `url(${IMAGES_BASE_URL}/${program.photo})` : null
+  const backgroundImage = program.photo
+    ? `url(${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo})`
+    : null
 
   return (
     <div

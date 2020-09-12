@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 // import PerfectScrollbar from 'react-perfect-scrollbar'
-import { /* IMAGES_BASE_URL, */PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Label from 'src/components/Label'
 import {
   // Avatar,

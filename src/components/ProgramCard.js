@@ -18,7 +18,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { Trash as TrashIcon, Edit as EditIcon } from 'react-feather'
 import getInitials from 'src/utils/getInitials'
-import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL, IMAGES_BASE_URL } from 'src/constants'
+import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL, UPLOADS_URL } from 'src/constants'
 import { deleteProgram } from 'src/slices/program'
 // eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
@@ -48,8 +48,9 @@ function ProgramCard({ program, className, ...rest }) {
     }
   }
 
-  const programPhoto = program.photo ? program.photo : 'no-photo.png'
-  const image = `${IMAGES_BASE_URL}/${programPhoto}`
+  const image = program.photo
+    ? `${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo}`
+    : null
 
   return (
     <Card
