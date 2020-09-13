@@ -14,6 +14,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
 import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
+import MarkdownType from 'src/components/Section/Item/MarkdownType'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,20 @@ function TopicItem({ match, location }) {
   useEffect(() => {
     dispatch(getTopicItemRequest({ topicId, programId, type }))
   }, [dispatch, topicId, programId, type])
+
+  const renderContents = (content) => {
+    if (content.type === 'text') {
+      return (
+        <div
+          key={content.id}
+          dangerouslySetInnerHTML={{ __html: content.data }}
+        />
+      )
+    }
+    if (content.type === 'markdown') {
+      return <MarkdownType content={content} />
+    }
+  }
 
   if (loading === 'reload') {
     return (
@@ -68,13 +83,7 @@ function TopicItem({ match, location }) {
         />
         <Box mt={3}>
 
-          {data.contents.map((content) => (
-            // FIXME тут только выводит пока ткустовый вариант
-            <div
-              key={content.id}
-              dangerouslySetInnerHTML={{ __html: content.data }}
-            />
-          ))}
+          {data.contents.map((content) => renderContents(content))}
 
         </Box>
       </Container>
