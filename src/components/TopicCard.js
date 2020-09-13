@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import clsx from 'clsx'
 import moment from 'moment'
 import {
   Box,
-  Card,
   IconButton,
   Link,
   SvgIcon,
@@ -13,14 +11,10 @@ import {
   colors,
   makeStyles
 } from '@material-ui/core'
-// import { useDispatch } from 'react-redux'
 import {
-  // Trash as TrashIcon,
   Edit as EditIcon,
 } from 'react-feather'
 import { PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
-// import { deleteTopic } from 'src/slices/topic'
-// eslint-disable-next-line camelcase
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
 
