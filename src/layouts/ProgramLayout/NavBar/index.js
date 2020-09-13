@@ -88,6 +88,9 @@ const useStyles = makeStyles(() => ({
   mobileDrawer: {
     width: 256
   },
+  subheader: {
+    '& svg': { flex: 'none' }
+  },
   progress: {
     top: 115,
     left: '50%',
@@ -166,6 +169,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         <Box p={2}>
           {menuList.map((section) => (
             <List
+              className={classes.subheader}
               key={section.subheader}
               subheader={(
                 <ListSubheader
