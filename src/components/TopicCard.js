@@ -26,9 +26,11 @@ import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  media: {
-    height: 200,
-    backgroundColor: theme.palette.background.dark
+  topic: {
+    transition: '0.3s',
+    '&:hover': {
+      backgroundColor: theme.palette.background.paper
+    }
   },
   likedButton: {
     color: colors.red[600]
@@ -55,10 +57,7 @@ function TopicCard({
   // }
 
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
+    <div className={classes.topic}>
 
       <Box
         p={3}
@@ -153,7 +152,7 @@ function TopicCard({
             </Box>
           </>
         )}
-    </Card>
+    </div>
   )
 }
 
