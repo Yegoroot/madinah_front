@@ -15,6 +15,7 @@ import Page from 'src/components/Page'
 import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
 import MarkdownType from 'src/components/Section/Item/MarkdownType'
+import TextType from 'src/components/Section/Item/TextType'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,14 +44,19 @@ function TopicItem({ match, location }) {
   const renderContents = (content) => {
     if (content.type === 'text') {
       return (
-        <div
+        <TextType
           key={content.id}
-          dangerouslySetInnerHTML={{ __html: content.data }}
+          content={content}
         />
       )
     }
     if (content.type === 'markdown') {
-      return <MarkdownType content={content} />
+      return (
+        <MarkdownType
+          key={content.id}
+          content={content}
+        />
+      )
     }
   }
 
