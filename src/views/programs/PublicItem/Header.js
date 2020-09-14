@@ -43,8 +43,10 @@ const useStyles = makeStyles((theme) => {
       right: 20
     },
     cover: {
-      position: 'relative',
+      width: '100%',
       height: 400,
+      top: 0,
+      position: 'absolute',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
@@ -58,12 +60,8 @@ const useStyles = makeStyles((theme) => {
         background: `linear-gradient(-180deg,  ${hex1} 40%,  ${hex2} 60%,  ${hex3} 70%, ${hex4} 85%, ${hex5} 100%)`
       },
     },
-    title: {
-      position: 'absolute',
-      top: -150,
-      left: -20,
-      padding: 20,
-      maxWidth: 'calc(100% + 40px)'
+    content: {
+      paddingTop: 320
     },
     action: {
       marginLeft: theme.spacing(1)
@@ -88,55 +86,56 @@ const Header = ({ className, program, ...rest }) => {
         className={classes.cover}
         style={{ backgroundImage }}
       />
-      <Container maxWidth="lg">
-        <Box
-          position="relative"
-          mt={1}
-          display="flex"
-          alignItems="center"
-        >
+      <div className={classes.content}>
+        <Container maxWidth="lg">
+          <Box
+            position="relative"
+            mt={1}
+            display="flex"
+            alignItems="center"
+          >
 
-          <Box className={classes.title}>
-            <Typography
-              variant="h1"
-              color="textSecondary"
-            >
-
-              {program.title}
-              <Button
-                className={classes.action}
-                onClick={() => onShare(`${DOMEN}/programs/${program.id}`)}
+            <Box className={classes.title}>
+              <Typography
+                variant="h1"
+                color="textSecondary"
               >
-                <SvgIcon
-                  fontSize="small"
-                  className={classes.actionIcon}
+
+                {program.title}
+                <Button
+                  className={classes.action}
+                  onClick={() => onShare(`${DOMEN}/programs/${program.id}`)}
                 >
-                  <ShareIcon />
-                </SvgIcon>
-                Share
-              </Button>
+                  <SvgIcon
+                    fontSize="small"
+                    className={classes.actionIcon}
+                  >
+                    <ShareIcon />
+                  </SvgIcon>
+                  Share
+                </Button>
 
-            </Typography>
-            <Typography
-              variant="h4"
-              color="textPrimary"
-            >
-              {program.description}
-            </Typography>
+              </Typography>
+              <Typography
+                variant="h4"
+                color="textPrimary"
+              >
+                {program.description}
+              </Typography>
+            </Box>
+
+            {program.types.map((type) => (
+              <Type
+                color={type.color}
+                key={type._id}
+              >
+                {type.title}
+              </Type>
+            ))}
+
           </Box>
-
-          {program.types.map((type) => (
-            <Type
-              color={type.color}
-              key={type._id}
-            >
-              {type.title}
-            </Type>
-          ))}
-
-        </Box>
-      </Container>
-      {
+        </Container>
+        {
         !user || !document_is_my_own(user, program.user._id) ? null
           : (
             <Box className={classes.button}>
@@ -163,6 +162,7 @@ const Header = ({ className, program, ...rest }) => {
             </Box>
           )
 }
+      </div>
     </div>
   )
 }
