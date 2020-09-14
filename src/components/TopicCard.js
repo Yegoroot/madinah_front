@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.background.paper
     }
   },
+  edit: {
+    marginTop: -8
+  },
   likedButton: {
     color: colors.red[600]
   },
@@ -54,7 +57,7 @@ function TopicCard({
     <div className={classes.topic}>
 
       <Box
-        p={3}
+        pt={3}
       >
         <Link
           color="textPrimary"
@@ -64,7 +67,24 @@ function TopicCard({
         >
           {topic.title}
         </Link>
-        <Box
+        { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
+          : (
+            <>
+              <IconButton
+                className={classes.edit}
+                component={RouterLink}
+                to={`${TOPICS_URL}/${topic.id}/edit`}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="inherit"
+                >
+                  <EditIcon />
+                </SvgIcon>
+              </IconButton>
+            </>
+          )}
+        {/* <Box
           pt={1}
         >
           <Typography
@@ -73,27 +93,12 @@ function TopicCard({
           >
             {topic.description}
           </Typography>
-        </Box>
-        {/* <Box
-          pt={1}
-        >
-          <Typography
-            color="textSecondary"
-            variant="body2"
-          >
-            {topic.tags.map((tag) => (
-              <Label key={tag}>
-                {' '}
-                {tag}
-              </Label>
-            ))}
-          </Typography>
         </Box> */}
 
         <Box
           display="flex"
           alignItems="center"
-          mt={2}
+          mt={1}
         >
           <Box>
             <Typography
@@ -108,44 +113,6 @@ function TopicCard({
         </Box>
       </Box>
 
-      { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
-        : (
-          <>
-            <Box
-              py={2}
-              pt={0}
-              pl={2}
-              pr={3}
-              display="flex"
-              alignItems="center"
-            >
-
-              <IconButton
-                component={RouterLink}
-                to={`${TOPICS_URL}/${topic.id}/edit`}
-              >
-                <SvgIcon
-                  fontSize="small"
-                  color="inherit"
-                  className={classes.edit}
-                >
-                  <EditIcon />
-                </SvgIcon>
-              </IconButton>
-              {/* <IconButton
-                onClick={handleDelete}
-              >
-                <SvgIcon
-                  fontSize="small"
-                  color="error"
-                  className={classes.delete}
-                >
-                  <TrashIcon />
-                </SvgIcon>
-              </IconButton> */}
-            </Box>
-          </>
-        )}
     </div>
   )
 }
