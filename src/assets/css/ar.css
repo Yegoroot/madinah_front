@@ -20,7 +20,9 @@ SENTENCE
   display: flex !important;
   flex-direction: row;
   align-items: center;
-      direction: rtl;
+      /* direction: rtl; */
+      margin-right: 0px;
+      margin-left: 0px;
   flex-wrap: wrap;
   /*ORIGINAL*/
   line-height: 1.2;
@@ -42,6 +44,8 @@ SENTENCE
 
 li.arsent__original + li.arsent__translate {
     padding-top: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
 
