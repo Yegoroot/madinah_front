@@ -60,9 +60,10 @@ const useStyles = makeStyles((theme) => {
     },
     title: {
       position: 'absolute',
-      top: -130,
+      top: -150,
       left: -20,
-      padding: 20
+      padding: 20,
+      maxWidth: 'calc(100% + 40px)'
     },
     action: {
       marginLeft: theme.spacing(1)

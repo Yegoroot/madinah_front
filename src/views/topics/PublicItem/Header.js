@@ -118,7 +118,7 @@ function Header({ topic }) {
             {topic.title}
           </Typography>
           <Typography
-            variant="h3"
+            variant="h5"
             color="textPrimary"
           >
             {topic.description}

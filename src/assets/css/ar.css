@@ -33,9 +33,9 @@ SENTENCE
   list-style: none;
 }  
 
-.arsent__original {
+/* .arsent__original {
   padding-left: 20px;
-}
+} */
 
 .arsent__translate {
   line-height: 1.2;
