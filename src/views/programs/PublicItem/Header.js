@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => {
     },
     action: {
       marginLeft: theme.spacing(1)
+    },
+    title: {
+      maxWidth: '100%'
     }
   }
 })
@@ -90,12 +93,14 @@ const Header = ({ className, program, ...rest }) => {
         <Container maxWidth="lg">
           <Box
             position="relative"
-            mt={1}
             display="flex"
             alignItems="center"
           >
 
-            <Box className={classes.title}>
+            <Box
+              className={classes.title}
+              mb={2}
+            >
               <Typography
                 variant="h1"
                 color="textSecondary"
@@ -124,6 +129,12 @@ const Header = ({ className, program, ...rest }) => {
               </Typography>
             </Box>
 
+          </Box>
+
+          <Box
+
+            mx={-1}
+          >
             {program.types.map((type) => (
               <Type
                 color={type.color}
@@ -132,8 +143,8 @@ const Header = ({ className, program, ...rest }) => {
                 {type.title}
               </Type>
             ))}
-
           </Box>
+
         </Container>
         {
         !user || !document_is_my_own(user, program.user._id) ? null
