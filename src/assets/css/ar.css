@@ -21,8 +21,7 @@ SENTENCE
   flex-direction: row;
   align-items: center;
       /* direction: rtl; */
-      margin-right: 0px;
-      margin-left: 0px;
+  margin: 0px;
   flex-wrap: wrap;
   /*ORIGINAL*/
   line-height: 1.2;

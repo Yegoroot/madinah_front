@@ -12,20 +12,22 @@ import {
   Breadcrumbs,
   Link,
   Button,
+  IconButton,
   Typography,
   makeStyles
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
-import { DOMEN, PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { DOMEN, PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
 import {
   Check as CheckIcon,
   Calendar as CalendarIcon,
   AlertTriangle as AlertIcon,
   Share2 as ShareIcon,
+  Edit as EditIcon,
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 
-import { document_is_my_own } from 'src/utils/permissions'
+import { document_is_my_own, perm_work_with_program } from 'src/utils/permissions'
 import { onShare } from 'src/utils/urls'
 
 const useStyles = makeStyles((theme) => ({
@@ -116,7 +118,24 @@ function Header({ topic }) {
             color="textPrimary"
           >
             {topic.title}
+            { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(user.role) ? null
+              : (
+                <>
+                  <IconButton
+                    component={RouterLink}
+                    to={`${TOPICS_URL}/${topic.id}/edit`}
+                  >
+                    <SvgIcon
+                      fontSize="small"
+                      color="inherit"
+                    >
+                      <EditIcon />
+                    </SvgIcon>
+                  </IconButton>
+                </>
+              )}
           </Typography>
+
           <Typography
             variant="h5"
             color="textPrimary"

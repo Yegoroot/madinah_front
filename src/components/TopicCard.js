@@ -20,12 +20,6 @@ import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  topic: {
-    transition: '0.3s',
-    '&:hover': {
-      backgroundColor: theme.palette.background.paper
-    }
-  },
   edit: {
     marginTop: -8
   },
@@ -54,7 +48,7 @@ function TopicCard({
   // }
 
   return (
-    <div className={classes.topic}>
+    <div>
 
       <Box
         pt={3}
