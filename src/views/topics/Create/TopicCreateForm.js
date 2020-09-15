@@ -7,28 +7,12 @@ import { Formik } from 'formik'
 import { useSnackbar } from 'notistack'
 import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
-  Box,
-  Button,
-  Select,
-  InputLabel,
-  Input,
-  FormControl,
-  MenuItem,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  FormControlLabel,
-  Switch,
-  FormHelperText,
-  Grid,
-  TextField,
-  makeStyles,
-  // IconButton,
-  // Chip,
-  // SvgIcon,
+  Box, Button, Select, InputLabel,
+  Input, FormControl, MenuItem, Card, CardContent,
+  CardHeader, Divider, FormControlLabel,
+  Switch, FormHelperText, Grid, TextField, makeStyles,
 } from '@material-ui/core'
-// import { Plus as PlusIcon } from 'react-feather'
+import ObjectID from 'bson-objectid'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
@@ -48,13 +32,18 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function ProductCreateForm({
+function TopicCreateForm({
   className, initialValue, id, /* match, */ location, programs, ...rest
 }) {
+  /**
+   * create object ID for topic
+   *  we need to know id before create
+   * for records
+   */
+  const objectId = id || ObjectID.generate() // WARN 1
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
-  // const [tag, setTag] = useState('')
   const { t } = useTranslation()
   const [isShow, setIsShow] = useState(false)
   const [redirect, setRedirect] = useState('continue')
@@ -117,6 +106,7 @@ function ProductCreateForm({
             setSubmitting(false)
             return false
           }
+          data._id = objectId // if we create form then define own ObjectId // WARN 2
           try {
             const method = id ? 'put' : 'post'
             const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
@@ -286,6 +276,8 @@ function ProductCreateForm({
 
               {!isShow ? null : (
                 <SectionCreate
+
+                  topicId={objectId}
                   onCancel={onCancel}
                   onSave={onSave}
                 />
@@ -329,6 +321,7 @@ function ProductCreateForm({
               {id ? 'Update and open' : 'Save and open' }
             </Button>
             <Button
+              style={{ marginBottom: 8, marginRight: 16 }}
               onClick={
               () => {
                 setRedirect('continue')
@@ -349,13 +342,12 @@ function ProductCreateForm({
   )
 }
 
-ProductCreateForm.propTypes = {
+TopicCreateForm.propTypes = {
   className: PropTypes.string,
   id: PropTypes.any,
   programs: PropTypes.array,
   initialValue: PropTypes.object,
-  // match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
 }
 
-export default ProductCreateForm
+export default TopicCreateForm

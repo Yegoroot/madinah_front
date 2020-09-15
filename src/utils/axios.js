@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from 'src/store'
 import { enqueueSnackbar } from 'src/slices/alert'
-import { v4 as uuidv4 } from 'uuid'
+import ObjectID from 'bson-objectid'
 
 const instanceWithMock = axios.create()
 
@@ -10,7 +10,7 @@ const errorHandler = (err) => {
     message: err.message,
     options: {
       autoHideDuration: 4000,
-      key: uuidv4(),
+      key: ObjectID.generate(),
       variant: 'error'
     },
   }))

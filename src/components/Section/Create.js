@@ -10,9 +10,10 @@ import {
   TextField,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { v4 as uuidv4 } from 'uuid'
+import ObjectID from 'bson-objectid'
 import SunEditor from 'src/components/SunEditor'
-import MdeEditor from 'src/components/MdeEditor/index'
+import MdeEditor from 'src/components/MdeEditor'
+import PictureType from 'src/components/Section/Item/PictureType'
 
 const CONTENT_TYPES = [
   {
@@ -24,13 +25,13 @@ const CONTENT_TYPES = [
     title: 'Markdown'
   },
   {
-    type: 'audio',
-    title: 'Аудио дорожка'
+    type: 'picture',
+    title: 'Picture'
   }
 ]
 
 function SectionCreate({
-  initialValues, onCancel, onSave, isUpdate
+  initialValues, onCancel, onSave, isUpdate, topicId
 }) {
   const defaultValues = {
     type: 'text',
@@ -40,7 +41,7 @@ function SectionCreate({
   const [section, setSection] = useState(initialValues || defaultValues)
 
   const onSaveHandler = () => {
-    const id = section.id ? section.id : uuidv4() // если запись на update
+    const id = section.id ? section.id : ObjectID.generate() // если запись на update
     onSave({ record: { ...section, id } })
     setSection({ ...defaultValues })
   }
@@ -127,6 +128,16 @@ function SectionCreate({
                 />
 
               ) : null }
+
+            {section.type === 'picture'
+              ? (
+                <PictureType
+                  topicId={topicId}
+                  content={section.data}
+                  onChange={(data) => setSection((prev) => ({ ...prev, type: 'picture', data }))}
+                />
+
+              ) : null }
           </Box>
           <Box
             display="flex"
@@ -155,6 +166,7 @@ SectionCreate.propTypes = {
   onCancel: PropTypes.func,
   onSave: PropTypes.func,
   isUpdate: PropTypes.bool,
+  topicId: PropTypes.string.isRequired,
 }
 
 export default SectionCreate

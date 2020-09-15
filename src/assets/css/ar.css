@@ -22,22 +22,21 @@ SENTENCE
   align-items: center;
       /* direction: rtl; */
   margin: 0px;
+  margin-bottom: 27px;
   flex-wrap: wrap;
   /*ORIGINAL*/
   line-height: 1.2;
-  font-size: 30px;
-  padding-bottom: 10px;
+  font-size: 27px;
 }
 .arsent li {
   list-style: none;
 }  
-
-/* .arsent__original {
-  padding-left: 20px;
-} */
+li.arsent__original {
+  line-height: 1.3;
+  font-size: 27px;
+}
 
 .arsent__translate {
-  line-height: 1.2;
   font-size: 14px;
 }
 

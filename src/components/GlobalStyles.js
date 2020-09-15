@@ -1,5 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 
+/**
+ * GLOBAL STYLE
+ *
+ * для тех тегов которые отдельано от theme
+ */
 const useStyles = makeStyles((theme) => createStyles({
   '@global': {
     '*': {
@@ -14,8 +19,14 @@ const useStyles = makeStyles((theme) => createStyles({
       width: '100%'
     },
     body: {
+      fontSize: '1rem',
+      fontFamily: '"Roboto", "Droid Arabic Naskh", "Helvetica", "Arial", sans-serif',
+      // fonWeight: 400,
+      // lineHeight: 1.3,
       height: '100%',
-      width: '100%'
+      width: '100%',
+      lineHeight: 1.5,
+      // letterSpacing: '0.00938em'
     },
     '#root': {
       height: '100%',
@@ -32,13 +43,37 @@ const useStyles = makeStyles((theme) => createStyles({
         marginBottom: 0
       }
     },
+    // button: {
+    //   fontSize: '0.875rem',
+    //   fontWeight: 500,
+    //   lineHeight: 1.75,
+    //   letterSpacing: '0.02857em',
+    //   textTransform: 'uppercase',
+    //   '&:focus': {
+    //     outline: 'none'
+    //   }
+    // },
+    textarea: {
+      '&:focus': {
+        outline: 'none'
+      }
+    },
+    nav: {
+      marginBottom: 18
+    },
     h1: {
       marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(2)
+      marginBottom: theme.spacing(2),
+      [theme.breakpoints.up('md')]: {
+        fontSize: 52
+      }
     },
     h2: {
       marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(2)
+      marginBottom: theme.spacing(2),
+      [theme.breakpoints.up('md')]: {
+        fontSize: 42
+      }
     },
     h3: {
       marginTop: theme.spacing(6),

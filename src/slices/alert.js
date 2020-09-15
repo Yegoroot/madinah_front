@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { v4 as uuidv4 } from 'uuid'
+import ObjectID from 'bson-objectid'
 
 const initialState = {
   notifications: [],
@@ -40,7 +40,7 @@ export const enqueueSnackbar = (notification) => async (dispatch) => {
   dispatch(slice.actions.enqueueSnackbar({
     notification: {
       ...notification,
-      key: key || uuidv4(),
+      key: key || ObjectID.generate(),
     },
   }))
 }

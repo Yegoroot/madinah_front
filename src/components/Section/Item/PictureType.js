@@ -19,7 +19,7 @@ const PictureType = ({ content, topicId }) => {
     ? `${UPLOADS_URL}/temp/topics/${topicId}/contents/${id}/photo/compress/${data.photo}`
     : null
 
-  const generateId = '' // Generate Id if new
+  // const generateId = '' // Generate Id if new
 
   return (
     <>
