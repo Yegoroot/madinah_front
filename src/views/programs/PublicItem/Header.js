@@ -103,7 +103,7 @@ const Header = ({ className, program, ...rest }) => {
             >
               <Typography
                 variant="h1"
-                color="textSecondary"
+                color="textPrimary"
               >
 
                 {program.title}
@@ -122,7 +122,7 @@ const Header = ({ className, program, ...rest }) => {
 
               </Typography>
               <Typography
-                variant="h4"
+                variant="h5"
                 color="textPrimary"
               >
                 {program.description}

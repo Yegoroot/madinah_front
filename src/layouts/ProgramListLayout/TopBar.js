@@ -8,35 +8,10 @@ import {
   Hidden,
   Link,
   Toolbar,
-  makeStyles,
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
-import { THEMES } from 'src/constants'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    zIndex: theme.zIndex.drawer + 100,
-    ...theme.name === THEMES.LIGHT ? {
-      color: 'initial',
-      backgroundColor: 'initial'
-    } : {},
-    ...theme.name === THEMES.ONE_DARK ? {
-      backgroundColor: theme.palette.background.default
-    } : {}
-  },
-  link: {
-    fontWeight: theme.typography.fontWeightMedium,
-    '& + &': {
-      marginLeft: theme.spacing(2),
-    }
-  },
-  toolbar: {
-    minHeight: 64,
-    justifyContent: 'flex-start'
-  },
-
-}))
+import { useStyles } from '../DashboardLayout/TopBar/style'
 
 const TopBar = ({
   className,

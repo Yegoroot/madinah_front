@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 100,
     ...theme.name === THEMES.LIGHT ? {
       color: 'initial',
-      backgroundColor: 'initial'
+      backgroundColor: '#fff'
     } : {},
     ...theme.name === THEMES.ONE_DARK ? {
       backgroundColor: theme.palette.background.default
