@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import Cookies from 'js-cookie'
 import {
   Box,
   Button,
@@ -34,17 +33,17 @@ const SettingsNotification = () => {
 
   const handleSwitch = () => {
     saveSettings({ theme: THEMES.LIGHT })
-    Cookies.set('settingsUpdated', 'true')
+    window.localStorage.setItem('settingsUpdated', true)
     setOpen(false)
   }
 
   const handleClose = () => {
-    Cookies.set('settingsUpdated', 'true')
+    window.localStorage.setItem('settingsUpdated', true)
     setOpen(false)
   }
 
   useEffect(() => {
-    const settingsUpdated = Cookies.get('settingsUpdated')
+    const settingsUpdated = localStorage.getItem('settingsUpdated')
 
     if (!settingsUpdated) {
       setOpen(true)

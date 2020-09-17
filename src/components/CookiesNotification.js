@@ -2,11 +2,10 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import Cookies from 'js-cookie'
 import {
   Box,
   Button,
-  Link,
+  // Link,
   Portal,
   Typography,
   makeStyles
@@ -36,12 +35,12 @@ const CookiesNotification = () => {
   const [open, setOpen] = useState(false)
 
   const handleClose = () => {
-    Cookies.set('consent', 'true')
+    window.localStorage.setItem('consent', true)
     setOpen(false)
   }
 
   useEffect(() => {
-    const consent = Cookies.get('consent')
+    const consent = localStorage.getItem('consent')
 
     if (!consent) {
       setOpen(true)
@@ -60,9 +59,9 @@ const CookiesNotification = () => {
           color="inherit"
         >
           We use Cookies to ensure that we give you the best experience on our
-          website. Read our
+          website.
           {' '}
-          <Link
+          {/* <Link
             component="a"
             color="inherit"
             underline="always"
@@ -70,8 +69,8 @@ const CookiesNotification = () => {
             target="_blank"
           >
             Privacy Policy
-          </Link>
-          .
+          </Link> */}
+
         </Typography>
         <Box
           mt={2}
