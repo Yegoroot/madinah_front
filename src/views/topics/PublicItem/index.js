@@ -1,13 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable camelcase */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box,
   Container,
+  CardMedia,
   CardContent,
   Card,
+  CardActionArea,
   makeStyles
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'src/store'
@@ -19,9 +21,14 @@ import { get_item } from 'src/utils/permissions'
 import MarkdownType from 'src/components/Section/Item/MarkdownType'
 import TextType from 'src/components/Section/Item/TextType'
 import { UPLOADS_URL } from 'src/constants'
+import { Lightbox } from 'react-modal-image'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
+  media: {
+    minHeight: 500,
+    backgroundPosition: 'top'
+  },
   contents: {
     '& img': {
       width: '100%',
@@ -43,6 +50,7 @@ function TopicItem({ match, location }) {
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[module].item)
   const { topicId, programId } = match.params
+  const [selectedImage, setSelectedImage] = useState(null)
 
   const type = get_item({ location, user }) ? 'private' : ''
 
@@ -61,10 +69,16 @@ function TopicItem({ match, location }) {
     }
     if (content.type === 'image') {
       return (
-        <img
+        <CardActionArea
+          onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
           key={content._id}
-          src={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
-        />
+        >
+          <CardMedia
+            className={classes.media}
+            image={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
+          />
+        </CardActionArea>
+
       )
     }
     if (content.type === 'markdown') {
@@ -113,6 +127,12 @@ function TopicItem({ match, location }) {
 
         </Box>
       </Container>
+      {selectedImage && (
+        <Lightbox
+          large={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </Page>
   )
 }
