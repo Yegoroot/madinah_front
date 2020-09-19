@@ -8,6 +8,8 @@ import {
   CardHeader,
   Divider,
   Grid,
+  Backdrop,
+  makeStyles,
   TextField,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -17,6 +19,7 @@ import MdeEditor from 'src/components/MdeEditor'
 import ImageType from 'src/components/Section/Item/ImageType'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
+import LoadingScreen from 'src/components/LoadingScreen'
 
 const CONTENT_TYPES = [
   {
@@ -33,6 +36,17 @@ const CONTENT_TYPES = [
   }
 ]
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+    position: 'absolute'
+  },
+  root: {
+    position: 'relative'
+  },
+}))
+
 function SectionCreate({
   initialValues, onCancel, onSave, isUpdate, topicId, programId
 }) {
@@ -43,20 +57,28 @@ function SectionCreate({
   }
   const [section, setSection] = useState(initialValues || defaultValues)
   const [objectId] = useState((prevState) => prevState || ObjectID.generate())
+  const [loading, setLoading] = useState(false)
+  const classes = useStyles()
 
-  const onSaveHandler = () => {
+  const onSaveHandler = async () => {
     const _id = section._id ? section._id : objectId // если запись на update
     if (section.type === 'image') {
       if (!section.data.file) { return false }
+      setLoading(true)
       const formData = new FormData()
       formData.append('image', section.data.file)
       formData.set('programId', programId)
       formData.set('topicId', topicId)
       formData.set('recordId', _id)
-      axios.post(`${API_BASE_URL}/topics/record`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      await axios.post(`${API_BASE_URL}/topics/record`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then((res) => {
           const { image } = res.data
           onSave({ record: { ...section, data: { image }, _id } })
+          setLoading(false)
+        })
+        .catch((err) => {
+          onCancel(section._id)
+          setLoading(false)
         })
     } else {
       onSave({ record: { ...section, _id } })
@@ -72,7 +94,16 @@ function SectionCreate({
   return (
     <>
 
-      <Card>
+      <Card className={classes.root}>
+        <Backdrop
+          className={classes.backdrop}
+          open={loading}
+        >
+          <LoadingScreen
+            transparent
+          />
+        </Backdrop>
+
         <CardHeader title="Добавить запись в заметку" />
         <Divider />
         <CardContent>

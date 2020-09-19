@@ -17,7 +17,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
-import { DOMEN, PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
+import { PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
 import {
   Check as CheckIcon,
   Calendar as CalendarIcon,

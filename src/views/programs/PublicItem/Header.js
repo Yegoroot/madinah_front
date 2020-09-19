@@ -12,7 +12,7 @@ import {
   SvgIcon,
   makeStyles
 } from '@material-ui/core'
-import { UPLOADS_URL, TOPICS_URL, DOMEN } from 'src/constants'
+import { UPLOADS_URL, TOPICS_URL } from 'src/constants'
 import {
   PlusCircle as PlusCircleIcon,
   Share2 as ShareIcon,

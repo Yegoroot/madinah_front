@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -10,7 +10,7 @@ import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box, Button, Select, InputLabel,
   Input, FormControl, MenuItem, Card, CardContent,
-  CardHeader, Divider, FormControlLabel,
+  CardHeader, Divider, FormControlLabel, Backdrop,
   Switch, FormHelperText, Grid, TextField, makeStyles,
 } from '@material-ui/core'
 import ObjectID from 'bson-objectid'
@@ -19,14 +19,19 @@ import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 import SectionCreate from 'src/components/Section/Create'
 import SectionList from 'src/components/Section/List'
+import LoadingScreen from 'src/components/LoadingScreen'
 import { useStateWithCallbackLazy } from 'use-state-with-callback'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   editor: {
     '& .ql-editor': {
       height: 400
     }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
   chips: {
     display: 'flex',
@@ -59,7 +64,12 @@ function TopicCreateForm({
   }
   const [programId, setPreviousProgramId] = useState(initProgramId())
   const [redirect, setRedirect] = useState('continue')
+  const [loading, setLoading] = useState(false)
   const [contents, setContents] = useStateWithCallbackLazy(initialValue.contents)
+
+  // const handleClose = () => {
+  //   setLoading(false)
+  // }
 
   const onAdd = () => setIsShow(true)
 
@@ -86,7 +96,7 @@ function TopicCreateForm({
       const method = id ? 'put' : 'post'
       const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
       const message = id ? t('notify.topic.was_updated') : t('notify.topic.was_created')
-
+      setLoading(true)
       axios[method](url, data)
         .then((response) => {
           const topic = response.data.data
@@ -96,10 +106,12 @@ function TopicCreateForm({
 
           setStatus({ success: true })
           setSubmitting(false)
+          setLoading(false)
           enqueueSnackbar(message, { variant: 'success' })
           history.push(`${redirectUrl}`)
         })
     } catch (err) {
+      setLoading(false)
       setErrors({ submit: err.response.data.error })
       setStatus({ success: false })
       setSubmitting(false)
@@ -130,12 +142,13 @@ function TopicCreateForm({
         console.log('programId-', programId, ' topicId-', topicId)
 
         const onDelete = (record) => {
+          setLoading(true)
           const filtering = contents.filter((content) => content._id !== record._id)
           setContents(filtering, () => {
             if (record.type === 'image') {
-              axios.post(`${API_BASE_URL}/topics/recorddelete`, { programId, topicId, recordId: record._id }).then((res) => {
-                handleSubmit()
-              })
+              axios.post(`${API_BASE_URL}/topics/recorddelete`, { programId, topicId, recordId: record._id })
+                .then((res) => { handleSubmit() })
+                .catch((err) => { setLoading(false) })
             }
           })
         }
@@ -169,6 +182,13 @@ function TopicCreateForm({
             className={clsx(classes.root, className)}
             {...rest}
           >
+            <Backdrop
+              className={classes.backdrop}
+              open={loading}
+              // onClick={handleClose}
+            >
+              <LoadingScreen transparent />
+            </Backdrop>
             <Grid
               container
               spacing={3}

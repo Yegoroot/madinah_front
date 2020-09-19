@@ -5,6 +5,7 @@ import {
   LinearProgress,
   makeStyles
 } from '@material-ui/core'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,12 +17,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     minHeight: '100%',
     padding: theme.spacing(3)
+  },
+  transparent: {
+    background: 'none'
+  },
+  absolute: {
+    position: 'absolute'
   }
 }))
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ transparent, absolute }) => {
   const classes = useStyles()
 
+  console.log(transparent)
   useEffect(() => {
     NProgress.start()
 
@@ -31,7 +39,12 @@ const LoadingScreen = () => {
   }, [])
 
   return (
-    <div className={classes.root}>
+    <div className={clsx({
+      [classes.root]: true,
+      [classes.transparent]: transparent,
+      [classes.absolute]: absolute,
+    })}
+    >
       <Box width={400}>
         <LinearProgress />
       </Box>
