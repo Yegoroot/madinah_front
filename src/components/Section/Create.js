@@ -37,14 +37,15 @@ function SectionCreate({
   initialValues, onCancel, onSave, isUpdate, topicId, programId
 }) {
   const defaultValues = {
-    type: 'image',
+    type: 'text',
     data: '',
     subtitle: ''
   }
   const [section, setSection] = useState(initialValues || defaultValues)
+  const [objectId] = useState((prevState) => prevState || ObjectID.generate())
 
   const onSaveHandler = () => {
-    const _id = section._id ? section._id : ObjectID.generate() // если запись на update
+    const _id = section._id ? section._id : objectId // если запись на update
     if (section.type === 'image') {
       if (!section.data.file) { return false }
       const formData = new FormData()

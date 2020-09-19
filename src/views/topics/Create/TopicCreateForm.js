@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -14,11 +14,12 @@ import {
   Switch, FormHelperText, Grid, TextField, makeStyles,
 } from '@material-ui/core'
 import ObjectID from 'bson-objectid'
-import { instanceAxios } from 'src/utils/axios'
+import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 import SectionCreate from 'src/components/Section/Create'
 import SectionList from 'src/components/Section/List'
+import { useStateWithCallbackLazy } from 'use-state-with-callback'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -58,38 +59,51 @@ function TopicCreateForm({
   }
   const [programId, setPreviousProgramId] = useState(initProgramId())
   const [redirect, setRedirect] = useState('continue')
-  const [contents, setContents] = useState(initialValue.contents)
+  const [contents, setContents] = useStateWithCallbackLazy(initialValue.contents)
 
   const onAdd = () => setIsShow(true)
+
   const onCancel = () => setIsShow(false)
 
-  const onSave = ({ record, action, index }) => {
-    setIsShow(false) // закрываем окно
-    if (!record.data) return false // если контент пустой то не сохраняем
-    if (action === 'update') { // обновить запись
-      const newContents = [...contents]
-      newContents[index] = { ...record }
-      setContents(newContents)
-      console.log('Update Record', record, index)
-    } else {
-      console.log('New Record', record)
-      setContents([...contents, record]) // добавить запись
-    }
-    return false
-  }
-
-  const onDelete = (recordId) => {
-    const filtering = contents.filter((content) => content._id !== recordId)
-    setContents(filtering)
-  }
-
-  const onEdit = (recordId) => {
-    console.log('onEdit', recordId)
-  }
+  const onEdit = (record) => { console.log('onEdit', record._id) }
 
   const newInitialValue = {
     ...initialValue,
     program: programId
+  }
+
+  // eslint-disable-next-line consistent-return
+  const onSubmitFunction = async (values, { setErrors, setStatus, setSubmitting }) => {
+    const data = { ...values, contents }
+    if (!contents.length) {
+      setErrors({ submit: 'Добавьте одну или несколько записей' })
+      setSubmitting(false)
+      return false
+    }
+    data._id = topicId // if we create form then define own ObjectId // WARN 2
+    data.programId = programId // we will check, because in process editing
+    try {
+      const method = id ? 'put' : 'post'
+      const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
+      const message = id ? t('notify.topic.was_updated') : t('notify.topic.was_created')
+
+      axios[method](url, data)
+        .then((response) => {
+          const topic = response.data.data
+          const redirectUrl = redirect === 'continue'
+            ? `${TOPICS_URL}/${topic.id}/edit`
+            : `/programs/${topic.program}/topics/${topic.id}`
+
+          setStatus({ success: true })
+          setSubmitting(false)
+          enqueueSnackbar(message, { variant: 'success' })
+          history.push(`${redirectUrl}`)
+        })
+    } catch (err) {
+      setErrors({ submit: err.response.data.error })
+      setStatus({ success: false })
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -101,44 +115,7 @@ function TopicCreateForm({
         title: Yup.string().max(255).required(),
         description: Yup.string().max(1500)
       })}
-      onSubmit={
-
-        async (values, {
-          setErrors,
-          setStatus,
-          setSubmitting
-        }) => {
-          const data = { ...values, contents }
-          if (!contents.length) {
-            setErrors({ submit: 'Добавьте одну или несколько записей' })
-            setSubmitting(false)
-            return false
-          }
-          data._id = topicId // if we create form then define own ObjectId // WARN 2
-          try {
-            const method = id ? 'put' : 'post'
-            const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
-            const message = id ? t('notify.topic.was_updated') : t('notify.topic.was_created')
-
-            instanceAxios[method](url, data)
-              .then((response) => {
-                const topic = response.data.data
-                const redirectUrl = redirect === 'open'
-                  ? `/programs/${topic.program}/topics/${topic.id}`
-                  : TOPICS_URL
-
-                setStatus({ success: true })
-                setSubmitting(false)
-                enqueueSnackbar(message, { variant: 'success' })
-                history.push(`${redirectUrl}`)
-              })
-          } catch (err) {
-            setErrors({ submit: err.response.data.error })
-            setStatus({ success: false })
-            setSubmitting(false)
-          }
-        }
-}
+      onSubmit={onSubmitFunction}
     >
       {({
         errors,
@@ -151,6 +128,41 @@ function TopicCreateForm({
         values
       }) => {
         console.log('programId-', programId, ' topicId-', topicId)
+
+        const onDelete = (record) => {
+          const filtering = contents.filter((content) => content._id !== record._id)
+          setContents(filtering, () => {
+            if (record.type === 'image') {
+              axios.post(`${API_BASE_URL}/topics/recorddelete`, { programId, topicId, recordId: record._id }).then((res) => {
+                handleSubmit()
+              })
+            }
+          })
+        }
+
+        const onSave = ({ record, action, index }) => {
+          setIsShow(false) // закрываем окно
+          if (!record.data) return false // если контент пустой то не сохраняем
+          console.log(record)
+          console.log(`Record ${action}`, record)
+          if (action === 'update') { // обновить запись
+            const newContents = [...contents]
+            newContents[index] = { ...record }
+            setContents(newContents, () => {
+              if (record.type === 'image') {
+                handleSubmit()
+              }
+            })
+          } else {
+            setContents([...contents, record], () => {
+              if (record.type === 'image') {
+                handleSubmit()
+              }
+            }) // добавить запись
+          }
+          return false
+        }
+
         return (
           <form
             onSubmit={handleSubmit}
@@ -324,20 +336,6 @@ function TopicCreateForm({
             )}
             <Box mt={5}>
               <Button
-                color="secondary"
-                variant="contained"
-                style={{ marginRight: 16, marginBottom: 8 }}
-                onClick={
-                () => {
-                  setRedirect('open')
-                  handleSubmit()
-                }
-              }
-                disabled={isSubmitting}
-              >
-                {id ? 'Update and open' : 'Save and open' }
-              </Button>
-              <Button
                 style={{ marginBottom: 8, marginRight: 16 }}
                 onClick={
               () => {
@@ -350,6 +348,20 @@ function TopicCreateForm({
                 disabled={isSubmitting}
               >
                 {id ? 'Update and continue' : 'Save and continue' }
+              </Button>
+              <Button
+                color="secondary"
+                variant="contained"
+                style={{ marginRight: 16, marginBottom: 8 }}
+                onClick={
+                () => {
+                  setRedirect('open')
+                  handleSubmit()
+                }
+              }
+                disabled={isSubmitting}
+              >
+                {id ? 'Update and open' : 'Save and open' }
               </Button>
             </Box>
 

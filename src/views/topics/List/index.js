@@ -4,10 +4,8 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import {
   Box,
-  Button,
   Card,
   Container,
-  Checkbox,
   IconButton,
   Link,
   SvgIcon,
@@ -21,12 +19,13 @@ import {
 } from '@material-ui/core'
 import {
   Edit as EditIcon,
+  Trash,
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { getTopicListRequest, deleteSeveralTopics, module } from 'src/slices/topic'
+import { getTopicListRequest, deleteTopic, module } from 'src/slices/topic'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
@@ -85,11 +84,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Results() {
   const classes = useStyles()
-  const [selectedTopics, setSelectedTopics] = useState([])
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
   const dispatch = useDispatch()
-  const { loading, data, total } = useSelector((state) => state[module].list)
+  const { loading, data } = useSelector((state) => state[module].list)
+  let { total } = useSelector((state) => state[module].list)
 
   const [filters] = useState({
     category: null,
@@ -98,31 +97,19 @@ function Results() {
     isShippable: null
   })
 
+  const onDelete = (topicId) => {
+    if (window.confirm('Delete topic and all content inside')) {
+      dispatch(deleteTopic({ topicId }))
+      total -= 1
+    }
+  }
+
   useEffect(() => {
     dispatch(getTopicListRequest({ page, limit, type: 'private' }))
   }, [dispatch, filters, page, limit])
 
   if (loading || !data) {
     return <LoadingScreen />
-  }
-
-  const deleteTopicsHandler = async (selected) => {
-    dispatch(deleteSeveralTopics({ ids: selected }))
-    setSelectedTopics([])
-  }
-
-  const handleSelectAllTopics = (event) => {
-    setSelectedTopics(event.target.checked
-      ? data.map((topic) => topic.id)
-      : [])
-  }
-
-  const handleSelectOneTopic = (event, topicId) => {
-    if (!selectedTopics.includes(topicId)) {
-      setSelectedTopics((prevSelected) => [...prevSelected, topicId])
-    } else {
-      setSelectedTopics((prevSelected) => prevSelected.filter((id) => id !== topicId))
-    }
   }
 
   const handlePageChange = (event, newPage) => {
@@ -134,10 +121,6 @@ function Results() {
     setLimit(event.target.value)
   }
 
-  const enableBulkOperations = selectedTopics.length > 0
-  const selectedSomeTopics = selectedTopics.length > 0 && selectedTopics.length < data.length
-  const selectedAllTopics = selectedTopics.length === data.length
-
   return (
     <Page
       className={classes.root}
@@ -147,35 +130,10 @@ function Results() {
         <Header />
         <Box mt={3}>
           <Card style={{ overflow: 'auto' }}>
-            {enableBulkOperations && (
-              <div className={classes.bulkOperations}>
-                <div className={classes.bulkActions}>
-                  <Checkbox
-                    checked={selectedAllTopics}
-                    indeterminate={selectedSomeTopics}
-                    onChange={handleSelectAllTopics}
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={() => deleteTopicsHandler(selectedTopics)}
-                    className={classes.bulkAction}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            )}
             <Box minWidth={1200}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={selectedAllTopics}
-                        indeterminate={selectedSomeTopics}
-                        onChange={handleSelectAllTopics}
-                      />
-                    </TableCell>
                     <TableCell>
                       Title
                     </TableCell>
@@ -197,84 +155,79 @@ function Results() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.map((topic) => {
-                    const isTopicSelected = selectedTopics.includes(topic.id)
-
-                    return (
-                      <TableRow
-                        hover
-                        key={topic.id}
-                        selected={isTopicSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isTopicSelected}
-                            onChange={(event) => handleSelectOneTopic(event, topic.id)}
-                            value={isTopicSelected}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Box
-                            display="flex"
-                            alignItems="center"
+                  {data.map((topic) => (
+                    <TableRow
+                      hover
+                      key={topic.id}
+                    >
+                      <TableCell>
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <Link
+                            variant="subtitle2"
+                            color="textPrimary"
+                            component={RouterLink}
+                            underline="none"
+                            to={{
+                              pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
+                              state: {
+                                fromDashboard: true
+                              }
+                            }}
                           >
-                            <Link
-                              variant="subtitle2"
-                              color="textPrimary"
-                              component={RouterLink}
-                              underline="none"
-                              to={{
-                                pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
-                                state: {
-                                  fromDashboard: true
-                                }
-                              }}
-                            >
-                              {topic.title}
-                            </Link>
-                          </Box>
-                        </TableCell>
-                        <TableCell>
-                          <IsPublishLabel isPublish={topic.publish} />
-                        </TableCell>
-                        <TableCell>
-                          {topic.user.name}
-                          <br />
-                          {topic.user.email}
-                        </TableCell>
-                        <TableCell>
-                          {`${topic.program.title}`}
-                        </TableCell>
-                        <TableCell>
-                          {moment(topic.createdAt).format('DD.MM.YYYY')}
-                        </TableCell>
-                        <TableCell align="right">
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="flex-end"
+                            {topic.title}
+                          </Link>
+                        </Box>
+                      </TableCell>
+                      <TableCell>
+                        <IsPublishLabel isPublish={topic.publish} />
+                      </TableCell>
+                      <TableCell>
+                        {topic.user.name}
+                        <br />
+                        {topic.user.email}
+                      </TableCell>
+                      <TableCell>
+                        {`${topic.program.title}`}
+                      </TableCell>
+                      <TableCell>
+                        {moment(topic.createdAt).format('DD.MM.YYYY')}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="flex-end"
+                        >
+                          <IconButton
+                            onClick={() => onDelete(topic.id)}
                           >
-                            <IconButton
-                              component={RouterLink}
-                              to={`/app/topics/${topic.id}/edit`}
-                            >
-                              <SvgIcon fontSize="small">
-                                <EditIcon />
-                              </SvgIcon>
-                            </IconButton>
-                            <IconButton
-                              component={RouterLink}
-                              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
-                            >
-                              <SvgIcon fontSize="small">
-                                <ArrowRightIcon />
-                              </SvgIcon>
-                            </IconButton>
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
+                            <SvgIcon fontSize="small">
+                              <Trash />
+                            </SvgIcon>
+                          </IconButton>
+                          <IconButton
+                            component={RouterLink}
+                            to={`/app/topics/${topic.id}/edit`}
+                          >
+                            <SvgIcon fontSize="small">
+                              <EditIcon />
+                            </SvgIcon>
+                          </IconButton>
+                          <IconButton
+                            component={RouterLink}
+                            to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
+                          >
+                            <SvgIcon fontSize="small">
+                              <ArrowRightIcon />
+                            </SvgIcon>
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
               <TablePagination

@@ -22,6 +22,12 @@ import { UPLOADS_URL } from 'src/constants'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
+  contents: {
+    '& img': {
+      width: '100%',
+      maxWidth: '100%',
+    }
+  },
   root: {
     backgroundColor: theme.palette.background.dark,
     color: theme.palette.text.primary,
@@ -98,7 +104,10 @@ function TopicItem({ match, location }) {
         <Header
           topic={data}
         />
-        <Box mt={3}>
+        <Box
+          mt={3}
+          className={classes.contents}
+        >
 
           {data.contents.map((content) => renderContents(content))}
 

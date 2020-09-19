@@ -33,12 +33,9 @@ const slice = createSlice({
       topic.item.data = data
       topic.item.loading = false
     },
-    deleteSeveralTopics(topic, action) {
-      const { ids } = action.payload
-      topic.list.data = topic.list.data.filter((nte) => {
-        const find = ids.find((id) => id === nte.id)
-        return !find
-      })
+    deleteTopic(topic, action) {
+      const { topicId } = action.payload
+      topic.list.data = topic.list.data.filter((el) => el.id !== topicId)
     },
     /** Topics */
     getTopicListRequest(topic) {
@@ -75,10 +72,10 @@ export const getTopicItemRequest = ({ topicId, programId, type }) => async (disp
 }
 
 // OUTSIDE
-export const deleteSeveralTopics = ({ ids }) => async (dispatch) => {
+export const deleteTopic = ({ topicId }) => async (dispatch) => {
   try {
-    await axios.delete(`${API_BASE_URL}/topics/?ids=${ids}`)
-    dispatch(slice.actions.deleteSeveralTopics({ ids }))
+    await axios.delete(`${API_BASE_URL}/topics/${topicId}`)
+    dispatch(slice.actions.deleteTopic({ topicId }))
   } catch (error) {
     console.error('error', error) // FIXME alert message
   }

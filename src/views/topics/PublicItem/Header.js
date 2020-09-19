@@ -95,7 +95,7 @@ function Header({ topic }) {
         <Grid item>
           <Button
             className={classes.action}
-            onClick={() => onShare(`${DOMEN}/programs/${topic.program.id}/topics/${topic.id}`)}
+            onClick={() => onShare(`${topic.id}`)}
           >
             <SvgIcon
               fontSize="small"

@@ -38,11 +38,11 @@ const SectionItem = ({
 
   const onHandleButton = (record) => {
     if (record.event === 'delete') {
-      onDelete(record._id)
+      onDelete(record)
     }
     if (record.event === 'edit') {
       setIsEdit(true)
-      onEdit(record._id)
+      onEdit(record)
     }
   }
   const onUpdateRecord = (record) => {
@@ -60,7 +60,7 @@ const SectionItem = ({
 
       <Buttons
         className={classes.buttons}
-        _id={content._id}
+        record={content}
         onHandle={onHandleButton}
       />
 

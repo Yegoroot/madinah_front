@@ -82,6 +82,7 @@
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "suneditor-react": "^2.13.1",
+    "use-state-with-callback": "^2.0.3",
     "yup": "^0.28.5"
   },
   "devDependencies": {

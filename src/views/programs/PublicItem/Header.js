@@ -109,7 +109,7 @@ const Header = ({ className, program, ...rest }) => {
                 {program.title}
                 <Button
                   className={classes.action}
-                  onClick={() => onShare(`${DOMEN}/programs/${program.id}`)}
+                  onClick={() => onShare(`${program.id}`)}
                 >
                   <SvgIcon
                     fontSize="small"
