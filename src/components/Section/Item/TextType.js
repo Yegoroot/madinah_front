@@ -25,7 +25,7 @@ import {
 } from '@material-ui/core'
 
 const TextType = ({ content }) => {
-  const { subtitle, data/* , id */ } = content
+  const { subtitle, data/* , _id */ } = content
 
   return (
     <Box>

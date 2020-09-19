@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -16,6 +18,7 @@ import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
 import MarkdownType from 'src/components/Section/Item/MarkdownType'
 import TextType from 'src/components/Section/Item/TextType'
+import { UPLOADS_URL } from 'src/constants'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -45,15 +48,23 @@ function TopicItem({ match, location }) {
     if (content.type === 'text') {
       return (
         <TextType
-          key={content.id}
+          key={content._id}
           content={content}
+        />
+      )
+    }
+    if (content.type === 'image') {
+      return (
+        <img
+          key={content._id}
+          src={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
         />
       )
     }
     if (content.type === 'markdown') {
       return (
         <MarkdownType
-          key={content.id}
+          key={content._id}
           content={content}
         />
       )

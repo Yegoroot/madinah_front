@@ -3,7 +3,7 @@ import Markdown from 'src/components/Markdown'
 import Prism from 'prismjs'
 
 const MarkdownType = ({ content }) => {
-  const { subtitle, data /* , id */ } = content
+  const { subtitle, data /* , _id */ } = content
 
   useEffect(() => {
     Prism.highlightAll()

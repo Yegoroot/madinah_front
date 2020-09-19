@@ -32,6 +32,18 @@ const useStyles = makeStyles((theme) => createStyles({
       height: '100%',
       width: '100%'
     },
+    code: {
+      background: theme.palette.background.dark,
+      padding: 3,
+      color: theme.palette.text.primary
+    },
+    pre: {
+      '& code': {
+        background: 'initial',
+        padding: 'initial',
+        color: 'initial'
+      },
+    },
     blocknote: {
       paddingLeft: theme.spacing(2),
       paddingBottom: theme.spacing(1),

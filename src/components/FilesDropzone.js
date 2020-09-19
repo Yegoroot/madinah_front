@@ -104,7 +104,8 @@ function FilesDropzone({
     const name = one ? 'file' : 'files'
     const result = one ? files[0] : files
     if (setFieldValue) { setFieldValue(name, result) }
-  }, [files, one, setFieldValue])
+    // eslint-disable-next-line
+  }, [files, one])
 
   const handleRemoveAll = () => {
     setFiles([])
@@ -113,7 +114,7 @@ function FilesDropzone({
   const options = {
     // multiple: !photo,
     onDrop: handleDrop,
-    accept: 'image/*'
+    // accept: 'image/*'
   }
   if (photo) {
     options.accept = 'image/*'

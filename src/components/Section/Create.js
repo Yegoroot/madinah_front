@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, /* useEffect */ } from 'react'
 import {
   Box,
@@ -13,7 +14,9 @@ import PropTypes from 'prop-types'
 import ObjectID from 'bson-objectid'
 import SunEditor from 'src/components/SunEditor'
 import MdeEditor from 'src/components/MdeEditor'
-import PictureType from 'src/components/Section/Item/PictureType'
+import ImageType from 'src/components/Section/Item/ImageType'
+import { instanceAxios as axios } from 'src/utils/axios'
+import { API_BASE_URL } from 'src/constants'
 
 const CONTENT_TYPES = [
   {
@@ -25,29 +28,43 @@ const CONTENT_TYPES = [
     title: 'Markdown'
   },
   {
-    type: 'picture',
-    title: 'Picture'
+    type: 'image',
+    title: 'Image'
   }
 ]
 
 function SectionCreate({
-  initialValues, onCancel, onSave, isUpdate, topicId
+  initialValues, onCancel, onSave, isUpdate, topicId, programId
 }) {
   const defaultValues = {
-    type: 'text',
+    type: 'image',
     data: '',
     subtitle: ''
   }
   const [section, setSection] = useState(initialValues || defaultValues)
 
   const onSaveHandler = () => {
-    const id = section.id ? section.id : ObjectID.generate() // если запись на update
-    onSave({ record: { ...section, id } })
+    const _id = section._id ? section._id : ObjectID.generate() // если запись на update
+    if (section.type === 'image') {
+      if (!section.data.file) { return false }
+      const formData = new FormData()
+      formData.append('image', section.data.file)
+      formData.set('programId', programId)
+      formData.set('topicId', topicId)
+      formData.set('recordId', _id)
+      axios.post(`${API_BASE_URL}/topics/record`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+        .then((res) => {
+          const { image } = res.data
+          onSave({ record: { ...section, data: { image }, _id } })
+        })
+    } else {
+      onSave({ record: { ...section, _id } })
+    }
     setSection({ ...defaultValues })
   }
 
   const onCancelHandler = () => {
-    onCancel(section.id)
+    onCancel(section._id)
     setSection({ ...defaultValues })
   }
 
@@ -129,12 +146,13 @@ function SectionCreate({
 
               ) : null }
 
-            {section.type === 'picture'
+            {section.type === 'image'
               ? (
-                <PictureType
+                <ImageType
                   topicId={topicId}
-                  content={section.data}
-                  onChange={(data) => setSection((prev) => ({ ...prev, type: 'picture', data }))}
+                  programId={programId}
+                  content={section}
+                  onChange={(file) => setSection((prev) => ({ ...prev, type: 'image', data: { file } }))}
                 />
 
               ) : null }
@@ -167,6 +185,7 @@ SectionCreate.propTypes = {
   onSave: PropTypes.func,
   isUpdate: PropTypes.bool,
   topicId: PropTypes.string.isRequired,
+  programId: PropTypes.string,
 }
 
 export default SectionCreate

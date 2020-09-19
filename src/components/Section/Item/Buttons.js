@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const GenericMoreButton = ({ className, onHandle, id }) => {
+const GenericMoreButton = ({ className, onHandle, _id }) => {
   const classes = useStyles()
   const moreRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(false)
@@ -60,14 +60,14 @@ const GenericMoreButton = ({ className, onHandle, id }) => {
           horizontal: 'left'
         }}
       >
-        <MenuItem onClick={() => onHandle({ event: 'delete', id })}>
+        <MenuItem onClick={() => onHandle({ event: 'delete', _id })}>
           <ListItemIcon>
             <Delete />
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </MenuItem>
         <MenuItem onClick={() => {
-          onHandle({ event: 'edit', id })
+          onHandle({ event: 'edit', _id })
           setOpenMenu(false)
         }}
         >

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
@@ -40,12 +41,22 @@ function TopicCreateForm({
    *  we need to know id before create
    * for records
    */
-  const objectId = id || ObjectID.generate() // WARN 1
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
   const { t } = useTranslation()
+  const initTopicId = () => id || ObjectID.generate()
+  const [topicId] = useState(initTopicId()) // WARN 1
   const [isShow, setIsShow] = useState(false)
+  const initProgramId = () => {
+    // пришло из редактирование
+    if (id) {
+      return initialValue.program.id
+    }
+    // пришло из Link state
+    return (location && location.state && location.state.programId) || ''
+  }
+  const [programId, setPreviousProgramId] = useState(initProgramId())
   const [redirect, setRedirect] = useState('continue')
   const [contents, setContents] = useState(initialValue.contents)
 
@@ -59,39 +70,36 @@ function TopicCreateForm({
       const newContents = [...contents]
       newContents[index] = { ...record }
       setContents(newContents)
-      console.log(index, record)
+      console.log('Update Record', record, index)
     } else {
+      console.log('New Record', record)
       setContents([...contents, record]) // добавить запись
     }
     return false
   }
 
   const onDelete = (recordId) => {
-    const filtering = contents.filter((content) => content.id !== recordId)
+    const filtering = contents.filter((content) => content._id !== recordId)
     setContents(filtering)
   }
 
   const onEdit = (recordId) => {
-    console.log(recordId)
+    console.log('onEdit', recordId)
   }
-  const initialValuesProgramHack = id
-    ? { ...initialValue, program: initialValue.program.id }
-    : initialValue
 
-  const programId = location && location.state && location.state.programId
-  if (programId) {
-    initialValue.program = programId
+  const newInitialValue = {
+    ...initialValue,
+    program: programId
   }
 
   return (
     <Formik
-      initialValues={initialValuesProgramHack}
+      initialValues={newInitialValue}
       validationSchema={Yup.object().shape({
         contents: Yup.array(),
         program: Yup.string().required(),
         title: Yup.string().max(255).required(),
-        description: Yup.string().max(1500),
-        // tags: Yup.array(),
+        description: Yup.string().max(1500)
       })}
       onSubmit={
 
@@ -106,7 +114,7 @@ function TopicCreateForm({
             setSubmitting(false)
             return false
           }
-          data._id = objectId // if we create form then define own ObjectId // WARN 2
+          data._id = topicId // if we create form then define own ObjectId // WARN 2
           try {
             const method = id ? 'put' : 'post'
             const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
@@ -141,203 +149,213 @@ function TopicCreateForm({
         setFieldValue,
         touched,
         values
-      }) => (
-        <form
-          onSubmit={handleSubmit}
-          className={clsx(classes.root, className)}
-          {...rest}
-        >
-          <Grid
-            container
-            spacing={3}
+      }) => {
+        console.log('programId-', programId, ' topicId-', topicId)
+        return (
+          <form
+            onSubmit={handleSubmit}
+            className={clsx(classes.root, className)}
+            {...rest}
           >
             <Grid
-              item
-              xs={12}
-              lg={8}
+              container
+              spacing={3}
             >
-              <Card>
-                <Divider />
-                <CardContent>
-                  <TextField
-                    error={Boolean(touched.title && errors.title)}
-                    fullWidth
-                    helperText={touched.title && errors.title}
-                    label="Topic Title"
-                    name="title"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.title}
-                    variant="outlined"
-                  />
-                  <Box
-                    mt={3}
-                    mb={1}
-                  >
+              <Grid
+                item
+                xs={12}
+                lg={8}
+              >
+                <Card>
+                  <Divider />
+                  <CardContent>
                     <TextField
-                      error={Boolean(touched.description && errors.description)}
+                      error={Boolean(touched.title && errors.title)}
                       fullWidth
-                      helperText={touched.description && errors.description}
-                      label="Topic description"
-                      name="description"
+                      helperText={touched.title && errors.title}
+                      label="Topic Title"
+                      name="title"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.description}
+                      value={values.title}
                       variant="outlined"
                     />
-                  </Box>
-
-                </CardContent>
-              </Card>
-
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              lg={4}
-            >
-              <Card>
-                <CardContent>
-                  <Box
-                    px={1}
-                    mb={2}
-                  >
-                    <FormControlLabel
-                      control={(
-                        <Switch
-                          checked={values.publish}
-                          edge="start"
-                          name="publish"
-                          onChange={(event) => setFieldValue('publish', event.target.checked)}
-                        />
-                      )}
-                      label="Publish"
-                    />
-                  </Box>
-                  {!programs ? null
-                    : (
-                      <FormControl
-                        fullWidth
-                        className={classes.formControl}
-                        error={Boolean(touched.program && errors.program)}
-                      >
-                        <InputLabel id="form-select-1">Выберите программу</InputLabel>
-                        <Select
-                          labelId="form-select-1"
-                          name="program"
-                          value={values.program}
-                          displayEmpty
-                          onChange={handleChange}
-                          input={<Input id="select-multiple-chip" />}
-                        >
-                          {programs.map((program) => (
-                            <MenuItem
-                              key={program.id}
-                              value={program.id}
-                            >
-                              {program.title}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <FormHelperText>{touched.program && errors.program}</FormHelperText>
-                      </FormControl>
-                    )}
-                </CardContent>
-              </Card>
-            </Grid>
-
-            { !contents.length ? null
-              : (
-                <Grid
-                  xs={12}
-                  lg={12}
-                  item
-                >
-                  <Card>
-                    <CardHeader title="Content" />
-                    <Divider />
-                    <CardContent>
-                      <SectionList
-                        onSave={onSave}
-                        contents={contents}
-                        onDelete={onDelete}
-                        onEdit={onEdit}
-                      />
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ) }
-
-            <Grid
-              xs={12}
-              lg={12}
-              item
-            >
-
-              {!isShow ? null : (
-                <SectionCreate
-
-                  topicId={objectId}
-                  onCancel={onCancel}
-                  onSave={onSave}
-                />
-              )}
-
-              {isShow ? null
-                : (
-                  <Box mt={2}>
-                    <Button
-                      variant="contained"
-                      onClick={onAdd}
-                      startIcon={<AddOutlined />}
+                    <Box
+                      mt={3}
+                      mb={1}
                     >
-                      Добавить запись
-                    </Button>
-                  </Box>
-                )}
-            </Grid>
-          </Grid>
+                      <TextField
+                        error={Boolean(touched.description && errors.description)}
+                        fullWidth
+                        helperText={touched.description && errors.description}
+                        label="Topic description"
+                        name="description"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.description}
+                        variant="outlined"
+                      />
+                    </Box>
 
-          {errors.submit && (
-          <Box mt={3}>
-            <FormHelperText error>
-              {errors.submit}
-            </FormHelperText>
-          </Box>
-          )}
-          <Box mt={5}>
-            <Button
-              color="secondary"
-              variant="contained"
-              style={{ marginRight: 16, marginBottom: 8 }}
-              onClick={
+                  </CardContent>
+                </Card>
+
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+              >
+                <Card>
+                  <CardContent>
+                    <Box
+                      px={1}
+                      mb={2}
+                    >
+                      <FormControlLabel
+                        control={(
+                          <Switch
+                            checked={values.publish}
+                            edge="start"
+                            name="publish"
+                            onChange={(event) => setFieldValue('publish', event.target.checked)}
+                          />
+                      )}
+                        label="Publish"
+                      />
+                    </Box>
+                    {!programs ? null
+                      : (
+                        <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.program && errors.program)}
+                        >
+                          <InputLabel id="form-select-1">Выберите программу</InputLabel>
+                          <Select
+                            labelId="form-select-1"
+                            name="program"
+                            value={values.program}
+                            displayEmpty
+                            onChange={
+                              (e) => {
+                                setPreviousProgramId((prevState) => (prevState || e.target.value))
+                                handleChange(e)
+                              }
+}
+                            input={<Input id="select-multiple-chip" />}
+                          >
+                            {programs.map((program) => (
+                              <MenuItem
+                                key={program.id}
+                                value={program.id}
+                              >
+                                {program.title}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.program && errors.program}</FormHelperText>
+                        </FormControl>
+                      )}
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              { !contents.length ? null
+                : (
+                  <Grid
+                    xs={12}
+                    lg={12}
+                    item
+                  >
+                    <Card>
+                      <CardHeader title="Content" />
+                      <Divider />
+                      <CardContent>
+                        <SectionList
+                          programId={programId}
+                          topicId={topicId}
+                          onSave={onSave}
+                          contents={contents}
+                          onDelete={onDelete}
+                          onEdit={onEdit}
+                        />
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ) }
+
+              <Grid
+                xs={12}
+                lg={12}
+                item
+              >
+
+                {!isShow ? null : (
+                  <SectionCreate
+                    programId={programId}
+                    topicId={topicId}
+                    onCancel={onCancel}
+                    onSave={onSave}
+                  />
+                )}
+
+                {isShow ? null
+                  : (
+                    <Box mt={2}>
+                      <Button
+                        variant="contained"
+                        onClick={onAdd}
+                        startIcon={<AddOutlined />}
+                      >
+                        Добавить запись
+                      </Button>
+                    </Box>
+                  )}
+              </Grid>
+            </Grid>
+
+            {errors.submit && (
+            <Box mt={3}>
+              <FormHelperText error>
+                {errors.submit}
+              </FormHelperText>
+            </Box>
+            )}
+            <Box mt={5}>
+              <Button
+                color="secondary"
+                variant="contained"
+                style={{ marginRight: 16, marginBottom: 8 }}
+                onClick={
                 () => {
                   setRedirect('open')
                   handleSubmit()
                 }
               }
-              disabled={isSubmitting}
-            >
-              {id ? 'Update and open' : 'Save and open' }
-            </Button>
-            <Button
-              style={{ marginBottom: 8, marginRight: 16 }}
-              onClick={
+                disabled={isSubmitting}
+              >
+                {id ? 'Update and open' : 'Save and open' }
+              </Button>
+              <Button
+                style={{ marginBottom: 8, marginRight: 16 }}
+                onClick={
               () => {
                 setRedirect('continue')
                 handleSubmit()
               }
             }
-              color="secondary"
-              variant="contained"
-              disabled={isSubmitting}
-            >
-              {id ? 'Update and continue' : 'Save and continue' }
-            </Button>
-          </Box>
+                color="secondary"
+                variant="contained"
+                disabled={isSubmitting}
+              >
+                {id ? 'Update and continue' : 'Save and continue' }
+              </Button>
+            </Box>
 
-        </form>
-      )}
+          </form>
+        )
+      }}
     </Formik>
   )
 }
