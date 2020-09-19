@@ -26,7 +26,7 @@ import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
   media: {
-    minHeight: 500,
+    minHeight: 350,
     backgroundPosition: 'top'
   },
   contents: {
