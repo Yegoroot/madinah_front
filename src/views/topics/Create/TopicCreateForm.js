@@ -142,10 +142,10 @@ function TopicCreateForm({
         console.log('programId-', programId, ' topicId-', topicId)
 
         const onDelete = (record) => {
-          setLoading(true)
           const filtering = contents.filter((content) => content._id !== record._id)
           setContents(filtering, () => {
             if (record.type === 'image') {
+              setLoading(true)
               axios.post(`${API_BASE_URL}/topics/recorddelete`, { programId, topicId, recordId: record._id })
                 .then((res) => { handleSubmit() })
                 .catch((err) => { setLoading(false) })

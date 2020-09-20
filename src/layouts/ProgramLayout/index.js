@@ -44,7 +44,10 @@ const ProgramLayout = ({ children }) => {
       />
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
-          <div className={classes.content}>
+          <div
+            className={classes.content}
+            id="parent-paralax"
+          >
             {children}
           </div>
         </div>

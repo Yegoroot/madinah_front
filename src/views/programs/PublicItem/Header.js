@@ -23,6 +23,8 @@ import useAuth from 'src/hooks/useAuth'
 import { onShare } from 'src/utils/urls'
 import Type from 'src/components/Type'
 
+import Parallax from 'src/components/Animate/Parallax/Parallax'
+
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
   const hex2 = hexToRgb(`${theme.palette.background.dark}3d`) // 63
@@ -43,13 +45,7 @@ const useStyles = makeStyles((theme) => {
       right: 20
     },
     cover: {
-      width: '100%',
-      height: 400,
-      top: 0,
-      position: 'absolute',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
+      position: 'relative',
       '&:before': {
         position: 'absolute',
         content: '" "',
@@ -61,7 +57,7 @@ const useStyles = makeStyles((theme) => {
       },
     },
     content: {
-      paddingTop: 320
+      position: 'relative'
     },
     action: {
       marginLeft: theme.spacing(1)
@@ -85,9 +81,11 @@ const Header = ({ className, program, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <div
+      <Parallax
         className={classes.cover}
-        style={{ backgroundImage }}
+        image={backgroundImage}
+        // filter
+        small
       />
       <div className={classes.content}>
         <Container maxWidth="lg">
@@ -146,7 +144,8 @@ const Header = ({ className, program, ...rest }) => {
           </Box>
 
         </Container>
-        {
+      </div>
+      {
         !user || !document_is_my_own(user, program.user._id) ? null
           : (
             <Box className={classes.button}>
@@ -172,8 +171,7 @@ const Header = ({ className, program, ...rest }) => {
               </Button>
             </Box>
           )
-}
-      </div>
+        }
     </div>
   )
 }
