@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core'
+import { fade, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.default,
-    color: theme.palette.text.primary,
     fontFamily: theme.typography.fontFamily,
     alignItems: 'center',
     borderRadius: 2,
@@ -30,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Type = ({
   className = '',
+  color = '#000',
   children,
   style,
   ...rest
@@ -38,6 +37,10 @@ const Type = ({
 
   return (
     <span
+      style={{
+        color,
+        backgroundColor: fade(color, 0.08)
+      }}
       className={
         clsx(classes.root, className)
       }
