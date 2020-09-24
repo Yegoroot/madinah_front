@@ -27,7 +27,11 @@ const useStyles = makeStyles((theme) => ({
   popover: {
     width: 200
   },
+  // box: {
+  //   color: theme.palette.text.secondary,
+  // },
   link: {
+    // color: theme.palette.text.secondary,
     fontWeight: theme.typography.fontWeightMedium,
     '& + &': {
       marginLeft: theme.spacing(2),
@@ -84,6 +88,7 @@ const Account = () => {
           alignItems="center"
           component={ButtonBase}
           onClick={handleOpen}
+          className={classes.box}
           ref={ref}
         >
           <Avatar

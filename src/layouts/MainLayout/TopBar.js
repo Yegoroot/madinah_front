@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   link: {
+    color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
     '& + &': {
       marginLeft: theme.spacing(2)

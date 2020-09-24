@@ -6,7 +6,7 @@ import {
   AppBar,
   Box,
   Hidden,
-  // Link,
+  Link,
   IconButton,
   Toolbar,
   SvgIcon
@@ -50,6 +50,16 @@ const TopBar = ({
           ml={2}
           flexGrow={1}
         />
+        <Link
+          className={classes.link}
+          color="textSecondary"
+          component={RouterLink}
+          to="/programs"
+          underline="none"
+          variant="body2"
+        >
+          Programs
+        </Link>
         <Settings />
         <Box ml={2}>
           <Account />
