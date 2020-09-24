@@ -25,7 +25,7 @@ const TopBar = ({
       {...rest}
     >
       <Toolbar className={classes.toolbar}>
-        <Hidden mdDown>
+        <Hidden>
           <RouterLink to="/">
             <Logo className={classes.logo} />
           </RouterLink>
@@ -46,7 +46,7 @@ const TopBar = ({
             underline="none"
             variant="body2"
           >
-            Dashboard
+            Login
           </Link>
         </Box>
       </Toolbar>

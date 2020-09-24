@@ -53,22 +53,23 @@ const TopBar = ({ className, ...rest }) => {
           className={classes.link}
           color="textSecondary"
           component={RouterLink}
-          to="/app"
-          underline="none"
-          variant="body2"
-        >
-          Dashboard
-        </Link>
-        <Link
-          className={classes.link}
-          color="textSecondary"
-          component={RouterLink}
           to="/programs"
           underline="none"
           variant="body2"
         >
           Programs
         </Link>
+        <Link
+          className={classes.link}
+          color="textSecondary"
+          component={RouterLink}
+          to="/app"
+          underline="none"
+          variant="body2"
+        >
+          Dashboard
+        </Link>
+
         {/* <Divider className={classes.divider} />
         <Button
           color="secondary"
