@@ -22,12 +22,6 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 
-import {
-  // Image as ImageIcon,
-  Trash as DeleteIcon,
-  Edit as EditIcon,
-  ArrowRight as ArrowRightIcon,
-} from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
@@ -35,6 +29,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import moment from 'moment'
 import Type from 'src/components/Type'
 import Header from './Header'
+import TableData from './TableData'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,8 +129,16 @@ function Results() {
         <Header />
 
         <Box mt={3}>
-          <Card style={{ overflow: 'auto' }}>
-            <Box minWidth={700}>
+          <Card>
+            <TableData
+              data={data}
+              onDelete={onDelete}
+            />
+            {/* <Box minWidth={700}>
+              <TableData
+                data={data}
+                onDelete={onDelete}
+              />
               <Table>
                 <TableHead>
                   <TableRow>
@@ -242,13 +245,15 @@ function Results() {
                   ))}
                 </TableBody>
               </Table>
-            </Box>
+            </Box> */}
             <TablePagination
               component="div"
               count={total}
               onChangePage={handlePageChange}
               onChangeRowsPerPage={handleLimitChange}
               page={page}
+              labelRowsPerPage="Строк:"
+              labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
               rowsPerPage={limit}
               rowsPerPageOptions={[5, 10, 25]}
             />

@@ -4,18 +4,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 
-export default function SimpleSnackbar({ isOpen, updateServiceWorker }) {
-  const [open, setOpen] = React.useState(isOpen)
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-
-    setOpen(false)
-    updateServiceWorker()
-  }
-
+export default function SimpleSnackbar({ isOpen, handleClose }) {
   return (
 
     <Snackbar
@@ -23,7 +12,7 @@ export default function SimpleSnackbar({ isOpen, updateServiceWorker }) {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={open}
+      open={isOpen}
       // autoHideDuration={95000}
       onClose={handleClose}
       message="Available new version"

@@ -52,6 +52,13 @@ const App = () => {
     }
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    updateServiceWorker()
+  }
+
   return (
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={theme}>
@@ -64,8 +71,8 @@ const App = () => {
               <Router history={history}>
                 <AuthProvider>
                   <UpdateApp
-                    isOpen
-                    updateServiceWorker={updateServiceWorker}
+                    isOpen={serviceWorkerUpdated}
+                    handleClose={handleClose}
                   />
                   <GlobalStyles />
                   <ScrollReset />

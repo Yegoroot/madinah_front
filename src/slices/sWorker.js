@@ -18,9 +18,9 @@ const slice = createSlice({
     },
     updateServiceWorker(sWorker, { payload }) {
       const { registration } = payload
-      console.log('payload in Reduce', payload)
-      sWorker.serviceWorkerRegistration = registration
+      console.log('New Registration Service Worker', registration)
       sWorker.serviceWorkerUpdated = true
+      sWorker.serviceWorkerRegistration = registration
     },
   },
 
@@ -39,7 +39,6 @@ export const initServiceWorker = () => async (dispatch) => {
  * Service Worker update
  */
 export const updateServiceWorker = (registration) => async (dispatch) => {
-  console.log('registration in action', registration)
   dispatch(slice.actions.updateServiceWorker({ registration }))
 }
 
