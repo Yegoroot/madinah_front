@@ -38,6 +38,7 @@ const App = () => {
     responsiveFontSizes: settings.responsiveFontSizes,
     theme: settings.theme
   })
+  console.log(serviceWorkerUpdated, serviceWorkerRegistration)
 
   const updateServiceWorker = () => {
     const registrationWaiting = serviceWorkerRegistration.waiting
