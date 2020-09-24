@@ -50,18 +50,20 @@ const TopBar = ({
           ml={2}
           flexGrow={1}
         />
-        <Link
-          className={classes.link}
-          color="textSecondary"
-          component={RouterLink}
-          to="/programs"
-          underline="none"
-          variant="body2"
-        >
-          Programs
-        </Link>
+        <Box mr={1}>
+          <Link
+            className={classes.link}
+            color="textPrimary"
+            component={RouterLink}
+            to="/programs"
+            underline="none"
+            variant="body2"
+          >
+            Programs
+          </Link>
+        </Box>
         <Settings />
-        <Box ml={2}>
+        <Box ml={1}>
           <Account />
         </Box>
       </Toolbar>

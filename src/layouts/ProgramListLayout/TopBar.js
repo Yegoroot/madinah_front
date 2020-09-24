@@ -36,7 +36,7 @@ const TopBar = ({
           flexGrow={1}
         />
         <Settings />
-        <Box ml={2}>
+        <Box ml={1}>
           <Account />
         </Box>
       </Toolbar>

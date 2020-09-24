@@ -10,6 +10,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
+import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
 import Account from '../DashboardLayout/TopBar/Account'
 
 const useStyles = makeStyles((theme) => ({
@@ -51,30 +52,23 @@ const TopBar = ({ className, ...rest }) => {
           <Logo className={classes.logo} />
         </RouterLink>
         <Box flexGrow={1} />
-        <Link
-          className={classes.link}
-          color="textSecondary"
-          component={RouterLink}
-          to="/programs"
-          underline="none"
-          variant="body2"
-        >
-          Programs
-        </Link>
-        <Box ml={2}>
+        <Box mr={1}>
+          <Link
+            className={classes.link}
+            color="textSecondary"
+            component={RouterLink}
+            to="/programs"
+            underline="none"
+            variant="body2"
+          >
+            Programs
+          </Link>
+        </Box>
+        <Settings />
+        <Box ml={1}>
           <Account />
         </Box>
 
-        {/* <Divider className={classes.divider} />
-        <Button
-          color="secondary"
-          component="a"
-          href="#"
-          variant="contained"
-          size="small"
-        >
-          Contacts
-        </Button> */}
       </Toolbar>
     </AppBar>
   )

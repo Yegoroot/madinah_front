@@ -80,21 +80,21 @@ const Settings = () => {
   return (
     <>
       <Tooltip title="Settings">
-        <Badge
+        {/* <Badge
           color="secondary"
           variant="dot"
           classes={{ badge: classes.badge }}
+        > */}
+        <IconButton
+          color="inherit"
+          onClick={handleOpen}
+          ref={ref}
         >
-          <IconButton
-            color="inherit"
-            onClick={handleOpen}
-            ref={ref}
-          >
-            <SvgIcon fontSize="small">
-              <SettingsIcon />
-            </SvgIcon>
-          </IconButton>
-        </Badge>
+          <SvgIcon fontSize="small">
+            <SettingsIcon />
+          </SvgIcon>
+        </IconButton>
+        {/* </Badge> */}
       </Tooltip>
       <Popover
         anchorOrigin={{

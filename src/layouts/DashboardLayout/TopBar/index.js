@@ -79,7 +79,7 @@ const TopBar = ({
         </Button> */}
         {/* <Search /> */}
         <Settings />
-        <Box ml={2}>
+        <Box ml={1}>
           <Account />
         </Box>
       </Toolbar>
