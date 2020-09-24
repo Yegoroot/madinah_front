@@ -10,6 +10,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
+import Account from '../DashboardLayout/TopBar/Account'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,16 +60,9 @@ const TopBar = ({ className, ...rest }) => {
         >
           Programs
         </Link>
-        <Link
-          className={classes.link}
-          color="textSecondary"
-          component={RouterLink}
-          to="/app"
-          underline="none"
-          variant="body2"
-        >
-          Dashboard
-        </Link>
+        <Box ml={2}>
+          <Account />
+        </Box>
 
         {/* <Divider className={classes.divider} />
         <Button

@@ -10,6 +10,7 @@ import {
   Box,
   ButtonBase,
   Hidden,
+  Link,
   Menu,
   MenuItem,
   Typography,
@@ -25,14 +26,20 @@ const useStyles = makeStyles((theme) => ({
   },
   popover: {
     width: 200
-  }
+  },
+  link: {
+    fontWeight: theme.typography.fontWeightMedium,
+    '& + &': {
+      marginLeft: theme.spacing(2),
+    }
+  },
 }))
 
 const Account = () => {
   const classes = useStyles()
   const history = useHistory()
   const ref = useRef(null)
-  const { user, logout } = useAuth()
+  const { user, logout, isAuthenticated } = useAuth()
   const { enqueueSnackbar } = useSnackbar()
   const [isOpen, setOpen] = useState(false)
 
@@ -57,53 +64,72 @@ const Account = () => {
     }
   }
 
-  return (
-    <>
-      <Box
-        display="flex"
-        alignItems="center"
-        component={ButtonBase}
-        onClick={handleOpen}
-        ref={ref}
+  return !isAuthenticated
+    ? (
+      <Link
+        className={classes.link}
+        color="textSecondary"
+        component={RouterLink}
+        to="/login"
+        underline="none"
+        variant="body2"
       >
-        <Avatar
-          alt="User"
-          className={classes.avatar}
-          src={user.avatar}
-        />
-        <Hidden smDown>
-          <Typography
-            variant="h6"
-            color="inherit"
-          >
-            {user.name}
-          </Typography>
-        </Hidden>
-      </Box>
-      <Menu
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        keepMounted
-        PaperProps={{ className: classes.popover }}
-        getContentAnchorEl={null}
-        anchorEl={ref.current}
-        open={isOpen}
-      >
-        <MenuItem
-          component={RouterLink}
-          to="/app/account"
+        Login
+      </Link>
+    )
+    : (
+      <>
+        <Box
+          display="flex"
+          alignItems="center"
+          component={ButtonBase}
+          onClick={handleOpen}
+          ref={ref}
         >
-          Account
-        </MenuItem>
-        <MenuItem onClick={handleLogout}>
-          Logout
-        </MenuItem>
-      </Menu>
-    </>
-  )
+          <Avatar
+            alt="User"
+            className={classes.avatar}
+            src={user.avatar}
+          />
+          <Hidden smDown>
+            <Typography
+              variant="h6"
+              color="inherit"
+            >
+              {user.name}
+            </Typography>
+          </Hidden>
+        </Box>
+        <Menu
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          keepMounted
+          PaperProps={{ className: classes.popover }}
+          getContentAnchorEl={null}
+          anchorEl={ref.current}
+          open={isOpen}
+        >
+          <MenuItem
+            component={RouterLink}
+            to="/app/programs"
+          >
+            Dashboard
+          </MenuItem>
+          <MenuItem
+            component={RouterLink}
+            to="/app/account"
+          >
+            Account
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>
+            Logout
+          </MenuItem>
+        </Menu>
+      </>
+    )
 }
 
 export default Account

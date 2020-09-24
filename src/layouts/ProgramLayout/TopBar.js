@@ -6,15 +6,15 @@ import {
   AppBar,
   Box,
   Hidden,
-  Link,
+  // Link,
   IconButton,
   Toolbar,
   SvgIcon
 } from '@material-ui/core'
 import { Menu as MenuIcon } from 'react-feather'
 import Logo from 'src/components/Logo'
-
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
+import Account from '../DashboardLayout/TopBar/Account'
 
 import { useStyles } from '../DashboardLayout/TopBar/style'
 
@@ -51,19 +51,8 @@ const TopBar = ({
           flexGrow={1}
         />
         <Settings />
-        <Box
-          ml={2}
-        >
-          <Link
-            className={classes.link}
-            color="textSecondary"
-            component={RouterLink}
-            to="/app"
-            underline="none"
-            variant="body2"
-          >
-            Dashboard
-          </Link>
+        <Box ml={2}>
+          <Account />
         </Box>
       </Toolbar>
     </AppBar>

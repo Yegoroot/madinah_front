@@ -64,7 +64,7 @@ const App = () => {
               <Router history={history}>
                 <AuthProvider>
                   <UpdateApp
-                    isOpen={serviceWorkerUpdated}
+                    isOpen
                     updateServiceWorker={updateServiceWorker}
                   />
                   <GlobalStyles />
