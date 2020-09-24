@@ -2,30 +2,47 @@ import {
   Feather,
   User as UserIcon,
   BookOpen,
+  Home,
+
 } from 'react-feather'
 
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
-const initialMenu = [{
-  subheader: 'menu.manage.program',
-  items: [
-    {
-      title: 'All Programs',
-      icon: BookOpen,
-      href: `${PUBLIC_PROGRAMS_URL}`
-    }
-  ]
-}]
+// const initialMenu = [{
+//   subheader: 'menu.manage.program',
+//   items: [
+//     {
+//       title: 'All Programs',
+//       icon: BookOpen,
+//       href: `${PUBLIC_PROGRAMS_URL}`
+//     }
+//   ]
+// }]
 
 const additionalMenu = [{
-  subheader: 'Account',
+  subheader: '',
   href: '/app/account',
   items: [
+    {
+      title: 'Home',
+      href: '/home',
+      icon: Home
+    },
+    {
+      title: 'Programs',
+      href: '/programs',
+      icon: BookOpen
+    },
     {
       title: 'Account',
       href: '/app/account',
       icon: UserIcon
     },
+    // {
+    //   title: 'Contacts',
+    //   href: '/contacts',
+    //   icon: UserIcon
+    // },
   ]
 }]
 
@@ -52,12 +69,12 @@ const topicsMenu = (topics) => {
 export const generateTopicsMenu = (topics, loading) => {
   if (loading || !topics.length) {
     return [
-      ...initialMenu,
+      // ...initialMenu,
       ...additionalMenu
     ]
   }
   return [
-    ...initialMenu,
+    // ...initialMenu,
     ...topicsMenu(topics),
     ...additionalMenu
   ]

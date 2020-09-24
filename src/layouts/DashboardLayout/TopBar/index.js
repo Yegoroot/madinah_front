@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import {
   AppBar,
   Box,
+  Link,
   Hidden,
   IconButton,
   Toolbar,
@@ -78,6 +79,18 @@ const TopBar = ({
           Programs
         </Button> */}
         {/* <Search /> */}
+        <Box mr={1}>
+          <Link
+            className={classes.link}
+            color="textPrimary"
+            component={RouterLink}
+            to="/programs"
+            underline="none"
+            variant="body2"
+          >
+            Programs
+          </Link>
+        </Box>
         <Settings />
         <Box ml={1}>
           <Account />

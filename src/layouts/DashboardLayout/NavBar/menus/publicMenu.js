@@ -1,13 +1,18 @@
-import { BookOpen } from 'react-feather'
+import { /* BookOpen, */ Home } from 'react-feather'
 
 export const publicMenu = [{
-  subheader: 'Education Programs ',
+  subheader: 'Public',
   href: '/programs',
   items: [
+    // {
+    //   title: 'Home',
+    //   href: '/programs',
+    //   icon: BookOpen
+    // },
     {
-      title: 'All Public Programs',
+      title: 'Programs',
       href: '/programs',
-      icon: BookOpen
+      icon: Home
     },
   ]
 }]

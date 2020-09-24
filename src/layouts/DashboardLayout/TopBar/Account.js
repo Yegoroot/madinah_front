@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     // color: theme.palette.text.secondary,
     fontWeight: theme.typography.fontWeightMedium,
     '& + &': {
-      marginLeft: theme.spacing(2),
+      marginLeft: theme.spacing(1),
     }
   },
 }))
@@ -72,7 +72,7 @@ const Account = () => {
     ? (
       <Link
         className={classes.link}
-        color="textSecondary"
+        color="textPrimary"
         component={RouterLink}
         to="/login"
         underline="none"
