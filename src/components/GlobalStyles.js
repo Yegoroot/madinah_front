@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => createStyles({
         color: 'initial'
       },
     },
-    blocknote: {
+    blockquote: {
       paddingLeft: theme.spacing(2),
       paddingBottom: theme.spacing(1),
       paddingTop: theme.spacing(1),

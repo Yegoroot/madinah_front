@@ -28,8 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const LoadingScreen = ({ transparent, absolute }) => {
   const classes = useStyles()
-
-  console.log(transparent)
   useEffect(() => {
     NProgress.start()
 

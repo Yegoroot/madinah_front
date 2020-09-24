@@ -18,6 +18,7 @@ import * as serviceWorker from 'src/serviceWorker'
 import store from 'src/store'
 import { SettingsProvider } from 'src/contexts/SettingsContext'
 import App from 'src/App'
+import swConfig from './swConfig'
 
 enableES5()
 
@@ -30,4 +31,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-serviceWorker.register()
+serviceWorker.register(swConfig)
