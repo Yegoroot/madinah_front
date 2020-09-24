@@ -5,6 +5,7 @@ import { create } from 'jss'
 import rtl from 'jss-rtl'
 import MomentUtils from '@date-io/moment'
 import { SnackbarProvider } from 'notistack'
+import { useSelector } from 'react-redux'
 import {
   jssPreset,
   StylesProvider,
@@ -23,18 +24,32 @@ import { createTheme } from 'src/theme'
 import routes, { renderRoutes } from 'src/routes'
 import { I18nextProvider } from 'react-i18next'
 import i18n from 'src/localization/i18n'
+import UpdateApp from 'src/components/UpdateApp'
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
 const history = createBrowserHistory()
 
 const App = () => {
   const { settings } = useSettings()
+  const { serviceWorkerUpdated, serviceWorkerRegistration } = useSelector((state) => state.sWorker)
 
   const theme = createTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     theme: settings.theme
   })
+
+  const updateServiceWorker = () => {
+    const registrationWaiting = serviceWorkerRegistration.waiting
+    if (registrationWaiting) {
+      registrationWaiting.postMessage({ type: 'SKIP_WAITING' })
+      registrationWaiting.addEventListener('statechange', (e) => {
+        if (e.target.state === 'activated') {
+          window.location.reload()
+        }
+      })
+    }
+  }
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -47,6 +62,10 @@ const App = () => {
             >
               <Router history={history}>
                 <AuthProvider>
+                  <UpdateApp
+                    isOpen={serviceWorkerUpdated}
+                    updateServiceWorker={updateServiceWorker}
+                  />
                   <GlobalStyles />
                   <ScrollReset />
                   <GoogleAnalytics />

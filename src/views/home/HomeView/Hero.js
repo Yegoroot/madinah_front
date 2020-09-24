@@ -90,7 +90,7 @@ const Hero = ({ className, ...rest }) => {
                   variant="body1"
                   color="textSecondary"
                 >
-                  A simple platform for digital content about something usefull. We students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
+                  A simple platform for you with digital content about something usefull. We students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
                 </Typography>
               </Box>
               {/* <Box mt={3}>
