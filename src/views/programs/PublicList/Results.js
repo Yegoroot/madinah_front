@@ -108,6 +108,7 @@ function Results({ className, programs, ...rest }) {
       </Box>
       <Grid
         container
+        alignItems="stretch"
         spacing={3}
       >
         {programs.map((program) => (

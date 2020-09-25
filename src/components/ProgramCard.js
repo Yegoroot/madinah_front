@@ -27,7 +27,8 @@ import Type from 'src/components/Type'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'relative'
+    position: 'relative',
+    height: '100%'
   },
   media: {
     position: 'absolute',

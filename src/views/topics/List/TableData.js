@@ -11,8 +11,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import { Link as RouterLink } from 'react-router-dom'
-import Label from 'src/components/Label'
 import {
+  Hidden,
   TableRow, Link, SvgIcon, Grid
 } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
@@ -21,12 +21,11 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import {
   // Image as ImageIcon,
-  Trash as DeleteIcon,
+  Trash,
   Edit as EditIcon,
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
-import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
-import Type from 'src/components/Type'
+import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 import moment from 'moment'
 
 const useRowStyles = makeStyles({
@@ -37,7 +36,7 @@ const useRowStyles = makeStyles({
   },
 })
 
-function Row({ program, onDelete }) {
+function Row({ topic, onDelete }) {
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
   return (
@@ -57,22 +56,33 @@ function Row({ program, onDelete }) {
           scope="row"
         >
           <Link
-            color={program.publish ? 'primary' : 'error'}
-            component={RouterLink}
             variant="h5"
+            color={topic.publish ? 'primary' : 'error'}
+            component={RouterLink}
+            underline="none"
             to={{
-              pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
+              pathname: `${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`,
               state: {
                 fromDashboard: true
               }
             }}
           >
-            {program.title}
+            {topic.title}
           </Link>
         </TableCell>
 
+        <Hidden mdDown>
+          <TableCell
+            component="th"
+            scope="row"
+          >
+            {topic.program.title}
+          </TableCell>
+
+        </Hidden>
         <TableCell
-          align="right"
+          component="th"
+          scope="row"
           style={{ paddingRight: 0 }}
         >
           <Box
@@ -81,15 +91,15 @@ function Row({ program, onDelete }) {
             justifyContent="flex-end"
           >
             <IconButton
-              onClick={() => onDelete(program.id)}
+              onClick={() => onDelete(topic.id)}
             >
               <SvgIcon fontSize="small">
-                <DeleteIcon />
+                <Trash />
               </SvgIcon>
             </IconButton>
             <IconButton
               component={RouterLink}
-              to={`${PROGRAMS_URL}/${program.id}/edit`}
+              to={`/app/topics/${topic.id}/edit`}
             >
               <SvgIcon fontSize="small">
                 <EditIcon />
@@ -97,12 +107,7 @@ function Row({ program, onDelete }) {
             </IconButton>
             <IconButton
               component={RouterLink}
-              to={{
-                pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
-                state: {
-                  fromDashboard: true
-                }
-              }}
+              to={`${PUBLIC_PROGRAMS_URL}/${topic.program.id}/topics/${topic.id}`}
             >
               <SvgIcon fontSize="small">
                 <ArrowRightIcon />
@@ -111,6 +116,7 @@ function Row({ program, onDelete }) {
           </Box>
         </TableCell>
       </TableRow>
+
       <TableRow>
         <TableCell
           style={{ paddingBottom: 0, paddingTop: 0 }}
@@ -138,9 +144,9 @@ function Row({ program, onDelete }) {
                   >
                     User
                   </Typography>
-                  {program.user.name}
+                  {topic.user.name}
                   <br />
-                  {program.user.email}
+                  {topic.user.email}
                 </Grid>
                 <Grid item>
                   <Typography
@@ -150,38 +156,18 @@ function Row({ program, onDelete }) {
                   >
                     Created
                   </Typography>
-                  {moment(program.createdAt).format('DD.MM.YYYY')}
+                  {moment(topic.createdAt).format('DD.MM.YYYY')}
                 </Grid>
+
                 <Grid item>
                   <Typography
                     variant="h4"
                     gutterBottom
                     component="div"
                   >
-                    Types
+                    Program
                   </Typography>
-                  <Box mx={-1}>
-                    {program.types.map((type) => (
-                      <Type
-                        color={type.color}
-                        key={type._id}
-                      >
-                        {type.title}
-                      </Type>
-                    ))}
-                  </Box>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    variant="h4"
-                    gutterBottom
-                    component="div"
-                  >
-                    Topics
-                  </Typography>
-                  {program.topics.map((topic) => (
-                    <Label key={topic.id}>{topic.title}</Label>
-                  ))}
+                  {topic.program.title}
                 </Grid>
 
               </Grid>
@@ -195,26 +181,18 @@ function Row({ program, onDelete }) {
 }
 
 Row.propTypes = {
-  program: PropTypes.shape({
+  topic: PropTypes.shape({
     publish: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
-    topics: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    program: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+    }).isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-    }),
-    types: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    })
 
   }).isRequired,
   onDelete: PropTypes.func.isRequired
@@ -228,14 +206,17 @@ export default function CollapsibleTable({ data, onDelete }) {
           <TableRow>
             <TableCell />
             <TableCell>Title</TableCell>
+            <Hidden mdDown>
+              <TableCell>Program</TableCell>
+            </Hidden>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((program) => (
+          {data.map((topic) => (
             <Row
-              key={program.id}
-              program={program}
+              key={topic.id}
+              topic={topic}
               onDelete={onDelete}
             />
           ))}

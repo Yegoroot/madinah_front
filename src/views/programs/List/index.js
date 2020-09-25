@@ -20,37 +20,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
-  },
-  queryField: {
-    width: 500
-  },
-  bulkOperations: {
-    position: 'relative'
-  },
-  bulkActions: {
-    paddingLeft: 4,
-    paddingRight: 4,
-    marginTop: 6,
-    position: 'absolute',
-    width: '100%',
-    zIndex: 2,
-    backgroundColor: theme.palette.background.default
-  },
-  bulkAction: {
-    marginLeft: theme.spacing(2)
-  },
-  imageCell: {
-    fontSize: 0,
-    width: 68,
-    flexBasis: 68,
-    flexGrow: 0,
-    flexShrink: 0
-  },
-  image: {
-    backgroundColor: theme.palette.background.dark,
-    color: '#fff',
-    height: 68,
-    width: 68
   }
 }))
 
