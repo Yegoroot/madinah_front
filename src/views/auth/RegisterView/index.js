@@ -140,9 +140,7 @@ const RegisterView = () => {
           display="flex"
           justifyContent="center"
         >
-          <RouterLink to="/">
-            <Logo />
-          </RouterLink>
+          <Logo />
         </Box>
         <Card>
           <CardContent className={classes.cardContent}>

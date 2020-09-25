@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
@@ -27,9 +26,7 @@ const TopBar = ({
     >
       <Toolbar className={classes.toolbar}>
         <Hidden>
-          <RouterLink to="/">
-            <Logo className={classes.logo} />
-          </RouterLink>
+          <Logo className={classes.logo} />
         </Hidden>
         <Box
           ml={2}

@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 64,
     justifyContent: 'flex-start'
   },
+  logoLink: {
+    display: 'flex'
+  }
 
 }))
 
@@ -61,9 +64,7 @@ const TopBar = ({
           </IconButton>
         </Hidden>
         <Hidden mdDown>
-          <RouterLink to="/">
-            <Logo className={classes.logo} />
-          </RouterLink>
+          <Logo className={classes.logo} />
         </Hidden>
         <Box
           ml={2}

@@ -42,9 +42,7 @@ const TopBar = ({
           </IconButton>
         </Hidden>
         <Hidden mdDown>
-          <RouterLink to="/">
-            <Logo className={classes.logo} />
-          </RouterLink>
+          <Logo className={classes.logo} />
         </Hidden>
         <Box
           ml={2}

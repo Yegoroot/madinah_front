@@ -123,7 +123,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname,])
+  }, [location.pathname, ])
 
   const content = (
     <Box
@@ -137,9 +137,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             p={2}
             display="flex"
           >
-            <RouterLink to="/">
-              <Logo />
-            </RouterLink>
+            <Logo />
           </Box>
         </Hidden>
 

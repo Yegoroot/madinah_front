@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useEffect, useState } from 'react'
-import { useLocation, matchPath, Link as RouterLink } from 'react-router-dom'
+import { useLocation, matchPath } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
@@ -155,9 +155,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             p={2}
             display="flex"
           >
-            <RouterLink to="/">
-              <Logo />
-            </RouterLink>
+            <Logo />
           </Box>
         </Hidden>
         {loading && loading !== 'reload' ? (

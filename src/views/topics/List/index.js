@@ -39,7 +39,7 @@ function Results() {
   })
 
   const onDelete = (topicId) => {
-    if (window.confirm('Delete topic and all content inside')) {
+    if (window.confirm('Delete topic and all content inside?')) {
       dispatch(deleteTopic({ topicId }))
       total -= 1
     }
