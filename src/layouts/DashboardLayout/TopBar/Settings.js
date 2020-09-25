@@ -4,7 +4,7 @@ import React, {
 } from 'react'
 import { capitalCase } from 'change-case'
 import {
-  Badge,
+  // Badge,
   Box,
   Button,
   FormControlLabel,

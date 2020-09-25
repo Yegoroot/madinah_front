@@ -5,7 +5,6 @@ import { create } from 'jss'
 import rtl from 'jss-rtl'
 import MomentUtils from '@date-io/moment'
 import { SnackbarProvider } from 'notistack'
-import { useSelector } from 'react-redux'
 import {
   jssPreset,
   StylesProvider,
@@ -31,33 +30,12 @@ const history = createBrowserHistory()
 
 const App = () => {
   const { settings } = useSettings()
-  const { serviceWorkerUpdated, serviceWorkerRegistration } = useSelector((state) => state.sWorker)
 
   const theme = createTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     theme: settings.theme
   })
-  console.log(serviceWorkerUpdated, serviceWorkerRegistration)
-
-  const updateServiceWorker = () => {
-    const registrationWaiting = serviceWorkerRegistration.waiting
-    if (registrationWaiting) {
-      registrationWaiting.postMessage({ type: 'SKIP_WAITING' })
-      registrationWaiting.addEventListener('statechange', (e) => {
-        if (e.target.state === 'activated') {
-          window.location.reload()
-        }
-      })
-    }
-  }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    updateServiceWorker()
-  }
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -70,10 +48,7 @@ const App = () => {
             >
               <Router history={history}>
                 <AuthProvider>
-                  <UpdateApp
-                    isOpen={serviceWorkerUpdated}
-                    handleClose={handleClose}
-                  />
+                  <UpdateApp />
                   <GlobalStyles />
                   <ScrollReset />
                   <GoogleAnalytics />

@@ -1,10 +1,31 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
+import { useSelector } from 'react-redux'
 
-export default function SimpleSnackbar({ isOpen, handleClose }) {
+export default function SimpleSnackbar() {
+  const { serviceWorkerUpdated, serviceWorkerRegistration } = useSelector((state) => state.sWorker)
+
+  const updateServiceWorker = () => {
+    const registrationWaiting = serviceWorkerRegistration.waiting
+    if (registrationWaiting) {
+      registrationWaiting.postMessage({ type: 'SKIP_WAITING' })
+      registrationWaiting.addEventListener('statechange', (e) => {
+        if (e.target.state === 'activated') {
+          localStorage.setItem('serviceWorkerUpdated', false)
+          window.location.reload()
+        }
+      })
+    }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    updateServiceWorker()
+  }
+
   return (
 
     <Snackbar
@@ -12,7 +33,7 @@ export default function SimpleSnackbar({ isOpen, handleClose }) {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={isOpen}
+      open={serviceWorkerUpdated || localStorage.getItem('serviceWorkerUpdated')}
       // autoHideDuration={95000}
       onClose={handleClose}
       message="Available new version"
@@ -25,14 +46,6 @@ export default function SimpleSnackbar({ isOpen, handleClose }) {
           >
             Update
           </Button>
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleClose}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
         </>
         )}
     />

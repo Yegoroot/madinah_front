@@ -61,11 +61,13 @@ function registerValidSW(swUrl, config) {
     .then(registration => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
+        console.log(111, 'onupdatefound installingWorker', installingWorker)
         if (installingWorker == null) {
           return;
         }
+        console.log(222, 'installingWorker.state', installingWorker.state)
         installingWorker.onstatechange = () => {
-          console.log('installingWorker.state', installingWorker.state)
+          console.log(333, 'onstatechange() installingWorker.state', installingWorker.state)
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,

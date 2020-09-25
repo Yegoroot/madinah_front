@@ -21,6 +21,20 @@ const slice = createSlice({
       console.log('New Registration Service Worker', registration)
       sWorker.serviceWorkerUpdated = true
       sWorker.serviceWorkerRegistration = registration
+      localStorage.setItem('serviceWorkerUpdated', true) // если пользователь случайно обновил и не успел обновитьт
+
+      /**
+       * Обновить сразу
+       */
+      // const registrationWaiting = registration.waiting
+      // if (registrationWaiting) {
+      //   registrationWaiting.postMessage({ type: 'SKIP_WAITING' })
+      //   registrationWaiting.addEventListener('statechange', (e) => {
+      //     if (e.target.state === 'activated') {
+      //       window.location.reload()
+      //     }
+      //   })
+      // }
     },
   },
 

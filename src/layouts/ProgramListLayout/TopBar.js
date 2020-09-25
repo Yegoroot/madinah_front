@@ -6,7 +6,7 @@ import {
   AppBar,
   Box,
   Hidden,
-  Link,
+  // Link,
   Toolbar,
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
