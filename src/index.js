@@ -18,7 +18,7 @@ import * as serviceWorker from 'src/serviceWorker'
 import store from 'src/store'
 import { SettingsProvider } from 'src/contexts/SettingsContext'
 import App from 'src/App'
-import { initServiceWorker, onCheckUpdateServiceWorker } from './slices/sWorker'
+import { /* initServiceWorker, */ onCheckUpdateServiceWorker } from './slices/sWorker'
 
 enableES5()
 
@@ -32,6 +32,9 @@ ReactDOM.render(
 )
 
 serviceWorker.register({
-  onSuccess: () => store.dispatch(initServiceWorker()),
-  onUpdate: (reg) => store.dispatch(onCheckUpdateServiceWorker(reg)),
+  // onSuccess: () => store.dispatch(initServiceWorker()),
+  onUpdate: (reg) => {
+    console.log('onUpdate callback', reg)
+    store.dispatch(onCheckUpdateServiceWorker(reg))
+  }
 })

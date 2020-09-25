@@ -81,16 +81,17 @@ const Hero = ({ className, ...rest }) => {
                 variant="h1"
                 color="textPrimary"
               >
-                {APP_NAME}
+                Learn Arabic with -
                 {' '}
-                - useful materials for self-education
+                {APP_NAME}
+
               </Typography>
               <Box mt={3}>
                 <Typography
                   variant="body1"
                   color="textSecondary"
                 >
-                  A simple platform for you with digital content about something usefull. We students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
+                  A Platform for learninig arabic by comfort manners. We are students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
                 </Typography>
               </Box>
               {/* <Box mt={3}>
