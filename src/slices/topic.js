@@ -83,6 +83,7 @@ export const deleteTopic = ({ topicId }) => async (dispatch) => {
 
 // INSIDE
 export const getTopicList = ({ params, type }) => async (dispatch) => {
+  console.log(params)
   try {
     const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}`, { params })
     const { data } = response

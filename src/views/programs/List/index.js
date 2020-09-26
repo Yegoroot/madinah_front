@@ -5,6 +5,7 @@ import {
   Card,
   TablePagination,
   Container,
+  Hidden,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
@@ -12,7 +13,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Header from './Header'
-import TableData from './TableData'
+import TableDataMobile from './TableDataMobile'
+import TableDataDesktop from './TableDataDesktop'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,10 +84,18 @@ function Results() {
 
         <Box mt={3}>
           <Card>
-            <TableData
-              data={data}
-              onDelete={onDelete}
-            />
+            <Hidden mdDown>
+              <TableDataDesktop
+                data={data}
+                onDelete={onDelete}
+              />
+            </Hidden>
+            <Hidden lgUp>
+              <TableDataMobile
+                data={data}
+                onDelete={onDelete}
+              />
+            </Hidden>
             <TablePagination
               component="div"
               count={total}

@@ -5,6 +5,7 @@ import {
   Card,
   Container,
   TablePagination,
+  Hidden,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
@@ -12,7 +13,8 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import { getTopicListRequest, deleteTopic, module } from 'src/slices/topic'
 import { useSelector, useDispatch } from 'react-redux'
 import Header from './Header'
-import TableData from './TableData'
+import TableDataMobile from './TableDataMobile'
+import TableDataDesktop from './TableDataDesktop'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +48,10 @@ function Results() {
   }
 
   useEffect(() => {
-    dispatch(getTopicListRequest({ page, limit, type: 'private' }))
+    const params = {
+      page, limit
+    }
+    dispatch(getTopicListRequest({ params, type: 'private' }))
   }, [dispatch, filters, page, limit])
 
   if (loading || !data) {
@@ -71,10 +76,18 @@ function Results() {
         <Header />
         <Box mt={3}>
           <Card>
-            <TableData
-              data={data}
-              onDelete={onDelete}
-            />
+            <Hidden lgUp>
+              <TableDataMobile
+                data={data}
+                onDelete={onDelete}
+              />
+            </Hidden>
+            <Hidden mdDown>
+              <TableDataDesktop
+                data={data}
+                onDelete={onDelete}
+              />
+            </Hidden>
             <TablePagination
               component="div"
               count={total}
