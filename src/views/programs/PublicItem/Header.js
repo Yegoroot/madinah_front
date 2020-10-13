@@ -8,6 +8,7 @@ import {
   Box,
   Container,
   Typography,
+  Hidden,
   Button,
   SvgIcon,
   makeStyles
@@ -105,18 +106,20 @@ const Header = ({ className, program, ...rest }) => {
               >
 
                 {program.title}
-                <Button
-                  className={classes.action}
-                  onClick={() => onShare(`${program.id}`)}
-                >
-                  <SvgIcon
-                    fontSize="small"
-                    className={classes.actionIcon}
+                <Hidden lgUp>
+                  <Button
+                    className={classes.action}
+                    onClick={() => onShare(`${program.id}`)}
                   >
-                    <ShareIcon />
-                  </SvgIcon>
-                  Share
-                </Button>
+                    <SvgIcon
+                      fontSize="small"
+                      className={classes.actionIcon}
+                    >
+                      <ShareIcon />
+                    </SvgIcon>
+                    Share
+                  </Button>
+                </Hidden>
 
               </Typography>
               <Typography

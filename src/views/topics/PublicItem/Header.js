@@ -12,6 +12,7 @@ import {
   Breadcrumbs,
   Link,
   Button,
+  Hidden,
   IconButton,
   Typography,
   makeStyles
@@ -92,20 +93,22 @@ function Header({ topic }) {
             </Typography>
           </Breadcrumbs>
         </Grid>
-        <Grid item>
-          <Button
-            className={classes.action}
-            onClick={() => onShare(`${topic.id}`)}
-          >
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
+        <Hidden lgUp>
+          <Grid item>
+            <Button
+              className={classes.action}
+              onClick={() => onShare(`${topic.id}`)}
             >
-              <ShareIcon />
-            </SvgIcon>
-            Share
-          </Button>
-        </Grid>
+              <SvgIcon
+                fontSize="small"
+                className={classes.actionIcon}
+              >
+                <ShareIcon />
+              </SvgIcon>
+              Share
+            </Button>
+          </Grid>
+        </Hidden>
       </Grid>
       <Grid
         container
