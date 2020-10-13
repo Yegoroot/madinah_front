@@ -15,7 +15,9 @@ const useStyles = makeStyles((theme) => createStyles({
     html: {
       '-webkit-font-smoothing': 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
-      height: '100%',
+      [theme.breakpoints.up('md')]: {
+        height: '100%',
+      },
       width: '100%'
     },
     body: {
