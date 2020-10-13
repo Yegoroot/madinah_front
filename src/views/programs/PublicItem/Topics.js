@@ -5,7 +5,10 @@ import { Grid, makeStyles } from '@material-ui/core'
 import TopicCard from 'src/components/TopicCard'
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  topic: {
+    marginBottom: 30
+  }
 }))
 
 const Topics = ({
@@ -28,7 +31,8 @@ const Topics = ({
             item
             xs={12}
             md={6}
-            lg={4}
+            // lg={6}
+            className={classes.topic}
             key={topic.id}
           >
             <TopicCard
