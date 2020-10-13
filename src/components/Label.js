@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   secondary: {
     color: theme.palette.secondary.main,
-    backgroundColor: fade(theme.palette.secondary.main, 0.08)
+    backgroundColor: fade(theme.palette.secondary.main, 0.081)
   },
   error: {
     color: theme.palette.error.main,
