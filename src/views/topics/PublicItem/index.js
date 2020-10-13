@@ -6,10 +6,10 @@ import PropTypes from 'prop-types'
 import {
   Box,
   Container,
-  CardMedia,
+  // CardMedia,
+  // CardActionArea,
   CardContent,
   Card,
-  CardActionArea,
   makeStyles
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'src/store'
@@ -69,15 +69,19 @@ function TopicItem({ match, location }) {
     }
     if (content.type === 'image') {
       return (
-        <CardActionArea
+        <img
+          src={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
           onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
-          key={content._id}
-        >
-          <CardMedia
-            className={classes.media}
-            image={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
-          />
-        </CardActionArea>
+        />
+      // <CardActionArea
+      //   onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
+      //   key={content._id}
+      // >
+      //   <CardMedia
+      //     className={classes.media}
+      //     image={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
+      //   />
+      // </CardActionArea>
 
       )
     }
