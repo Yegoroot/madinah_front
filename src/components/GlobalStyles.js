@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => createStyles({
         color: 'initial'
       },
     },
+    table: {
+      '& td': {
+        padding: 4,
+        textAlign: 'center',
+        border: 'solid 1 #ccc'
+      }
+    },
     blockquote: {
       paddingLeft: theme.spacing(2),
       paddingBottom: theme.spacing(1),
