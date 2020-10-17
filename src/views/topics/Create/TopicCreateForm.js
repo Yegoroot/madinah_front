@@ -21,6 +21,7 @@ import SectionCreate from 'src/components/Section/Create'
 import SectionList from 'src/components/Section/List'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useStateWithCallbackLazy } from 'use-state-with-callback'
+import ModalOrder from 'src/components/Draggble/Modal'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -139,7 +140,13 @@ function TopicCreateForm({
         touched,
         values
       }) => {
-        console.log('programId-', programId, ' topicId-', topicId)
+        // console.log('programId-', programId, ' topicId-', topicId)
+
+        const onUpdateOrder = (items) => {
+          setContents(items, () => {
+            handleSubmit()
+          }) // Обновить порядок записей
+        }
 
         const onDelete = (record) => {
           const filtering = contents.filter((content) => content._id !== record._id)
@@ -156,8 +163,8 @@ function TopicCreateForm({
         const onSave = ({ record, action, index }) => {
           setIsShow(false) // закрываем окно
           if (!record.data) return false // если контент пустой то не сохраняем
-          console.log(record)
-          console.log(`Record ${action}`, record)
+          // console.log(record)
+          // console.log(`Record ${action}`, record)
           if (action === 'update') { // обновить запись
             const newContents = [...contents]
             newContents[index] = { ...record }
@@ -288,6 +295,19 @@ function TopicCreateForm({
                           </Select>
                           <FormHelperText>{touched.program && errors.program}</FormHelperText>
                         </FormControl>
+                      )}
+
+                    {!contents.length > 2 ? null
+                      : (
+                        <Box
+                          mt={2}
+                        >
+                          <ModalOrder
+                            contents={contents}
+                            onUpdate={onUpdateOrder}
+                          />
+                        </Box>
+
                       )}
                   </CardContent>
                 </Card>

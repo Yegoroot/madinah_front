@@ -18,9 +18,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
 import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
-import MarkdownType from 'src/components/Section/Item/MarkdownType'
-import TextType from 'src/components/Section/Item/TextType'
-import { UPLOADS_URL } from 'src/constants'
+import RenderRecords from 'src/components/Section/RenderRecords'
 import { Lightbox } from 'react-modal-image'
 import Header from './Header'
 
@@ -58,43 +56,6 @@ function TopicItem({ match, location }) {
     dispatch(getTopicItemRequest({ topicId, programId, type }))
   }, [dispatch, topicId, programId, type])
 
-  const renderContents = (content) => {
-    if (content.type === 'text') {
-      return (
-        <TextType
-          key={content._id}
-          content={content}
-        />
-      )
-    }
-    if (content.type === 'image') {
-      return (
-        <img
-          src={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
-          onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
-        />
-      // <CardActionArea
-      //   onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
-      //   key={content._id}
-      // >
-      //   <CardMedia
-      //     className={classes.media}
-      //     image={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
-      //   />
-      // </CardActionArea>
-
-      )
-    }
-    if (content.type === 'markdown') {
-      return (
-        <MarkdownType
-          key={content._id}
-          content={content}
-        />
-      )
-    }
-  }
-
   if (loading === 'reload') {
     return (
       <Card
@@ -127,7 +88,13 @@ function TopicItem({ match, location }) {
           className={classes.contents}
         >
 
-          {data.contents.map((content) => renderContents(content))}
+          {data.contents.map((content) => (
+            <RenderRecords
+              key={content._id}
+              content={content}
+              setSelectedImage={setSelectedImage}
+            />
+          ))}
 
         </Box>
       </Container>
