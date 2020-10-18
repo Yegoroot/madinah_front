@@ -297,7 +297,7 @@ function TopicCreateForm({
                         </FormControl>
                       )}
 
-                    {!contents.length > 2 ? null
+                    {!(contents.length > 2) ? null
                       : (
                         <Box
                           mt={2}

@@ -66,7 +66,11 @@ const ProgramItem = ({ match, location }) => {
       className={classes.root}
       title={data.title}
     >
-      <Header program={data} />
+      <Header
+        program={data}
+        topics={topics}
+        type={type}
+      />
       <Container maxWidth="lg">
         <Box mt={3}>
           <Tabs

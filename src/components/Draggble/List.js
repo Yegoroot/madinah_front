@@ -17,7 +17,6 @@ const reorder = (list, startIndex, endIndex) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: 8,
     width: '100%',
     background: theme.palette.text.primary,
   },
@@ -29,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     padding: theme.spacing(3),
     marginBottom: 2,
+    borderRadius: 0,
     lineBreak: 'anywhere'
   },
   paperDragble: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const List = ({ contents, onDragble }) => {
+const List = ({ contents, onDragble, type }) => {
   const classes = useStyles()
   const [items, setItems] = useState(contents)
 
@@ -89,7 +89,8 @@ const List = ({ contents, onDragble }) => {
                       [classes.paperDragble]: snapshot.isDragging,
                     })}
                   >
-                    <RenderRecords content={item} />
+
+                    {type === 'topics' ? item.title : <RenderRecords content={item} /> }
 
                   </Paper>
 

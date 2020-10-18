@@ -72,7 +72,7 @@ export const prefix = (type) => (type === 'private' ? '/my' : '')
 export const getProgramItem = ({ programId, type }) => async (dispatch) => {
   try {
     const programResponse = await axios.get(`${API_BASE_URL}/programs${prefix(type)}/${programId}`)
-    const topicsResponse = await axios.get(`${API_BASE_URL}/topics${prefix(type)}?program=${programId}`)
+    const topicsResponse = await axios.get(`${API_BASE_URL}/topics${prefix(type)}?program=${programId}&sort=sequence`)
     dispatch(slice.actions.getProgramItem({
       programData: programResponse.data.data,
       topicsData: topicsResponse.data.data

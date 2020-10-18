@@ -13,7 +13,7 @@ import {
   SvgIcon,
   makeStyles
 } from '@material-ui/core'
-import { UPLOADS_URL, TOPICS_URL } from 'src/constants'
+import { UPLOADS_URL, TOPICS_URL, API_BASE_URL } from 'src/constants'
 import {
   PlusCircle as PlusCircleIcon,
   Share2 as ShareIcon,
@@ -23,8 +23,11 @@ import { document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
 import { onShare } from 'src/utils/urls'
 import Type from 'src/components/Type'
-
+import ModalOrder from 'src/components/Draggble/Modal'
 import Parallax from 'src/components/Animate/Parallax/Parallax'
+import { instanceAxios as axios } from 'src/utils/axios'
+import { useDispatch } from 'react-redux'
+import { getProgramItemRequest } from 'src/slices/program'
 
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
@@ -43,7 +46,10 @@ const useStyles = makeStyles((theme) => {
     button: {
       position: 'absolute',
       top: 30,
-      right: 20
+      right: 20,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end'
     },
     cover: {
       position: 'relative',
@@ -69,14 +75,28 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-const Header = ({ className, program, ...rest }) => {
+const Header = ({
+  className, program, topics, type, ...rest
+}) => {
+  const dispatch = useDispatch()
   const classes = useStyles()
-
   const { user } = useAuth()
   const backgroundImage = program.photo
     ? `url(${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo})`
     : null
 
+  const onUpdateOrder = async (items) => {
+    console.log(items)
+    const data = {
+      topics: items.map((topic, index) => ({ _id: topic._id, sequence: index }))
+    }
+    await axios.post(`${API_BASE_URL}/topics/order`, data)
+      .then((res) => {
+        dispatch(getProgramItemRequest({ programId: program._id, type }))
+      })
+  }
+
+  // console.log(topics)
   return (
     <div
       className={clsx(classes.root, className)}
@@ -155,7 +175,6 @@ const Header = ({ className, program, ...rest }) => {
               <Button
                 color="secondary"
                 variant="contained"
-                className={classes.action}
                 component={RouterLink}
                 to={{
                   pathname: `${TOPICS_URL}/create`,
@@ -172,6 +191,15 @@ const Header = ({ className, program, ...rest }) => {
                 </SvgIcon>
                 add topic
               </Button>
+
+              {!(topics.length > 2) ? null
+                : (
+                  <ModalOrder
+                    contents={topics}
+                    onUpdate={onUpdateOrder}
+                    type="topics"
+                  />
+                )}
             </Box>
           )
         }
