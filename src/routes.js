@@ -69,6 +69,13 @@ const routes = [
   },
   {
     exact: true,
+    // guard: GuestGuard,
+    layout: DashboardLayout,
+    path: '/wavesurfer',
+    component: lazy(() => import('src/views/Wavesurfer/index'))
+  },
+  {
+    exact: true,
     guard: GuestGuard,
     path: '/register',
     component: lazy(() => import('src/views/auth/RegisterView'))

@@ -64,6 +64,9 @@ const themesOptions = [
       primary: {
         main: colors.indigo[600]
       },
+      error: {
+        main: '#f44336'
+      },
       secondary: {
         main: '#5850EC'
       },
@@ -93,6 +96,9 @@ const themesOptions = [
       },
       primary: {
         main: '#8a85ff'
+      },
+      error: {
+        main: '#f44336'
       },
       secondary: {
         main: '#8a85ff'
