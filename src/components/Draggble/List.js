@@ -6,7 +6,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import clsx from 'clsx'
-import RenderRecords from 'src/components/Section/RenderRecords'
+import ShowRecord from 'src/components/Record/Item/ShowRecord'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -69,6 +69,7 @@ const List = ({ contents, onDragble, type }) => {
               [classes.rootDragble]: snapshot.isDraggingOver,
             })}
           >
+            {/* СОРТИРОВКА */}
             {items.map((item, index) => (
               <Draggable
                 key={item._id}
@@ -90,7 +91,7 @@ const List = ({ contents, onDragble, type }) => {
                     })}
                   >
 
-                    {type === 'topics' ? item.title : <RenderRecords content={item} /> }
+                    {type === 'topics' ? item.title : <ShowRecord content={item} /> }
 
                   </Paper>
 

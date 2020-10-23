@@ -3,8 +3,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 
-import MarkdownType from 'src/components/Section/Item/MarkdownType'
-import TextType from 'src/components/Section/Item/TextType'
+import MarkdownType from 'src/components/Record/Item/components/MarkdownType'
+import TextType from 'src/components/Record/Item/components/TextType'
 import { UPLOADS_URL } from 'src/constants'
 import { useSelector } from 'src/store'
 

@@ -1,15 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 import PropTypes from 'prop-types'
-import Section from 'src/components/Section/Item/index'
+import EditRecord from 'src/components/Record/Item/EditRecord'
 
-function SectionList({
+function EditRecordList({
   contents, onDelete, onEdit, onSave, programId, topicId
 }) {
   return (
     <>
       {contents.map((content, index) => (
-        <Section
+        <EditRecord
           key={content._id}
           content={content}
           programId={programId}
@@ -24,7 +24,7 @@ function SectionList({
   )
 }
 
-SectionList.propTypes = {
+EditRecordList.propTypes = {
   contents: PropTypes.array,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
@@ -33,4 +33,4 @@ SectionList.propTypes = {
   onSave: PropTypes.func
 }
 
-export default SectionList
+export default EditRecordList

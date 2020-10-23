@@ -4,9 +4,9 @@ import React, { memo, useState } from 'react'
 import { makeStyles } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { UPLOADS_URL } from 'src/constants'
-import TextType from './TextType'
-import MarkdownType from './MarkdownType'
-import Buttons from './Buttons'
+import Buttons from 'src/components/RecordButtons'
+import TextType from './components/TextType'
+import MarkdownType from './components/MarkdownType'
 import Create from '../Create'
 
 const useStyles = makeStyles((theme) => ({

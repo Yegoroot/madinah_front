@@ -17,8 +17,8 @@ import ObjectID from 'bson-objectid'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
-import SectionCreate from 'src/components/Section/Create'
-import SectionList from 'src/components/Section/List'
+import CreateRecord from 'src/components/Record/Create'
+import EditRecordList from 'src/components/Record/EditRecordList'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useStateWithCallbackLazy } from 'use-state-with-callback'
 import ModalOrder from 'src/components/Draggble/Modal'
@@ -324,7 +324,7 @@ function TopicCreateForm({
                       <CardHeader title="Content" />
                       <Divider />
                       <CardContent>
-                        <SectionList
+                        <EditRecordList
                           programId={programId}
                           topicId={topicId}
                           onSave={onSave}
@@ -344,7 +344,7 @@ function TopicCreateForm({
               >
 
                 {!isShow ? null : (
-                  <SectionCreate
+                  <CreateRecord
                     programId={programId}
                     topicId={topicId}
                     onCancel={onCancel}

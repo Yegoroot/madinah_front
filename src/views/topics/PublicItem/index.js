@@ -18,7 +18,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
 import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
-import RenderRecords from 'src/components/Section/RenderRecords'
+import ShowRecord from 'src/components/Record/Item/ShowRecord'
 import { Lightbox } from 'react-modal-image'
 import Header from './Header'
 
@@ -87,9 +87,9 @@ function TopicItem({ match, location }) {
           mt={3}
           className={classes.contents}
         >
-
+          {/* ВЫВОД КОНТЕНТА */}
           {data.contents.map((content) => (
-            <RenderRecords
+            <ShowRecord
               key={content._id}
               content={content}
               setSelectedImage={setSelectedImage}
