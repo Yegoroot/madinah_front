@@ -70,7 +70,7 @@ function SectionCreate({
       formData.set('programId', programId)
       formData.set('topicId', topicId)
       formData.set('recordId', _id)
-      await axios.post(`${API_BASE_URL}/topics/record`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      await axios.post(`${API_BASE_URL}/topics/record/image`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then((res) => {
           const { image } = res.data
           onSave({ record: { ...section, data: { image }, _id } })
