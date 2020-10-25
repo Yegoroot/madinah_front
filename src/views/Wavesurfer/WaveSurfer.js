@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Box } from '@material-ui/core'
-import wavesurferModule from 'src/components/Wavesurfer/Wavesurfer'
+import wavesurferModule from 'src/components/Record/Item/components/AudioType/Init'
 import { randomColor } from 'src/utils/randomColor'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Form from './Components/Form'

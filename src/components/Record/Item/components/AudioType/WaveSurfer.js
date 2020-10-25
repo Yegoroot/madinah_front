@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Box } from '@material-ui/core'
-import wavesurferModule from 'src/components/Wavesurfer/Wavesurfer'
 import { randomColor } from 'src/utils/randomColor'
 import LoadingScreen from 'src/components/LoadingScreen'
+import wavesurferModule from './Init'
 import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
@@ -157,7 +157,6 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
       region.once('out', () => {
         wavesurferModule.wavesurfer.play(region.start)
         wavesurferModule.wavesurfer.pause()
-        setIsShowForm(true)
         showNote(null)
       })
     })
@@ -167,13 +166,16 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
       setIsShowForm(false)
     })
 
+    wavesurferModule.wavesurfer.on('region-created', (region) => {
+      region.update({ color: randomColor(0.5) })
+    })
+
     // CLICK ON wavesurfer (not region)
     wavesurferModule.wavesurfer.on('seek', () => {
       setIsShowForm(false)
     })
 
     wavesurferModule.wavesurfer.on('play', () => {
-      setIsShowForm(false)
       setIsplay(true)
     })
 
