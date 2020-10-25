@@ -44,6 +44,10 @@ const RenderContents = ({ content, setSelectedImage }) => {
       <MarkdownType content={content} />
     )
   }
+
+  if (content.type === 'audio') {
+    return <div> Hello  Iam Audio </div>
+  }
 }
 
 export default RenderContents

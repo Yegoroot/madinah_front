@@ -27,7 +27,7 @@ const ImageType = ({
         setFieldValue={setFieldValue}
         srcPhoto={srcPhoto}
         one
-        photo
+        type="photo"
       />
     </>
   )

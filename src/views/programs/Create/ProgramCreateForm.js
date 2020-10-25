@@ -270,7 +270,7 @@ function ProductCreateForm({
                       setFieldValue={setFieldValue}
                       srcPhoto={srcPhoto}
                       one
-                      photo
+                      type="photo"
                     />
                   </CardContent>
                 </Card>

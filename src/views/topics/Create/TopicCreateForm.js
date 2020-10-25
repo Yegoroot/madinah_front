@@ -151,7 +151,7 @@ function TopicCreateForm({
         const onDelete = (record) => {
           const filtering = contents.filter((content) => content._id !== record._id)
           setContents(filtering, () => {
-            if (record.type === 'image') {
+            if (record.type === 'image' || record.type === 'audio') {
               setLoading(true)
               axios.post(`${API_BASE_URL}/topics/recorddelete`, { programId, topicId, recordId: record._id })
                 .then((res) => { handleSubmit() })
@@ -169,13 +169,13 @@ function TopicCreateForm({
             const newContents = [...contents]
             newContents[index] = { ...record }
             setContents(newContents, () => {
-              if (record.type === 'image') {
+              if (record.type === 'image' || record.type === 'audio') {
                 handleSubmit()
               }
             })
           } else {
             setContents([...contents, record], () => {
-              if (record.type === 'image') {
+              if (record.type === 'image' || record.type === 'audio') {
                 handleSubmit()
               }
             }) // добавить запись

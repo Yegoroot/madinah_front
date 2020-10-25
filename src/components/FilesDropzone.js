@@ -71,13 +71,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function FilesDropzone({
-  className, setFieldValue, one, photo, srcPhoto, ...rest
+  className, setFieldValue, one, type, srcPhoto, ...rest
 }) {
   const classes = useStyles()
   const [files, setFiles] = useState([])
 
   const src = () => {
-    if (files[0] && photo) {
+    if (files[0] && type === 'photo') {
       return files[0].preview
     }
     if (srcPhoto) {
@@ -89,7 +89,7 @@ function FilesDropzone({
   const handleDrop = useCallback((acceptedFiles) => {
     if (!acceptedFiles[0]) return // если не прошел проверку
     if (one) {
-      if (photo) {
+      if (type === 'photo') {
         const file = Object.assign(acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]) })
         setFiles([file])
       } else {
@@ -98,7 +98,7 @@ function FilesDropzone({
     } else { // several files
       setFiles((prevFiles) => [...prevFiles].concat(acceptedFiles))
     }
-  }, [one, photo])
+  }, [one, type])
 
   useEffect(() => {
     const name = one ? 'file' : 'files'
@@ -116,8 +116,11 @@ function FilesDropzone({
     onDrop: handleDrop,
     // accept: 'image/*'
   }
-  if (photo) {
+  if (type === 'photo') {
     options.accept = 'image/*'
+  }
+  if (type === 'audio') {
+    options.accept = 'audio/*'
   }
   const { getRootProps, getInputProps, isDragActive } = useDropzone(options)
 
@@ -129,35 +132,49 @@ function FilesDropzone({
       <div
         className={clsx({
           [classes.dropZone]: true,
-          [classes.photoDropZone]: (files[0] && photo) || srcPhoto,
+          [classes.photoDropZone]: (files[0] && type === 'photo') || srcPhoto,
           [classes.dragActive]: isDragActive
         })}
         {...getRootProps()}
       >
         <input {...getInputProps()} />
         <div>
-          <img
-            alt="Select file"
-            className={clsx({
-              [classes.image]: (!files[0] || !photo) || srcPhoto,
-              [classes.fullWidth]: (files[0] && photo) || srcPhoto
-            })}
-            src={src()}
-          />
+          {type === 'photo'
+            ? (
+              <img
+                alt="Select file"
+                className={clsx({
+                  [classes.image]: (!files[0] || !(type === 'photo')) || srcPhoto,
+                  [classes.fullWidth]: (files[0] && (type === 'photo')) || srcPhoto
+                })}
+                src={src()}
+              />
+            ) : null}
         </div>
         <div>
           <Typography
             gutterBottom
             variant="h3"
           >
-            Select files
+            {/* eslint-disable-next-line no-nested-ternary */}
+
+            {files.length
+              ? 'You can change the selected file'
+              : one
+                ? 'Select one file'
+                : 'Select files'}
+
           </Typography>
           <Box mt={2}>
             <Typography
               color="textPrimary"
               variant="body1"
             >
-              Drop files here or click
+              Drop
+              {' '}
+              {one ? 'file' : 'files'}
+              {' '}
+              here or click
               {' '}
               <Link underline="always">browse</Link>
               {' '}

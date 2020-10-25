@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, /* useEffect */ } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import ObjectID from 'bson-objectid'
 import SunEditor from 'src/components/SunEditor'
 import MdeEditor from 'src/components/MdeEditor'
 import ImageType from 'src/components/Record/Item/components/ImageType'
+import AudioType from 'src/components/Record/Item/components/AudioType'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import LoadingScreen from 'src/components/LoadingScreen'
@@ -33,6 +34,10 @@ const CONTENT_TYPES = [
   {
     type: 'image',
     title: 'Image'
+  },
+  {
+    type: 'audio',
+    title: 'Audio'
   }
 ]
 
@@ -40,11 +45,7 @@ const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
-    // position: 'absolute'
-  },
-  root: {
-    // position: 'relative'
-  },
+  }
 }))
 
 function SectionCreate({
@@ -62,28 +63,37 @@ function SectionCreate({
 
   const onSaveHandler = async () => {
     const _id = section._id ? section._id : objectId // если запись на update
-    if (section.type === 'image') {
+    // для audio не нуэно менять сам файл, можно только меняьб annotations или удалить файл
+    if (section.type === 'audio' && isUpdate) {
+      console.log(section, section.type)
+      onSave({ record: { ...section } })
+      return
+    }
+    if (section.type === 'image' || section.type === 'audio') {
       if (!section.data.file) { return false }
       setLoading(true)
       const formData = new FormData()
-      formData.append('image', section.data.file)
+      formData.append(section.type, section.data.file)
       formData.set('programId', programId)
       formData.set('topicId', topicId)
       formData.set('recordId', _id)
-      await axios.post(`${API_BASE_URL}/topics/record/image`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      await axios.post(`${API_BASE_URL}/topics/record/${section.type}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then((res) => {
-          const { image } = res.data
-          onSave({ record: { ...section, data: { image }, _id } })
-          setLoading(false)
+          const { data } = res
+          // WARN ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount поэтому состояние его изменять не нужно
+          // setLoading(false)
+          onSave({ record: { ...section, data, _id } })
         })
         .catch((err) => {
+          // ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount
+          // setLoading(false)
           onCancel(section._id)
-          setLoading(false)
         })
     } else {
       onSave({ record: { ...section, _id } })
     }
-    setSection({ ...defaultValues })
+    // ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount
+    // setSection({ ...defaultValues })
   }
 
   const onCancelHandler = () => {
@@ -94,7 +104,7 @@ function SectionCreate({
   return (
     <>
 
-      <Card className={classes.root}>
+      <Card>
         <Backdrop
           className={classes.backdrop}
           open={loading}
@@ -185,6 +195,17 @@ function SectionCreate({
                   programId={programId}
                   content={section}
                   onChange={(file) => setSection((prev) => ({ ...prev, type: 'image', data: { file } }))}
+                />
+
+              ) : null }
+
+            {section.type === 'audio'
+              ? (
+                <AudioType
+                  isEdit={isUpdate}
+                  programId={programId}
+                  content={section}
+                  onChange={(data) => setSection((prev) => ({ ...prev, type: 'audio', data: { ...section.data, ...data } }))}
                 />
 
               ) : null }
