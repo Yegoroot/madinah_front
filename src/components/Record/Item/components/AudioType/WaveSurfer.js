@@ -7,9 +7,10 @@ import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
-const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
+const WaveSurfer = ({
+  mediaLink, dataAnnotations, isEdit, onSaveChangesOut
+}) => {
   const waveformElem = useRef(null)
-  const timelineElem = useRef(null)
   const noteOriginal = useRef(null)
   const noteTranslate = useRef(null)
   const initialValues = {
@@ -79,15 +80,6 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
     }
   }
 
-  function loadRegions(regions) {
-    console.log(regions)
-    regions.forEach((region) => {
-      const color = region.color || randomColor(0.1)
-      const _r = { ...region, color }
-      wavesurferModule.wavesurfer.addRegion(_r)
-    })
-  }
-
   function showNote(region) {
     noteOriginal.current.textContent = (region && region.data.original) || ''
     noteTranslate.current.textContent = (region && region.data.translate) || ''
@@ -119,23 +111,24 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
   }
 
   useEffect(() => {
-    const initWaveform = (url) => {
+    const initWaveform = () => {
       wavesurferModule.wavesurfer = wavesurferModule.init(
         waveformElem.current,
-        timelineElem.current,
-        url
+        mediaLink,
+        isEdit,
+        annotations
       )
       wavesurferModule.wavesurfer.on('ready', (e) => {
         console.log('ready')
         setIsLoading(false)
         setValueSlider(wavesurferModule.wavesurfer.params.minPxPerSec)
         setMinValueSlider(wavesurferModule.wavesurfer.params.minPxPerSec)
-        loadRegions(annotations)
+        // loadRegions(annotations)
         saveRegions()
       })
     }
 
-    initWaveform(mediaLink)
+    initWaveform()
 
     /**
      * EVENTS
@@ -155,8 +148,6 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
     wavesurferModule.wavesurfer.on('region-removed', saveRegions)
     wavesurferModule.wavesurfer.on('region-play', (region) => {
       region.once('out', () => {
-        wavesurferModule.wavesurfer.play(region.start)
-        wavesurferModule.wavesurfer.pause()
         showNote(null)
       })
     })
@@ -192,15 +183,6 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
   }, [mediaLink])
   return (
     <>
-      <Header
-        isPlay={isPlay}
-        onPlay={onPlay}
-        onSaveChanges={onSaveChanges}
-        minValueSlider={minValueSlider}
-        valueSlider={valueSlider}
-        handleSlider={handleSlider}
-      />
-      {isLoading ? <LoadingScreen /> : null }
 
       <Box mb={2}>
         <div
@@ -209,19 +191,30 @@ const WaveSurfer = ({ mediaLink, dataAnnotations, onSaveChangesOut }) => {
         />
       </Box>
 
+      {isLoading ? <LoadingScreen /> : null }
+      <Header
+        isPlay={isPlay}
+        onPlay={onPlay}
+        isEdit={isEdit}
+        onSaveChanges={onSaveChanges}
+        minValueSlider={minValueSlider}
+        valueSlider={valueSlider}
+        handleSlider={handleSlider}
+      />
+
       <Annotations
         noteOriginal={noteOriginal}
         noteTranslate={noteTranslate}
       />
 
-      {isShowForm ? (
+      {isEdit && isShowForm && (
         <Form
           onSave={onSave}
           onDelete={onDelete}
           onChange={onChange}
           values={values}
         />
-      ) : null}
+      )}
 
     </>
   )

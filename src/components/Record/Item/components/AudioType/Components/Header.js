@@ -9,10 +9,16 @@ const useStyles = makeStyles((theme) => ({
   actionIcon: {
     marginRight: theme.spacing(1)
   },
+  playPause: {
+    display: 'flex'
+  },
+  zoom: {
+    padding: '0px 12px 12px'
+  }
 }))
 
 const Header = ({
-  isPlay, onPlay, onSaveChanges, minValueSlider, valueSlider, handleSlider
+  isPlay, onPlay, onSaveChanges, isEdit, minValueSlider, valueSlider, handleSlider
 }) => {
   const classes = useStyles()
   return (
@@ -23,7 +29,10 @@ const Header = ({
         spacing={3}
         alignContent="center"
       >
-        <Grid item>
+        <Grid
+          item
+          className={classes.playPause}
+        >
           {!isPlay ? (
             <Button
               variant="outlined"
@@ -48,6 +57,7 @@ const Header = ({
             </Button>
           )}
         </Grid>
+        {isEdit && (
         <Grid item>
           <Button
             variant="outlined"
@@ -63,10 +73,14 @@ const Header = ({
             Save Changes
           </Button>
         </Grid>
+        )}
+
         <Grid
           item
           container
-          xs
+          sm
+          className={classes.zoom}
+          xs={isEdit ? 12 : 9}
           alignItems="center"
         >
           <Slider

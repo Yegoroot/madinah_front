@@ -29,6 +29,7 @@ const AudioType = ({
       { isEdit
         ? (
           <WaveSurfer
+            isEdit
             mediaLink={src}
             dataAnnotations={data.annotations}
             onSaveChangesOut={onSaveChangesOut}

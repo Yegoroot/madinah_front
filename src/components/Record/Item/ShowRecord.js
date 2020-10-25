@@ -5,6 +5,7 @@ import React from 'react'
 
 import MarkdownType from 'src/components/Record/Item/components/MarkdownType'
 import TextType from 'src/components/Record/Item/components/TextType'
+import WaveSurfer from 'src/components/Record/Item/components/AudioType/WaveSurfer'
 import { UPLOADS_URL } from 'src/constants'
 import { useSelector } from 'src/store'
 
@@ -46,7 +47,12 @@ const RenderContents = ({ content, setSelectedImage }) => {
   }
 
   if (content.type === 'audio') {
-    return <div> Hello  Iam Audio </div>
+    return (
+      <WaveSurfer
+        mediaLink={`${UPLOADS_URL}/programs/${data.program._id}${content.data.audio}`}
+        dataAnnotations={content.data.annotations}
+      />
+    )
   }
 }
 

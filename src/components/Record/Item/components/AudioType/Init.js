@@ -3,14 +3,8 @@ import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min'
 
 let wavesurfer
 
-const init = (waveformConteiner, timelineContainer, mediaLink, phrasesArray0,) => {
-  // const readModeRegionOptions = { drag: false, resize: false } // should be added to each region
-  // if (readOnly) {
-  //   phrasesArray = phrasesArray0.map((elem) => ({ ...elem, ...readModeRegionOptions }))
-  //   dragSelection = false
-  // }
-  const phrasesArray = phrasesArray0
-  const dragSelection = true
+const init = (waveformConteiner, mediaLink, isEdit, annotations) => {
+  const readOnly = { drag: false, resize: false } // should be added to each region
 
   wavesurfer = WaveSurfer.create({
     container: waveformConteiner,
@@ -18,13 +12,15 @@ const init = (waveformConteiner, timelineContainer, mediaLink, phrasesArray0,) =
     rtl: true,
     pixelRatio: 1,
     normalize: true,
-    height: 100,
+    height: isEdit ? 100 : 50,
     backend: 'MediaElement',
     //   minPxPerSec: 200,
     plugins: [
       RegionsPlugin.create({
-        regions: phrasesArray,
-        dragSelection,
+        regions: isEdit
+          ? annotations.map((elem) => ({ ...elem }))
+          : annotations.map((elem) => ({ ...elem, ...readOnly })),
+        dragSelection: isEdit,
       })
     ],
   })

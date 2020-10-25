@@ -7,6 +7,7 @@ import { UPLOADS_URL } from 'src/constants'
 import Buttons from 'src/components/RecordButtons'
 import TextType from './components/TextType'
 import MarkdownType from './components/MarkdownType'
+import WaveSurfer from './components/AudioType/WaveSurfer'
 import Create from '../Create'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +27,12 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     position: 'absolute',
     top: 3,
-    right: 0
+    right: 0,
+    zIndex: 100
+  },
+  wavesurfer: {
+    marginTop: '50',
+    top: ''
   }
 }))
 
@@ -77,11 +83,17 @@ const SectionItem = ({
         )
         : (
           <>
-            {content.type === 'text' ? <TextType content={content} /> : null }
-            {content.type === 'markdown' ? <MarkdownType content={content} /> : null }
-            {content.type === 'image' ? (
-              <img src={url(content.data.image)} />
-            ) : null }
+            {content.type === 'text' && <TextType content={content} />}
+            {content.type === 'markdown' && <MarkdownType content={content} /> }
+            {content.type === 'image' && <img src={url(content.data.image)} /> }
+            {content.type === 'audio' && (
+            <div style={{ paddingTop: 60 }}>
+              <WaveSurfer
+                mediaLink={`${UPLOADS_URL}/programs/${programId}${content.data.audio}`}
+                dataAnnotations={content.data.annotations}
+              />
+            </div>
+            )}
           </>
 
         )}

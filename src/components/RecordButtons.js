@@ -37,6 +37,14 @@ const GenericMoreButton = ({
     setOpenMenu(false)
   }
 
+  const onHandleDelete = () => {
+    if (window.confirm('Are you sure to delete this record?')) {
+      onHandle({ event: 'delete', ...record })
+    } else {
+      setOpenMenu(false)
+    }
+  }
+
   return (
     <>
       <Tooltip title="Options">
@@ -62,7 +70,7 @@ const GenericMoreButton = ({
           horizontal: 'left'
         }}
       >
-        <MenuItem onClick={() => onHandle({ event: 'delete', ...record })}>
+        <MenuItem onClick={onHandleDelete}>
           <ListItemIcon>
             <Delete />
           </ListItemIcon>
