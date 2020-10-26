@@ -18,7 +18,7 @@ const ImageTypeShow = ({ onImageOpen, mediaLink, content }) => {
 }
 
 ImageTypeShow.propTypes = {
-  onImageOpen: PropTypes.func.isRequired,
+  onImageOpen: PropTypes.func,
   content: PropTypes.object.isRequired,
   mediaLink: PropTypes.string.isRequired,
 }

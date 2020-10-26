@@ -2,12 +2,13 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { randomColor } from 'src/utils/randomColor'
 import LoadingScreen from 'src/components/LoadingScreen'
-import wavesurferModule from './Init'
+import WaveSurfer from 'wavesurfer.js'
+import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min'
 import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
-const WaveSurfer = ({
+const MyWaveSurfer = ({
   mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
 }) => {
   const waveformElem = useRef(null)
@@ -49,11 +50,10 @@ const WaveSurfer = ({
 
   const handleSlider = (e, newValue) => {
     setValueSlider(newValue)
-    wavesurferModule.wavesurfer.zoom(Number(newValue))
+    waveformElem.current.zoom(Number(newValue))
   }
 
   const onSaveChanges = () => {
-    // console.log(annotations, dataAnnotations)
     onSaveChangesOut(annotations)
   }
 
@@ -74,9 +74,9 @@ const WaveSurfer = ({
 
   const onPlay = () => {
     if (isPlay) {
-      wavesurferModule.wavesurfer.pause()
+      waveformElem.current.pause()
     } else {
-      wavesurferModule.wavesurfer.play()
+      waveformElem.current.play()
     }
   }
 
@@ -86,8 +86,8 @@ const WaveSurfer = ({
   }
 
   function saveRegions() {
-    setAnnotations(Object.keys(wavesurferModule.wavesurfer.regions.list).map((id) => {
-      const region = wavesurferModule.wavesurfer.regions.list[id]
+    setAnnotations(Object.keys(waveformElem.current.regions.list).map((id) => {
+      const region = waveformElem.current.regions.list[id]
       return {
         color: region.color,
         start: region.start,
@@ -111,76 +111,59 @@ const WaveSurfer = ({
   }
 
   useEffect(() => {
-    const initWaveform = () => {
-      wavesurferModule.wavesurfer = wavesurferModule.init(
-        waveformElem.current,
-        mediaLink,
-        isEdit,
-        annotations
-      )
-      wavesurferModule.wavesurfer.on('ready', (e) => {
-        console.log('ready')
-        setIsLoading(false)
-        setValueSlider(wavesurferModule.wavesurfer.params.minPxPerSec)
-        setMinValueSlider(wavesurferModule.wavesurfer.params.minPxPerSec)
-        // loadRegions(annotations)
-        saveRegions()
-      })
-    }
-
-    initWaveform()
-
     /**
-     * EVENTS
      */
-    // wavesurferModule.wavesurfer.on('loading', (progress) => {
-    //   console.log('loading')
-    // })
-    wavesurferModule.wavesurfer.on('region-click', (region, e) => {
+    waveformElem.current = WaveSurfer.create({
+      container: waveformElem.current,
+      scrollParent: true,
+      rtl: true,
+      pixelRatio: 1,
+      normalize: true,
+      height: isEdit ? 100 : 50,
+      backend: 'MediaElement',
+      plugins: [
+        RegionsPlugin.create({
+          regions: isEdit
+            ? annotations.map((elem) => ({ ...elem }))
+            : annotations.map((elem) => ({ ...elem, drag: false, resize: false })),
+          dragSelection: isEdit,
+        })
+      ],
+    })
+
+    waveformElem.current.load(mediaLink)
+
+    waveformElem.current.on('ready', (e) => {
+      console.log('ready')
+      setIsLoading(false)
+      setValueSlider(waveformElem.current.params.minPxPerSec)
+      setMinValueSlider(waveformElem.current.params.minPxPerSec)
+      // loadRegions(annotations)
+      saveRegions()
+    })
+    waveformElem.current.on('region-click', (region, e) => {
       e.stopPropagation()
       region.play()
       setIsShowForm(true)
       editAnnotation(region)
       showNote(region)
     })
-    wavesurferModule.wavesurfer.on('region-in', showNote)
-    wavesurferModule.wavesurfer.on('region-updated', saveRegions)
-    wavesurferModule.wavesurfer.on('region-removed', saveRegions)
-    wavesurferModule.wavesurfer.on('region-play', (region) => {
-      region.once('out', () => {
-        showNote(null)
-      })
+    waveformElem.current.on('region-in', showNote)
+    waveformElem.current.on('region-updated', saveRegions)
+    waveformElem.current.on('region-removed', saveRegions)
+    waveformElem.current.on('region-play', (region) => {
+      region.once('out', () => { showNote(null) })
     })
-    // wavesurferModule.wavesurfer.on('region-out'
+    waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
+    waveformElem.current.on('region-created', (region) => { region.update({ color: randomColor(0.5) }) })
+    waveformElem.current.on('seek', () => { setIsShowForm(false) })
+    waveformElem.current.on('play', () => { setIsplay(true) })
+    waveformElem.current.on('pause', () => { setIsplay(false) })
 
-    wavesurferModule.wavesurfer.on('region-update-end', (region) => {
-      setIsShowForm(false)
-    })
-
-    wavesurferModule.wavesurfer.on('region-created', (region) => {
-      region.update({ color: randomColor(0.5) })
-    })
-
-    // CLICK ON wavesurfer (not region)
-    wavesurferModule.wavesurfer.on('seek', () => {
-      setIsShowForm(false)
-    })
-
-    wavesurferModule.wavesurfer.on('play', () => {
-      setIsplay(true)
-    })
-
-    wavesurferModule.wavesurfer.on('pause', () => {
-      setIsplay(false)
-    })
-
-    return () => {
-      if (mediaLink) {
-        wavesurferModule.wavesurfer.destroy()
-      }
-    }
+    return () => waveformElem.current.destroy()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaLink])
+
   return (
     <>
 
@@ -222,4 +205,4 @@ const WaveSurfer = ({
   )
 }
 
-export default WaveSurfer
+export default MyWaveSurfer
