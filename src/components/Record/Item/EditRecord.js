@@ -8,6 +8,7 @@ import Buttons from 'src/components/RecordButtons'
 import TextType from './components/TextType'
 import MarkdownType from './components/MarkdownType'
 import WaveSurfer from './components/AudioType/WaveSurfer'
+import ImageTypeShow from './components/ImageType/ImageTypeShow'
 import Create from '../Create'
 
 const useStyles = makeStyles((theme) => ({
@@ -56,8 +57,6 @@ const SectionItem = ({
     setIsEdit(false)
   }
 
-  const url = (data) => `${UPLOADS_URL}/programs/${programId}/${data}`
-
   return (
     <section
       key={content._id}
@@ -85,10 +84,16 @@ const SectionItem = ({
           <>
             {content.type === 'text' && <TextType content={content} />}
             {content.type === 'markdown' && <MarkdownType content={content} /> }
-            {content.type === 'image' && <img src={url(content.data.image)} /> }
+            {content.type === 'image' && (
+            <ImageTypeShow
+              content={content}
+              mediaLink={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
+            />
+            )}
             {content.type === 'audio' && (
             <div style={{ paddingTop: 60 }}>
               <WaveSurfer
+                subtitle={content.subtitle}
                 mediaLink={`${UPLOADS_URL}/programs/${programId}${content.data.audio}`}
                 dataAnnotations={content.data.annotations}
               />

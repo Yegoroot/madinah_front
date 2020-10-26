@@ -8,7 +8,7 @@ import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
 const WaveSurfer = ({
-  mediaLink, dataAnnotations, isEdit, onSaveChangesOut
+  mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
 }) => {
   const waveformElem = useRef(null)
   const noteOriginal = useRef(null)
@@ -183,6 +183,8 @@ const WaveSurfer = ({
   }, [mediaLink])
   return (
     <>
+
+      {subtitle && <h2 style={{ paddingBottom: 20 }}>{subtitle}</h2>}
 
       <Box mb={2}>
         <div

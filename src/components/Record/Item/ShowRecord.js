@@ -5,6 +5,7 @@ import React from 'react'
 
 import MarkdownType from 'src/components/Record/Item/components/MarkdownType'
 import TextType from 'src/components/Record/Item/components/TextType'
+import ImageTypeShow from 'src/components/Record/Item/components/ImageType/ImageTypeShow'
 import WaveSurfer from 'src/components/Record/Item/components/AudioType/WaveSurfer'
 import { UPLOADS_URL } from 'src/constants'
 import { useSelector } from 'src/store'
@@ -25,19 +26,11 @@ const RenderContents = ({ content, setSelectedImage }) => {
   }
   if (content.type === 'image') {
     return (
-      <img
-        src={`${UPLOADS_URL}/programs/${data.program._id}/${content.data.image}`}
-        onClick={onImageOpen}
+      <ImageTypeShow
+        content={content}
+        mediaLink={`${UPLOADS_URL}/programs/${data.program._id}/${content.data.image}`}
+        onImageOpen={onImageOpen}
       />
-    // <CardActionArea
-    //   onClick={() => setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)}
-    //   key={content._id}
-    // >
-    //   <CardMedia
-    //     className={classes.media}
-    //     image={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
-    //   />
-    // </CardActionArea>
     )
   }
   if (content.type === 'markdown') {
@@ -49,6 +42,7 @@ const RenderContents = ({ content, setSelectedImage }) => {
   if (content.type === 'audio') {
     return (
       <WaveSurfer
+        subtitle={content.subtitle}
         mediaLink={`${UPLOADS_URL}/programs/${data.program._id}${content.data.audio}`}
         dataAnnotations={content.data.annotations}
       />

@@ -25,11 +25,11 @@ const AudioType = ({
 
   return (
     <>
-      <h2>{subtitle}</h2>
       { isEdit
         ? (
           <WaveSurfer
             isEdit
+            subtitle={subtitle}
             mediaLink={src}
             dataAnnotations={data.annotations}
             onSaveChangesOut={onSaveChangesOut}

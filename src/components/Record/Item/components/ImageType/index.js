@@ -20,9 +20,7 @@ const ImageType = ({
   }
   return (
     <>
-      {subtitle ? (
-        <h2>{subtitle}</h2>
-      ) : null}
+      {subtitle && <h2>{subtitle}</h2>}
       <FilesDropzone
         setFieldValue={setFieldValue}
         srcPhoto={srcPhoto}
