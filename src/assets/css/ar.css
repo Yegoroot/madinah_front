@@ -1,19 +1,4 @@
 /*
-  WORD
-*/
-.arword {
-  padding: 0;
-  font-size: 30px;
-  list-style: none;
-  margin-top: 0;
-  text-align: right;
-  margin-bottom: 0;
-}
-.arword__prefix,
-.arword__suffix {
-  color: #f44336;
-}
-/*
 SENTENCE
 */
 .arsent {
