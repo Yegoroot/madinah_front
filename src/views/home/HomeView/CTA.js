@@ -40,7 +40,7 @@ const CTA = ({ className, ...rest }) => {
           {t('homepage.readytoexplore')}
         </Typography>
         <Typography
-          variant="h1"
+          variant="h2"
           align="center"
           color="secondary"
         >

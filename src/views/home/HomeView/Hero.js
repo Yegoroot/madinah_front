@@ -8,7 +8,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
-import { APP_NAME } from 'src/constants'
+// import { APP_NAME } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
@@ -73,13 +73,14 @@ const Hero = ({ className, ...rest }) => {
                 variant="overline"
                 color="secondary"
               >
-                {t('homepage.absolutlyfree')}
+                {t('homepage.stepbystep')}
               </Typography>
               <Typography
                 variant="h1"
                 color="textPrimary"
               >
-                {`${t('homepage.h1')} - ${APP_NAME}`}
+                {/* {`${t('homepage.h1')} - ${APP_NAME}`} */}
+                {`${t('homepage.h1')}`}
               </Typography>
               <Box mt={3}>
                 <Typography
