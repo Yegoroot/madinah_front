@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   //   marginRight: theme.spacing(1)
   // },
   popover: {
-    width: 200
+    width: 110
   },
   fingprint: {
     fontSize: '1.8rem'

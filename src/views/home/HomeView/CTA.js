@@ -39,13 +39,18 @@ const CTA = ({ className, ...rest }) => {
         >
           {t('homepage.readytoexplore')}
         </Typography>
-        <Typography
-          variant="h2"
-          align="center"
-          color="secondary"
+
+        <Box
+          mt={2}
         >
-          {t('homepage.letsgetstarted')}
-        </Typography>
+          <Typography
+            variant="h2"
+            align="center"
+            color="secondary"
+          >
+            {t('homepage.letsgetstarted')}
+          </Typography>
+        </Box>
         <Box
           mt={6}
           display="flex"
