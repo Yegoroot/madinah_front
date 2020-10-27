@@ -60,9 +60,7 @@ const TopBar = ({ className, ...rest }) => {
         </Button>
         <Box flexGrow={1} />
         <Settings />
-        <Box ml={1}>
-          <Account />
-        </Box>
+        <Account />
 
       </Toolbar>
     </AppBar>

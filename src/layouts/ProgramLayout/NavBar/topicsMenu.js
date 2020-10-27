@@ -1,5 +1,5 @@
 import {
-  Feather,
+  Minus,
   User as UserIcon,
   BookOpen,
   Home,
@@ -56,9 +56,9 @@ const topicsMenu = (topics) => {
 
   program.items = topics.map(({ title, id }) => (
     {
-      title,
+      title: `${title}`,
       href: `${PUBLIC_PROGRAMS_URL}/${programId}/topics/${id}`,
-      icon: Feather
+      icon: Minus
     }
 
   ))

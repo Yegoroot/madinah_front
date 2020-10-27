@@ -19,23 +19,20 @@ import {
   makeStyles
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import Fingerprint from '@material-ui/icons/Fingerprint'
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    height: 32,
-    width: 32,
-    marginRight: theme.spacing(1)
-  },
+  // avatar: {
+  //   height: 32,
+  //   width: 32,
+  //   marginRight: theme.spacing(1)
+  // },
   popover: {
     width: 200
   },
-  link: {
-    fontWeight: theme.typography.fontWeightMedium,
-    '& + &': {
-      marginLeft: theme.spacing(1),
-    }
-  },
+  fingprint: {
+    fontSize: '1.8rem'
+  }
 }))
 
 const Account = () => {
@@ -70,7 +67,6 @@ const Account = () => {
   return !isAuthenticated
     ? (
       <Link
-        className={classes.link}
         color="textPrimary"
         component={RouterLink}
         to="/login"
@@ -91,7 +87,7 @@ const Account = () => {
           ref={ref}
           onClick={handleOpen}
         >
-          <PowerSettingsNewIcon fontSize="small" />
+          <Fingerprint className={classes.fingprint} />
         </IconButton>
         {/* <Box
           display="flex"

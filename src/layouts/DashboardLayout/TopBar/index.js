@@ -35,9 +35,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start'
   },
   programs: {
-    ...theme.direction === 'rtl'
-      ? { marginLeft: theme.spacing(2) }
-      : { marginRight: theme.spacing(2) }
+    marginLeft: theme.spacing(2)
   },
   logoLink: {
     display: 'flex'
@@ -96,9 +94,9 @@ const TopBar = ({
         {/* <Search /> */}
 
         <Settings />
-        <Box ml={1}>
-          <Account />
-        </Box>
+
+        <Account />
+
       </Toolbar>
     </AppBar>
   )
