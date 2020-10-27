@@ -6,7 +6,7 @@ import {
   AppBar,
   Box,
   Hidden,
-  Link,
+  Button,
   IconButton,
   Toolbar,
   SvgIcon
@@ -44,22 +44,18 @@ const TopBar = ({
         <Hidden mdDown>
           <Logo className={classes.logo} />
         </Hidden>
+        <Button
+          className={classes.programs}
+          component={RouterLink}
+          to="/programs"
+          variant="outlined"
+        >
+          Programs
+        </Button>
         <Box
           ml={2}
           flexGrow={1}
         />
-        <Box mr={1}>
-          <Link
-            className={classes.link}
-            color="textPrimary"
-            component={RouterLink}
-            to="/programs"
-            underline="none"
-            variant="body2"
-          >
-            Programs
-          </Link>
-        </Box>
         <Settings />
         <Box ml={1}>
           <Account />

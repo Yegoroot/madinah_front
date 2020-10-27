@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import {
   AppBar,
   Box,
-  Link,
+  Button,
   Hidden,
   IconButton,
   Toolbar,
@@ -33,6 +33,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     minHeight: 64,
     justifyContent: 'flex-start'
+  },
+  programs: {
+    ...theme.direction === 'rtl'
+      ? { marginLeft: theme.spacing(2) }
+      : { marginRight: theme.spacing(2) }
   },
   logoLink: {
     display: 'flex'
@@ -66,6 +71,15 @@ const TopBar = ({
         <Hidden mdDown>
           <Logo className={classes.logo} />
         </Hidden>
+
+        <Button
+          className={classes.programs}
+          component={RouterLink}
+          to="/programs"
+          variant="outlined"
+        >
+          Programs
+        </Button>
         <Box
           ml={2}
           flexGrow={1}
@@ -80,18 +94,7 @@ const TopBar = ({
           Programs
         </Button> */}
         {/* <Search /> */}
-        <Box mr={1}>
-          <Link
-            className={classes.link}
-            color="textPrimary"
-            component={RouterLink}
-            to="/programs"
-            underline="none"
-            variant="body2"
-          >
-            Programs
-          </Link>
-        </Box>
+
         <Settings />
         <Box ml={1}>
           <Account />

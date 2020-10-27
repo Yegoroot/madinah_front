@@ -12,6 +12,9 @@ export const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     }
   },
+  programs: {
+    marginLeft: theme.spacing(2)
+  },
   toolbar: {
     minHeight: 64,
     justifyContent: 'flex-start'

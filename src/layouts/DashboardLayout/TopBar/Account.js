@@ -3,20 +3,23 @@ import React, {
   useState
 } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
-
+import { LogIn as LogInIcon } from 'react-feather'
 import { useSnackbar } from 'notistack'
 import {
-  Avatar,
-  Box,
-  ButtonBase,
-  Hidden,
+  // Avatar,
+  // Box,
+  // ButtonBase,
+  // Hidden,
+  // Typography,
   Link,
+  IconButton,
+  SvgIcon,
   Menu,
   MenuItem,
-  Typography,
   makeStyles
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -27,11 +30,7 @@ const useStyles = makeStyles((theme) => ({
   popover: {
     width: 200
   },
-  // box: {
-  //   color: theme.palette.text.secondary,
-  // },
   link: {
-    // color: theme.palette.text.secondary,
     fontWeight: theme.typography.fontWeightMedium,
     '& + &': {
       marginLeft: theme.spacing(1),
@@ -43,7 +42,7 @@ const Account = () => {
   const classes = useStyles()
   const history = useHistory()
   const ref = useRef(null)
-  const { user, logout, isAuthenticated } = useAuth()
+  const { /* user, */ logout, isAuthenticated } = useAuth()
   const { enqueueSnackbar } = useSnackbar()
   const [isOpen, setOpen] = useState(false)
 
@@ -78,12 +77,23 @@ const Account = () => {
         underline="none"
         variant="body2"
       >
-        Login
+        <IconButton color="inherit">
+          <SvgIcon fontSize="small">
+            <LogInIcon />
+          </SvgIcon>
+        </IconButton>
       </Link>
     )
     : (
       <>
-        <Box
+        <IconButton
+          color="inherit"
+          ref={ref}
+          onClick={handleOpen}
+        >
+          <PowerSettingsNewIcon fontSize="small" />
+        </IconButton>
+        {/* <Box
           display="flex"
           alignItems="center"
           component={ButtonBase}
@@ -104,7 +114,7 @@ const Account = () => {
               {user.name}
             </Typography>
           </Hidden>
-        </Box>
+        </Box> */}
         <Menu
           onClose={handleClose}
           anchorOrigin={{
