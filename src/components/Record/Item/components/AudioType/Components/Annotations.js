@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ noteOriginal, noteTranslate }) => {
   const classes = useStyles()
   return (
-    <Box mb={2}>
+    <Box mb={3}>
       <Typography
         variant="h3"
         color="textPrimary"
