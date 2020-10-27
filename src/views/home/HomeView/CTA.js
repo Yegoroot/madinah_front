@@ -9,6 +9,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CTA = ({ className, ...rest }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <div
@@ -35,14 +37,14 @@ const CTA = ({ className, ...rest }) => {
           align="center"
           color="textPrimary"
         >
-          Ready to expolore?
+          {t('homepage.readytoexplore')}
         </Typography>
         <Typography
           variant="h1"
           align="center"
           color="secondary"
         >
-          Lets get started with Programs of Education
+          {t('homepage.letsgetstarted')}
         </Typography>
         <Box
           mt={6}
@@ -56,7 +58,7 @@ const CTA = ({ className, ...rest }) => {
             to="/programs"
             variant="contained"
           >
-            Go to Programs
+            {t('homepage.gotoprogram')}
           </Button>
         </Box>
       </Container>

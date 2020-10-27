@@ -9,6 +9,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { APP_NAME } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 60
     }
   },
-  // technologyIcon: {
-  //   height: 40,
-  //   margin: theme.spacing(1)
-  // },
   image: {
     perspectiveOrigin: 'left center',
     transformStyle: 'preserve-3d',
@@ -49,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Hero = ({ className, ...rest }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <div
@@ -75,86 +73,22 @@ const Hero = ({ className, ...rest }) => {
                 variant="overline"
                 color="secondary"
               >
-                Absolutly free
+                {t('homepage.absolutlyfree')}
               </Typography>
               <Typography
                 variant="h1"
                 color="textPrimary"
               >
-                Learn Arabic with -
-                {' '}
-                {APP_NAME}
-
+                {`${t('homepage.h1')} - ${APP_NAME}`}
               </Typography>
               <Box mt={3}>
                 <Typography
                   variant="body1"
                   color="textSecondary"
                 >
-                  A Platform for learninig arabic by comfort manners. We are students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners
+                  {t('homepage.description')}
                 </Typography>
               </Box>
-              {/* <Box mt={3}>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid item>
-                    <Typography
-                      variant="h1"
-                      color="secondary"
-                    >
-                      30+
-                    </Typography>
-                    <Typography
-                      variant="overline"
-                      color="textSecondary"
-                    >
-                      Demo Pages
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant="h1"
-                      color="secondary"
-                    >
-                      UX
-                    </Typography>
-                    <Typography
-                      variant="overline"
-                      color="textSecondary"
-                    >
-                      Complete Flows
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant="h1"
-                      color="secondary"
-                    >
-                      300+
-                    </Typography>
-                    <Typography
-                      variant="overline"
-                      color="textSecondary"
-                    >
-                      Components
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box mt={3}>
-                <img
-                  alt="Javascript"
-                  className={classes.technologyIcon}
-                  src="/static/images/javascript.svg"
-                />
-                <img
-                  alt="Typescript"
-                  className={classes.technologyIcon}
-                  src="/static/images/typescript.svg"
-                />
-              </Box> */}
             </Box>
           </Grid>
           <Grid
