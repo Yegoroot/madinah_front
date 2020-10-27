@@ -60,15 +60,14 @@ const Settings = () => {
   }
 
   const handleChange = (field, value) => {
-    let direction = 'ltr'
-    if (value === 'ar') {
-      direction = 'rtl'
-    }
-    setValues({
+    const newValues = {
       ...values,
-      direction,
       [field]: value
-    })
+    }
+    if (value === 'ar') {
+      newValues.direction = 'rtl'
+    }
+    setValues(newValues)
   }
 
   const handleSave = () => {
