@@ -58,7 +58,9 @@ const Header = ({
           )}
         </Grid>
         {isEdit && (
-        <Grid item>
+        <Grid
+          item
+        >
           <Button
             variant="outlined"
             color="secondary"
@@ -80,7 +82,7 @@ const Header = ({
           container
           sm
           className={classes.zoom}
-          xs={isEdit ? 12 : 9}
+          xs={isEdit ? 12 : 8}
           alignItems="center"
         >
           <Slider

@@ -182,7 +182,7 @@ function Header({ topic }) {
                 color="inherit"
                 component="span"
               >
-                {`Created ${moment(topic.endDate).fromNow()}`}
+                {`Created ${moment(topic.createdAt).fromNow()}`}
               </Typography>
             </div>
           </Box>

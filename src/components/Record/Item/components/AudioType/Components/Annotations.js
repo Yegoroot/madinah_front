@@ -4,14 +4,15 @@ import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   noteOriginal: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    fontSize: 30
   },
 }))
 
 const Header = ({ noteOriginal, noteTranslate }) => {
   const classes = useStyles()
   return (
-    <Box mb={3}>
+    <Box mb={4}>
       <Typography
         variant="h3"
         color="textPrimary"
@@ -22,7 +23,7 @@ const Header = ({ noteOriginal, noteTranslate }) => {
       >
         <div ref={noteOriginal} />
       </Typography>
-      <Box mb={2}>
+      <Box mt={1}>
         <Typography
           variant="h6"
           color="textPrimary"

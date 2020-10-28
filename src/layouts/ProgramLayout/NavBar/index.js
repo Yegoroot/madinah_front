@@ -91,6 +91,10 @@ const useStyles = makeStyles(() => ({
   subheader: {
     '& svg': { flex: 'none' }
   },
+  subheaderRoot: {
+    lineHeight: 1.5,
+    fontSize: 20,
+  },
   progress: {
     top: 115,
     left: '50%',
@@ -171,6 +175,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               key={section.subheader}
               subheader={(
                 <ListSubheader
+                  classes={{
+                    root: classes.subheaderRoot
+                  }}
                   disableGutters
                   disableSticky
                 >
