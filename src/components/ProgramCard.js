@@ -2,22 +2,18 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import moment from 'moment'
+import { hexToRgb } from '@material-ui/core/styles'
 import {
-  Avatar,
   Box,
   Card,
   CardMedia,
-  Divider,
   IconButton,
-  Link,
   SvgIcon,
   Typography,
   makeStyles
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { Trash as TrashIcon, Edit as EditIcon } from 'react-feather'
-import getInitials from 'src/utils/getInitials'
 import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL, UPLOADS_URL } from 'src/constants'
 import { deleteProgram } from 'src/slices/program'
 // eslint-disable-next-line camelcase
@@ -25,29 +21,61 @@ import { perm_work_with_program, document_is_my_own } from 'src/utils/permission
 import useAuth from 'src/hooks/useAuth'
 import Type from 'src/components/Type'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'relative',
-    height: '100%'
-  },
-  media: {
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    left: 0,
-    top: 0,
-    opacity: '0.4',
-    backgroundColor: theme.palette.background.dark
-  },
-  box: {
-    position: 'relative',
-    zIndex: 1
+const useStyles = makeStyles((theme) => {
+  const hex5 = hexToRgb(`${theme.palette.background.dark}d6`) // 63
+  const hex3 = hexToRgb(`${theme.palette.background.dark}63`) // 63
+  const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
+
+  const deg = theme.direction === 'rtl' ? '-150deg' : '150deg'
+
+  return {
+    root: {
+      position: 'relative',
+      height: '100%',
+    },
+    media: {
+      position: 'absolute',
+      height: '100%',
+      width: '100%',
+      left: 0,
+      top: 0,
+    },
+    box: {
+      position: 'relative',
+      zIndex: 1,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      background: `linear-gradient(${deg},  ${hex5} 25%,  ${hex3} 60%,  ${hex1} 100%)`,
+      marginTop: -1,
+    },
+    title: {
+      textDecoration: 'none',
+      fontSize: '2.2rem',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '2rem',
+      }
+    },
+    buttons: {
+      paddingTop: 70,
+      [theme.breakpoints.down('xs')]: {
+        paddingTop: 50,
+      }
+    },
+    button: {
+      backgroundColor: theme.palette.background.dark
+    },
+    edit: {
+      backgroundColor: theme.palette.background.dark,
+      marginRight: theme.spacing(1)
+    },
+    description: {
+      textDecoration: 'none',
+    },
+
   }
-  // subscribersIcon: {
-  //   marginLeft: theme.spacing(2),
-  //   marginRight: theme.spacing(1)
-  // }
-}))
+})
 
 function ProgramCard({ program, className, ...rest }) {
   const dispatch = useDispatch()
@@ -73,111 +101,86 @@ function ProgramCard({ program, className, ...rest }) {
         p={3}
         className={classes.box}
       >
-        <Link
-          color="textPrimary"
-          component={RouterLink}
-          to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
-          variant="h2"
-        >
-          {program.title}
-        </Link>
-        <Box pt={1}>
+
+        <Box>
+
           <Typography
-            color="textSecondary"
-            variant="body2"
+            variant="h2"
+            className={classes.title}
+            component={RouterLink}
+            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
+            color="textPrimary"
           >
-            {program.description}
+
+            {program.title}
           </Typography>
-        </Box>
 
-        <Box pt={1}>
-          {program.types.map((type) => (
-            <Type
-              color={type.color}
-              key={type._id}
-            >
-              {type.title}
-            </Type>
-          ))}
-        </Box>
-
-        <Box
-          display="flex"
-          alignItems="center"
-          mt={2}
-        >
-          <Avatar
-            alt="User"
-            src={program.user.photo}
-          >
-            {getInitials(program.user.name)}
-          </Avatar>
-          <Box ml={2}>
+          <Box pt={1}>
             <Typography
-              variant="body2"
               color="textSecondary"
+              variant="h4"
+              className={classes.description}
+              component={RouterLink}
+              to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
             >
-              by
-              {' '}
-              <Link
-                color="textPrimary"
-                component={RouterLink}
-                to="#"
-                variant="h6"
-              >
-                {program.user.name}
-              </Link>
-              {' '}
-              | Created
-              {' '}
-              {moment(program.createdAt).fromNow()}
+              {program.description}
             </Typography>
+          </Box>
+
+          <Box pt={1}>
+            {program.types.map((type) => (
+              <Type
+                color={type.color}
+                key={type._id}
+              >
+                {type.title}
+              </Type>
+            ))}
           </Box>
         </Box>
 
+        { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
+          : (
+            <div className={classes.buttons}>
+              <Box
+                display="flex"
+                alignItems="center"
+              >
+
+                <IconButton
+                  component={RouterLink}
+                  className={classes.edit}
+                  to={`${PROGRAMS_URL}/${program.id}/edit`}
+                >
+                  <SvgIcon
+                    fontSize="small"
+                    color="inherit"
+                  >
+                    <EditIcon />
+                  </SvgIcon>
+                </IconButton>
+                <IconButton
+                  className={classes.button}
+                  onClick={handleDelete}
+                >
+                  <SvgIcon
+                    fontSize="small"
+                    color="error"
+                    className={classes.delete}
+                  >
+                    <TrashIcon />
+                  </SvgIcon>
+                </IconButton>
+              </Box>
+            </div>
+          )}
       </Box>
       <CardMedia
+        component={RouterLink}
+        to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
         className={classes.media}
         image={image}
       />
-      { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
-        : (
-          <>
-            <Divider />
-            <Box
-              py={2}
-              pl={2}
-              pr={3}
-              display="flex"
-              alignItems="center"
-            >
-
-              <IconButton
-                component={RouterLink}
-                to={`${PROGRAMS_URL}/${program.id}/edit`}
-              >
-                <SvgIcon
-                  fontSize="small"
-                  color="inherit"
-                  className={classes.edit}
-                >
-                  <EditIcon />
-                </SvgIcon>
-              </IconButton>
-              <IconButton
-                onClick={handleDelete}
-              >
-                <SvgIcon
-                  fontSize="small"
-                  color="error"
-                  className={classes.delete}
-                >
-                  <TrashIcon />
-                </SvgIcon>
-              </IconButton>
-            </Box>
-          </>
-        )}
     </Card>
   )
 }

@@ -1,19 +1,23 @@
+/**
+ * BY DEFAULT
+ */
+
 export default {
   h1: {
     fontWeight: 500,
-    fontSize: 40,
+    fontSize: '2.65rem',
     letterSpacing: '-0.24px',
     lineHeight: 1.167
   },
   h2: {
     fontWeight: 500,
-    fontSize: 29,
+    fontSize: '2rem',
     letterSpacing: '-0.24px',
     lineHeight: 1.2
   },
   h3: {
     fontWeight: 500,
-    fontSize: 24,
+    fontSize: '1.65rem',
     letterSpacing: '-0.06px',
     lineHeight: 1.2
   },
