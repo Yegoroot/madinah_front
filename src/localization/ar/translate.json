@@ -1,5 +1,12 @@
 {
   "translations": {
+    "toolbar": {
+      "programsButtom": "مناهج"
+    },
+    "programspage": {
+      "choose": "اختر برنامجا للتعلُّم",
+      "count": "عدد البرامج المقترحة"
+    },
     "homepage": {
       "title": "الرئيسية",
       "stepbystep": "قليل فقليل",
@@ -17,7 +24,21 @@
     },
     "components": {
       "settings": {
-        "title": "الإعدادات"
+        "save_settings": "حفظ الإعدادات",
+        "title": "الإعدادات",
+        "ru": "Русский",
+        "en": "English",
+        "ar": "العربية",
+        "font": "أحجام الخطوط المناسبة",
+        "theme": {
+          "title":  "السمة",
+          "ONE_DARK": "غامق",
+          "LIGHT": "فاتح"
+        }
+      },
+      "account": {
+        "dashboard": "لوحة التحكم",
+        "logout": "الخروج"
       }
     },
     "menu": {

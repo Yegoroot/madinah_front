@@ -14,8 +14,8 @@ import {
 import { Menu as MenuIcon } from 'react-feather'
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
+import { useTranslation } from 'react-i18next'
 import Account from '../DashboardLayout/TopBar/Account'
-
 import { useStyles } from '../DashboardLayout/TopBar/style'
 
 const TopBar = ({
@@ -24,6 +24,7 @@ const TopBar = ({
   ...rest
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <AppBar
@@ -50,7 +51,7 @@ const TopBar = ({
           to="/programs"
           variant="outlined"
         >
-          Programs
+          {t('toolbar.programsButtom')}
         </Button>
         <Box
           ml={2}

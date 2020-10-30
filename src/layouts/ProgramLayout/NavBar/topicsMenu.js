@@ -33,11 +33,11 @@ const additionalMenu = [{
       href: '/programs',
       icon: BookOpen
     },
-    {
-      title: 'Account',
-      href: '/app/account',
-      icon: UserIcon
-    },
+    // {
+    //   title: 'Account',
+    //   href: '/app/account',
+    //   icon: UserIcon
+    // },
     // {
     //   title: 'Contacts',
     //   href: '/contacts',

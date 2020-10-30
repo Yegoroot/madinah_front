@@ -20,6 +20,7 @@ import {
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import Fingerprint from '@material-ui/icons/Fingerprint'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   // avatar: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   //   marginRight: theme.spacing(1)
   // },
   popover: {
-    width: 110
+    width: 123
   },
   fingprint: {
     fontSize: '1.8rem'
@@ -42,6 +43,7 @@ const Account = () => {
   const { /* user, */ logout, isAuthenticated } = useAuth()
   const { enqueueSnackbar } = useSnackbar()
   const [isOpen, setOpen] = useState(false)
+  const { t } = useTranslation()
 
   const handleOpen = () => {
     setOpen(true)
@@ -127,16 +129,16 @@ const Account = () => {
             component={RouterLink}
             to="/app/programs"
           >
-            Dashboard
+            {t('components.account.dashboard')}
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             component={RouterLink}
             to="/app/account"
           >
             Account
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem onClick={handleLogout}>
-            Logout
+            {t('components.account.logout')}
           </MenuItem>
         </Menu>
       </>

@@ -90,11 +90,11 @@ const routes = [
         path: '/app',
         component: () => <Redirect to="/app/programs" />
       },
-      {
-        exact: true,
-        path: '/app/account',
-        component: lazy(() => import('src/views/account/AccountView'))
-      },
+      // {
+      //   exact: true,
+      //   path: '/app/account',
+      //   component: lazy(() => import('src/views/account/AccountView'))
+      // },
       {
         exact: true,
         path: '/app/info',

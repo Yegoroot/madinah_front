@@ -2,7 +2,6 @@ import React, {
   useState,
   useRef
 } from 'react'
-import { capitalCase } from 'change-case'
 import {
   // Badge,
   Box,
@@ -78,7 +77,7 @@ const Settings = () => {
 
   return (
     <>
-      <Tooltip title="Settings">
+      <Tooltip title={t('components.settings.title')}>
         {/* <Badge
           color="secondary"
           variant="dot"
@@ -109,7 +108,7 @@ const Settings = () => {
           variant="h4"
           color="textPrimary"
         >
-          Settings
+          {t('components.settings.title')}
         </Typography>
         <Box
           mt={2}
@@ -141,7 +140,7 @@ const Settings = () => {
                 onChange={(event) => handleChange('responsiveFontSizes', event.target.checked)}
               />
             )}
-            label="Responsive font sizes"
+            label={t('components.settings.font')}
           />
         </Box>
         <Box mt={2}>
@@ -160,7 +159,8 @@ const Settings = () => {
                 key={lang}
                 value={lang}
               >
-                {capitalCase(lang)}
+                {/* {capitalCase(lang)} */}
+                { t(`components.settings.${lang}`)}
               </option>
             ))}
           </TextField>
@@ -168,7 +168,7 @@ const Settings = () => {
         <Box mt={2}>
           <TextField
             fullWidth
-            label="Theme"
+            label={t('components.settings.theme.title')}
             name="theme"
             onChange={(event) => handleChange('theme', event.target.value)}
             select
@@ -181,7 +181,7 @@ const Settings = () => {
                 key={theme}
                 value={theme}
               >
-                {capitalCase(theme)}
+                {t(`components.settings.theme.${theme}`)}
               </option>
             ))}
           </TextField>
@@ -193,7 +193,7 @@ const Settings = () => {
             fullWidth
             onClick={handleSave}
           >
-            {t('settings.save_settings')}
+            {t('components.settings.save_settings')}
           </Button>
         </Box>
       </Popover>

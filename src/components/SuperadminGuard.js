@@ -7,7 +7,7 @@ const SuperadminGuard = ({ children }) => {
   const { user } = useAuth()
 
   if (!user || user.role !== 'superadmin') {
-    return <Redirect to="/app/account" />
+    return <Redirect to="/app/info" />
   }
 
   /** */

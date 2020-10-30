@@ -1,11 +1,18 @@
 {
   "translations": {
+    "toolbar": {
+      "programsButtom": "Programs"
+    },
+    "programspage": {
+      "choose": "Choose program for learning",
+      "count": "Number of programs offered"
+    },
     "homepage": {
       "title": "Home",
       "stepbystep": "Step by step",
       "h1": "Learn Arabic",
       "description": "A Platform for learninig arabic by comfort manners. We are students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners",
-      "readytoexplore": "Ready to explore?",
+      "readytoexplore": "Ready to explore",
       "letsgetstarted": "Let's get started with Programs of Education",
       "gotoprogram": "Go to Programs"
     },
@@ -19,8 +26,24 @@
         "was_updated": "Program was update"
       }
     },
-    "settings": {
-      "save_settings": "Save Settings"
+    "components": {
+      "settings": {
+        "save_settings": "Save Settings",
+        "title": "Settings",
+        "ru": "Русский",
+        "en": "English",
+        "ar": "العربية",
+        "font": "Responsive font sizes",
+        "theme": {
+          "title":  "Theme",
+          "ONE_DARK": "Dark",
+          "LIGHT": "Light"
+        }
+      },
+      "account": {
+        "dashboard": "Dashboard",
+        "logout": "Logout"
+      }
     },
     "menu": {
       "manage": {

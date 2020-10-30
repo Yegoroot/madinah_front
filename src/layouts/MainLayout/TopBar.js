@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
+import { useTranslation } from 'react-i18next'
 import Account from '../DashboardLayout/TopBar/Account'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <AppBar
@@ -56,7 +58,7 @@ const TopBar = ({ className, ...rest }) => {
           to="/programs"
           variant="outlined"
         >
-          Programs
+          {t('toolbar.programsButtom')}
         </Button>
         <Box flexGrow={1} />
         <Settings />

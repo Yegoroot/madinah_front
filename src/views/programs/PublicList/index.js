@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 // import Filter from './Filter'
+import { useTranslation } from 'react-i18next'
 import Results from './Results'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function ProgramBrowseView() {
+  const { t } = useTranslation()
   const classes = useStyles()
 
   const dispatch = useDispatch()
@@ -53,7 +55,7 @@ function ProgramBrowseView() {
           variant="h1"
           color="textPrimary"
         >
-          Choose program for learning
+          {t('programspage.choose')}
         </Typography>
         <Box mt={2}>
           <Results programs={data} />

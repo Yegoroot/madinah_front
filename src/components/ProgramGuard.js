@@ -8,7 +8,7 @@ const ProgramGuard = ({ children }) => {
   const { user } = useAuth()
 
   if (!user || !CAN_WORK_WITH_PROGRAM.includes(user.role)) {
-    return <Redirect to="/app/account" />
+    return <Redirect to="/app/info" />
   }
 
   /** */

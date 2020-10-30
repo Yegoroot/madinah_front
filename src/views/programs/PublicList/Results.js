@@ -13,6 +13,7 @@ import {
 } from '@material-ui/lab'
 import ViewModuleIcon from '@material-ui/icons/ViewModule'
 import ProgramCard from 'src/components/ProgramCard'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Results({ className, programs, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
   // const sortRef = useRef(null)
   // const [openSort, setOpenSort] = useState(false)
   // const [selectedSort, setSelectedSort] = useState('Most popular')
@@ -76,11 +78,9 @@ function Results({ className, programs, ...rest }) {
           variant="h5"
           color="textPrimary"
         >
-          Showing
+          {t('programspage.count')}
           {' '}
           {programs.length}
-          {' '}
-          programs
         </Typography>
         <Box
           display="flex"
