@@ -14,7 +14,10 @@ import useAuth from 'src/hooks/useAuth'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  foreignField: {
+    direction: 'ltr'
+  }
 }))
 
 const JWTLogin = ({ className, ...rest }) => {
@@ -75,6 +78,7 @@ const JWTLogin = ({ className, ...rest }) => {
             error={Boolean(touched.email && errors.email)}
             fullWidth
             autoFocus
+            className="not-ar"
             helperText={touched.email && errors.email}
             label="Email Address"
             margin="normal"
@@ -87,6 +91,7 @@ const JWTLogin = ({ className, ...rest }) => {
           />
           <TextField
             error={Boolean(touched.password && errors.password)}
+            className="not-ar"
             fullWidth
             helperText={touched.password && errors.password}
             label="Password"

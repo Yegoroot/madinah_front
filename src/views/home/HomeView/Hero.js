@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import {
   Box,
   Container,
+  Button,
   Grid,
   Typography,
   makeStyles
@@ -14,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    paddingTop: 200,
+    paddingTop: 180,
     paddingBottom: 200,
     [theme.breakpoints.down('md')]: {
       paddingTop: 60,
@@ -33,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[16]
     }
   },
+  buttons: {
+    marginBottom: theme.spacing(5),
+    '& button': {
+      marginBottom: theme.spacing(1)
+    }
+  },
+  title: {
+    marginBottom: theme.spacing(3)
+  },
   shape: {
     position: 'absolute',
     top: 0,
@@ -41,7 +51,44 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '90%',
       height: 'auto'
     }
-  }
+  },
+  // https://www.materialui.co/colors
+  /**
+   * Light 400
+   * need Light 800
+   */
+  level1: {
+    color: theme.palette.rainbow.level1,
+    borderColor: `${theme.palette.rainbow.level1}85`,
+    '&:hover': {
+      backgroundColor: `${theme.palette.rainbow.level1}14`,
+      borderColor: theme.palette.rainbow.level1,
+    }
+  },
+  level2: {
+    color: theme.palette.rainbow.level2,
+    borderColor: `${theme.palette.rainbow.level2}85`,
+    '&:hover': {
+      backgroundColor: `${theme.palette.rainbow.level2}14`,
+      borderColor: theme.palette.rainbow.level2,
+    }
+  },
+  level3: {
+    color: theme.palette.rainbow.level3,
+    borderColor: `${theme.palette.rainbow.level3}85`,
+    '&:hover': {
+      backgroundColor: `${theme.palette.rainbow.level3}14`,
+      borderColor: theme.palette.rainbow.level3,
+    }
+  },
+  level4: {
+    color: theme.palette.rainbow.level4,
+    borderColor: `${theme.palette.rainbow.level4}85`,
+    '&:hover': {
+      backgroundColor: `${theme.palette.rainbow.level4}14`,
+      borderColor: theme.palette.rainbow.level4,
+    }
+  },
 }))
 
 const Hero = ({ className, ...rest }) => {
@@ -63,33 +110,75 @@ const Hero = ({ className, ...rest }) => {
             xs={12}
             md={5}
           >
+
             <Box
               display="flex"
               flexDirection="column"
-              justifyContent="center"
               height="100%"
             >
-              <Typography
-                variant="overline"
-                color="secondary"
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="end"
+                className={classes.buttons}
               >
-                {t('homepage.stepbystep')}
-              </Typography>
-              <Typography
-                variant="h1"
-                color="textPrimary"
-              >
-                {/* {`${t('homepage.h1')} - ${APP_NAME}`} */}
-                {`${t('homepage.h1')}`}
-              </Typography>
-              <Box mt={3}>
                 <Typography
-                  variant="body1"
-                  color="textSecondary"
+                  variant="h2"
+                  color="textPrimary"
+                  className={classes.title}
                 >
-                  {t('homepage.description')}
+                  {t('homepage.chooselevel')}
                 </Typography>
+                <Button
+                  variant="outlined"
+                  className={classes.level1}
+                >
+                  {t('homepage.begginer')}
+                </Button>
+                <Button
+                  className={classes.level2}
+                  variant="outlined"
+                >
+                  {t('homepage.preintermeiate')}
+                </Button>
+                <Button
+                  className={classes.level3}
+                  variant="outlined"
+                >
+                  {t('homepage.intermeiate')}
+                </Button>
+                <Button
+                  className={classes.level4}
+                  variant="outlined"
+                >
+                  {t('homepage.upperintermeiate')}
+                </Button>
               </Box>
+
+              <div>
+                <Typography
+                  variant="overline"
+                  color="secondary"
+                >
+                  {t('homepage.stepbystep')}
+                </Typography>
+                <Typography
+                  variant="h1"
+                  color="textPrimary"
+                >
+                  {/* {`${t('homepage.h1')} - ${APP_NAME}`} */}
+                  {`${t('homepage.h1')}`}
+                </Typography>
+                <Box mt={3}>
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                  >
+                    {t('homepage.description')}
+                  </Typography>
+                </Box>
+
+              </div>
             </Box>
           </Grid>
           <Grid

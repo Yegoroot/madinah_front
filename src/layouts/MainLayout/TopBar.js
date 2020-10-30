@@ -1,17 +1,17 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+// import { Link as RouterLink } from 'react-router-dom'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import {
   AppBar,
   Box,
   Toolbar,
-  Button,
+  // Button,
   makeStyles
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import Account from '../DashboardLayout/TopBar/Account'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles()
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <AppBar
@@ -51,7 +51,7 @@ const TopBar = ({ className, ...rest }) => {
     >
       <Toolbar className={classes.toolbar}>
         <Logo className={classes.logo} />
-        <Button
+        {/* <Button
           className={classes.programs}
           component={RouterLink}
           color="primary"
@@ -59,7 +59,7 @@ const TopBar = ({ className, ...rest }) => {
           variant="outlined"
         >
           {t('toolbar.programsButtom')}
-        </Button>
+        </Button> */}
         <Box flexGrow={1} />
         <Settings />
         <Account />

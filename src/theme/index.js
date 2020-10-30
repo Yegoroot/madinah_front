@@ -73,7 +73,13 @@ const themesOptions = [
       text: {
         primary: colors.blueGrey[900],
         secondary: colors.blueGrey[600]
-      }
+      },
+      rainbow: {
+        level1: colors.lightBlue[500],
+        level2: colors.cyan[500],
+        level3: colors.teal[500],
+        level4: colors.green[500],
+      },
     },
     shadows: softShadows
   },
@@ -106,7 +112,13 @@ const themesOptions = [
       text: {
         primary: '#e6e5e8',
         secondary: '#adb0bb'
-      }
+      },
+      rainbow: {
+        level1: colors.lightBlue[400],
+        level2: colors.cyan[400],
+        level3: colors.teal[400],
+        level4: colors.green[400],
+      },
     },
     shadows: strongShadows
   },
@@ -142,6 +154,7 @@ const themesOptions = [
   // }
 ]
 
+// eslint-disable-next-line import/prefer-default-export
 export const createTheme = (config = {}) => {
   let themeOptions = themesOptions.find((theme) => theme.name === config.theme)
 

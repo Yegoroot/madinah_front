@@ -14,7 +14,12 @@
       "description": "A Platform for learninig arabic by comfort manners. We are students who know how make content a little bit easy and pretty. Platform will provide audio, text and another type content for you in-&nbsp;sha Allah by comfort manners",
       "readytoexplore": "Ready to explore",
       "letsgetstarted": "Let's get started with Programs of Education",
-      "gotoprogram": "Go to Programs"
+      "gotoprogram": "Go to Programs",
+      "chooselevel": "Please select your level",
+      "begginer": "Begginer",
+      "preintermeiate": "Pre Intermediate",
+      "intermeiate": "Intermediate",
+      "upperintermeiate": "Upper Intermediate"
     },
     "notify": {
       "topic": {

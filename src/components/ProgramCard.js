@@ -47,20 +47,19 @@ const useStyles = makeStyles((theme) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      background: `linear-gradient(${deg},  ${hex5} 25%,  ${hex3} 60%,  ${hex1} 100%)`,
-      marginTop: -1,
+      background: `linear-gradient(${deg},  ${hex5} 25%,  ${hex3} 60%,  ${hex1} 100%)`
     },
     title: {
       textDecoration: 'none',
       fontSize: '2.2rem',
       [theme.breakpoints.down('xs')]: {
         fontSize: '2rem',
-      }
+      },
     },
-    buttons: {
-      paddingTop: 70,
+    mediaContent: {
+      marginBottom: 70,
       [theme.breakpoints.down('xs')]: {
-        paddingTop: 50,
+        marginBottom: 50,
       }
     },
     button: {
@@ -102,7 +101,7 @@ function ProgramCard({ program, className, ...rest }) {
         className={classes.box}
       >
 
-        <Box>
+        <Box className={classes.mediaContent}>
 
           <Typography
             variant="h2"
