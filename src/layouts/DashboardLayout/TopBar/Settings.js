@@ -63,8 +63,10 @@ const Settings = () => {
       ...values,
       [field]: value
     }
-    if (value === 'ar') {
-      newValues.direction = 'rtl'
+    if (field === 'lang') {
+      newValues.direction = value === 'ar'
+        ? 'rtl'
+        : 'ltr'
     }
     setValues(newValues)
   }

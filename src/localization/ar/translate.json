@@ -7,6 +7,26 @@
       "choose": "اختر برنامجا للتعلُّم",
       "count": "عدد البرامج المقترحة"
     },
+    "pageAuth":{
+      "signin": "تسجيل الدخول",
+      "login": "الدخول",
+      "createAccount": "إنشاء الحساب",
+      "haveAccount": "لدي حساب مسجل",
+      "signDescription": "الدخول في المنصة الداخلية",
+      "registerDescription": "إنشاء الحساب في المنصة الداخلية",
+      "name": "الاسم",
+      "register": "تسجيل الحساب",
+      "password": "كلمة السر",
+      "email": "البريد الإلكتروني",
+      "Name is required": "الاسم مطلوب",
+      "Password is required": "كلمة السر مطلوب",
+      "Email is required": "البريد الإلكتروني مطلوب",
+      "Must be a valid email": "يجب أن يكون بريدًا إلكترونيًا صالحًا",
+      "This field must be checked": "يجب التحقق من هذا الحقل",
+      "I have read": "لقد قرأت",
+      "Terms and Conditions": "الشروط والأحكام",
+      "I agree with them": "وأوافق عليها"
+    },
     "homepage": {
       "title": "الرئيسية",
       "stepbystep": "قليل فقليل",

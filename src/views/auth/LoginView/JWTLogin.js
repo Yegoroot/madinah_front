@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -24,6 +25,7 @@ const JWTLogin = ({ className, ...rest }) => {
   const classes = useStyles()
   const { login } = useAuth()
   const isMountedRef = useIsMountedRef()
+  const { t } = useTranslation()
 
   return (
     <Formik
@@ -33,8 +35,8 @@ const JWTLogin = ({ className, ...rest }) => {
         submit: null
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-        password: Yup.string().max(255).required('Password is required')
+        email: Yup.string().email(t('pageAuth.Must be a valid email')).max(255).required(t('pageAuth.Email is required')),
+        password: Yup.string().max(255).required(t('pageAuth.Password is required'))
       })}
       onSubmit={async (values, {
         setErrors,
@@ -80,7 +82,7 @@ const JWTLogin = ({ className, ...rest }) => {
             autoFocus
             className="not-ar"
             helperText={touched.email && errors.email}
-            label="Email Address"
+            label={t('pageAuth.email')}
             margin="normal"
             name="email"
             onBlur={handleBlur}
@@ -94,7 +96,7 @@ const JWTLogin = ({ className, ...rest }) => {
             className="not-ar"
             fullWidth
             helperText={touched.password && errors.password}
-            label="Password"
+            label={t('pageAuth.password')}
             margin="normal"
             name="password"
             onBlur={handleBlur}
@@ -119,7 +121,7 @@ const JWTLogin = ({ className, ...rest }) => {
               type="submit"
               variant="contained"
             >
-              Log In
+              {t('pageAuth.login')}
             </Button>
           </Box>
         </form>

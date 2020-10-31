@@ -3,6 +3,26 @@
     "toolbar": {
       "programsButtom": "Программы"
     },
+    "pageAuth":{
+      "signin": "Войти в систему",
+      "login": "войти",
+      "createAccount": "Создать новый аккаунт",
+      "haveAccount": "Уже есть аккаунт",
+      "signDescription": "Войти во внутреннюю систему",
+      "registerDescription": "Создать новый аккаунт",
+      "name": "Имя",
+      "register": "Регистрация",
+      "password": "Пароль",
+      "Name is required": "Имя обязательно к заполнению",
+      "Password is required": "Пароль обязателен для заполнения",
+      "Email is required": "Email обязателен к заполнению",
+      "Must be a valid email": "Введите валидный email",
+      "This field must be checked": "Должен быть согласен с условиями",
+      "email": "Email",
+      "I have read": "Я прочитал",
+      "Terms and Conditions": "Условия и Соглашения",
+      "I agree with them": "и согласен с ними"
+    },
     "programspage": {
       "choose": "Выберите программу для обучения",
       "count": "Предложенных программ:"

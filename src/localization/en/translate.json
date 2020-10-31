@@ -7,6 +7,26 @@
       "choose": "Choose program for learning",
       "count": "Number of programs offered"
     },
+    "pageAuth":{
+      "signin": "Sign in",
+      "login": "log in",
+      "createAccount": "Create new account",
+      "haveAccount": "Having an account",
+      "signDescription": "Sign in on the internal platform",
+      "registerDescription": "Register on the internal platform",
+      "name": "Name",
+      "Name is required": "Name is required",
+      "register": "Register",
+      "password": "Password",
+      "Password is required": "Password is required",
+      "email": "Email Address",
+      "Email is required": "Email is required",
+      "Must be a valid email": "Must be a valid email",
+      "This field must be checked": "This field must be checked",
+      "I have read": "I have read the",
+      "Terms and Conditions": "Terms and Conditions",
+      "I agree with them": "and I agree with them"
+    },
     "homepage": {
       "title": "Home",
       "stepbystep": "Step by step",

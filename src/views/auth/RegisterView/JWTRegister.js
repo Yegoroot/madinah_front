@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -24,6 +25,7 @@ const JWTRegister = ({ className, ...rest }) => {
   const classes = useStyles()
   const { register } = useAuth()
   const isMountedRef = useIsMountedRef()
+  const { t } = useTranslation()
 
   return (
     <Formik
@@ -35,10 +37,10 @@ const JWTRegister = ({ className, ...rest }) => {
         submit: null
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-        name: Yup.string().max(255).required('Name is required'),
-        password: Yup.string().min(7).max(255).required('Password is required'),
-        policy: Yup.boolean().oneOf([true], 'This field must be checked')
+        email: Yup.string().email(t('pageAuth.Must be a valid email')).max(255).required(t('pageAuth.Email is required')),
+        password: Yup.string().max(255).required(t('pageAuth.Password is required')),
+        name: Yup.string().max(255).required(t('pageAuth.Name is required')),
+        policy: Yup.boolean().oneOf([true], t('pageAuth.This field must be checked'))
       })}
       onSubmit={async (values, {
         setErrors,
@@ -80,7 +82,7 @@ const JWTRegister = ({ className, ...rest }) => {
             error={Boolean(touched.name && errors.name)}
             fullWidth
             helperText={touched.name && errors.name}
-            label="Name"
+            label={t('pageAuth.name')}
             margin="normal"
             name="name"
             onBlur={handleBlur}
@@ -92,7 +94,7 @@ const JWTRegister = ({ className, ...rest }) => {
             error={Boolean(touched.email && errors.email)}
             fullWidth
             helperText={touched.email && errors.email}
-            label="Email Address"
+            label={t('pageAuth.email')}
             margin="normal"
             name="email"
             onBlur={handleBlur}
@@ -105,7 +107,7 @@ const JWTRegister = ({ className, ...rest }) => {
             error={Boolean(touched.password && errors.password)}
             fullWidth
             helperText={touched.password && errors.password}
-            label="Password"
+            label={t('pageAuth.password')}
             margin="normal"
             name="password"
             onBlur={handleBlur}
@@ -129,15 +131,17 @@ const JWTRegister = ({ className, ...rest }) => {
               variant="body2"
               color="textSecondary"
             >
-              I have read the
+              {t('pageAuth.I have read')}
               {' '}
               <Link
                 component="a"
                 href="#"
                 color="secondary"
               >
-                Terms and Conditions
+                {t('pageAuth.Terms and Conditions')}
               </Link>
+              {' '}
+              {t('pageAuth.I agree with them')}
             </Typography>
           </Box>
           {Boolean(touched.policy && errors.policy) && (
@@ -161,7 +165,7 @@ const JWTRegister = ({ className, ...rest }) => {
               type="submit"
               variant="contained"
             >
-              Register
+              {t('pageAuth.register')}
             </Button>
           </Box>
         </form>

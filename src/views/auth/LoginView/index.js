@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import Logo from 'src/components/Logo'
+import { useTranslation } from 'react-i18next'
 import JWTLogin from './JWTLogin'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginView = () => {
   const classes = useStyles()
+  const { t } = useTranslation()
   return (
     <Page
       className={classes.root}
@@ -73,13 +75,13 @@ const LoginView = () => {
                   gutterBottom
                   variant="h2"
                 >
-                  Sign in
+                  {t('pageAuth.signin')}
                 </Typography>
                 <Typography
                   variant="body2"
                   color="textSecondary"
                 >
-                  Sign in on the internal platform
+                  {t('pageAuth.signDescription')}
                 </Typography>
               </div>
             </Box>
@@ -98,7 +100,7 @@ const LoginView = () => {
               variant="body2"
               color="textSecondary"
             >
-              Create new account
+              {t('pageAuth.createAccount')}
             </Link>
           </CardContent>
         </Card>

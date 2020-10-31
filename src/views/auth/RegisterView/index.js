@@ -17,6 +17,7 @@ import Logo from 'src/components/Logo'
 // import useAuth from 'src/hooks/useAuth'
 // import Auth0Register from './Auth0Register'
 // import FirebaseAuthRegister from './FirebaseAuthRegister'
+import { useTranslation } from 'react-i18next'
 import JWTRegister from './JWTRegister'
 
 // const methodIcons = {
@@ -68,11 +69,12 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles()
   // const { method } = useAuth()
+  const { t } = useTranslation()
 
   return (
     <Page
       className={classes.root}
-      title="Register"
+      title={t('pageAuth.register')}
     >
       {/* <div className={classes.banner}>
         <Container maxWidth="md">
@@ -156,13 +158,13 @@ const RegisterView = () => {
                   gutterBottom
                   variant="h2"
                 >
-                  Register
+                  {t('pageAuth.register')}
                 </Typography>
                 <Typography
                   variant="body2"
                   color="textSecondary"
                 >
-                  Register on the internal platform
+                  {t('pageAuth.registerDescription')}
                 </Typography>
               </div>
               {/* <div className={classes.currentMethodIcon}>
@@ -187,7 +189,7 @@ const RegisterView = () => {
               variant="body2"
               color="textSecondary"
             >
-              Having an account
+              {t('pageAuth.haveAccount')}
             </Link>
           </CardContent>
         </Card>
