@@ -173,7 +173,7 @@ const Header = ({
           : (
             <Box className={classes.button}>
               <Button
-                color="secondary"
+                color="primary"
                 variant="contained"
                 component={RouterLink}
                 to={{

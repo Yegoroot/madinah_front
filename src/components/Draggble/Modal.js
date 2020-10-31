@@ -2,19 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
+import {
+  DialogTitle, DialogContent, DialogActions, SvgIcon
+} from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
+import { AlignLeft } from 'react-feather'
 import Draggble from './List'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   // dynamic name
   topics: {
     marginTop: 8,
   },
   dialogContent: {
     padding: '20px 0px !important'
-  }
-})
+  },
+  actionIcon: {
+    marginRight: theme.spacing(1)
+  },
+}))
 
 function SimpleDialog(props) {
   const classes = useStyles()
@@ -100,6 +106,12 @@ export default function SimpleDialogDemo({ contents, onUpdate, type }) {
         color="primary"
         onClick={handleClickOpen}
       >
+        <SvgIcon
+          fontSize="small"
+          className={classes.actionIcon}
+        >
+          <AlignLeft />
+        </SvgIcon>
         {type === 'topics' ? 'Set order or topics' : 'Set order of records'}
       </Button>
       <SimpleDialog

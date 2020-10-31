@@ -7,6 +7,13 @@
       "choose": "اختر برنامجا للتعلُّم",
       "count": "عدد البرامج المقترحة"
     },
+    "pageProgram": {
+      "add topic": "إضافة الموضوع",
+      "set order of topics": "ترتيب الموضوعات",
+      "topics": "الموضوعات",
+      "create": "إنشاء برنامج جديد",
+      "title": "العنوان"
+    },
     "pageAuth":{
       "signin": "تسجيل الدخول",
       "login": "الدخول",
@@ -66,17 +73,21 @@
         "logout": "الخروج"
       }
     },
+    "time": {
+      "created": "تم إنشاء",
+      "ago": "منذ"
+    },
     "menu": {
-      "manage": {
-        "title": "Management",
-        "program": "Programs Platform",
-        "program_list": "Programs List",
-        "program_create": "Create Program",
-        "topics": "Topics (Chapters)",
-        "notes": "Notice",
-        "users": "Users",
-        "print": "Print"
-      }
+      "programs": "الببرامج",
+      "public": "العامة",
+      "home": "الصفحة الرئيسية",
+      "topics": "الموضوعات",
+      "users": "المشاركون",
+      "managment": "الإدارة",
+      "myProgram": "برنامجي",
+      "createProgram": "إنشاء البرنامج",
+      "createTopic": "إنشاء الموضوع",
+      "createUser": "إنشاء المشارك"
     }
   }
 }

@@ -1,7 +1,8 @@
-import { /* BookOpen, */ Home } from 'react-feather'
+/* eslint-disable import/prefer-default-export */
+import { BookOpen, /* Home */ } from 'react-feather'
 
 export const publicMenu = [{
-  subheader: 'Public',
+  subheader: 'menu.public',
   href: '/programs',
   items: [
     // {
@@ -10,9 +11,9 @@ export const publicMenu = [{
     //   icon: BookOpen
     // },
     {
-      title: 'Programs',
+      title: 'menu.programs',
       href: '/programs',
-      icon: Home
+      icon: BookOpen
     },
   ]
 }]

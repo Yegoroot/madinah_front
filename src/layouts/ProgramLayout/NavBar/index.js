@@ -10,14 +10,14 @@ import {
   Hidden,
   LinearProgress,
   List,
-  ListSubheader,
-  makeStyles
+  ListSubheader
 } from '@material-ui/core'
 
 import i18n from 'i18next'
 import Logo from 'src/components/Logo'
 import { matchPathProgramNotAuth } from 'src/utils/urls'
 import { resetTopicsProgram } from 'src/slices/program'
+import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
 import NavItem from './NavItem'
 import { generateTopicsMenu } from './topicsMenu'
 
@@ -84,40 +84,8 @@ function reduceChildRoutes({
   return acc
 }
 
-const useStyles = makeStyles(() => ({
-  mobileDrawer: {
-    width: 256
-  },
-  subheader: {
-    '& svg': { flex: 'none' }
-  },
-  subheaderRoot: {
-    lineHeight: 1.5,
-    fontSize: 20,
-  },
-  progress: {
-    top: 115,
-    left: '50%',
-    height: 10,
-    position: 'absolute',
-    transform: 'translateX(-50%)',
-    justifyContent: 'center',
-    width: '100%'
-  },
-  desktopDrawer: {
-    width: 256,
-    top: 64,
-    height: 'calc(100% - 64px)'
-  },
-  avatar: {
-    cursor: 'pointer',
-    width: 64,
-    height: 64
-  }
-}))
-
 const NavBar = ({ onMobileClose, openMobile }) => {
-  const classes = useStyles()
+  const classes = useStylesMenu()
   const location = useLocation()
 
   const [menuList, setMenuList] = useState([])

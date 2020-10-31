@@ -12,10 +12,9 @@ import {
   Link,
   List,
   ListSubheader,
-  Typography,
-  makeStyles
+  Typography
 } from '@material-ui/core'
-
+import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
 import i18n from 'i18next'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
@@ -85,33 +84,8 @@ function reduceChildRoutes({
   return acc
 }
 
-const useStyles = makeStyles(() => ({
-  mobileDrawer: {
-    width: 256
-  },
-  progress: {
-    top: 115,
-    left: '50%',
-    height: 10,
-    position: 'absolute',
-    transform: 'translateX(-50%)',
-    justifyContent: 'center',
-    width: '100%'
-  },
-  desktopDrawer: {
-    width: 256,
-    top: 64,
-    height: 'calc(100% - 64px)'
-  },
-  avatar: {
-    cursor: 'pointer',
-    width: 64,
-    height: 64
-  }
-}))
-
 const NavBar = ({ onMobileClose, openMobile }) => {
-  const classes = useStyles()
+  const classes = useStylesMenu()
   const location = useLocation()
   const { user } = useAuth()
 
@@ -123,7 +97,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, ])
+  }, [location.pathname])
 
   const content = (
     <Box
@@ -149,6 +123,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
                 <ListSubheader
                   disableGutters
                   disableSticky
+                  classes={{
+                    root: classes.subheaderRoot
+                  }}
                 >
                   {i18n.t(`${section.subheader}`)}
                 </ListSubheader>

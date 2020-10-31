@@ -3,6 +3,10 @@
     "toolbar": {
       "programsButtom": "Programs"
     },
+    "pageProgram": {
+      "add topic": "add topic",
+      "set order of topics": "set order of topics" 
+    },
     "programspage": {
       "choose": "Choose program for learning",
       "count": "Number of programs offered"
@@ -71,16 +75,16 @@
       }
     },
     "menu": {
-      "manage": {
-        "title": "Management",
-        "program": "Education Programs",
-        "program_list": "Program List",
-        "program_create": "Create Programm",
-        "topics": "Topics (Chapters)",
-        "notes": "Notice",
-        "users": "Users",
-        "print": "Print"
-      }
+      "programs": "Programs",
+      "public": "public",
+      "home": "Home",
+      "topics": "Topics",
+      "users": "Users",
+      "managment": "Managment",
+      "myProgram": "My Program",
+      "createProgram": "Create Program",
+      "createTopic": "Create Topic",
+      "createUser": "Create User"
     }
   }
 }

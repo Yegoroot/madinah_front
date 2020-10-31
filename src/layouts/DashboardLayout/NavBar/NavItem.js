@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
+import useSettings from 'src/hooks/useSettings'
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -77,17 +78,26 @@ const NavItem = ({
   const classes = useStyles()
   const [open, setOpen] = useState(openProp)
 
+  const { settings } = useSettings()
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
   }
 
-  let paddingLeft = 8
-
-  if (depth > 0) {
-    paddingLeft = 32 + 8 * depth
+  let style
+  if (settings.direction === 'ltr') {
+    let paddingLeft = 8
+    if (depth > 0) {
+      paddingLeft = 32 + 8 * depth
+    }
+    style = { paddingLeft }
+  } else {
+    let paddingRight = 8
+    if (depth > 0) {
+      paddingRight = 32 + 8 * depth
+    }
+    style = { paddingRight }
   }
-
-  const style = { paddingLeft }
 
   if (children) {
     return (

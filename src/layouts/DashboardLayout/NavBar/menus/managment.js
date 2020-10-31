@@ -12,17 +12,17 @@ import { perm_work_with_users } from 'src/utils/permissions'
 
 const usersButton = [
   {
-    title: 'Users',
+    title: 'menu.users',
     href: '#',
     icon: Users,
     items: [
       {
-        title: 'List Users',
+        title: 'menu.users',
         href: `${USERS_URL}`,
         icon: Users,
       },
       {
-        title: 'Create',
+        title: 'menu.createUser',
         href: `${USERS_URL}/create`,
         icon: UserPlus,
       },
@@ -32,17 +32,17 @@ const usersButton = [
 
 const typesButton = [
   {
-    title: 'Types',
+    title: 'menu.types',
     href: '#',
     icon: Award,
     items: [
       {
-        title: 'List Types',
+        title: 'menu.types',
         href: `${TYPES_URL}`,
         icon: Award,
       },
       {
-        title: 'Create',
+        title: 'menu.createType',
         href: `${TYPES_URL}/create`,
         icon: Plus,
       },
@@ -55,37 +55,37 @@ export const defineManagment = (role) => {
   const accessToTypes = role === 'superadmin' ? typesButton : []
   return [
     {
-      subheader: 'Managment',
+      subheader: 'menu.managment',
       items: [
         {
-          title: 'Programs',
+          title: 'menu.programs',
           href: '#',
           icon: Folder,
           items: [
             {
-              title: 'My Program',
+              title: 'menu.myProgram',
               href: `${PROGRAMS_URL}`,
               icon: Folder
             },
             {
-              title: 'Create',
+              title: 'menu.createProgram',
               href: `${PROGRAMS_URL}/create`,
               icon: FolderPlus,
             },
           ]
         },
         {
-          title: 'Topics',
+          title: 'menu.topics',
           href: '#',
           icon: Layers,
           items: [
             {
-              title: 'Topic List',
+              title: 'menu.topics',
               href: `${TOPICS_URL}`,
               icon: Layers,
             },
             {
-              title: 'Create',
+              title: 'menu.createTopic',
               href: `${TOPICS_URL}/create`,
               icon: Plus,
             },
