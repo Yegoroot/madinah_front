@@ -94,9 +94,13 @@ function registerValidSW(swUrl, config) {
         };
       };
 
-      console.log("PRE", 'registration.waiting', registration)
-      if(registration && !registration.installing && registration.waiting &&  JSON.parse(localStorage.getItem('isNewVersionServiceWorker')) ) {
-        console.log("AFTER UPDATE", 'registration.waiting', registration)
+      console.log('1 registration', registration)
+      /**
+       * Если у сервис воркера есть ожидающие обновления
+       * то выполняем callback
+       */
+      if(registration && !registration.installing && registration.waiting ) {
+        console.log("2 BEFORE UPDATE", 'registration', registration)
         if (config && config.onUpdate) {
           config.onUpdate(registration);
         }
