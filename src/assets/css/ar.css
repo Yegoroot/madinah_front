@@ -70,3 +70,8 @@ span.desc__ar {
 span.contrast {
   color: #f44336;
 }
+
+/*markdown editor*/
+textarea.mde-text {
+  font-size: 16px;
+}

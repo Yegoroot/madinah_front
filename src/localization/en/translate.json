@@ -82,9 +82,11 @@
       "users": "Users",
       "managment": "Managment",
       "myProgram": "My Program",
+      "types": "Types of program",
       "createProgram": "Create Program",
       "createTopic": "Create Topic",
-      "createUser": "Create User"
+      "createUser": "Create User",
+      "createTypes": "Create Type"
     }
   }
 }

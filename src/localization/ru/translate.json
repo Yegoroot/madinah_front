@@ -74,9 +74,11 @@
       "users": "Пользователи",
       "managment": "Управление",
       "myProgram": "Мои Программы",
+      "types": "Характеристики",
       "createProgram": "Создать Программу",
       "createTopic": "Создать Тему",
-      "createUser": "Создать Пользователя"
+      "createUser": "Зарегистрировать",
+      "createTypes": "Добавить"
     }
   }
 }

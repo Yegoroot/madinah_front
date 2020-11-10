@@ -85,9 +85,11 @@
       "users": "المشاركون",
       "managment": "الإدارة",
       "myProgram": "برنامجي",
+      "types": "صفات",
       "createProgram": "إنشاء البرنامج",
       "createTopic": "إنشاء الموضوع",
-      "createUser": "إنشاء المشارك"
+      "createUser": "إنشاء المشارك",
+      "createTypes": "إنشاء صفة"
     }
   }
 }
