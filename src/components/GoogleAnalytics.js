@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 
 const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID
 
+console.log(GA_MEASUREMENT_ID)
 const GoogleAnalytics = () => (
   <Helmet>
     <script

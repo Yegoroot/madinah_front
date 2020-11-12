@@ -13,9 +13,9 @@ import {
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import GlobalStyles from 'src/components/GlobalStyles'
 import ScrollReset from 'src/components/ScrollReset'
-import CookiesNotification from 'src/components/CookiesNotification'
+// import CookiesNotification from 'src/components/CookiesNotification'
 import GoogleAnalytics from 'src/components/GoogleAnalytics'
-import SettingsNotification from 'src/components/SettingsNotification'
+// import SettingsNotification from 'src/components/SettingsNotification'
 import Alerts from 'src/components/Alerts'
 import { AuthProvider } from 'src/contexts/JWTAuthContext'
 import useSettings from 'src/hooks/useSettings'
@@ -52,8 +52,8 @@ const App = () => {
                   <GlobalStyles />
                   <ScrollReset />
                   <GoogleAnalytics />
-                  <CookiesNotification />
-                  <SettingsNotification />
+                  {/* <CookiesNotification /> */}
+                  {/* <SettingsNotification /> */}
                   <Alerts />
                   {renderRoutes(routes)}
                 </AuthProvider>
