@@ -75,10 +75,12 @@ const themesOptions = [
         secondary: colors.blueGrey[600]
       },
       rainbow: {
+        level0: colors.indigo[400],
         level1: colors.lightBlue[500],
         level2: colors.cyan[500],
         level3: colors.teal[500],
         level4: colors.green[500],
+        level5: colors.lightGreen[500],
       },
     },
     shadows: softShadows
@@ -114,10 +116,12 @@ const themesOptions = [
         secondary: '#adb0bb'
       },
       rainbow: {
+        level0: colors.blue[400],
         level1: colors.lightBlue[400],
         level2: colors.cyan[400],
         level3: colors.teal[400],
         level4: colors.green[400],
+        level5: colors.lightGreen[400],
       },
     },
     shadows: strongShadows

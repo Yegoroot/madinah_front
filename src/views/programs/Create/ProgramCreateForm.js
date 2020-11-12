@@ -28,7 +28,9 @@ import {
 import { useTranslation } from 'react-i18next'
 import FilesDropzone from 'src/components/FilesDropzone'
 import { instanceAxios } from 'src/utils/axios'
-import { UPLOADS_URL, API_BASE_URL } from 'src/constants'
+import {
+  UPLOADS_URL, API_BASE_URL, LEVELS, LANGUAGES
+} from 'src/constants'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -55,6 +57,8 @@ function ProductCreateForm({
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(),
+        language: Yup.string().required(),
+        level: Yup.string().required(),
         description: Yup.string().max(1500),
         types: Yup.array(),
       })}
@@ -68,6 +72,8 @@ function ProductCreateForm({
           formData.set('title', values.title)
           formData.set('description', values.description)
           formData.set('publish', values.publish)
+          formData.set('level', values.level)
+          formData.set('language', values.language)
           formData.set('types', JSON.stringify(values.types))
           if (values.file) { formData.append('photo', values.file) }
 
@@ -147,6 +153,82 @@ function ProductCreateForm({
                       variant="outlined"
                     />
                   </Box>
+
+                  <Box
+                    mb={3}
+                  >
+                    <Grid
+                      item
+                      spacing={2}
+                      container
+                    >
+                      <Grid
+                        item
+                        container
+                        xs={12}
+                        lg={6}
+                      >
+                        <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.level && errors.level)}
+                        >
+                          <InputLabel id="form-select-4">Выберите уровень</InputLabel>
+                          <Select
+                            labelId="form-select-4"
+                            name="level"
+                            value={values.level}
+                            displayEmpty
+                            onChange={handleChange}
+                            input={<Input id="select-multiple-chip" />}
+                          >
+                            {LEVELS.map((level) => (
+                              <MenuItem
+                                key={level}
+                                value={level}
+                              >
+                                {t(`chips.${level}`)}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.level && errors.level}</FormHelperText>
+                        </FormControl>
+                      </Grid>
+                      <Grid
+                        item
+                        container
+                        xs={12}
+                        lg={6}
+                      >
+                        <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.language && errors.language)}
+                        >
+                          <InputLabel id="form-select-5">Язык объяснения</InputLabel>
+                          <Select
+                            labelId="form-select-5"
+                            name="language"
+                            value={values.language}
+                            displayEmpty
+                            onChange={handleChange}
+                            input={<Input id="select-multiple-chip2" />}
+                          >
+                            {LANGUAGES.map((lang) => (
+                              <MenuItem
+                                key={lang}
+                                value={lang}
+                              >
+                                {t(`chips.${lang}`)}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.language && errors.language}</FormHelperText>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                  </Box>
+
                   {!allTypes.length ? null
                     : (
                       <FormControl
@@ -218,11 +300,11 @@ function ProductCreateForm({
               </Card>
 
               {errors.submit && (
-              <Box mt={3}>
-                <FormHelperText error>
-                  {errors.submit}
-                </FormHelperText>
-              </Box>
+                <Box mt={3}>
+                  <FormHelperText error>
+                    {errors.submit}
+                  </FormHelperText>
+                </Box>
               )}
               <Box mt={2}>
                 <Button

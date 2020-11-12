@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core'
 import { Settings as SettingsIcon } from 'react-feather'
 import useSettings from 'src/hooks/useSettings'
-import { THEMES } from 'src/constants'
+import { THEMES, LANGUAGES } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,8 +47,6 @@ const Settings = () => {
     theme: settings.theme,
     lang: settings.lang
   })
-
-  const langs = ['ar', 'ru', 'en']
 
   const handleOpen = () => {
     setOpen(true)
@@ -156,13 +154,12 @@ const Settings = () => {
             value={values.lang}
             variant="outlined"
           >
-            {langs.map((lang) => (
+            {LANGUAGES.map((lang) => (
               <option
                 key={lang}
                 value={lang}
               >
-                {/* {capitalCase(lang)} */}
-                { t(`components.settings.${lang}`)}
+                { t(`chips.${lang}`) }
               </option>
             ))}
           </TextField>

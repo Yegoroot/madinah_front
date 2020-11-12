@@ -106,6 +106,14 @@ function Results({ className, programs, ...rest }) {
           </ToggleButtonGroup>
         </Box>
       </Box>
+      {!programs.length && (
+      <Typography
+        variant="h3"
+        color="textPrimary"
+      >
+        Programs not found, please change your search conditions
+      </Typography>
+      ) }
       <Grid
         container
         alignItems="stretch"

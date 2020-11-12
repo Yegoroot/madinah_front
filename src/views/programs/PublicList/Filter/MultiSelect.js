@@ -8,6 +8,7 @@ import {
   MenuItem,
   makeStyles
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
 function MultiSelect({
   label,
   options,
-  value,
+  chips,
+  filter,
   onChange
 }) {
+  const { t } = useTranslation()
   const classes = useStyles()
   const anchorRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(false)
@@ -40,17 +43,24 @@ function MultiSelect({
     setOpenMenu(false)
   }
 
-  const handleOptionToggle = (event) => {
-    let newValue = [...value]
+  const handleOptionToggle = (event, label) => {
+    let newValue = [...filter[label]]
+    const { value } = event.target
+    let isDeleted = false
 
     if (event.target.checked) {
-      newValue.push(event.target.value)
+      newValue.push(value)
     } else {
-      newValue = newValue.filter((item) => item !== event.target.value)
+      isDeleted = true
+      newValue = newValue.filter((item) => item !== value)
     }
 
+    const newFilter = { ...filter, [label]: newValue }
+
     if (onChange) {
-      onChange(newValue)
+      onChange({
+        newFilter, value, isDeleted, label
+      })
     }
   }
 
@@ -80,12 +90,12 @@ function MultiSelect({
               className={classes.formControlLabel}
               control={(
                 <Checkbox
-                  checked={value.indexOf(option) > -1}
-                  onClick={handleOptionToggle}
+                  checked={chips.findIndex((el) => el.value === option) > -1}
+                  onClick={(e) => handleOptionToggle(e, label)}
                   value={option}
                 />
               )}
-              label={option}
+              label={t(`chips.${option}`)}
             />
           </MenuItem>
         ))}
@@ -98,7 +108,7 @@ MultiSelect.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   options: PropTypes.array.isRequired,
-  value: PropTypes.array.isRequired
+  chips: PropTypes.array.isRequired
 }
 
 export default MultiSelect

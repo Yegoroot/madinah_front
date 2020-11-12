@@ -4,7 +4,7 @@
       "programsButtom": "مناهج"
     },
     "programspage": {
-      "choose": "اختر برنامجا للتعلُّم",
+      "choose": "اختر المعلمات للبحث",
       "count": "عدد البرامج المقترحة"
     },
     "pageProgram": {
@@ -42,11 +42,7 @@
       "readytoexplore": "جاهز للاستكشاف؟",
       "letsgetstarted": "لنبدأ ببرامج التعليم",
       "gotoprogram": "اذهب إلى البرامج",
-      "chooselevel": "من فضلك اختر مستواك",
-      "begginer": "المبتدئ",
-      "preintermeiate": "قبل المتوسط",
-      "intermeiate": "المتوسط",
-      "upperintermeiate": "فوق المتوسط"
+      "chooselevel": "من فضلك اختر مستواك"
     },
     "note": {
       "notify": {
@@ -58,9 +54,6 @@
       "settings": {
         "save_settings": "حفظ الإعدادات",
         "title": "الإعدادات",
-        "ru": "Русский",
-        "en": "English",
-        "ar": "العربية",
         "font": "أحجام الخطوط المناسبة",
         "theme": {
           "title":  "السمة",
@@ -90,6 +83,16 @@
       "createTopic": "إنشاء الموضوع",
       "createUser": "إنشاء المشارك",
       "createTypes": "إنشاء صفة"
+    },
+    "chips": {
+      "ar": "العربية" ,
+      "en": "English" ,
+      "ru": "Русский",
+      "beginner": "المبتدئ",
+      "preintermediate": "قبل المتوسط",
+      "elementary": "ابتدائي",
+      "intermediate": "المتوسط",
+      "upperintermediate": "فوق المتوسط" 
     }
   }
 }

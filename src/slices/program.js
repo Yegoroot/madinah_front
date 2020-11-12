@@ -68,6 +68,17 @@ export const { reducer } = slice
 
 export const prefix = (type) => (type === 'private' ? '/my' : '')
 
+const filter = (params) => {
+  const fil = {}
+  if (params.language.length) {
+    fil.language = JSON.stringify(params.language)
+  }
+  if (params.level.length) {
+    fil.level = JSON.stringify(params.level)
+  }
+  return fil
+}
+
 // INSIDE
 export const getProgramItem = ({ programId, type }) => async (dispatch) => {
   try {
@@ -105,7 +116,9 @@ export const deleteProgram = ({ programId }) => async (dispatch) => {
 
 // INSIDE
 export const getProgramList = ({ params, type }) => async (dispatch) => {
-  const response = await axios.get(`${API_BASE_URL}/programs${prefix(type)}`, { params })
+  const response = await axios.get(`${API_BASE_URL}/programs${prefix(type)}`, {
+    params: filter(params)
+  })
   const { data } = response
   dispatch(slice.actions.getProgramList({ data }))
 }

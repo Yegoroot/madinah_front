@@ -24,8 +24,8 @@
       "I agree with them": "и согласен с ними"
     },
     "programspage": {
-      "choose": "Выберите программу для обучения",
-      "count": "Предложенных программ:"
+      "choose": "Выберите параметры для поиска",
+      "count": "Найдено программ:"
     },
     "homepage": {
       "title": "Главная",
@@ -35,11 +35,7 @@
       "readytoexplore": "Готовы начать",
       "letsgetstarted": "Тогда вперед к разделам обучения",
       "gotoprogram": "Перейти",
-      "chooselevel": "Пожалуйста выберите свой уровень",
-      "begginer": "Начальный",
-      "preintermeiate": "Элементарный",
-      "intermeiate": "Средний",
-      "upperintermeiate": "Практичный"
+      "chooselevel": "Пожалуйста выберите свой уровень"
     },
     "note": {
       "notify": {
@@ -51,9 +47,6 @@
       "settings": {
         "save_settings": "Сохранить настройки",
         "title": "Настройки",
-        "ru": "Русский",
-        "en": "English",
-        "ar": "العربية",
         "font": "Адаптивный размер шрифтов",
         "theme": {
           "title":  "Тема",
@@ -79,6 +72,16 @@
       "createTopic": "Создать Тему",
       "createUser": "Зарегистрировать",
       "createTypes": "Добавить"
+    },
+    "chips": {
+      "ar": "العربية" ,
+      "en": "English" ,
+      "ru": "Русский" ,
+      "beginner": "Начальный",
+      "elementary": "Элементарный",
+      "preintermediate": "На пороге входа",
+      "intermediate": "Средний",
+      "upperintermediate": "Практичный"
     }
   }
 }

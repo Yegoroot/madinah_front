@@ -1,7 +1,7 @@
 // or get from process.env.REACT_APP_{var} to handle PROD and DEV environments
-export const APP_VERSION = '0.3.0'
+export const APP_VERSION = '0.3.1'
 
-export const APP_NAME = 'Madinah App'
+export const APP_NAME = 'Learn Arabic'
 
 export const ENABLE_REDUX_DEV_TOOLS = true
 
@@ -31,3 +31,17 @@ export const ENABLE_REDUX_LOGGER = false
 
 export const DEBUG_I18 = false // for deb
 export const DEFAULT_LANGUAGE = 'en'
+
+export const LEVELS = [
+  'beginner',
+  'elementary',
+  'preintermediate',
+  'intermediate',
+  'upperintermediate'
+]
+
+export const LANGUAGES = [
+  'ar',
+  'en',
+  'ru',
+]

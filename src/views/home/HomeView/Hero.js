@@ -9,8 +9,18 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
-// import { APP_NAME } from 'src/constants'
+import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { LEVELS, PUBLIC_PROGRAMS_URL } from 'src/constants'
+
+const setColorButton = (color) => ({
+  color,
+  borderColor: `${color}85`,
+  '&:hover': {
+    backgroundColor: `${color}14`,
+    borderColor: color,
+  }
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     marginBottom: theme.spacing(5),
-    '& button': {
+    '&  a': {
       marginBottom: theme.spacing(1)
     }
   },
@@ -57,38 +67,12 @@ const useStyles = makeStyles((theme) => ({
    * Light 400
    * need Light 800
    */
-  level1: {
-    color: theme.palette.rainbow.level1,
-    borderColor: `${theme.palette.rainbow.level1}85`,
-    '&:hover': {
-      backgroundColor: `${theme.palette.rainbow.level1}14`,
-      borderColor: theme.palette.rainbow.level1,
-    }
-  },
-  level2: {
-    color: theme.palette.rainbow.level2,
-    borderColor: `${theme.palette.rainbow.level2}85`,
-    '&:hover': {
-      backgroundColor: `${theme.palette.rainbow.level2}14`,
-      borderColor: theme.palette.rainbow.level2,
-    }
-  },
-  level3: {
-    color: theme.palette.rainbow.level3,
-    borderColor: `${theme.palette.rainbow.level3}85`,
-    '&:hover': {
-      backgroundColor: `${theme.palette.rainbow.level3}14`,
-      borderColor: theme.palette.rainbow.level3,
-    }
-  },
-  level4: {
-    color: theme.palette.rainbow.level4,
-    borderColor: `${theme.palette.rainbow.level4}85`,
-    '&:hover': {
-      backgroundColor: `${theme.palette.rainbow.level4}14`,
-      borderColor: theme.palette.rainbow.level4,
-    }
-  },
+  level0: setColorButton(theme.palette.rainbow.level0),
+  level1: setColorButton(theme.palette.rainbow.level1),
+  level2: setColorButton(theme.palette.rainbow.level2),
+  level3: setColorButton(theme.palette.rainbow.level3),
+  level4: setColorButton(theme.palette.rainbow.level4),
+  level5: setColorButton(theme.palette.rainbow.level5),
 }))
 
 const Hero = ({ className, ...rest }) => {
@@ -129,30 +113,24 @@ const Hero = ({ className, ...rest }) => {
                 >
                   {t('homepage.chooselevel')}
                 </Typography>
-                <Button
-                  variant="outlined"
-                  className={classes.level1}
-                >
-                  {t('homepage.begginer')}
-                </Button>
-                <Button
-                  className={classes.level2}
-                  variant="outlined"
-                >
-                  {t('homepage.preintermeiate')}
-                </Button>
-                <Button
-                  className={classes.level3}
-                  variant="outlined"
-                >
-                  {t('homepage.intermeiate')}
-                </Button>
-                <Button
-                  className={classes.level4}
-                  variant="outlined"
-                >
-                  {t('homepage.upperintermeiate')}
-                </Button>
+
+                {
+                LEVELS.map((level, i) => (
+                  <Button
+                    key={level}
+                    component={RouterLink}
+                    to={{
+                      pathname: `${PUBLIC_PROGRAMS_URL}`,
+                      // state: { level },
+                      search: `level=${level}`
+                    }}
+                    variant="outlined"
+                    className={classes[`level${i + 1}`]}
+                  >
+                    {t(`chips.${level}`)}
+                  </Button>
+                ))
+                }
               </Box>
 
               <div>

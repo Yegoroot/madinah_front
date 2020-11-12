@@ -1,163 +1,107 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import {
   Box,
   Card,
-  Checkbox,
   Chip,
   Divider,
-  FormControlLabel,
-  Input,
+  // Checkbox,
+  // FormControlLabel,
+  // Input,
   makeStyles
 } from '@material-ui/core'
-import SearchIcon from '@material-ui/icons/Search'
+import { LANGUAGES, LEVELS } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 import MultiSelect from './MultiSelect'
 
-const selectOptions = [
-  {
-    label: 'Type',
-    options: [
-      'Freelance',
-      'Full Time',
-      'Part Time',
-      'Internship']
-  },
-  {
-    label: 'Level',
-    options: ['Novice', 'Expert']
-  },
-  {
-    label: 'Location',
-    options: [
-      'Africa',
-      'Asia',
-      'Australia',
-      'Europe',
-      'North America',
-      'South America'
-    ]
-  },
-  {
-    label: 'Roles',
-    options: ['Android', 'Web Developer', 'iOS']
-  }
-]
+const options = {
+  level: LEVELS,
+  language: LANGUAGES
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  searchInput: {
-    marginLeft: theme.spacing(2)
-  },
   chip: {
     margin: theme.spacing(1)
+  },
+  language: {
+    color: theme.palette.rainbow.level4,
+  },
+  level: {
+    color: theme.palette.rainbow.level0,
   }
 }))
 
-function Filter({ className, ...rest }) {
+const getChipsFromObj = (filter) => {
+  const chips = []
+  Object
+    .keys(filter)
+    .map((label) => filter[label].map((value) => chips.push({ value, label })))
+  return chips
+}
+
+function Filter({
+  className, filter, onChange, onDelete, ...rest
+}) {
   const classes = useStyles()
-  const [inputValue, setInputValue] = useState('')
-  const [chips, setChips] = useState([
-    'Freelance',
-    'Full Time',
-    'Novice',
-    'Europe',
-    'Android',
-    'Web Developer'
-  ])
+  const { t } = useTranslation()
 
-  const handleInputChange = (event) => {
-    event.persist()
-    setInputValue(event.target.value)
-  }
-
-  const handleInputKeyup = (event) => {
-    event.persist()
-
-    if (event.keyCode === 13 && inputValue) {
-      if (!chips.includes(inputValue)) {
-        setChips((prevChips) => [...prevChips, inputValue])
-        setInputValue('')
-      }
-    }
-  }
-
-  const handleChipDelete = (chip) => {
-    setChips((prevChips) => prevChips.filter((prevChip) => chip !== prevChip))
-  }
-
-  const handleMultiSelectChange = (value) => {
-    setChips(value)
-  }
+  const chips = getChipsFromObj(filter)
 
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box
-        p={2}
-        display="flex"
-        alignItems="center"
-      >
-        <SearchIcon />
-        <Input
-          disableUnderline
-          fullWidth
-          className={classes.searchInput}
-          onChange={handleInputChange}
-          onKeyUp={handleInputKeyup}
-          placeholder="Enter a keyword"
-          value={inputValue}
-        />
-      </Box>
-      <Divider />
-      <Box
-        p={2}
-        display="flex"
-        alignItems="center"
-        flexWrap="wrap"
-      >
-        {chips.map((chip) => (
-          <Chip
-            className={classes.chip}
-            key={chip}
-            label={chip}
-            onDelete={() => handleChipDelete(chip)}
-          />
-        ))}
-      </Box>
-      <Divider />
+
+      { !!chips.length && (
+      <>
+        <Box
+          p={2}
+          display="flex"
+          alignItems="center"
+          flexWrap="wrap"
+        >
+          { chips.map((chip) => (
+            <Chip
+              key={chip.value}
+              className={clsx(classes.chip, classes[chip.label])}
+              label={t(`chips.${chip.value}`)}
+              onDelete={() => onDelete(chip)}
+            />
+          )) }
+        </Box>
+        <Divider />
+      </>
+      )}
+
       <Box
         display="flex"
         alignItems="center"
         flexWrap="wrap"
         p={1}
       >
-        {selectOptions.map((option) => (
+        {Object.keys(options).map((key) => (
           <MultiSelect
-            key={option.label}
-            label={option.label}
-            onChange={handleMultiSelectChange}
-            options={option.options}
-            value={chips}
+            key={key}
+            label={key}
+            chips={chips}
+            onChange={onChange}
+            options={options[key]}
+            filter={filter}
           />
         ))}
-        <Box flexGrow={1} />
-        <FormControlLabel
-          className={classes.inNetwork}
-          control={(
-            <Checkbox defaultChecked />
-          )}
-          label="In network"
-        />
       </Box>
     </Card>
   )
 }
 
 Filter.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  onChange: PropTypes.func,
+  onDelete: PropTypes.func,
+  filter: PropTypes.object,
 }
 
 export default Filter

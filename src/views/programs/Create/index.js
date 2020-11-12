@@ -29,6 +29,8 @@ function ProgramCreateView({ match }) {
     description: '',
     file: '',
     types: [],
+    level: '',
+    language: '',
     publish: true
   })
 

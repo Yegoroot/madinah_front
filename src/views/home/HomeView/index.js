@@ -3,7 +3,7 @@ import Page from 'src/components/Page'
 import { APP_NAME } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 import Hero from './Hero'
-import CTA from './CTA'
+// import CTA from './CTA'
 
 const HomeView = () => {
   const { t } = useTranslation()
@@ -11,7 +11,7 @@ const HomeView = () => {
   return (
     <Page title={`${t('homepage.title')} - ${APP_NAME}`}>
       <Hero />
-      <CTA />
+      {/* <CTA /> */}
     </Page>
   )
 }

@@ -8,8 +8,8 @@
       "set order of topics": "set order of topics" 
     },
     "programspage": {
-      "choose": "Choose program for learning",
-      "count": "Number of programs offered"
+      "choose": "Choose params for searching",
+      "count": "Programs was found"
     },
     "pageAuth":{
       "signin": "Sign in",
@@ -39,11 +39,7 @@
       "readytoexplore": "Ready to explore",
       "letsgetstarted": "Let's get started with Programs of Education",
       "gotoprogram": "Go to Programs",
-      "chooselevel": "Please select your level",
-      "begginer": "Begginer",
-      "preintermeiate": "Pre Intermediate",
-      "intermeiate": "Intermediate",
-      "upperintermeiate": "Upper Intermediate"
+      "chooselevel": "Please select your level"
     },
     "notify": {
       "topic": {
@@ -59,9 +55,6 @@
       "settings": {
         "save_settings": "Save Settings",
         "title": "Settings",
-        "ru": "Русский",
-        "en": "English",
-        "ar": "العربية",
         "font": "Responsive font sizes",
         "theme": {
           "title":  "Theme",
@@ -87,6 +80,16 @@
       "createTopic": "Create Topic",
       "createUser": "Create User",
       "createTypes": "Create Type"
+    },
+    "chips": {
+      "ar": "العربية" ,
+      "en": "English" ,
+      "ru": "Русский",
+      "beginner": "Beginner",
+      "elementary": "Elementary",
+      "preintermediate": "Pre Intermediate",
+      "intermediate": "Intermediate",
+      "upperintermediate": "Upper Intermediate" 
     }
   }
 }
