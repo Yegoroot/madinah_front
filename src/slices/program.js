@@ -69,11 +69,12 @@ export const { reducer } = slice
 export const prefix = (type) => (type === 'private' ? '/my' : '')
 
 const filter = (params) => {
+  if (!params) return {}
   const fil = {}
-  if (params.language.length) {
+  if (params.language && params.language.length) {
     fil.language = JSON.stringify(params.language)
   }
-  if (params.level.length) {
+  if (params.level && params.level.length) {
     fil.level = JSON.stringify(params.level)
   }
   return fil

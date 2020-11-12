@@ -12,6 +12,7 @@ import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import Header from './Header'
 import TableDataMobile from './TableDataMobile'
 import TableDataDesktop from './TableDataDesktop'
@@ -85,10 +86,12 @@ function Results() {
         <Box mt={3}>
           <Card>
             <Hidden mdDown>
-              <TableDataDesktop
-                data={data}
-                onDelete={onDelete}
-              />
+              <PerfectScrollbar>
+                <TableDataDesktop
+                  data={data}
+                  onDelete={onDelete}
+                />
+              </PerfectScrollbar>
             </Hidden>
             <Hidden lgUp>
               <TableDataMobile
@@ -107,6 +110,7 @@ function Results() {
               rowsPerPage={limit}
               rowsPerPageOptions={[5, 10, 25]}
             />
+
           </Card>
         </Box>
       </Container>
