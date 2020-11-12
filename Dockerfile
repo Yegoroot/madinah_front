@@ -13,6 +13,8 @@ WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
+ENV REACT_APP_GA_MEASUREMENT_ID G-44T7WRKVR0
+
 # Copy over the package.json files
 COPY ./package*.json /app/
 
