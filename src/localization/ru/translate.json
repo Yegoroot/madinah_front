@@ -117,7 +117,13 @@
       "this is a required field": "Это поле объязательно к заполнению",
       "do you want to delete program": "Хотите удалить эту программу и все темы относящиеся к ней?",
       "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?",
-      "my topics": "Мои темы"
+      "my topics": "Мои темы",
+      "add one or more entries": "Добавьте одну или несколько записей",
+      "create a new topic": "Создать новую тему",
+      "edit topic": "Редактировать тему",
+      "add entrie": "Добавить запись",
+      "save and continue": "Сохранить и продолжить",
+      "save and open": "Сохранить и открыть"
     },
     "table": {
       "title": "Заголовок",

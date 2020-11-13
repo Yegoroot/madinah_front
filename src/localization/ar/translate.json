@@ -128,7 +128,13 @@
       "this is a required field": "هذا مجال مطلوب",
       "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه",
       "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته",
-      "my topics": "موضوعاتي"
+      "my topics": "موضوعاتي",
+      "add one or more entries": "أضف إدخال واحد أو أكثر",
+      "create a new topic": "إنشاء موضوعًا جديدًا",
+      "edit topic": "تحرير المظهر",
+      "add entrie": "أضف ملاحظة",
+      "save and continue": "احفظ وتابع",
+      "save and open": "حفظ وفتح"
     },
     "table": {
       "title": "العنوان",

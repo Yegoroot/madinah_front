@@ -69,7 +69,7 @@
     },
     "menu": {
       "programs": "Programs",
-      "public": "public",
+      "public": "Public",
       "home": "Home",
       "topics": "Topics",
       "users": "Users",
@@ -121,7 +121,13 @@
       "this is a required field": "this is a required field",
       "do you want to delete program": "Do do you want to delete program and all his topics?",
       "do you want to delete topic": "do you want to delete this topic and all his contents?",
-      "my topics": "My topics"
+      "my topics": "My topics",
+      "add one or more entries": "add one or more entries",
+      "create a new topic": "Create a new topic",
+      "edit topic": "Edit topic",
+      "add entrie": "Add Entrie",
+      "save and continue": "Save and Continue",
+      "save and open": "Save and Open"
     },
     "table": {
       "title": "Title",

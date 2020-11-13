@@ -8,6 +8,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 
 import { TOPICS_URL } from 'src/constants'
 
@@ -16,6 +17,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function Header({ className, title, ...rest }) {
+  const { t } = useTranslation()
   const classes = useStyles()
   return (
     <Grid
@@ -30,7 +32,7 @@ function Header({ className, title, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          {title ? `Edit Topic ${title}` : 'Create a new topic' }
+          {title ? `${t('admin.edit topic')} ${title}` : t('admin.create a new topic') }
         </Typography>
       </Grid>
       <Grid item>
@@ -38,7 +40,7 @@ function Header({ className, title, ...rest }) {
           component={RouterLink}
           to={`${TOPICS_URL}`}
         >
-          Cancel
+          {t('admin.cancel')}
         </Button>
       </Grid>
     </Grid>

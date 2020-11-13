@@ -87,7 +87,7 @@ function TopicCreateForm({
   const onSubmitFunction = async (values, { setErrors, setStatus, setSubmitting }) => {
     const data = { ...values, contents }
     if (!contents.length) {
-      setErrors({ submit: 'Добавьте одну или несколько записей' })
+      setErrors({ submit: t('admin.add one or more entries') })
       setSubmitting(false)
       return false
     }
@@ -124,8 +124,8 @@ function TopicCreateForm({
       initialValues={newInitialValue}
       validationSchema={Yup.object().shape({
         contents: Yup.array(),
-        program: Yup.string().required(),
-        title: Yup.string().max(255).required(),
+        program: Yup.string().required(t('admin.this is a required field')),
+        title: Yup.string().max(255).required(t('admin.this is a required field')),
         description: Yup.string().max(1500)
       })}
       onSubmit={onSubmitFunction}
@@ -212,7 +212,7 @@ function TopicCreateForm({
                       error={Boolean(touched.title && errors.title)}
                       fullWidth
                       helperText={touched.title && errors.title}
-                      label="Topic Title"
+                      label={t('admin.title')}
                       name="title"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -227,7 +227,7 @@ function TopicCreateForm({
                         error={Boolean(touched.description && errors.description)}
                         fullWidth
                         helperText={touched.description && errors.description}
-                        label="Topic description"
+                        label={t('admin.description')}
                         name="description"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -260,7 +260,7 @@ function TopicCreateForm({
                             onChange={(event) => setFieldValue('publish', event.target.checked)}
                           />
                       )}
-                        label="Publish"
+                        label={t('admin.publish')}
                       />
                     </Box>
                     {!programs ? null
@@ -270,7 +270,7 @@ function TopicCreateForm({
                           className={classes.formControl}
                           error={Boolean(touched.program && errors.program)}
                         >
-                          <InputLabel id="form-select-1">Выберите программу</InputLabel>
+                          <InputLabel id="form-select-1">{t('table.program')}</InputLabel>
                           <Select
                             labelId="form-select-1"
                             name="program"
@@ -321,7 +321,7 @@ function TopicCreateForm({
                     item
                   >
                     <Card>
-                      <CardHeader title="Content" />
+                      <CardHeader title={t('admin.entries')} />
                       <Divider />
                       <CardContent>
                         <EditRecordList
@@ -360,7 +360,7 @@ function TopicCreateForm({
                         onClick={onAdd}
                         startIcon={<AddOutlined />}
                       >
-                        Добавить запись
+                        {t('admin.add entrie')}
                       </Button>
                     </Box>
                   )}
@@ -387,7 +387,7 @@ function TopicCreateForm({
                 variant="contained"
                 disabled={isSubmitting}
               >
-                {id ? 'Update and continue' : 'Save and continue' }
+                {id ? t('admin.update and continue') : t('admin.save and continue') }
               </Button>
               <Button
                 color="secondary"
@@ -401,7 +401,7 @@ function TopicCreateForm({
               }
                 disabled={isSubmitting}
               >
-                {id ? 'Update and open' : 'Save and open' }
+                {id ? t('admin.update and open') : t('admin.save and open') }
               </Button>
             </Box>
 
