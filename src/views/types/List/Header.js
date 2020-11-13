@@ -12,9 +12,12 @@ import {
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    marginBottom: theme.spacing(2)
+  },
   action: {
     marginBottom: theme.spacing(1),
     '& + &': {
@@ -28,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ className, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid
@@ -43,7 +47,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          Types
+          {t('menu.types')}
         </Typography>
       </Grid>
       <Grid item>
@@ -60,7 +64,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Type
+          {t('admin.create')}
         </Button>
       </Grid>
     </Grid>

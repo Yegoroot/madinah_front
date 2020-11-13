@@ -23,6 +23,7 @@ import {
   Edit as EditIcon,
   Trash,
 } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 
 // import LoadingScreen from 'src/components/LoadingScreen'
 import { instanceAxios } from 'src/utils/axios'
@@ -61,6 +62,7 @@ function Results({ className, ...rest }) {
   const { enqueueSnackbar } = useSnackbar()
   const classes = useStyles()
 
+  const { t } = useTranslation()
   /**
  *
  *
@@ -111,19 +113,19 @@ function Results({ className, ...rest }) {
           <TableHead>
             <TableRow>
               <TableCell>
-                Title
+                {t('table.title')}
               </TableCell>
               <TableCell>
-                alias
+                {t('table.alias')}
               </TableCell>
               <TableCell>
-                color
+                {t('table.color')}
               </TableCell>
               <TableCell>
-                Id
+                {t('table.id')}
               </TableCell>
               <TableCell align="right">
-                Actions
+                {t('table.actions')}
               </TableCell>
             </TableRow>
           </TableHead>

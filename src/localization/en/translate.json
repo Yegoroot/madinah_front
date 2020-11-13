@@ -49,6 +49,10 @@
       "program was updated": "Program has been update",
       "user has been deleted": "User has been deleted",
       "user hasnt been deleted": "User hasn't been deleted",
+      "user was updated": "User was updated",
+      "user was created": "User was created",
+      "type was updated": "Type was updated",
+      "type was created": "Type was created",
       "app was update": "Available new version",
       "update": "Update"
     },
@@ -129,7 +133,9 @@
       "save and continue": "Save and Continue",
       "save and open": "Save and Open",
       "create a new user": "Create a user",
-      "edit user": "Edit user"
+      "edit user": "Edit user",
+      "edit type": "Edit type",
+      "create a new type": "Create a new type"
     },
     "table": {
       "title": "Title",
@@ -143,7 +149,9 @@
       "rows": "rows",
       "from": "from",
       "role": "Role",
-      "id": "Id"
+      "id": "Id",
+      "alias": "Alias",
+      "color": "Color"
     },
     "filter": {
       "level": "level",

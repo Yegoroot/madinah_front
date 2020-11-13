@@ -45,6 +45,10 @@
       "program was created": "Программа успешно создана",
       "user has been deleted": "Пользователь был удален",
       "user hasnt been deleted": "Пользователь не был удален",
+      "user was updated": "Пользователь был обновлен",
+      "user was created": "Пользователь был создан",
+      "type was updated": "Тип был обновлен",
+      "type was created": "Тип был создан",
       "app was update": "Доступна новая версия приложения",
       "update": "Обновить"
     },
@@ -125,7 +129,9 @@
       "save and continue": "Сохранить и продолжить",
       "save and open": "Сохранить и открыть",
       "create a new user": "Создать нового пользователя",
-      "edit user": "Редактировать пользователя"
+      "edit user": "Редактировать пользователя",
+      "edit type": "Редактировать тип",
+      "create a new type": "Создать тип"
     },
     "table": {
       "title": "Заголовок",
@@ -139,7 +145,9 @@
       "rows": "Строк",
       "from": "из",
       "role": "Роль",
-      "id": "Id"
+      "id": "Id",
+      "alias": "Alias",
+      "color": "Цвет"
     },
     "filter": {
       "level": "Уровень",

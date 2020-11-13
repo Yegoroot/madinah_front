@@ -64,7 +64,7 @@ function ProductCreateForm({
           if (id) {
             instanceAxios.put(`${API_BASE_URL}/users/${id}`, values)
               .then(() => {
-                enqueueSnackbar(`User ${values.title} Updated `, {
+                enqueueSnackbar(t('notify.user was updated'), {
                   variant: 'success',
                   autoHideDuration: 2000
                 })
@@ -76,7 +76,7 @@ function ProductCreateForm({
           } else {
             instanceAxios.post(`${API_BASE_URL}/users`, values)
               .then(() => {
-                enqueueSnackbar(`User ${values.title} Created `, {
+                enqueueSnackbar(t('notify.user was created'), {
                   variant: 'success',
                   autoHideDuration: 2000
                 })

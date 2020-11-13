@@ -52,6 +52,10 @@
       "program was updated": "تم تحديث البرنامج",
       "user has been deleted": "تم حذف المشارك",
       "user hasnt been deleted": "لم يتم حذف المشارك",
+      "user was updated": "تم تحديث المشارك",
+      "user was created": "تم إنشاء المشارك",
+      "type was updated": "تم تحديث الصفة",
+      "type was created": "تم إنشاء الصفة",
       "app was update": "الإصدار الجديد المتاح",
       "update": "تحديث"
     },
@@ -136,7 +140,9 @@
       "save and continue": "احفظ وتابع",
       "save and open": "حفظ وفتح",
       "create a new user": "إنشاء المشارك جديدًا",
-      "edit user": "تحرير المشارك"
+      "edit user": "تحرير المشارك",
+      "edit type": "تحرير الصفة",
+      "create a new type": "إنشاء الصفة جديدًا"
     },
     "table": {
       "title": "العنوان",
@@ -150,7 +156,9 @@
       "rows": "الصفوف",
       "from": "من",
       "role": "وظيفة",
-      "id": "Id"
+      "id": "Id",
+      "alias": "Alias",
+      "color": "اللون"
     },
     "filter": {
       "level": "المستوى",

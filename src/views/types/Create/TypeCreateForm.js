@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, TYPES_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -28,6 +29,7 @@ function ProductCreateForm({
   const classes = useStyles()
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
+  const { t } = useTranslation()
 
   return (
     <Formik
@@ -48,7 +50,7 @@ function ProductCreateForm({
           if (id) {
             instanceAxios.put(`${API_BASE_URL}/types/${id}`, values)
               .then(() => {
-                enqueueSnackbar(`Type ${values.title} Updated `, {
+                enqueueSnackbar(t('notify.type was updated'), {
                   variant: 'success',
                   autoHideDuration: 2000
                 })
@@ -60,7 +62,7 @@ function ProductCreateForm({
           } else {
             instanceAxios.post(`${API_BASE_URL}/types`, values)
               .then(() => {
-                enqueueSnackbar(`Type ${values.title} Created `, {
+                enqueueSnackbar(t('notify.type was created'), {
                   variant: 'success',
                   autoHideDuration: 2000
                 })
@@ -107,7 +109,7 @@ function ProductCreateForm({
                     error={Boolean(touched.title && errors.title)}
                     fullWidth
                     helperText={touched.title && errors.title}
-                    label="Type title"
+                    label={t('table.title')}
                     name="title"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -122,7 +124,7 @@ function ProductCreateForm({
                       error={Boolean(touched.alias && errors.alias)}
                       fullWidth
                       helperText={touched.alias && errors.alias}
-                      label="Type alias"
+                      label={t('table.alias')}
                       name="alias"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -138,7 +140,7 @@ function ProductCreateForm({
                       error={Boolean(touched.color && errors.color)}
                       fullWidth
                       helperText={touched.color && errors.color}
-                      label="Type color"
+                      label={t('table.color')}
                       name="color"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -171,7 +173,7 @@ function ProductCreateForm({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {id ? 'Update Type' : 'Create Type'}
+                  {id ? t('admin.update') : t('admin.create')}
                 </Button>
               </Box>
             </Grid>

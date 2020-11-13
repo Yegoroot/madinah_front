@@ -9,13 +9,17 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { TYPES_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(2)
+  }
 }))
 
 function Header({ className, type, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid
@@ -30,7 +34,7 @@ function Header({ className, type, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          {type ? 'Edit type' : 'Create a new type'}
+          {type ? t('admin.edit type') : t('admin.create a new type')}
         </Typography>
       </Grid>
       <Grid item>
@@ -38,7 +42,7 @@ function Header({ className, type, ...rest }) {
           component={RouterLink}
           to={`${TYPES_URL}`}
         >
-          Cancel
+          {t('admin.cancel')}
         </Button>
       </Grid>
     </Grid>
