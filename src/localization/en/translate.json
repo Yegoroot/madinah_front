@@ -109,8 +109,17 @@
       "new program": "create",
       "cancel": "cancel",
       "edit program": "Edit program",
-      "create a new program": "create a new program"
-      
+      "create a new program": "Create a new program",
+      "title": "Title",
+      "description": "Description",
+      "publish": "Publish",
+      "level": "Level",
+      "language": "Language",
+      "type of program": "Type of program" ,
+      "create": "create",
+      "update": "Update",
+      "upload image": "Upload Image",
+      "this is a required field": "this is a required field"
     },
     "table": {
       "title": "Title",

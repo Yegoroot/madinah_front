@@ -44,10 +44,14 @@
       "gotoprogram": "اذهب إلى البرامج",
       "chooselevel": "من فضلك اختر مستواك"
     },
-    "note": {
-      "notify": {
-        "was_created": "Note was created",
-        "was_update": "Note was update"
+    "notify": {
+      "topic": {
+        "was_created": "تم إنشاء الموضوع",
+        "was_updated": "تم تحديث الموضوع"
+      },
+      "program": {
+        "was_created": "تم إنشاء البرنامج",
+        "was_updated": "تم تحديث البرنامج"
       }
     },
     "components": {
@@ -78,7 +82,7 @@
       "users": "المشاركون",
       "managment": "الإدارة",
       "myProgram": "برنامجي",
-      "types": "صفات",
+      "types": "الصفات",
       "createProgram": "إنشاء البرنامج",
       "createTopic": "إنشاء الموضوع",
       "createUser": "إنشاء المشارك",
@@ -112,8 +116,17 @@
       "new program": "إنشاء البرنامج",
       "cancel": "إلغاء",
       "edit program": "تحرير البرنامج",
-      "create a new program": "إنشاء برنامج جديد"
-      
+      "create a new program": "إنشاء برنامج جديد",
+      "title": "العنوان",
+      "description": "الوصف",
+      "publish": "حالة نشر",
+      "level": "المستوى",
+      "language": "لغة الشرح",
+      "type of program": "صفات البرنامج" ,
+      "create": "الإنشاء",
+      "update": "التحديث",
+      "upload image": "تحميل الصور",
+      "this is a required field": "هذا مجال مطلوب"
     },
     "table": {
       "title": "العنوان",

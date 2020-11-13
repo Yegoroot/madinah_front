@@ -37,10 +37,14 @@
       "gotoprogram": "Перейти",
       "chooselevel": "Пожалуйста выберите свой уровень"
     },
-    "note": {
-      "notify": {
-        "was_created": "Note was created",
-        "was_update": "Note was update"
+    "notify": {
+      "topic": {
+        "was_created": "Тема успешно создана",
+        "was_updated": "Тема успещно обновлена"
+      },
+      "program": {
+        "was_created": "Программа успешно создана",
+        "was_updated": "Программа успешно обновлена"
       }
     },
     "components": {
@@ -101,7 +105,17 @@
       "new program": "Создать",
       "cancel": "отмена",
       "edit program": "редактирование программы",
-      "create a new program": "Создать новую программу"
+      "create a new program": "Создать новую программу",
+      "title": "Заголовок",
+      "description": "Описание",
+      "publish": "Опубликовано",
+      "level": "Уровень",
+      "language": "Язык объяснения",
+      "type of program": "Тип программы" ,
+      "create": "Создать",
+      "update": "Обновить",
+      "upload image": "Загрузить изображение",
+      "this is a required field": "Это поле объязательно к заполнению"
     },
     "table": {
       "title": "Заголовок",

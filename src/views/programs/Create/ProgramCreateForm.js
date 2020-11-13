@@ -56,10 +56,10 @@ function ProductCreateForm({
     <Formik
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
-        title: Yup.string().max(255).required(),
-        language: Yup.string().required(),
-        level: Yup.string().required(),
-        description: Yup.string().max(1500),
+        title: Yup.string().max(255).required(t('admin.this is a required field')),
+        language: Yup.string().required(t('admin.this is a required field')),
+        level: Yup.string().required(t('admin.this is a required field')),
+        description: Yup.string().max(400),
         types: Yup.array(),
       })}
       onSubmit={async (values, {
@@ -129,7 +129,7 @@ function ProductCreateForm({
                     error={Boolean(touched.title && errors.title)}
                     fullWidth
                     helperText={touched.title && errors.title}
-                    label="Program Title"
+                    label={t('admin.title')}
                     name="title"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -144,7 +144,7 @@ function ProductCreateForm({
                       error={Boolean(touched.description && errors.description)}
                       fullWidth
                       helperText={touched.description && errors.description}
-                      label="Program description"
+                      label={t('admin.description')}
                       name="description"
                       multiline
                       onBlur={handleBlur}
@@ -173,7 +173,7 @@ function ProductCreateForm({
                           className={classes.formControl}
                           error={Boolean(touched.level && errors.level)}
                         >
-                          <InputLabel id="form-select-4">Выберите уровень</InputLabel>
+                          <InputLabel id="form-select-4">{t('admin.level')}</InputLabel>
                           <Select
                             labelId="form-select-4"
                             name="level"
@@ -205,7 +205,7 @@ function ProductCreateForm({
                           className={classes.formControl}
                           error={Boolean(touched.language && errors.language)}
                         >
-                          <InputLabel id="form-select-5">Язык объяснения</InputLabel>
+                          <InputLabel id="form-select-5">{t('admin.language')}</InputLabel>
                           <Select
                             labelId="form-select-5"
                             name="language"
@@ -236,7 +236,7 @@ function ProductCreateForm({
                         className={classes.formControl}
                         error={Boolean(touched.types && errors.types)}
                       >
-                        <InputLabel id="demo-mutiple-chip-label">Choose type of program (if you want)</InputLabel>
+                        <InputLabel id="demo-mutiple-chip-label">{t('admin.type of program')}</InputLabel>
                         <Select
                           labelId="demo-mutiple-chip-label"
                           name="types"
@@ -313,7 +313,7 @@ function ProductCreateForm({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {id ? 'Update Program' : 'Create Program'}
+                  {id ? t('admin.update') : t('admin.create')}
                 </Button>
               </Box>
             </Grid>
@@ -323,8 +323,6 @@ function ProductCreateForm({
               lg={4}
             >
               <Card>
-                <CardHeader title="Organize" />
-                <Divider />
                 <CardContent>
                   <Box
                     px={1}
@@ -338,14 +336,14 @@ function ProductCreateForm({
                           onChange={(event) => setFieldValue('publish', event.target.checked)}
                         />
                       )}
-                      label="Publish"
+                      label={t('admin.publish')}
                     />
                   </Box>
                 </CardContent>
               </Card>
               <Box mt={3}>
                 <Card>
-                  <CardHeader title="Upload Images" />
+                  <CardHeader title={t('admin.upload image')} />
                   <Divider />
                   <CardContent>
                     <FilesDropzone
