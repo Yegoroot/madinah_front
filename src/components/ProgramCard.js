@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
+      textDecoration: 'none',
       background: `linear-gradient(${deg},  ${hex5} 25%,  ${hex3} 60%,  ${hex1} 100%)`
     },
     title: {
@@ -62,16 +63,18 @@ const useStyles = makeStyles((theme) => {
         marginBottom: 50,
       }
     },
+    buttons: {
+      position: 'absolute',
+      bottom: 0,
+      zIndex: 10
+    },
     button: {
       backgroundColor: theme.palette.background.dark
     },
     edit: {
       backgroundColor: theme.palette.background.dark,
       marginRight: theme.spacing(1)
-    },
-    description: {
-      textDecoration: 'none',
-    },
+    }
 
   }
 })
@@ -98,7 +101,10 @@ function ProgramCard({ program, className, ...rest }) {
     >
       <Box
         p={3}
+        mb={4}
         className={classes.box}
+        component={RouterLink}
+        to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
       >
 
         <Box className={classes.mediaContent}>
@@ -106,8 +112,6 @@ function ProgramCard({ program, className, ...rest }) {
           <Typography
             variant="h2"
             className={classes.title}
-            component={RouterLink}
-            to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
             color="textPrimary"
           >
 
@@ -118,9 +122,6 @@ function ProgramCard({ program, className, ...rest }) {
             <Typography
               color="textSecondary"
               variant="h4"
-              className={classes.description}
-              component={RouterLink}
-              to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
             >
               {program.description}
             </Typography>
@@ -138,9 +139,15 @@ function ProgramCard({ program, className, ...rest }) {
           </Box>
         </Box>
 
+      </Box>
+      <Box
+        p={3}
+        className={classes.buttons}
+      >
+
         { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
           : (
-            <div className={classes.buttons}>
+            <div>
               <Box
                 display="flex"
                 alignItems="center"
