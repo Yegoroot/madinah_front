@@ -109,7 +109,10 @@
     },
     "admin": {
       "my programs": "برامجي",
-      "new program": "إنشاء البرنامج"
+      "new program": "إنشاء البرنامج",
+      "cancel": "إلغاء",
+      "edit program": "تحرير البرنامج",
+      "create a new program": "إنشاء برنامج جديد"
       
     },
     "table": {
@@ -122,6 +125,10 @@
       "actions": "أجراءات",
       "rows": "الصفوف",
       "from": "من"
+    },
+    "filter": {
+      "level": "المستوى",
+      "language": "لغة الشرح"
     }
   }
 }

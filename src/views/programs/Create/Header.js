@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { PROGRAMS_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 import {
   // Breadcrumbs,
   Button,
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
 
 function Header({ className, id, ...rest }) {
   const classes = useStyles()
-
+  const { t } = useTranslation()
   return (
     <Grid
       className={clsx(classes.root, className)}
@@ -34,7 +35,7 @@ function Header({ className, id, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          {id ? 'Edit program' : 'Create a new program'}
+          {id ? t('admin.edit program') : t('admin.create a new program')}
         </Typography>
       </Grid>
       <Grid item>
@@ -42,7 +43,7 @@ function Header({ className, id, ...rest }) {
           component={RouterLink}
           to={`${PROGRAMS_URL}`}
         >
-          Cancel
+          {t('admin.cancel')}
         </Button>
       </Grid>
     </Grid>

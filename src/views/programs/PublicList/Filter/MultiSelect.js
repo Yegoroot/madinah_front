@@ -34,7 +34,6 @@ function MultiSelect({
   const classes = useStyles()
   const anchorRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(false)
-
   const handleMenuOpen = () => {
     setOpenMenu(true)
   }
@@ -70,7 +69,7 @@ function MultiSelect({
         onClick={handleMenuOpen}
         ref={anchorRef}
       >
-        {label}
+        {t(`filter.${label}`)}
         <ArrowDropDownIcon />
       </Button>
       <Menu

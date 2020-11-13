@@ -98,8 +98,10 @@
     },
     "admin": {
       "my programs": "Мои прорграммы",
-      "new program": "Создать"
-      
+      "new program": "Создать",
+      "cancel": "отмена",
+      "edit program": "редактирование программы",
+      "create a new program": "Создать новую программу"
     },
     "table": {
       "title": "Заголовок",
@@ -111,6 +113,10 @@
       "actions": "Действия",
       "rows": "Строк",
       "from": "из"
+    },
+    "filter": {
+      "level": "Уровень",
+      "language": "Язык объяснения"
     }
 
   }

@@ -106,7 +106,10 @@
     },
     "admin": {
       "my programs": "My programs",
-      "new program": "create"
+      "new program": "create",
+      "cancel": "cancel",
+      "edit program": "Edit program",
+      "create a new program": "create a new program"
       
     },
     "table": {
@@ -119,6 +122,10 @@
       "actions": "Actions",
       "rows": "rows",
       "from": "from"
+    },
+    "filter": {
+      "level": "level",
+      "language": "explanation language"
     }
   }
 }
