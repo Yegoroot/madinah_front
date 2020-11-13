@@ -121,7 +121,7 @@
       "add one or more entries": "Добавьте одну или несколько записей",
       "create a new topic": "Создать новую тему",
       "edit topic": "Редактировать тему",
-      "add entrie": "Добавить запись",
+      "add entry": "Добавить запись",
       "save and continue": "Сохранить и продолжить",
       "save and open": "Сохранить и открыть"
     },
@@ -145,6 +145,17 @@
       "select one file": "Выбрать файл",
       "select files": "Выбрать файлы",
       "change file": "Вы можете изменить выбранный файл" 
+    },
+    "entry": {
+      "add entry": "Добавить запись",
+      "subtitle": "Подзаголовок темы",
+      "save entry": "Сохранить запись",
+      "update entry": "Обновить запись",
+      "audio": "Аудио",
+      "text": "Текст",
+      "markdown": "Markdown",
+      "image": "Изображение",
+      "type entry": "Тип записи"
     }
 
   }

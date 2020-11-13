@@ -132,7 +132,7 @@
       "add one or more entries": "أضف إدخال واحد أو أكثر",
       "create a new topic": "إنشاء موضوعًا جديدًا",
       "edit topic": "تحرير المظهر",
-      "add entrie": "أضف ملاحظة",
+      "add entry": "أضف ملاحظة",
       "save and continue": "احفظ وتابع",
       "save and open": "حفظ وفتح"
     },
@@ -156,6 +156,17 @@
       "select one file": "حدد ملفًا واحدًا",
       "select files": "اختر الملفات",
       "change file": "يمكنك تغيير الملف المحدد" 
+    },
+    "entry": {
+      "add entry": "إضافة إدخال",
+      "subtitle": "العنوان الفرعي",
+      "save entry": "حفظ السجل",
+      "update entry": "سجل التحديث",
+      "audio": "السمعي",
+      "text": "النص",
+      "markdown": "Markdown",
+      "image": "الصورة",
+      "type entry": "نوع التسجيل"
     }
   }
 }

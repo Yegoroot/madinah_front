@@ -125,7 +125,7 @@
       "add one or more entries": "add one or more entries",
       "create a new topic": "Create a new topic",
       "edit topic": "Edit topic",
-      "add entrie": "Add Entrie",
+      "add entry": "Add Entrie",
       "save and continue": "Save and Continue",
       "save and open": "Save and Open"
     },
@@ -149,6 +149,17 @@
       "select one file": "Select one file",
       "select files": "Select files",
       "change file": "You can change the selected file" 
+    },
+    "entry": {
+      "add entry": "Adding entry",
+      "subtitle": "Subtitle",
+      "save entry": "Save entry",
+      "update entry": "Update entry",
+      "audio": "Audio",
+      "text": "Text",
+      "markdown": "Markdown",
+      "image": "Image",
+      "type entry": "Type of entry"
     }
   }
 }

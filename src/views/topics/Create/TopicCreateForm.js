@@ -360,7 +360,7 @@ function TopicCreateForm({
                         onClick={onAdd}
                         startIcon={<AddOutlined />}
                       >
-                        {t('admin.add entrie')}
+                        {t('admin.add entry')}
                       </Button>
                     </Box>
                   )}

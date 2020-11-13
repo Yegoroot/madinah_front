@@ -21,23 +21,24 @@ import AudioType from 'src/components/Record/Item/components/AudioType'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import LoadingScreen from 'src/components/LoadingScreen'
+import { useTranslation } from 'react-i18next'
 
 const CONTENT_TYPES = [
   {
     type: 'text',
-    title: 'Текстовая запись'
+    title: 'entry.text'
   },
   {
     type: 'markdown',
-    title: 'Markdown'
+    title: 'entry.markdown'
   },
   {
     type: 'image',
-    title: 'Image'
+    title: 'entry.image'
   },
   {
     type: 'audio',
-    title: 'Audio'
+    title: 'entry.audio'
   }
 ]
 
@@ -51,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
 function SectionCreate({
   initialValues, onCancel, onSave, isUpdate, topicId, programId
 }) {
+  const { t } = useTranslation()
+
   const defaultValues = {
     type: 'text',
     data: '',
@@ -114,7 +117,7 @@ function SectionCreate({
           />
         </Backdrop>
 
-        <CardHeader title="Добавить запись в заметку" />
+        <CardHeader title={t('entry.add entry')} />
         <Divider />
         <CardContent>
           <Grid
@@ -135,6 +138,7 @@ function SectionCreate({
                   type: event.target.value
                 })}
                 select
+                label={t('entry.type entry')}
                 SelectProps={{ native: true }}
                 value={section.type}
                 variant="outlined"
@@ -144,7 +148,7 @@ function SectionCreate({
                     key={type}
                     value={type}
                   >
-                    {title}
+                    {t(title)}
                   </option>
                 ))}
               </TextField>
@@ -157,7 +161,7 @@ function SectionCreate({
             >
               <TextField
                 fullWidth
-                label="Подзаголовок"
+                label={t('entry.subtitle')}
                 onChange={(e) => setSection({ ...section, subtitle: e.target.value })}
                 name="subtitle"
                 id="subtitle"
@@ -218,11 +222,11 @@ function SectionCreate({
               onClick={onSaveHandler}
               variant="contained"
             >
-              {isUpdate ? 'Обновить запись' : 'Сохранить запись'}
+              {isUpdate ? t('entry.update entry') : t('entry.save entry')}
             </Button>
             <Box flexGrow={1} />
             <Button onClick={onCancelHandler}>
-              Отмена
+              {t('admin.cancel')}
             </Button>
           </Box>
         </CardContent>
