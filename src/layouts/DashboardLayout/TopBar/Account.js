@@ -3,7 +3,7 @@ import React, {
   useState
 } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
-import { LogIn as LogInIcon } from 'react-feather'
+import { LogIn as LogInIcon, LogOut, Clipboard } from 'react-feather'
 import { useSnackbar } from 'notistack'
 import {
   // Avatar,
@@ -28,8 +28,11 @@ const useStyles = makeStyles((theme) => ({
   //   width: 32,
   //   marginRight: theme.spacing(1)
   // },
+  icon: {
+    marginRight: theme.spacing(1)
+  },
   popover: {
-    width: 123
+    width: 150
   },
   fingprint: {
     fontSize: '1.8rem'
@@ -129,6 +132,12 @@ const Account = () => {
             component={RouterLink}
             to="/app/programs"
           >
+            <SvgIcon
+              fontSize="small"
+              className={classes.icon}
+            >
+              <Clipboard />
+            </SvgIcon>
             {t('components.account.dashboard')}
           </MenuItem>
           {/* <MenuItem
@@ -138,6 +147,12 @@ const Account = () => {
             Account
           </MenuItem> */}
           <MenuItem onClick={handleLogout}>
+            <SvgIcon
+              fontSize="small"
+              className={classes.icon}
+            >
+              <LogOut />
+            </SvgIcon>
             {t('components.account.logout')}
           </MenuItem>
         </Menu>
