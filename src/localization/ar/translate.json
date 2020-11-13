@@ -125,7 +125,6 @@
       "type of program": "صفات البرنامج" ,
       "create": "الإنشاء",
       "update": "التحديث",
-      "upload image": "تحميل الصور",
       "this is a required field": "هذا مجال مطلوب"
     },
     "table": {
@@ -142,6 +141,11 @@
     "filter": {
       "level": "المستوى",
       "language": "لغة الشرح"
+    },
+    "dropImage": {
+      "select one file": "حدد ملفًا واحدًا",
+      "select files": "اختر الملفات",
+      "change file": "يمكنك تغيير الملف المحدد" 
     }
   }
 }

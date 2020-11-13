@@ -10,8 +10,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
-  Divider,
   FormHelperText,
   Grid,
   TextField,
@@ -229,73 +227,50 @@ function ProductCreateForm({
                     </Grid>
                   </Box>
 
-                  {!allTypes.length ? null
-                    : (
-                      <FormControl
-                        fullWidth
-                        className={classes.formControl}
-                        error={Boolean(touched.types && errors.types)}
+                  <Box
+                    mb={2}
+                  >
+
+                    {allTypes.length && (
+                    <FormControl
+                      fullWidth
+                      className={classes.formControl}
+                      error={Boolean(touched.types && errors.types)}
+                    >
+                      <InputLabel id="demo-mutiple-chip-label">{t('admin.type of program')}</InputLabel>
+                      <Select
+                        labelId="demo-mutiple-chip-label"
+                        name="types"
+                        multiple
+                        value={values.types}
+                        onChange={handleChange}
+                        input={<Input id="select-multiple-chip" />}
+                        renderValue={(selected) => (
+                          <div className={classes.chips}>
+                            {selected.map((value) => (
+                              <Chip
+                                key={value}
+                                label={allTypes.find((el) => el._id === value).title}
+                              />
+                            ))}
+                          </div>
+                        )}
                       >
-                        <InputLabel id="demo-mutiple-chip-label">{t('admin.type of program')}</InputLabel>
-                        <Select
-                          labelId="demo-mutiple-chip-label"
-                          name="types"
-                          multiple
-                          value={values.types}
-                          onChange={handleChange}
-                          input={<Input id="select-multiple-chip" />}
-                          renderValue={(selected) => (
-                            <div className={classes.chips}>
-                              {selected.map((value) => (
-                                <Chip
-                                  key={value}
-                                  label={allTypes.find((el) => el._id === value).title}
-                                />
-                              ))}
-                            </div>
-                          )}
-                        >
-                          {allTypes.map((name) => (
-                            <MenuItem
-                              key={name._id}
-                              value={name._id}
-                            >
-                              {name.title}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <FormHelperText>{touched.types && errors.types}</FormHelperText>
-                      </FormControl>
+                        {allTypes.map((name) => (
+                          <MenuItem
+                            key={name._id}
+                            value={name._id}
+                          >
+                            {name.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>{touched.types && errors.types}</FormHelperText>
+                    </FormControl>
                     ) }
-                  {/*
-                  {!allTypes ? null
-                    : (
-                      <FormControl
-                        fullWidth
-                        className={classes.formControl}
-                        error={Boolean(touched.types && errors.types)}
-                      >
-                        <InputLabel id="form-select-1">Choose types</InputLabel>
-                        <Select
-                          labelId="form-select-1"
-                          name="types"
-                          value={values.program}
-                          displayEmpty
-                          onChange={handleChange}
-                          input={<Input id="select-multiple-chip" />}
-                        >
-                          {allTypes.map((t) => (
-                            <MenuItem
-                              key={t._id}
-                              value={t._id}
-                            >
-                              {t.title}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <FormHelperText>{touched.types && errors.types}</FormHelperText>
-                      </FormControl>
-                    )} */}
+
+                  </Box>
+
                 </CardContent>
               </Card>
 
@@ -306,58 +281,54 @@ function ProductCreateForm({
                   </FormHelperText>
                 </Box>
               )}
-              <Box mt={2}>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {id ? t('admin.update') : t('admin.create')}
-                </Button>
-              </Box>
             </Grid>
             <Grid
               item
               xs={12}
               lg={4}
             >
-              <Card>
-                <CardContent>
-                  <Box
-                    px={1}
-                  >
-                    <FormControlLabel
-                      control={(
-                        <Switch
-                          checked={values.publish}
-                          edge="start"
-                          name="publish"
-                          onChange={(event) => setFieldValue('publish', event.target.checked)}
-                        />
-                      )}
-                      label={t('admin.publish')}
-                    />
-                  </Box>
-                </CardContent>
-              </Card>
-              <Box mt={3}>
+              <Box mb={2}>
                 <Card>
-                  <CardHeader title={t('admin.upload image')} />
-                  <Divider />
                   <CardContent>
-                    <FilesDropzone
-                      setFieldValue={setFieldValue}
-                      srcPhoto={srcPhoto}
-                      one
-                      type="photo"
-                    />
+                    <Box px={1}>
+                      <FormControlLabel
+                        control={(
+                          <Switch
+                            checked={values.publish}
+                            edge="start"
+                            name="publish"
+                            onChange={(event) => setFieldValue('publish', event.target.checked)}
+                          />
+                      )}
+                        label={t('admin.publish')}
+                      />
+                    </Box>
                   </CardContent>
                 </Card>
               </Box>
+              <Card>
+                <CardContent>
+                  <FilesDropzone
+                    setFieldValue={setFieldValue}
+                    srcPhoto={srcPhoto}
+                    one
+                    type="photo"
+                  />
+                </CardContent>
+              </Card>
+
             </Grid>
           </Grid>
-
+          <Box mt={2}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {id ? t('admin.update') : t('admin.create')}
+            </Button>
+          </Box>
         </form>
       )}
     </Formik>

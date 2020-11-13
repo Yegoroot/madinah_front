@@ -118,8 +118,8 @@
       "type of program": "Type of program" ,
       "create": "create",
       "update": "Update",
-      "upload image": "Upload Image",
-      "this is a required field": "this is a required field"
+      "this is a required field": "this is a required field",
+      "browse": ""
     },
     "table": {
       "title": "Title",
@@ -135,6 +135,11 @@
     "filter": {
       "level": "level",
       "language": "explanation language"
+    },
+    "dropImage": {
+      "select one file": "Select one file",
+      "select files": "Select files",
+      "change file": "You can change the selected file" 
     }
   }
 }

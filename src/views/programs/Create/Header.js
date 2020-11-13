@@ -14,8 +14,10 @@ import {
 } from '@material-ui/core'
 // import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(2)
+  }
 }))
 
 function Header({ className, id, ...rest }) {
@@ -33,6 +35,7 @@ function Header({ className, id, ...rest }) {
 
         <Typography
           variant="h1"
+
           color="textPrimary"
         >
           {id ? t('admin.edit program') : t('admin.create a new program')}

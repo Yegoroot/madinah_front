@@ -5,11 +5,7 @@ import clsx from 'clsx'
 import { useDropzone } from 'react-dropzone'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
-  // IconButton,
-  // Tooltip,
-  Box,
   Button,
-  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -18,7 +14,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
-// import MoreIcon from '@material-ui/icons/MoreVert'
+import { useTranslation } from 'react-i18next'
 import bytesToSize from 'src/utils/bytesToSize'
 
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +71,7 @@ function FilesDropzone({
 }) {
   const classes = useStyles()
   const [files, setFiles] = useState([])
+  const { t } = useTranslation()
 
   const src = () => {
     if (files[0] && type === 'photo') {
@@ -154,33 +151,17 @@ function FilesDropzone({
         <div>
           <Typography
             gutterBottom
-            variant="h3"
+            variant="h4"
           >
-            {/* eslint-disable-next-line no-nested-ternary */}
-
+            {/*  eslint-disable-next-line no-nested-ternary */}
             {files.length
-              ? 'You can change the selected file'
+              ? t('dropImage.change file')
               : one
-                ? 'Select one file'
-                : 'Select files'}
+                ? t('dropImage.select one file')
+                : t('dropImage.select files')}
 
           </Typography>
-          <Box mt={2}>
-            <Typography
-              color="textPrimary"
-              variant="body1"
-            >
-              Drop
-              {' '}
-              {one ? 'file' : 'files'}
-              {' '}
-              here or click
-              {' '}
-              <Link underline="always">browse</Link>
-              {' '}
-              thorough your machine
-            </Typography>
-          </Box>
+
         </div>
       </div>
       {files.length > 0 && (

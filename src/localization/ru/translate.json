@@ -114,7 +114,6 @@
       "type of program": "Тип программы" ,
       "create": "Создать",
       "update": "Обновить",
-      "upload image": "Загрузить изображение",
       "this is a required field": "Это поле объязательно к заполнению"
     },
     "table": {
@@ -131,6 +130,11 @@
     "filter": {
       "level": "Уровень",
       "language": "Язык объяснения"
+    },
+    "dropImage": {
+      "select one file": "Выбрать файл",
+      "select files": "Выбрать файлы",
+      "change file": "Вы можете изменить выбранный файл" 
     }
 
   }
