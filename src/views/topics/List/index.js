@@ -12,6 +12,7 @@ import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { getTopicListRequest, deleteTopic, module } from 'src/slices/topic'
 import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Header from './Header'
 import TableDataMobile from './TableDataMobile'
 import TableDataDesktop from './TableDataDesktop'
@@ -33,6 +34,7 @@ function Results() {
   const { loading, data } = useSelector((state) => state[module].list)
   let { total } = useSelector((state) => state[module].list)
 
+  const { t } = useTranslation()
   const [filters] = useState({
     category: null,
     availability: null,
@@ -41,7 +43,7 @@ function Results() {
   })
 
   const onDelete = (topicId) => {
-    if (window.confirm('Delete topic and all content inside?')) {
+    if (window.confirm(t('admin.do you want to delete topic'))) {
       dispatch(deleteTopic({ topicId }))
       total -= 1
     }
@@ -70,7 +72,7 @@ function Results() {
   return (
     <Page
       className={classes.root}
-      title="My Topics List"
+      title={t('admin.my topics')}
     >
       <Container maxWidth={false}>
         <Header />
@@ -95,8 +97,8 @@ function Results() {
               onChangeRowsPerPage={handleLimitChange}
               page={page}
               rowsPerPage={limit}
-              labelRowsPerPage="Строк:"
-              labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+              labelRowsPerPage={t('table.rows')}
+              labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('table.from')} ${count}`}
               rowsPerPageOptions={[5, 10, 25]}
             />
           </Card>

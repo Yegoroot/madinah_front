@@ -19,8 +19,8 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import { useTranslation } from 'react-i18next'
 import {
-  // Image as ImageIcon,
   Trash,
   Edit as EditIcon,
   ArrowRight as ArrowRightIcon,
@@ -39,6 +39,7 @@ const useRowStyles = makeStyles({
 function Row({ topic, onDelete }) {
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
+  const { t } = useTranslation()
   return (
     <>
       <TableRow className={classes.root}>
@@ -142,7 +143,7 @@ function Row({ topic, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    User
+                    {t('table.user')}
                   </Typography>
                   {topic.user.name}
                   <br />
@@ -154,7 +155,7 @@ function Row({ topic, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    Created
+                    {t('table.created')}
                   </Typography>
                   {moment(topic.createdAt).format('DD.MM.YYYY')}
                 </Grid>
@@ -165,7 +166,7 @@ function Row({ topic, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    Program
+                    {t('table.program')}
                   </Typography>
                   {topic.program.title}
                 </Grid>
@@ -199,17 +200,18 @@ Row.propTypes = {
 }
 
 export default function CollapsibleTable({ data, onDelete }) {
+  const { t } = useTranslation()
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Title</TableCell>
+            <TableCell>{t('table.title')}</TableCell>
             <Hidden mdDown>
-              <TableCell>Program</TableCell>
+              <TableCell>{t('table.program')}</TableCell>
             </Hidden>
-            <TableCell align="right">Actions</TableCell>
+            <TableCell align="right">{t('table.actions')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

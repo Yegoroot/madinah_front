@@ -12,6 +12,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { Trash as TrashIcon, Edit as EditIcon } from 'react-feather'
 import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL, UPLOADS_URL } from 'src/constants'
@@ -81,11 +82,12 @@ const useStyles = makeStyles((theme) => {
 
 function ProgramCard({ program, className, ...rest }) {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const classes = useStyles()
   const { user } = useAuth()
   const role = user ? user.role : null
   const handleDelete = () => {
-    if (window.confirm('delete program and all content inside?')) {
+    if (window.confirm(t('admin.do you want to delete program'))) {
       dispatch(deleteProgram({ programId: program.id }))
     }
   }

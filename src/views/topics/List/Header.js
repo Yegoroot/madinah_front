@@ -2,6 +2,7 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
 import {
   Button,
   Grid,
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ className, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid
@@ -43,7 +45,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          My Topics
+          {t('admin.my topics')}
         </Typography>
       </Grid>
       <Grid item>
@@ -60,7 +62,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Topic
+          {t('admin.create')}
         </Button>
       </Grid>
     </Grid>

@@ -114,10 +114,14 @@
       "type of program": "Тип программы" ,
       "create": "Создать",
       "update": "Обновить",
-      "this is a required field": "Это поле объязательно к заполнению"
+      "this is a required field": "Это поле объязательно к заполнению",
+      "do you want to delete program": "Хотите удалить эту программу и все темы относящиеся к ней?",
+      "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?",
+      "my topics": "Мои темы"
     },
     "table": {
       "title": "Заголовок",
+      "program": "Программа",
       "user": "Пользователь",
       "types": "Типы",
       "status": "Статус",

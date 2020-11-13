@@ -40,13 +40,6 @@ function TopicCard({
   const { user } = useAuth()
   const role = user ? user.role : null
 
-  // const handleDelete = () => {
-  //   // eslint-disable-next-line no-restricted-globals
-  //   if (confirm('delete topic and all content inside?')) {
-  //     dispatch(deleteTopic({ topicId: topic.id }))
-  //   }
-  // }
-
   return (
     <div>
 
