@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import { useTranslation } from 'react-i18next'
 import Header from './Header'
 import TableDataMobile from './TableDataMobile'
 import TableDataDesktop from './TableDataDesktop'
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Results() {
   const classes = useStyles()
-
+  const { t } = useTranslation()
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
 
@@ -78,7 +79,7 @@ function Results() {
   return (
     <Page
       className={classes.root}
-      title="Program List"
+      title={t('admin.my programs')}
     >
       <Container maxWidth={false}>
         <Header />
@@ -105,8 +106,8 @@ function Results() {
               onChangePage={handlePageChange}
               onChangeRowsPerPage={handleLimitChange}
               page={page}
-              labelRowsPerPage="Строк:"
-              labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+              labelRowsPerPage={`${t('table.rows')}:`}
+              labelDisplayedRows={({ from, to, count }) => `${from} - ${to} ${t('table.from')} ${count}`}
               rowsPerPage={limit}
               rowsPerPageOptions={[5, 10, 25]}
             />

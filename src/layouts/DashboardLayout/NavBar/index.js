@@ -18,6 +18,7 @@ import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
 import i18n from 'i18next'
 import Logo from 'src/components/Logo'
 import useAuth from 'src/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 import NavItem from './NavItem'
 import { defineSectionsByRole } from './mainMenuByRole'
 
@@ -87,6 +88,7 @@ function reduceChildRoutes({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStylesMenu()
   const location = useLocation()
+  const { t } = useTranslation()
   const { user } = useAuth()
 
   const sections = defineSectionsByRole({ role: user.role })
@@ -149,7 +151,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               variant="h6"
               color="textPrimary"
             >
-              What is happening?
+              {t('menu.know more')}
             </Typography>
             <Link
               variant="subtitle1"
@@ -157,18 +159,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               component={RouterLink}
               to="/app/info"
             >
-              Realise and Plan
+              {t('menu.changelog')}
             </Link>
             ,
             {'  '}
-
             <Link
               variant="subtitle1"
               color="secondary"
               component={RouterLink}
               to="/app/feedback"
             >
-              Feedback
+              {t('menu.feedback')}
             </Link>
           </Box>
         </Box>

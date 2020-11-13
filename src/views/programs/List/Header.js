@@ -13,6 +13,7 @@ import {
 } from 'react-feather'
 import { Link as RouterLink } from 'react-router-dom'
 import { PROGRAMS_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ className, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid
@@ -39,59 +41,12 @@ function Header({ className, ...rest }) {
       {...rest}
     >
       <Grid item>
-        {/* <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app"
-            component={RouterLink}
-          >
-            Dashboard
-          </Link>
-          <Link
-            variant="body1"
-            color="inherit"
-            to="/app/management"
-            component={RouterLink}
-          >
-            Management
-          </Link>
-          <Typography
-            variant="body1"
-            color="textPrimary"
-          >
-            Topics
-          </Typography>
-        </Breadcrumbs> */}
         <Typography
           variant="h1"
           color="textPrimary"
         >
-          My Programs
+          {t('admin.my programs')}
         </Typography>
-        {/* <Box mt={2}>
-          <Button className={classes.action}>
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
-            >
-              <UploadIcon />
-            </SvgIcon>
-            Import
-          </Button>
-          <Button className={classes.action}>
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
-            >
-              <DownloadIcon />
-            </SvgIcon>
-            Export
-          </Button>
-        </Box> */}
       </Grid>
       <Grid item>
         <Button
@@ -107,7 +62,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New Program
+          {t('admin.new program')}
         </Button>
       </Grid>
     </Grid>

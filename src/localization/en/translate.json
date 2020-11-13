@@ -79,7 +79,10 @@
       "createProgram": "Create Program",
       "createTopic": "Create Topic",
       "createUser": "Create User",
-      "createTypes": "Create Type"
+      "createType": "Create Type",
+      "know more": "Know more",
+      "changelog": "Changelog",
+      "feedback": "Feedback"
     },
     "chips": {
       "ar": "العربية" ,
@@ -90,6 +93,32 @@
       "preintermediate": "Pre Intermediate",
       "intermediate": "Intermediate",
       "upperintermediate": "Upper Intermediate" 
+    },
+    "pageNotFound": {
+      "title": "404: Not found",
+      "header": "404: The page you are looking for isn’t here",
+      "message": "You either tried some shady route or you came here by mistake. Whichever it is, try using the navigation.",
+      "backButton": "Back to home"
+    },
+    "message": {
+      "app was update": "Available new version",
+      "update": "Update"
+    },
+    "admin": {
+      "my programs": "My programs",
+      "new program": "create"
+      
+    },
+    "table": {
+      "title": "Title",
+      "user": "User",
+      "types": "Types",
+      "status": "Status",
+      "topics": "Topics",
+      "created": "Created",
+      "actions": "Actions",
+      "rows": "rows",
+      "from": "from"
     }
   }
 }

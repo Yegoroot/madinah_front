@@ -28,6 +28,7 @@ import {
 import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 import Type from 'src/components/Type'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 
 const useRowStyles = makeStyles({
   root: {
@@ -40,6 +41,7 @@ const useRowStyles = makeStyles({
 function Row({ program, onDelete }) {
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
+  const { t } = useTranslation()
   return (
     <>
       <TableRow className={classes.root}>
@@ -136,7 +138,7 @@ function Row({ program, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    User
+                    {t('table.user')}
                   </Typography>
                   {program.user.name}
                   <br />
@@ -148,7 +150,7 @@ function Row({ program, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    Created
+                    {t('table.created')}
                   </Typography>
                   {moment(program.createdAt).format('DD.MM.YYYY')}
                 </Grid>
@@ -158,7 +160,7 @@ function Row({ program, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    Types
+                    {t('table.types')}
                   </Typography>
                   <Box mx={-1}>
                     {program.types.map((type) => (
@@ -177,7 +179,7 @@ function Row({ program, onDelete }) {
                     gutterBottom
                     component="div"
                   >
-                    Topics
+                    {t('table.topics')}
                   </Typography>
                   {program.topics.map((topic) => (
                     <Label key={topic.id}>{topic.title}</Label>
@@ -221,14 +223,19 @@ Row.propTypes = {
 }
 
 export default function CollapsibleTable({ data, onDelete }) {
+  const { t } = useTranslation()
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Actions</TableCell>
+            <TableCell>
+              {t('table.title')}
+            </TableCell>
+            <TableCell align="right">
+              {t('table.actions')}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

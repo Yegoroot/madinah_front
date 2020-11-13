@@ -3,9 +3,11 @@ import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { onUpdateServiceWorker, module } from 'src/slices/sWorker'
+import { useTranslation } from 'react-i18next'
 
 export default function SimpleSnackbar() {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { isNewVersionServiceWorker } = useSelector((state) => state[module])
 
   const handleClose = (event, reason) => {
@@ -34,7 +36,7 @@ export default function SimpleSnackbar() {
       open={isNewVersionServiceWorker}
       // autoHideDuration={95000}
       onClose={handleClose}
-      message="Available new version"
+      message={t('message.app was update')}
       action={(
         <>
           <Button
@@ -42,7 +44,7 @@ export default function SimpleSnackbar() {
             size="small"
             onClick={handleClose}
           >
-            Update
+            {t('message.update')}
           </Button>
         </>
         )}

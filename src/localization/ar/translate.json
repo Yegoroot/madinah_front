@@ -82,7 +82,10 @@
       "createProgram": "إنشاء البرنامج",
       "createTopic": "إنشاء الموضوع",
       "createUser": "إنشاء المشارك",
-      "createTypes": "إنشاء صفة"
+      "createType": "إنشاء صفة",
+      "know more": "معلومة اضافية",
+      "changelog": "التغيير",
+      "feedback": "ردود الفعل"
     },
     "chips": {
       "ar": "العربية" ,
@@ -93,6 +96,32 @@
       "elementary": "ابتدائي",
       "intermediate": "المتوسط",
       "upperintermediate": "فوق المتوسط" 
+    },
+    "pageNotFound": {
+      "title": "404 غير موجود",
+      "header": "الصفحة التي تبحث عنها ليست هنا",
+      "message": "إما أنك جربت طريقًا مشبوهًا أو أتيت إلى هنا عن طريق الخطأ. أيهما ، حاول استخدام الملاحة",
+      "backButton": "العودة إلى الرئيسية"
+    },
+    "message": {
+      "app was update": "الإصدار الجديد المتاح",
+      "update": "تحديث"
+    },
+    "admin": {
+      "my programs": "برامجي",
+      "new program": "إنشاء البرنامج"
+      
+    },
+    "table": {
+      "title": "العنوان",
+      "user": "المشارك",
+      "types": "صفات",
+      "status": "الحالة",
+      "topics": "المواضيع",
+      "created": "تم إنشاء",
+      "actions": "أجراءات",
+      "rows": "الصفوف",
+      "from": "من"
     }
   }
 }

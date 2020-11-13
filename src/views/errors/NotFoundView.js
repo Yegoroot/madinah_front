@@ -10,6 +10,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,11 +34,12 @@ const NotFoundView = () => {
   const classes = useStyles()
   const theme = useTheme()
   const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'))
+  const { t } = useTranslation()
 
   return (
     <Page
       className={classes.root}
-      title="404: Not found"
+      title={t('pageNotFound.title')}
     >
       <Container maxWidth="lg">
         <Typography
@@ -45,15 +47,14 @@ const NotFoundView = () => {
           variant={mobileDevice ? 'h4' : 'h1'}
           color="textPrimary"
         >
-          404: The page you are looking for isn’t here
+          {t('pageNotFound.header')}
         </Typography>
         <Typography
           align="center"
           variant="subtitle2"
           color="textSecondary"
         >
-          You either tried some shady route or you
-          came here by mistake. Whichever it is, try using the navigation.
+          {t('pageNotFound.message')}
         </Typography>
         <Box
           mt={6}
@@ -61,7 +62,7 @@ const NotFoundView = () => {
           justifyContent="center"
         >
           <img
-            alt="Under development"
+            alt="Learn Arabic"
             className={classes.image}
             src="/static/images/undraw_page_not_found_su7k.svg"
           />
@@ -77,7 +78,7 @@ const NotFoundView = () => {
             to="/"
             variant="outlined"
           >
-            Back to home
+            {t('pageNotFound.backButton')}
           </Button>
         </Box>
       </Container>

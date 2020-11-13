@@ -21,36 +21,37 @@ import {
   ArrowRight as ArrowRightIcon,
 } from 'react-feather'
 import IsPublishLabel from 'src/components/IsPublishLabel'
-
+import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import Type from 'src/components/Type'
 
 function Results({ data, onDelete }) {
+  const { t } = useTranslation()
   return (
 
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
-            Title
+            {t('table.title')}
           </TableCell>
           <TableCell>
-            User
+            {t('table.user')}
           </TableCell>
           <TableCell>
-            Types
+            {t('table.types')}
           </TableCell>
           <TableCell>
-            Status
+            {t('table.status')}
           </TableCell>
           <TableCell>
-            Topics
+            {t('table.topics')}
           </TableCell>
           <TableCell>
-            Created
+            {t('table.created')}
           </TableCell>
           <TableCell align="right">
-            Actions
+            {t('table.actions')}
           </TableCell>
         </TableRow>
       </TableHead>
