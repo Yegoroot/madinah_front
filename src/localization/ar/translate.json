@@ -64,6 +64,9 @@
       "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه",
       "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته"
     },
+    "error": {
+      "Network Error": "فشل تحميل البيانات. تحقق من اتصالك بالإنترنت"
+    },
     "components": {
       "settings": {
         "save_settings": "حفظ الإعدادات",
