@@ -52,7 +52,7 @@ function Results() {
   }, [dispatch, page, limit, filters])
 
   const onDelete = (programId) => {
-    if (window.confirm(t('admin.do you want to delete program'))) {
+    if (window.confirm(t('alert.do you want to delete program'))) {
       dispatch(deleteProgram({ programId }))
       total -= 1
     }

@@ -22,6 +22,7 @@
       "Name is required": "Name is required",
       "register": "Register",
       "password": "Password",
+      "role": "Role",
       "Password is required": "Password is required",
       "email": "Email Address",
       "Email is required": "Email is required",
@@ -42,14 +43,19 @@
       "chooselevel": "Please select your level"
     },
     "notify": {
-      "topic": {
-        "was_created": "Topic was created",
-        "was_updated": "Topic was update"
-      },
-      "program": {
-        "was_created": "Program was created",
-        "was_updated": "Program was update"
-      }
+      "topic was created": "Topic has been created",
+      "topic was updated": "Topic has been update",
+      "program was created": "Program has been created",
+      "program was updated": "Program has been update",
+      "user has been deleted": "User has been deleted",
+      "user hasnt been deleted": "User hasn't been deleted",
+      "app was update": "Available new version",
+      "update": "Update"
+    },
+    "alert": {
+      "do you want to delete this user": "Do you want to delete this user?",
+      "do you want to delete program": "Do do you want to delete program and all his topics?",
+      "do you want to delete topic": "Do you want to delete this topic and all his contents?"
     },
     "components": {
       "settings": {
@@ -100,10 +106,6 @@
       "message": "You either tried some shady route or you came here by mistake. Whichever it is, try using the navigation.",
       "backButton": "Back to home"
     },
-    "message": {
-      "app was update": "Available new version",
-      "update": "Update"
-    },
     "admin": {
       "my programs": "My programs",
       "new program": "create",
@@ -118,16 +120,16 @@
       "type of program": "Type of program" ,
       "create": "create",
       "update": "Update",
-      "this is a required field": "this is a required field",
-      "do you want to delete program": "Do do you want to delete program and all his topics?",
-      "do you want to delete topic": "do you want to delete this topic and all his contents?",
+      "this is a required field": "This is a required field",
       "my topics": "My topics",
-      "add one or more entries": "add one or more entries",
+      "add one or more entries": "Add one or more entries",
       "create a new topic": "Create a new topic",
       "edit topic": "Edit topic",
-      "add entry": "Add Entrie",
+      "add entry": "Add entrie",
       "save and continue": "Save and Continue",
-      "save and open": "Save and Open"
+      "save and open": "Save and Open",
+      "create a new user": "Create a user",
+      "edit user": "Edit user"
     },
     "table": {
       "title": "Title",
@@ -139,7 +141,9 @@
       "created": "Created",
       "actions": "Actions",
       "rows": "rows",
-      "from": "from"
+      "from": "from",
+      "role": "Role",
+      "id": "Id"
     },
     "filter": {
       "level": "level",

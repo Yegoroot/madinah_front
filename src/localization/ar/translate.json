@@ -24,6 +24,7 @@
       "name": "الاسم",
       "register": "تسجيل الحساب",
       "password": "كلمة السر",
+      "role": "وظيفة",
       "email": "البريد الإلكتروني",
       "Name is required": "الاسم مطلوب",
       "Password is required": "كلمة السر مطلوب",
@@ -45,14 +46,19 @@
       "chooselevel": "من فضلك اختر مستواك"
     },
     "notify": {
-      "topic": {
-        "was_created": "تم إنشاء الموضوع",
-        "was_updated": "تم تحديث الموضوع"
-      },
-      "program": {
-        "was_created": "تم إنشاء البرنامج",
-        "was_updated": "تم تحديث البرنامج"
-      }
+      "topic was created": "تم إنشاء الموضوع",
+      "topic was updated": "تم تحديث الموضوع",
+      "program was created": "تم إنشاء البرنامج",
+      "program was updated": "تم تحديث البرنامج",
+      "user has been deleted": "تم حذف المشارك",
+      "user hasnt been deleted": "لم يتم حذف المشارك",
+      "app was update": "الإصدار الجديد المتاح",
+      "update": "تحديث"
+    },
+    "alert": {
+      "do you want to delete this user": "هل تريد حذف هذا المشارك",
+      "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه",
+      "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته"
     },
     "components": {
       "settings": {
@@ -107,10 +113,6 @@
       "message": "إما أنك جربت طريقًا مشبوهًا أو أتيت إلى هنا عن طريق الخطأ. أيهما ، حاول استخدام الملاحة",
       "backButton": "العودة إلى الرئيسية"
     },
-    "message": {
-      "app was update": "الإصدار الجديد المتاح",
-      "update": "تحديث"
-    },
     "admin": {
       "my programs": "برامجي",
       "new program": "إنشاء البرنامج",
@@ -126,15 +128,15 @@
       "create": "الإنشاء",
       "update": "التحديث",
       "this is a required field": "هذا مجال مطلوب",
-      "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه",
-      "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته",
       "my topics": "موضوعاتي",
       "add one or more entries": "أضف إدخال واحد أو أكثر",
       "create a new topic": "إنشاء موضوعًا جديدًا",
       "edit topic": "تحرير المظهر",
       "add entry": "أضف ملاحظة",
       "save and continue": "احفظ وتابع",
-      "save and open": "حفظ وفتح"
+      "save and open": "حفظ وفتح",
+      "create a new user": "إنشاء المشارك جديدًا",
+      "edit user": "تحرير المشارك"
     },
     "table": {
       "title": "العنوان",
@@ -146,7 +148,9 @@
       "created": "تم إنشاء",
       "actions": "أجراءات",
       "rows": "الصفوف",
-      "from": "من"
+      "from": "من",
+      "role": "وظيفة",
+      "id": "Id"
     },
     "filter": {
       "level": "المستوى",

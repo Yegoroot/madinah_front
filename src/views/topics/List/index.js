@@ -43,7 +43,7 @@ function Results() {
   })
 
   const onDelete = (topicId) => {
-    if (window.confirm(t('admin.do you want to delete topic'))) {
+    if (window.confirm(t('alert.do you want to delete topic'))) {
       dispatch(deleteTopic({ topicId }))
       total -= 1
     }

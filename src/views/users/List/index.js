@@ -13,6 +13,7 @@ import {
 // import { API_BASE_URL } from 'src/config'
 // import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
+import { useTranslation } from 'react-i18next'
 import Header from './Header'
 import Results from './Results'
 
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomerListView() {
   const classes = useStyles()
+  const { t } = useTranslation()
   // const isMountedRef = useIsMountedRef()
   // const [orders, setOrders] = useState(null)
   // const getOrders = useCallback(() => {
@@ -53,7 +55,7 @@ function CustomerListView() {
   return (
     <Page
       className={classes.root}
-      title="User List"
+      title={t('menu.users')}
     >
       <Container maxWidth={false}>
         <Header />

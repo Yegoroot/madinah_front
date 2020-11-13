@@ -96,7 +96,7 @@ function TopicCreateForm({
     try {
       const method = id ? 'put' : 'post'
       const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
-      const message = id ? t('notify.topic.was_updated') : t('notify.topic.was_created')
+      const message = id ? t('notify.topic was updated') : t('notify.topic was created')
       setLoading(true)
       axios[method](url, data)
         .then((response) => {

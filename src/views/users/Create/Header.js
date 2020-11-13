@@ -9,6 +9,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { USERS_URL } from 'src/constants'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
 
 function Header({ className, user, ...rest }) {
   const classes = useStyles()
-
+  const { t } = useTranslation()
   return (
     <Grid
       className={clsx(classes.root, className)}
@@ -30,7 +31,7 @@ function Header({ className, user, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          {user ? 'Edit user' : 'Create a new user'}
+          {user ? t('admin.update user') : t('admin.create a new user')}
         </Typography>
       </Grid>
       <Grid item>
@@ -38,7 +39,7 @@ function Header({ className, user, ...rest }) {
           component={RouterLink}
           to={`${USERS_URL}`}
         >
-          Cancel
+          {t('admin.cancel')}
         </Button>
       </Grid>
     </Grid>

@@ -12,6 +12,7 @@ import {
 import {
   PlusCircle as PlusCircleIcon,
 } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ className, ...rest }) {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid
@@ -43,7 +45,7 @@ function Header({ className, ...rest }) {
           variant="h1"
           color="textPrimary"
         >
-          Users
+          {t('menu.users')}
         </Typography>
       </Grid>
       <Grid item>
@@ -60,7 +62,7 @@ function Header({ className, ...rest }) {
           >
             <PlusCircleIcon />
           </SvgIcon>
-          New User
+          {t('admin.create')}
         </Button>
       </Grid>
     </Grid>

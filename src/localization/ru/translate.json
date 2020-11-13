@@ -13,6 +13,7 @@
       "name": "Имя",
       "register": "Регистрация",
       "password": "Пароль",
+      "role": "Роль",
       "Name is required": "Имя обязательно к заполнению",
       "Password is required": "Пароль обязателен для заполнения",
       "Email is required": "Email обязателен к заполнению",
@@ -38,14 +39,19 @@
       "chooselevel": "Пожалуйста выберите свой уровень"
     },
     "notify": {
-      "topic": {
-        "was_created": "Тема успешно создана",
-        "was_updated": "Тема успещно обновлена"
-      },
-      "program": {
-        "was_created": "Программа успешно создана",
-        "was_updated": "Программа успешно обновлена"
-      }
+      "topic was created": "Тема успешно создана",
+      "topic was updated": "Тема успещно обновлена",
+      "program was updated": "Программа успешно обновлена",
+      "program was created": "Программа успешно создана",
+      "user has been deleted": "Пользователь был удален",
+      "user hasnt been deleted": "Пользователь не был удален",
+      "app was update": "Доступна новая версия приложения",
+      "update": "Обновить"
+    },
+    "alert": {
+      "do you want to delete this user": "Вы действительно хотите удалить этого пользователя?",
+      "do you want to delete program": "Хотите удалить эту программу и все темы относящиеся к ней?",
+      "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?"
     },
     "components": {
       "settings": {
@@ -96,10 +102,6 @@
       "message": "Не ясно как вы сюда попали. Что бы это ни было, попробуйте использовать навигацию.",
       "backButton": "Перейти на главную"
     },
-    "message": {
-      "app was update": "Доступна новая версия приложения",
-      "update": "Обновить"
-    },
     "admin": {
       "my programs": "Мои прорграммы",
       "new program": "Создать",
@@ -115,15 +117,15 @@
       "create": "Создать",
       "update": "Обновить",
       "this is a required field": "Это поле объязательно к заполнению",
-      "do you want to delete program": "Хотите удалить эту программу и все темы относящиеся к ней?",
-      "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?",
       "my topics": "Мои темы",
       "add one or more entries": "Добавьте одну или несколько записей",
       "create a new topic": "Создать новую тему",
       "edit topic": "Редактировать тему",
       "add entry": "Добавить запись",
       "save and continue": "Сохранить и продолжить",
-      "save and open": "Сохранить и открыть"
+      "save and open": "Сохранить и открыть",
+      "create a new user": "Создать нового пользователя",
+      "edit user": "Редактировать пользователя"
     },
     "table": {
       "title": "Заголовок",
@@ -135,7 +137,9 @@
       "created": "Создано",
       "actions": "Действия",
       "rows": "Строк",
-      "from": "из"
+      "from": "из",
+      "role": "Роль",
+      "id": "Id"
     },
     "filter": {
       "level": "Уровень",

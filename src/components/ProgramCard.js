@@ -87,7 +87,7 @@ function ProgramCard({ program, className, ...rest }) {
   const { user } = useAuth()
   const role = user ? user.role : null
   const handleDelete = () => {
-    if (window.confirm(t('admin.do you want to delete program'))) {
+    if (window.confirm(t('alert.do you want to delete program'))) {
       dispatch(deleteProgram({ programId: program.id }))
     }
   }

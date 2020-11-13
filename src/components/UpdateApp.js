@@ -36,7 +36,7 @@ export default function SimpleSnackbar() {
       open={isNewVersionServiceWorker}
       // autoHideDuration={95000}
       onClose={handleClose}
-      message={t('message.app was update')}
+      message={t('notify.app was update')}
       action={(
         <>
           <Button
@@ -44,7 +44,7 @@ export default function SimpleSnackbar() {
             size="small"
             onClick={handleClose}
           >
-            {t('message.update')}
+            {t('notify.update')}
           </Button>
         </>
         )}

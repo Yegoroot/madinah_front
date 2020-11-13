@@ -32,6 +32,7 @@ import { instanceAxios } from 'src/utils/axios'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import { API_BASE_URL } from 'src/constants'
 import { useSnackbar } from 'notistack'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -62,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Results({ className, ...rest }) {
   const classes = useStyles()
-  // const [page, setPage] = useState(0)
-  // const [limit, setLimit] = useState(10)
+  const { t } = useTranslation()
   const { enqueueSnackbar } = useSnackbar()
 
   // const dispatch = useDispatch()
@@ -85,28 +85,20 @@ function Results({ className, ...rest }) {
   }, [getUsers])
 
   const onDelete = (id) => {
-    if (window.confirm('do you want to delete this user?')) {
+    if (window.confirm(t('alert.do you want to delete this user'))) {
       instanceAxios
         .delete(`${API_BASE_URL}/users/${id}`)
         .then(() => {
-          enqueueSnackbar('User was deleted', { variant: 'success' })
+          enqueueSnackbar(t('notify.user has been deleted'), { variant: 'success' })
           const newUsers = users.filter((u) => u._id !== id)
           console.log(newUsers)
           setUsers(newUsers)
         })
         .catch(() => {
-          enqueueSnackbar('User wasnt deleted', { variant: 'error' })
+          enqueueSnackbar(t('notify.user hasnt been deleted'), { variant: 'error' })
         })
     }
   }
-
-  // const handlePageChange = (event, newPage) => {
-  //   setPage(newPage)
-  // }
-
-  // const handleLimitChange = (event) => {
-  //   setLimit(event.target.value)
-  // }
 
   return (
     <Card
@@ -120,16 +112,16 @@ function Results({ className, ...rest }) {
           <TableHead>
             <TableRow>
               <TableCell>
-                Name
+                {t('table.title')}
               </TableCell>
               <TableCell>
-                Role
+                {t('table.role')}
               </TableCell>
               <TableCell>
-                Id
+                {t('table.id')}
               </TableCell>
               <TableCell align="right">
-                Actions
+                {t('table.actions')}
               </TableCell>
             </TableRow>
           </TableHead>

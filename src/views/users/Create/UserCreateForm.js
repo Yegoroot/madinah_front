@@ -23,6 +23,7 @@ import {
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL, USERS_URL } from 'src/constants'
 import useAuth from 'src/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -35,6 +36,7 @@ function ProductCreateForm({
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
   const { user } = useAuth()
+  const { t } = useTranslation()
 
   const allowUsers = user.role === 'superadmin'
     ? ['superadmin', 'admin', 'teacher', 'user']
@@ -44,8 +46,8 @@ function ProductCreateForm({
     <Formik
       initialValues={initialValue}
       validationSchema={Yup.object().shape({
-        name: Yup.string().max(255).required(),
-        email: Yup.string().email().required(),
+        name: Yup.string().max(255).required(t('admin.this is a required field')),
+        email: Yup.string().email().required(t('admin.this is a required field')),
         role: Yup.string(),
         // password: Yup.string().min(6, 'Min 6').required()
       })}
@@ -121,7 +123,7 @@ function ProductCreateForm({
                     error={Boolean(touched.name && errors.name)}
                     fullWidth
                     helperText={touched.name && errors.name}
-                    label="User name"
+                    label={t('pageAuth.name')}
                     name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -136,7 +138,7 @@ function ProductCreateForm({
                       error={Boolean(touched.email && errors.email)}
                       fullWidth
                       helperText={touched.email && errors.email}
-                      label="User email"
+                      label={t('pageAuth.email')}
                       name="email"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -153,7 +155,7 @@ function ProductCreateForm({
                       className={classes.formControl}
                       error={Boolean(touched.role && errors.role)}
                     >
-                      <InputLabel id="form-select-1">Role</InputLabel>
+                      <InputLabel id="form-select-1">{t('pageAuth.role')}</InputLabel>
                       <Select
                         labelId="form-select-1"
                         name="role"
@@ -185,7 +187,7 @@ function ProductCreateForm({
                           error={Boolean(touched.password && errors.password)}
                           fullWidth
                           helperText={touched.password && errors.password}
-                          label="User password"
+                          label={t('pageAuth.password')}
                           name="password"
                           onBlur={handleBlur}
                           onChange={handleChange}
@@ -219,7 +221,7 @@ function ProductCreateForm({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {id ? 'Update User' : 'Create User'}
+                  {id ? t('admin.update') : t('admin.create')}
                 </Button>
               </Box>
             </Grid>
