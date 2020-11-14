@@ -14,7 +14,7 @@
       "create": "إنشاء برنامج جديد",
       "title": "العنوان"
     },
-    "pageAuth":{
+    "pageAuth": {
       "signin": "تسجيل الدخول",
       "login": "الدخول",
       "createAccount": "إنشاء الحساب",
@@ -73,7 +73,7 @@
         "title": "الإعدادات",
         "font": "أحجام الخطوط المناسبة",
         "theme": {
-          "title":  "السمة",
+          "title": "السمة",
           "ONE_DARK": "غامق",
           "LIGHT": "فاتح"
         }
@@ -88,31 +88,31 @@
       "ago": "منذ"
     },
     "menu": {
-      "programs": "الببرامج",
+      "programs": "البرامج",
       "public": "العامة",
       "home": "الصفحة الرئيسية",
       "topics": "الموضوعات",
       "users": "المشاركون",
       "managment": "الإدارة",
-      "myProgram": "برنامجي",
+      "myProgram": "برامجي",
       "types": "الصفات",
       "createProgram": "إنشاء البرنامج",
       "createTopic": "إنشاء الموضوع",
       "createUser": "إنشاء المشارك",
       "createType": "إنشاء صفة",
-      "know more": "معلومة اضافية",
+      "know more": "معلومة إضافية",
       "changelog": "التغيير",
       "feedback": "ردود الفعل"
     },
     "chips": {
-      "ar": "العربية" ,
-      "en": "English" ,
+      "ar": "العربية",
+      "en": "English",
       "ru": "Русский",
       "beginner": "المبتدئ",
       "preintermediate": "قبل المتوسط",
       "elementary": "ابتدائي",
       "intermediate": "المتوسط",
-      "upperintermediate": "فوق المتوسط" 
+      "upperintermediate": "فوق المتوسط"
     },
     "pageNotFound": {
       "title": "404 غير موجود",
@@ -131,10 +131,10 @@
       "publish": "حالة نشر",
       "level": "المستوى",
       "language": "لغة الشرح",
-      "type of program": "صفات البرنامج" ,
+      "type of program": "صفات البرنامج",
       "create": "الإنشاء",
       "update": "التحديث",
-      "this is a required field": "هذا مجال مطلوب",
+      "this is a required field": "حقل مطلوب",
       "my topics": "موضوعاتي",
       "add one or more entries": "أضف إدخال واحد أو أكثر",
       "create a new topic": "إنشاء موضوعًا جديدًا",
@@ -155,7 +155,7 @@
       "status": "الحالة",
       "topics": "المواضيع",
       "created": "تم إنشاء",
-      "actions": "أجراءات",
+      "actions": "إجراءات",
       "rows": "الصفوف",
       "from": "من",
       "role": "وظيفة",
@@ -170,14 +170,14 @@
     "dropImage": {
       "select one file": "حدد ملفًا واحدًا",
       "select files": "اختر الملفات",
-      "change file": "يمكنك تغيير الملف المحدد" 
+      "change file": "يمكنك تغيير الملف المحدد"
     },
     "entry": {
-      "add entry": "إضافة إدخال",
+      "add entry": "إضافة ملاحظة",
       "subtitle": "العنوان الفرعي",
       "save entry": "حفظ السجل",
       "update entry": "سجل التحديث",
-      "audio": "السمعي",
+      "audio": "الصوتي",
       "text": "النص",
       "markdown": "Markdown",
       "image": "الصورة",
