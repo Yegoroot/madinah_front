@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
   },
   actionIcon: {
     marginRight: theme.spacing(1)
+  },
+  description: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3)
   }
 }))
 
@@ -141,6 +145,7 @@ function Header({ topic }) {
 
           <Typography
             variant="h5"
+            className={classes.description}
             color="textPrimary"
           >
             {topic.description}

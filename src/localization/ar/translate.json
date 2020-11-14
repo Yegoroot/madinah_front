@@ -142,10 +142,13 @@
       "add entry": "أضف ملاحظة",
       "save and continue": "احفظ وتابع",
       "save and open": "حفظ وفتح",
+      "update and continue": "تحديث وتابع",
+      "update and open": "تحديث وفتح",
       "create a new user": "إنشاء المشارك جديدًا",
       "edit user": "تحرير المشارك",
       "edit type": "تحرير الصفة",
-      "create a new type": "إنشاء الصفة جديدًا"
+      "create a new type": "إنشاء الصفة جديدًا",
+      "entries": "السجل"
     },
     "table": {
       "title": "العنوان",
@@ -173,15 +176,15 @@
       "change file": "يمكنك تغيير الملف المحدد"
     },
     "entry": {
-      "add entry": "إضافة ملاحظة",
+      "add entry": "إضافة التسجيل",
       "subtitle": "العنوان الفرعي",
-      "save entry": "حفظ السجل",
-      "update entry": "سجل التحديث",
       "audio": "الصوتي",
+      "save entry": "حفظ التسجيل",
+      "update entry": "تحديث التسجيل",
       "text": "النص",
       "markdown": "Markdown",
       "image": "الصورة",
-      "type entry": "نوع التسجيل"
+      "type entry": "صفة التسجيل"
     }
   }
 }
