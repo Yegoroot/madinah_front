@@ -47,7 +47,7 @@ export default function SimpleSnackbar() {
             {t('notify.update')}
           </Button>
         </>
-        )}
+              )}
     />
   )
 }
