@@ -166,7 +166,6 @@ const MyWaveSurfer = ({
 
   return (
     <>
-
       {subtitle && <h2 style={{ paddingBottom: 20 }}>{subtitle}</h2>}
 
       <Box mb={2}>
@@ -176,16 +175,19 @@ const MyWaveSurfer = ({
         />
       </Box>
 
-      {isLoading ? <LoadingScreen /> : null }
-      <Header
-        isPlay={isPlay}
-        onPlay={onPlay}
-        isEdit={isEdit}
-        onSaveChanges={onSaveChanges}
-        minValueSlider={minValueSlider}
-        valueSlider={valueSlider}
-        handleSlider={handleSlider}
-      />
+      { isLoading
+        ? <LoadingScreen />
+        : (
+          <Header
+            isPlay={isPlay}
+            onPlay={onPlay}
+            isEdit={isEdit}
+            onSaveChanges={onSaveChanges}
+            minValueSlider={minValueSlider}
+            valueSlider={valueSlider}
+            handleSlider={handleSlider}
+          />
+        )}
 
       <Annotations
         noteOriginal={noteOriginal}
