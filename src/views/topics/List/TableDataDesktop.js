@@ -81,9 +81,9 @@ function Results({ data, onDelete }) {
               <IsPublishLabel isPublish={topic.publish} />
             </TableCell>
             <TableCell>
-              {topic.user.name}
+              {topic.user ? topic.user.name : 'deleted'}
               <br />
-              {topic.user.email}
+              {topic.user ? topic.user.email : 'deleted'}
             </TableCell>
             <TableCell>
               {`${topic.program.title}`}
