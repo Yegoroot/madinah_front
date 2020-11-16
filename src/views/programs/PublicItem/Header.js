@@ -114,7 +114,8 @@ const Header = ({
         small
       />
       <div className={classes.content}>
-        <Container maxWidth="lg">
+        {/* <Container maxWidth="lg"> */}
+        <Container>
           <Box
             position="relative"
             display="flex"

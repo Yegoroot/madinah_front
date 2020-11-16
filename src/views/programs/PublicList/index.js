@@ -12,7 +12,7 @@ import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, module } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
-// import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useHistory, } from 'react-router-dom'
 import Filter from './Filter'
 import Results from './Results'
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function ProgramBrowseView({ location, match }) {
   const history = useHistory()
   const dispatch = useDispatch()
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   const classes = useStyles()
 
   const { loading, data } = useSelector((state) => state[module].list)
@@ -71,7 +71,7 @@ function ProgramBrowseView({ location, match }) {
       urlParams.append(label, value)
       history.push({ search: `?${urlParams.toString()}`, /* state: {} */ })
     }
-    console.log(newFilter)
+
     // dispatch(getProgramListRequest({ params: newFilter }))
   }
 
@@ -85,9 +85,9 @@ function ProgramBrowseView({ location, match }) {
   return (
     <Page
       className={classes.root}
-      title="Program List"
+      title={t('menu.programs')}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth={false}>
 
         {/* <Typography
           variant="h1"

@@ -1,14 +1,14 @@
 import React, {
-  useState,
+  // useState,
   useEffect
 } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box,
   Container,
-  Divider,
-  Tab,
-  Tabs,
+  // Divider,
+  // Tab,
+  // Tabs,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
@@ -20,7 +20,7 @@ import useAuth from 'src/hooks/useAuth'
 import { get_item } from 'src/utils/permissions'
 import Header from './Header'
 import Topics from './Topics'
-import Files from './Files'
+// import Files from './Files'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,15 +34,15 @@ const ProgramItem = ({ match, location }) => {
   const dispatch = useDispatch()
   const { loading, data, topics } = useSelector((state) => state[module].item)
   const classes = useStyles()
-  const [currentTab, setCurrentTab] = useState('topics')
+  // const [currentTab, setCurrentTab] = useState('topics')
   const { user } = useAuth()
-  const tabs = [
-    { value: 'topics', label: 'Topics' },
-    { value: 'files', label: 'Files' },
-  ]
-  const handleTabsChange = (event, value) => {
-    setCurrentTab(value)
-  }
+  // const tabs = [
+  //   { value: 'topics', label: 'Topics' },
+  //   { value: 'files', label: 'Files' },
+  // ]
+  // const handleTabsChange = (event, value) => {
+  //   setCurrentTab(value)
+  // }
 
   const type = get_item({ location, user }) ? 'private' : ''
 
@@ -71,8 +71,9 @@ const ProgramItem = ({ match, location }) => {
         topics={topics}
         type={type}
       />
-      <Container maxWidth="lg">
-        <Box mt={3}>
+      {/* <Container maxWidth="lg"> */}
+      <Container>
+        {/* <Box mt={3}>
           <Tabs
             onChange={handleTabsChange}
             scrollButtons="auto"
@@ -88,8 +89,17 @@ const ProgramItem = ({ match, location }) => {
               />
             ))}
           </Tabs>
+        </Box> */}
+        <Box
+          py={3}
+          pb={6}
+        >
+          <Topics
+            topics={topics}
+            programId={programId}
+          />
         </Box>
-        <Divider />
+        {/* <Divider />
         <Box
           py={3}
           pb={6}
@@ -101,7 +111,7 @@ const ProgramItem = ({ match, location }) => {
           />
           )}
           {currentTab === 'files' && <Files files={[]} />}
-        </Box>
+        </Box> */}
       </Container>
     </Page>
   )
