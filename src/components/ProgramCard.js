@@ -147,7 +147,7 @@ function ProgramCard({ program, className, ...rest }) {
         className={classes.buttons}
       >
 
-        { !perm_work_with_program(role) || !document_is_my_own(user, program.user._id) ? null
+        { !perm_work_with_program(role) || !document_is_my_own(user, program.user) ? null
           : (
             <div>
               <Box

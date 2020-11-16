@@ -174,7 +174,7 @@ const Header = ({
         </Container>
       </div>
       {
-        !user || !document_is_my_own(user, program.user._id) ? null
+        !user || !document_is_my_own(user, program.user) ? null
           : (
             <Box className={classes.button}>
               <Button

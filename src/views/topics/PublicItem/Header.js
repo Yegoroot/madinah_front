@@ -132,7 +132,7 @@ function Header({ topic }) {
             color="textPrimary"
           >
             {topic.title}
-            { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(user.role) ? null
+            { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(user.role) ? null
               : (
                 <>
                   <IconButton
@@ -164,7 +164,7 @@ function Header({ topic }) {
             alignItems="center"
             flexWrap="wrap"
           >
-            { !isAuthenticated || !document_is_my_own(user, topic.user._id) ? null
+            { !isAuthenticated || !document_is_my_own(user, topic.user) ? null
               : (
                 <div className={classes.badge}>
                   <SvgIcon

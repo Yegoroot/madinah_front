@@ -67,7 +67,7 @@ function TopicCard({
           {' '}
           {topic.title}
         </Link>
-        { !user || !document_is_my_own(user, topic.user._id) || !perm_work_with_program(role) ? null
+        { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(role) ? null
           : (
             <>
               <IconButton
