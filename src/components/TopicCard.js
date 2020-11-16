@@ -2,6 +2,8 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import 'moment/locale/ar'
+import 'moment/locale/ru'
 import {
   Box,
   IconButton,
@@ -17,6 +19,8 @@ import {
 import { PUBLIC_PROGRAMS_URL, TOPICS_URL } from 'src/constants'
 import { perm_work_with_program, document_is_my_own } from 'src/utils/permissions'
 import useAuth from 'src/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
+import useSettings from 'src/hooks/useSettings'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -35,10 +39,12 @@ const useStyles = makeStyles((theme) => ({
 function TopicCard({
   data, className, topic, programId, ...rest
 }) {
-  // const dispatch = useDispatch()
+  const { settings } = useSettings()
   const classes = useStyles()
   const { user } = useAuth()
   const role = user ? user.role : null
+  const { t } = useTranslation()
+  moment.locale(settings.lang)
 
   return (
     <div>
@@ -99,7 +105,7 @@ function TopicCard({
               variant="body2"
               color="textSecondary"
             >
-              Created
+              {t('time.created')}
               {' '}
               {moment(topic.updatedAt).fromNow()}
             </Typography>

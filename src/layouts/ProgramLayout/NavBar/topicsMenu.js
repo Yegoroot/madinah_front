@@ -24,12 +24,12 @@ const additionalMenu = [{
   href: '/app/account',
   items: [
     {
-      title: 'Home',
+      title: 'menu.home',
       href: '/home',
       icon: Home
     },
     {
-      title: 'Programs',
+      title: 'menu.programs',
       href: '/programs',
       icon: BookOpen
     },

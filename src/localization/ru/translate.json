@@ -1,7 +1,12 @@
 {
   "translations": {
-    "toolbar": {
-      "programsButtom": "Программы"
+    "programspage": {
+      "choose": "Выберите параметры для поиска",
+      "count": "Найдено программ:"
+    },
+    "pageProgram": {
+      "add topic": "Добавить тему",
+      "set order of topics": "Сортировка тем" 
     },
     "pageAuth":{
       "signin": "Войти в систему",
@@ -23,10 +28,6 @@
       "I have read": "Я прочитал",
       "Terms and Conditions": "Условия и Соглашения",
       "I agree with them": "и согласен с ними"
-    },
-    "programspage": {
-      "choose": "Выберите параметры для поиска",
-      "count": "Найдено программ:"
     },
     "homepage": {
       "title": "Главная",
@@ -58,6 +59,7 @@
       "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?"
     },
     "error": {
+      "Request failed with status code 401": "Ошибка авторизации, проверьте введенный e mail и пароль",
       "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение"
     },
     "components": {
@@ -74,7 +76,13 @@
       "account": {
         "dashboard": "Управление",
         "logout": "Выход"
-      }
+      },
+      "active": "Активный",
+      "inactive": "Не активый",
+      "share": "Поделиться"
+    },
+    "time": {
+      "created": "Созданно"
     },
     "menu": {
       "programs": "Программы",
@@ -131,10 +139,13 @@
       "add entry": "Добавить запись",
       "save and continue": "Сохранить и продолжить",
       "save and open": "Сохранить и открыть",
+      "update and continue": "Обновить и продолжить",
+      "update and open": "Обновить и открыть",
       "create a new user": "Создать нового пользователя",
       "edit user": "Редактировать пользователя",
       "edit type": "Редактировать тип",
-      "create a new type": "Создать тип"
+      "create a new type": "Создать тип",
+      "entries": "Записи"
     },
     "table": {
       "title": "Заголовок",
@@ -172,6 +183,5 @@
       "image": "Изображение",
       "type entry": "Тип записи"
     }
-
   }
 }

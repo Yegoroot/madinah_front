@@ -1,18 +1,12 @@
 {
   "translations": {
-    "toolbar": {
-      "programsButtom": "مناهج"
-    },
     "programspage": {
       "choose": "اختر المعلمات للبحث",
       "count": "عدد البرامج المقترحة"
     },
     "pageProgram": {
       "add topic": "إضافة الموضوع",
-      "set order of topics": "ترتيب الموضوعات",
-      "topics": "الموضوعات",
-      "create": "إنشاء برنامج جديد",
-      "title": "العنوان"
+      "set order of topics": "ترتيب الموضوعات"
     },
     "pageAuth": {
       "signin": "تسجيل الدخول",
@@ -65,6 +59,7 @@
       "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته"
     },
     "error": {
+      "Request failed with status code 401": "خطأ في التفويض ، تحقق من البريد الإلكتروني الذي تم إدخاله وكلمة المرور",
       "Network Error": "فشل تحميل البيانات. تحقق من اتصالك بالإنترنت"
     },
     "components": {
@@ -81,11 +76,13 @@
       "account": {
         "dashboard": "لوحة التحكم",
         "logout": "الخروج"
-      }
+      },
+      "active": "فعلي",
+      "inactive": "غير فعلي",
+      "share": "تشارك"
     },
     "time": {
-      "created": "تم إنشاء",
-      "ago": "منذ"
+      "created": "تم إنشاء"
     },
     "menu": {
       "programs": "البرامج",

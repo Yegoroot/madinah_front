@@ -58,7 +58,7 @@ const TopBar = ({ className, ...rest }) => {
           to="/programs"
           variant="outlined"
         >
-          {t('toolbar.programsButtom')}
+          {t('menu.programs')}
         </Button> */}
         <Box flexGrow={1} />
         <Settings />

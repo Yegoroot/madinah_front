@@ -78,7 +78,7 @@ const TopBar = ({
           to="/programs"
           variant="outlined"
         >
-          {t('toolbar.programsButtom')}
+          {t('menu.programs')}
         </Button>
         <Box
           ml={2}

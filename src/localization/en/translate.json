@@ -1,15 +1,12 @@
 {
   "translations": {
-    "toolbar": {
-      "programsButtom": "Programs"
+    "programspage": {
+      "choose": "Choose params for searching",
+      "count": "Programs was found"
     },
     "pageProgram": {
       "add topic": "add topic",
       "set order of topics": "set order of topics" 
-    },
-    "programspage": {
-      "choose": "Choose params for searching",
-      "count": "Programs was found"
     },
     "pageAuth":{
       "signin": "Sign in",
@@ -19,10 +16,10 @@
       "signDescription": "Sign in on the internal platform",
       "registerDescription": "Register on the internal platform",
       "name": "Name",
-      "Name is required": "Name is required",
       "register": "Register",
       "password": "Password",
       "role": "Role",
+      "Name is required": "Name is required",
       "Password is required": "Password is required",
       "email": "Email Address",
       "Email is required": "Email is required",
@@ -62,6 +59,7 @@
       "do you want to delete topic": "Do you want to delete this topic and all his contents?"
     },
     "error": {
+      "Request failed with status code 401": "Authorization error, check the entered e-mail and password",
       "Network Error": "Failed to load data. Check your Internet connection"
     },
     "components": {
@@ -78,7 +76,13 @@
       "account": {
         "dashboard": "Dashboard",
         "logout": "Logout"
-      }
+      },
+      "active": "Active",
+      "inactive": "Inactive",
+      "share": "Share"
+    },
+    "time": {
+      "created": "Created"
     },
     "menu": {
       "programs": "Programs",
@@ -135,10 +139,13 @@
       "add entry": "Add entrie",
       "save and continue": "Save and Continue",
       "save and open": "Save and Open",
+      "update and continue": "Update and Continue",
+      "update and open": "Update and Open",
       "create a new user": "Create a user",
       "edit user": "Edit user",
       "edit type": "Edit type",
-      "create a new type": "Create a new type"
+      "create a new type": "Create a new type",
+      "entries": "Entries"
     },
     "table": {
       "title": "Title",

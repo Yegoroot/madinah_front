@@ -4,6 +4,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import clsx from 'clsx'
 import moment from 'moment'
+import 'moment/locale/ar'
+import 'moment/locale/ru'
 import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
@@ -28,6 +30,8 @@ import {
 } from 'react-feather'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 
+import { useTranslation } from 'react-i18next'
+import useSettings from 'src/hooks/useSettings'
 import { document_is_my_own, perm_work_with_program } from 'src/utils/permissions'
 import { onShare } from 'src/utils/urls'
 
@@ -57,8 +61,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Header({ topic }) {
+  const { settings } = useSettings()
   const classes = useStyles()
   const { user, isAuthenticated } = useAuth()
+  const { t } = useTranslation()
+  moment.locale(settings.lang)
   return (
     <>
       <Grid
@@ -79,7 +86,7 @@ function Header({ topic }) {
               to={PUBLIC_PROGRAMS_URL}
               component={RouterLink}
             >
-              Programs
+              {t('menu.programs')}
             </Link>
             <Link
               variant="body1"
@@ -109,7 +116,7 @@ function Header({ topic }) {
               >
                 <ShareIcon />
               </SvgIcon>
-              Share
+              {t('components.share')}
             </Button>
           </Grid>
         </Hidden>
@@ -171,7 +178,7 @@ function Header({ topic }) {
                     color="inherit"
                     component="span"
                   >
-                    {topic.publish ? 'Active' : 'Inactive'}
+                    {topic.publish ? t('components.active') : t('components.inactive')}
                   </Typography>
                 </div>
               )}
@@ -187,7 +194,7 @@ function Header({ topic }) {
                 color="inherit"
                 component="span"
               >
-                {`Created ${moment(topic.createdAt).fromNow()}`}
+                {`${t('time.created')} ${moment(topic.createdAt).fromNow()}`}
               </Typography>
             </div>
           </Box>
