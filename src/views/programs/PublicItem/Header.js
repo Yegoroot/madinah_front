@@ -28,6 +28,7 @@ import Parallax from 'src/components/Animate/Parallax/Parallax'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { useDispatch } from 'react-redux'
 import { getProgramItemRequest } from 'src/slices/program'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => {
   const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => {
     },
     actionIcon: {
       marginRight: theme.spacing(1)
+    },
+    description: {
+      marginTop: theme.spacing(2)
     },
     button: {
       position: 'absolute',
@@ -78,6 +82,7 @@ const useStyles = makeStyles((theme) => {
 const Header = ({
   className, program, topics, type, ...rest
 }) => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const classes = useStyles()
   const { user } = useAuth()
@@ -137,13 +142,14 @@ const Header = ({
                     >
                       <ShareIcon />
                     </SvgIcon>
-                    Share
+                    {t('components.share')}
                   </Button>
                 </Hidden>
 
               </Typography>
               <Typography
                 variant="h5"
+                className={classes.description}
                 color="textPrimary"
               >
                 {program.description}
@@ -152,10 +158,7 @@ const Header = ({
 
           </Box>
 
-          <Box
-
-            mx={-1}
-          >
+          <Box mx={-1}>
             {program.types.map((type) => (
               <Type
                 color={type.color}
@@ -189,7 +192,7 @@ const Header = ({
                 >
                   <PlusCircleIcon />
                 </SvgIcon>
-                add topic
+                {t('pageProgram.add topic')}
               </Button>
 
               {!(topics.length > 2) ? null

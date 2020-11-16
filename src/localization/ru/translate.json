@@ -6,7 +6,8 @@
     },
     "pageProgram": {
       "add topic": "Добавить тему",
-      "set order of topics": "Сортировка тем" 
+      "set order of topics": "Сортировка тем",
+      "set order of records": "Сортировка записей" 
     },
     "pageAuth":{
       "signin": "Войти в систему",

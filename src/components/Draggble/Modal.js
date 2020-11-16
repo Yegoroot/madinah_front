@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
 import { AlignLeft } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 import Draggble from './List'
 
 const useStyles = makeStyles((theme) => ({
@@ -89,7 +90,7 @@ SimpleDialog.propTypes = {
 export default function SimpleDialogDemo({ contents, onUpdate, type }) {
   const [open, setOpen] = React.useState(false)
   const classes = useStyles()
-
+  const { t } = useTranslation()
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -112,7 +113,7 @@ export default function SimpleDialogDemo({ contents, onUpdate, type }) {
         >
           <AlignLeft />
         </SvgIcon>
-        {type === 'topics' ? 'Set order or topics' : 'Set order of records'}
+        {type === 'topics' ? t('pageProgram.set order of topics') : t('pageProgram.set order of records')}
       </Button>
       <SimpleDialog
         type={type}
