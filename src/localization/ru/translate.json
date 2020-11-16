@@ -61,6 +61,7 @@
     },
     "error": {
       "Request failed with status code 401": "Ошибка авторизации, проверьте введенный e mail и пароль",
+      "Request failed with status code 429": "429 слишком много запросов было отправлено за 10 минут",
       "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение"
     },
     "components": {

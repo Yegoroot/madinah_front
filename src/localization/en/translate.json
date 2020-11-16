@@ -61,6 +61,7 @@
     },
     "error": {
       "Request failed with status code 401": "Authorization error, check the entered e-mail and password",
+      "Request failed with status code 429": "429 too many requests was sent in a 10 minute amount of time",
       "Network Error": "Failed to load data. Check your Internet connection"
     },
     "components": {
