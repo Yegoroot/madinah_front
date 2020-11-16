@@ -145,9 +145,9 @@ function Row({ topic, onDelete }) {
                   >
                     {t('table.user')}
                   </Typography>
-                  {topic.user.name}
+                  {topic.user ? topic.user.name : 'deleted'}
                   <br />
-                  {topic.user.email}
+                  {topic.user ? topic.user.email : 'deleted'}
                 </Grid>
                 <Grid item>
                   <Typography
