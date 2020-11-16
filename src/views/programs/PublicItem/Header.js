@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => {
       },
     },
     content: {
-      position: 'relative'
+      position: 'relative',
+      marginBottom: theme.spacing(2)
     },
     action: {
       marginLeft: theme.spacing(1)
