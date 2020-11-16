@@ -140,9 +140,9 @@ function Row({ program, onDelete }) {
                   >
                     {t('table.user')}
                   </Typography>
-                  {program.user.name}
+                  {program.user ? program.user.name : 'null'}
                   <br />
-                  {program.user.email}
+                  {program.user ? program.user.email : 'null'}
                 </Grid>
                 <Grid item>
                   <Typography

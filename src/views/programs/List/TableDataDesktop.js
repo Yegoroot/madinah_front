@@ -79,9 +79,9 @@ function Results({ data, onDelete }) {
             </TableCell>
 
             <TableCell>
-              {program.user.name}
+              {program.user ? program.user.name : 'null'}
               <br />
-              {program.user.email}
+              {program.user ? program.user.email : 'null'}
             </TableCell>
 
             <TableCell>
