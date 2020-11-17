@@ -77,6 +77,7 @@ const Header = ({
         </Grid>
         )}
 
+        {isEdit && (
         <Grid
           item
           container
@@ -94,7 +95,9 @@ const Header = ({
             aria-labelledby="continuous-slider"
           />
         </Grid>
+        )}
       </Grid>
+
     </Box>
   )
 }
