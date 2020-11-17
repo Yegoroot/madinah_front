@@ -30,7 +30,6 @@ export const UPLOADS_URL = `${HOST}/uploads`
 export const ENABLE_REDUX_LOGGER = false
 
 export const DEBUG_I18 = process.env.NODE_ENV === 'development' // for deb
-export const DEFAULT_LANGUAGE = 'en'
 
 export const LEVELS = [
   'beginner',
@@ -45,3 +44,5 @@ export const LANGUAGES = [
   'en',
   'ru',
 ]
+
+export const DEFAULT_LANGUAGE = LANGUAGES.find((lang) => navigator.language.match(lang)) || 'en' // navigator.language - "en-US"

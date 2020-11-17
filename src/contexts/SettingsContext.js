@@ -8,10 +8,9 @@ import { THEMES, DEFAULT_LANGUAGE } from 'src/constants'
 
 const lang = localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE
 
-console.log('language', lang)
-
 const defaultSettings = {
-  direction: lang === 'ar' ? 'rtl' : 'ltr',
+  // direction: lang === 'ar' ? 'rtl' : 'ltr',
+  direction: 'rtl', //
   responsiveFontSizes: true,
   theme: THEMES.ONE_DARK,
   lang
