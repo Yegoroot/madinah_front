@@ -57,7 +57,8 @@
     "alert": {
       "do you want to delete this user": "Вы действительно хотите удалить этого пользователя?",
       "do you want to delete program": "Хотите удалить эту программу и все темы относящиеся к ней?",
-      "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?"
+      "do you want to delete topic": "Хотите удалить эту тему и весь контент внутри?",
+      "are you sure to delete this entry": "Вы уверены, что хотите удалить эту запись?"
     },
     "error": {
       "Request failed with status code 401": "Ошибка авторизации, проверьте введенный e mail и пароль",
@@ -81,7 +82,10 @@
       },
       "active": "Активный",
       "inactive": "Не активый",
-      "share": "Поделиться"
+      "share": "Поделиться",
+      "save changes": "Сохранить изменения",
+      "delete": "Удалить",
+      "edit": "Редактировать"
     },
     "time": {
       "created": "Созданно"

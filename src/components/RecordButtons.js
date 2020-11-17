@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import { Delete, Edit } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(() => ({
   menu: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
 const GenericMoreButton = ({
   className, onHandle, record
 }) => {
+  const { t } = useTranslation()
   const classes = useStyles()
   const moreRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(false)
@@ -38,7 +40,7 @@ const GenericMoreButton = ({
   }
 
   const onHandleDelete = () => {
-    if (window.confirm('Are you sure to delete this record?')) {
+    if (window.confirm(t('alert.are you sure to delete this entry'))) {
       onHandle({ event: 'delete', ...record })
     } else {
       setOpenMenu(false)
@@ -47,7 +49,7 @@ const GenericMoreButton = ({
 
   return (
     <>
-      <Tooltip title="Options">
+      <Tooltip title="">
         <IconButton
           onClick={handleMenuOpen}
           className={className}
@@ -74,7 +76,7 @@ const GenericMoreButton = ({
           <ListItemIcon>
             <Delete />
           </ListItemIcon>
-          <ListItemText primary="Delete" />
+          <ListItemText primary={t('components.delete')} />
         </MenuItem>
         <MenuItem onClick={() => {
           onHandle({ event: 'edit', ...record })
@@ -84,7 +86,7 @@ const GenericMoreButton = ({
           <ListItemIcon>
             <Edit />
           </ListItemIcon>
-          <ListItemText primary="Edit" />
+          <ListItemText primary={t('components.edit')} />
         </MenuItem>
       </Menu>
     </>

@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Button, makeStyles, Grid, SvgIcon, Slider, Box
 } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 
 import { Play, Pause, Upload } from 'react-feather'
 
@@ -21,6 +22,7 @@ const Header = ({
   isPlay, onPlay, onSaveChanges, isEdit, minValueSlider, valueSlider, handleSlider
 }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
   return (
 
     <Box mb={2}>
@@ -72,7 +74,7 @@ const Header = ({
             >
               <Upload />
             </SvgIcon>
-            Save Changes
+            {t('components.save changes')}
           </Button>
         </Grid>
         )}
