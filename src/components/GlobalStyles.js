@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => createStyles({
       width: '100%'
     },
     body: {
-      fontSize: '1rem',
+      fontSize: '1.2rem',
       fontFamily: '"Roboto", "Droid Arabic Naskh", "Helvetica", "Arial", sans-serif',
       height: '100%',
       width: '100%',
-      lineHeight: 1.5,
+      lineHeight: 2,
     },
     '#root': {
       height: '100%',

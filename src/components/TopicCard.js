@@ -84,7 +84,7 @@ function TopicCard({
               </IconButton>
             </>
           )}
-        {/* <Box
+        <Box
           pt={1}
         >
           <Typography
@@ -93,7 +93,7 @@ function TopicCard({
           >
             {topic.description}
           </Typography>
-        </Box> */}
+        </Box>
 
         <Box
           display="flex"

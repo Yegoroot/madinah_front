@@ -12,7 +12,7 @@ import {
   Link,
   List,
   ListSubheader,
-  Typography
+  // Typography
 } from '@material-ui/core'
 import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
 import i18n from 'i18next'
@@ -147,12 +147,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             borderRadius="borderRadius"
             bgcolor="background.dark"
           >
-            <Typography
+            {/* <Typography
               variant="h6"
               color="textPrimary"
             >
               {t('menu.know more')}
-            </Typography>
+            </Typography> */}
             <Link
               variant="subtitle1"
               color="secondary"
@@ -161,7 +161,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             >
               {t('menu.changelog')}
             </Link>
-            ,
+            {/* , */}
             {'  '}
             <Link
               variant="subtitle1"
