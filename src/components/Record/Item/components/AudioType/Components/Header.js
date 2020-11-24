@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme) => ({
   marginBottom: {
     marginBottom: theme.spacing(2)
   },
-  reverse: {
-    transform: 'scale(-1)'
+  marginBtn: {
+    marginRight: theme.spacing(1)
   },
   playPause: {
+    transform: theme.direction === 'rtl' ? 'scale(-1)' : 'scale(1)',
     display: 'flex',
   },
   zoom: {
@@ -33,9 +34,9 @@ const Header = ({
   return (
 
     <Box
-      ml={2}
       className={clsx({
-        [classes.marginBottom]: isEdit
+        [classes.marginBottom]: isEdit,
+        [classes.marginBtn]: !isEdit
       })}
     >
       <Grid

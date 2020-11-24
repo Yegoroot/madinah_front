@@ -5,6 +5,7 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import WaveSurfer from 'wavesurfer.js'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min'
 import clsx from 'clsx'
+import useSettings from 'src/hooks/useSettings'
 import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
@@ -12,8 +13,7 @@ import Annotations from './Components/Annotations'
 const useStyles = makeStyles((theme) => ({
   wavesurfer: {
     display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row-reverse'
+    alignItems: 'center'
   }
 }))
 
@@ -40,6 +40,7 @@ const MyWaveSurfer = ({
   const [isShowForm, setIsShowForm] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [currentRegion, setCurrentRegion] = useState({})
+  const { settings } = useSettings()
 
   const onChange = (e) => {
     if (e.target.name === 'original' || e.target.name === 'translate') {
@@ -126,7 +127,7 @@ const MyWaveSurfer = ({
     waveformElem.current = WaveSurfer.create({
       container: waveformElem.current,
       scrollParent: true,
-      rtl: true,
+      rtl: settings.direction === 'rtl',
       pixelRatio: 1,
       normalize: true,
       height: isEdit ? 100 : 50,
@@ -196,7 +197,7 @@ width: 70px;
       <Box
         mb={2}
         className={clsx({
-          [classes.wavesurfer]: !isEdit
+          [classes.wavesurfer]: !isEdit,
         })}
       >
         { isLoading
