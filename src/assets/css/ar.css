@@ -2,15 +2,12 @@
 SENTENCE
 */
 .arsent {
-  /* justify-content: flex-start; */
   display: flex !important;
   flex-direction: row;
   align-items: center;
-  /* direction: rtl; */
   margin: 0px;
   margin-bottom: 27px;
   flex-wrap: wrap;
-  /*ORIGINAL*/
   line-height: 1.2;
   font-size: 27px;
 }
@@ -21,11 +18,9 @@ li.arsent__original {
   line-height: 1.3;
   font-size: 27px;
 }
-
 .arsent__translate {
   font-size: 14px;
 }
-
 li.arsent__original + li.arsent__translate {
   padding-top: 10px;
   margin-right: 15px;
@@ -47,12 +42,12 @@ li.arsent__original + li.arsent__translate {
 /*
 temp
 */
-h1.title {
+/* h1.title {
   margin-bottom: 52px;
   font-size: 50px;
   direction: rtl;
-}
-h2.title.h2ar {
+} */
+/* h2.title.h2ar {
   margin-bottom: 50px;
   margin-top: 30px;
 }
@@ -60,18 +55,22 @@ h2.title.h2ar {
   margin-bottom: 40px;
   direction: ltr;
   text-align: right;
-}
+} */
 /* .MuiCardContent-root {
   direction: rtl;
 } */
-span.desc__ar {
+/* span.desc__ar {
   font-weight: bold;
 }
 span.contrast {
   color: #f44336;
-}
+} */
 
 /*markdown editor*/
 textarea.mde-text {
   font-size: 16px;
+}
+
+.subtitle {
+  margin-top: 90px;
 }

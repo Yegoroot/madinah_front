@@ -166,7 +166,14 @@ const MyWaveSurfer = ({
 
   return (
     <>
-      {subtitle && <h2 style={{ paddingBottom: 20 }}>{subtitle}</h2>}
+      {subtitle && (
+      <h2
+        className="subtitle"
+        style={{ paddingBottom: 20 }}
+      >
+        {subtitle}
+      </h2>
+      )}
 
       <Box mb={2}>
         <div

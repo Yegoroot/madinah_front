@@ -19,10 +19,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     background: theme.palette.text.primary,
+    '& img': {
+      width: '100%',
+      maxWidth: '100%',
+    }
   },
   rootDragble: {
     background: theme.palette.primary.main,
   },
+
   paper: {
     background: theme.palette.background.dark,
     color: theme.palette.text.primary,

@@ -30,7 +30,7 @@ const TextType = ({ content }) => {
   return (
     <Box>
       {subtitle ? (
-        <h2>{subtitle}</h2>
+        <h2 className="subtitle">{subtitle}</h2>
       ) : null}
       <div dangerouslySetInnerHTML={{ __html: data }} />
     </Box>
