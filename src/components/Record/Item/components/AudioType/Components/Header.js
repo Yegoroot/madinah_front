@@ -3,6 +3,7 @@ import {
   Button, makeStyles, Grid, SvgIcon, Slider, Box
 } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
+import clsx from 'clsx'
 
 import { Play, Pause, Upload } from 'react-feather'
 
@@ -10,8 +11,14 @@ const useStyles = makeStyles((theme) => ({
   actionIcon: {
     marginRight: theme.spacing(1)
   },
+  marginBottom: {
+    marginBottom: theme.spacing(2)
+  },
+  reverse: {
+    transform: 'scale(-1)'
+  },
   playPause: {
-    display: 'flex'
+    display: 'flex',
   },
   zoom: {
     padding: '0px 12px 12px'
@@ -25,7 +32,12 @@ const Header = ({
   const { t } = useTranslation()
   return (
 
-    <Box mb={2}>
+    <Box
+      ml={2}
+      className={clsx({
+        [classes.marginBottom]: isEdit
+      })}
+    >
       <Grid
         container
         spacing={3}
@@ -33,7 +45,10 @@ const Header = ({
       >
         <Grid
           item
-          className={classes.playPause}
+          className={clsx({
+            [classes.playPause]: true,
+            [classes.reverse]: !isEdit
+          })}
         >
           {!isPlay ? (
             <Button

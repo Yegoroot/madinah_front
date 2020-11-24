@@ -1,16 +1,26 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Box } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import { randomColor } from 'src/utils/randomColor'
 import LoadingScreen from 'src/components/LoadingScreen'
 import WaveSurfer from 'wavesurfer.js'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min'
+import clsx from 'clsx'
 import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
+const useStyles = makeStyles((theme) => ({
+  wavesurfer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row-reverse'
+  }
+}))
+
 const MyWaveSurfer = ({
   mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
 }) => {
+  const classes = useStyles()
   const waveformElem = useRef(null)
   const noteOriginal = useRef(null)
   const noteTranslate = useRef(null)
@@ -175,26 +185,40 @@ const MyWaveSurfer = ({
       </h2>
       )}
 
-      <Box mb={2}>
+      {/* root : {
+
+}
+
+width: 70px;
+    margin-left: 20px;
+    transform: scale(-1); */}
+
+      <Box
+        mb={2}
+        className={clsx({
+          [classes.wavesurfer]: !isEdit
+        })}
+      >
+        { isLoading
+          ? <LoadingScreen />
+          : (
+            <Header
+              className={classes.wavesurfer}
+              isPlay={isPlay}
+              onPlay={onPlay}
+              isEdit={isEdit}
+              onSaveChanges={onSaveChanges}
+              minValueSlider={minValueSlider}
+              valueSlider={valueSlider}
+              handleSlider={handleSlider}
+            />
+          )}
         <div
           className="not-ar"
+          style={{ width: '100%' }}
           ref={waveformElem}
         />
       </Box>
-
-      { isLoading
-        ? <LoadingScreen />
-        : (
-          <Header
-            isPlay={isPlay}
-            onPlay={onPlay}
-            isEdit={isEdit}
-            onSaveChanges={onSaveChanges}
-            minValueSlider={minValueSlider}
-            valueSlider={valueSlider}
-            handleSlider={handleSlider}
-          />
-        )}
 
       <Annotations
         noteOriginal={noteOriginal}
