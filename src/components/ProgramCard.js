@@ -123,7 +123,7 @@ function ProgramCard({ program, className, ...rest }) {
           <Box pt={1}>
             <Typography
               color="textSecondary"
-              variant="h4"
+              variant="h5"
             >
               {program.description}
             </Typography>
