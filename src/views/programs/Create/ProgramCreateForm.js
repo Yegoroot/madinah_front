@@ -88,7 +88,9 @@ function ProductCreateForm({
               history.push(`/programs/${res.data.data.id}`)
             })
             .catch((err) => {
+              setSubmitting(false)
               setErrors({ submit: setErr(err) })
+              setStatus({ success: false })
             })
         } catch (err) {
           setErrors({ submit: err.message })

@@ -95,7 +95,8 @@ function TopicCreateForm({
     data.programId = programId // we will check, because in process editing
     try {
       const method = id ? 'put' : 'post'
-      const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
+      const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topicsd`
+      const setErr = (err) => (id ? err.response.data.error : err.message)
       const message = id ? t('notify.topic was updated') : t('notify.topic was created')
       setLoading(true)
       axios[method](url, data)
@@ -110,6 +111,11 @@ function TopicCreateForm({
           setLoading(false)
           enqueueSnackbar(message, { variant: 'success' })
           history.push(`${redirectUrl}`)
+        }).catch((err) => {
+          setLoading(false)
+          setSubmitting(false)
+          setErrors({ submit: setErr(err) })
+          setStatus({ success: false })
         })
     } catch (err) {
       setLoading(false)
