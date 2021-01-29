@@ -17,7 +17,7 @@ const initialState = {
   }
 }
 
-export const module = 'user'
+export const MODULE = 'user'
 
 const slice = createSlice({
   name: 'user',
@@ -77,7 +77,7 @@ export const getUserItem = ({ userId }) => async (dispatch) => {
   }
 }
 
-export const getUserItemRequest = ({ userId, reload, programId }) => async (dispatch, getState) => {
+export const getUserItemRequest = ({ userId, reload }) => async (dispatch) => {
   if (reload) await wait(1000)
 
   dispatch(slice.actions.getUserItemRequest())

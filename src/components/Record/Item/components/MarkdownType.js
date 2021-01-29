@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import Markdown from 'src/components/Markdown'
 import Prism from 'prismjs'

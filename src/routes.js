@@ -31,6 +31,7 @@ export const renderRoutes = (routes = []) => (
 
         return (
           <Route
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             path={route.path}
             exact={route.exact}

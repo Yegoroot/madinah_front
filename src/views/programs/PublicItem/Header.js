@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -97,7 +99,7 @@ const Header = ({
       topics: items.map((topic, index) => ({ _id: topic._id, sequence: index }))
     }
     await axios.post(`${API_BASE_URL}/topics/order`, data)
-      .then((res) => {
+      .then(() => {
         dispatch(getProgramItemRequest({ programId: program._id, type }))
       })
   }
@@ -161,12 +163,12 @@ const Header = ({
           </Box>
 
           <Box mx={-1}>
-            {program.types.map((type) => (
+            {program.types.map((ty) => (
               <Type
-                color={type.color}
-                key={type._id}
+                color={ty.color}
+                key={ty._id}
               >
-                {type.title}
+                {ty.title}
               </Type>
             ))}
           </Box>

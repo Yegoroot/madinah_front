@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { instanceAxios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import Header from './Header'
-import TypeCreateForm from './TypeCreateForm.js'
+import TypeCreateForm from './TypeCreateForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {

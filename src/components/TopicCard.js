@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types *//* eslint-disable camelcase */
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -36,9 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function TopicCard({
-  data, className, topic, programId, ...rest
-}) {
+function TopicCard({ topic, programId }) {
   const { settings } = useSettings()
   const classes = useStyles()
   const { user } = useAuth()
@@ -118,7 +117,6 @@ function TopicCard({
 }
 
 TopicCard.propTypes = {
-  className: PropTypes.string,
   topic: PropTypes.object.isRequired,
   programId: PropTypes.string.isRequired
 }

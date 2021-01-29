@@ -73,6 +73,7 @@ function SectionCreate({
       return
     }
     if (section.type === 'image' || section.type === 'audio') {
+      // eslint-disable-next-line consistent-return
       if (!section.data.file) { return false }
       setLoading(true)
       const formData = new FormData()
@@ -83,11 +84,12 @@ function SectionCreate({
       await axios.post(`${API_BASE_URL}/topics/record/${section.type}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then((res) => {
           const { data } = res
+          // eslint-disable-next-line max-len
           // WARN ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount поэтому состояние его изменять не нужно
           // setLoading(false)
           onSave({ record: { ...section, data, _id } })
         })
-        .catch((err) => {
+        .catch(() => {
           // ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount
           // setLoading(false)
           onCancel(section._id)

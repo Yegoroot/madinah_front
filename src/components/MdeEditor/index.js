@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // function loadSuggestions(text) {
 //   return new Promise((accept, reject) => {
 //     setTimeout(() => {

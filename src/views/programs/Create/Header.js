@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -35,7 +36,6 @@ function Header({ className, id, ...rest }) {
 
         <Typography
           variant="h1"
-
           color="textPrimary"
         >
           {id ? t('admin.edit program') : t('admin.create a new program')}

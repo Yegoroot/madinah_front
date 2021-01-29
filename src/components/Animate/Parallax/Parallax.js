@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React from 'react'
 // nodejs library that concatenates classes
 import clsx from 'clsx'
@@ -20,11 +21,13 @@ export default function Parallax(props) {
     if (!paralaxParent) return
     paralaxParent.addEventListener('scroll', resetTransform)
 
+    // eslint-disable-next-line consistent-return
     return function cleanup() {
       paralaxParent.removeEventListener('scroll', resetTransform)
     }
   })
   const resetTransform = () => {
+    // eslint-disable-next-line no-shadow
     const scrollTop = paralaxParent ? paralaxParent.scrollTop / 3 : 0
     setTransform(`translate3d(0,${scrollTop}px,0)`)
   }

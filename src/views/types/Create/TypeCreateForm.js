@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
@@ -85,7 +86,7 @@ function ProductCreateForm({
         handleChange,
         handleSubmit,
         isSubmitting,
-        setFieldValue,
+        // setFieldValue,
         touched,
         values
       }) => (

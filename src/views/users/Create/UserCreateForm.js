@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
@@ -58,6 +59,7 @@ function ProductCreateForm({
       }) => {
         try {
           if (id) {
+            // eslint-disable-next-line no-param-reassign
             delete values.password
           }
 
@@ -99,7 +101,7 @@ function ProductCreateForm({
         handleChange,
         handleSubmit,
         isSubmitting,
-        setFieldValue,
+        // setFieldValue,
         touched,
         values
       }) => (

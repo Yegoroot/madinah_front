@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
-import { getTopicListRequest, deleteTopic, module } from 'src/slices/topic'
+import { getTopicListRequest, deleteTopic, MODULE } from 'src/slices/topic'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import Header from './Header'
@@ -31,8 +31,8 @@ function Results() {
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
   const dispatch = useDispatch()
-  const { loading, data } = useSelector((state) => state[module].list)
-  let { total } = useSelector((state) => state[module].list)
+  const { loading, data } = useSelector((state) => state[MODULE].list)
+  let { total } = useSelector((state) => state[MODULE].list)
 
   const { t } = useTranslation()
   const [filters] = useState({

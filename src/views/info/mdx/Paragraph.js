@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import React from 'react'
+import { Typography, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,10 +8,10 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.main
     }
   }
-}));
+}))
 
 const Paragraph = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Typography
@@ -20,7 +20,7 @@ const Paragraph = (props) => {
       className={classes.root}
       {...props}
     />
-  );
+  )
 }
 
-export default Paragraph;
+export default Paragraph

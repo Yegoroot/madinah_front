@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
@@ -88,6 +89,7 @@ function Results({ data, onDelete }) {
               {program.types.map((type) => (
                 <Type
                   color={type.color}
+                  // eslint-disable-next-line no-underscore-dangle
                   key={type._id}
                 >
                   {type.title}

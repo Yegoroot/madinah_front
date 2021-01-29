@@ -132,7 +132,8 @@ function Header({ topic }) {
             color="textPrimary"
           >
             {topic.title}
-            { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(user.role) ? null
+            { !user || !document_is_my_own(user, topic.user)
+              || !perm_work_with_program(user.role) ? null
               : (
                 <>
                   <IconButton

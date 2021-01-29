@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -42,8 +43,8 @@ function MultiSelect({
     setOpenMenu(false)
   }
 
-  const handleOptionToggle = (event, label) => {
-    let newValue = [...filter[label]]
+  const handleOptionToggle = (event, lAbel) => {
+    let newValue = [...filter[lAbel]]
     const { value } = event.target
     let isDeleted = false
 
@@ -54,11 +55,11 @@ function MultiSelect({
       newValue = newValue.filter((item) => item !== value)
     }
 
-    const newFilter = { ...filter, [label]: newValue }
+    const newFilter = { ...filter, [lAbel]: newValue }
 
     if (onChange) {
       onChange({
-        newFilter, value, isDeleted, label
+        newFilter, value, isDeleted, label: lAbel
       })
     }
   }

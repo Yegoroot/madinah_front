@@ -17,7 +17,7 @@ const initialState = {
   }
 }
 
-export const module = 'topic'
+export const MODULE = 'topic'
 
 const slice = createSlice({
   name: 'topic',

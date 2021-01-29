@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import React from 'react'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -10,17 +10,17 @@ const useStyles = makeStyles(() => ({
     fontSize: 14,
     backgroundColor: 'rgb(255,229,100)'
   }
-}));
+}))
 
 const CodeInline = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <code
       className={classes.root}
       {...props}
     />
-  );
-};
+  )
+}
 
-export default CodeInline;
+export default CodeInline

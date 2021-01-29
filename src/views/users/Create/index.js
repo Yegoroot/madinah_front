@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useSelector, useDispatch } from 'src/store'
-import { getUserItemRequest, module as moduleUser } from 'src/slices/user'
+import { getUserItemRequest, MODULE as moduleUser } from 'src/slices/user'
 import Header from './Header'
 import UserCreateForm from './UserCreateForm'
 

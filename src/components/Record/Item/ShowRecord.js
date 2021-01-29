@@ -10,6 +10,7 @@ import WaveSurfer from 'src/components/Record/Item/components/AudioType/WaveSurf
 import { UPLOADS_URL } from 'src/constants'
 import { useSelector } from 'src/store'
 
+// eslint-disable-next-line consistent-return
 const RenderContents = ({ content, setSelectedImage }) => {
   const { data } = useSelector((state) => state.topic.item)
 

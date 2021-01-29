@@ -5,9 +5,11 @@ export const CAN_WORK_WITH_PROGRAM = ['superadmin', 'admin', 'teacher']
 
 export const perm_work_with_program = (role) => CAN_WORK_WITH_PROGRAM.includes(role)
 export const perm_work_with_users = (role) => CAN_WORK_WITH_USERS.includes(role)
+// eslint-disable-next-line consistent-return
 export const document_is_my_own = ({ role, _id }, documentUser) => {
   if (role === 'superadmin') return true
   if (!documentUser) return false
+  // eslint-disable-next-line no-underscore-dangle
   if (_id === documentUser._id) return true
 }
 

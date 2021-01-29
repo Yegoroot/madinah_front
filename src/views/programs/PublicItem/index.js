@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProgramItemRequest, module } from 'src/slices/program'
+import { getProgramItemRequest, MODULE } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import useAuth from 'src/hooks/useAuth'
 // eslint-disable-next-line camelcase
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const ProgramItem = ({ match, location }) => {
   const { programId } = match.params
   const dispatch = useDispatch()
-  const { loading, data, topics } = useSelector((state) => state[module].item)
+  const { loading, data, topics } = useSelector((state) => state[MODULE].item)
   const classes = useStyles()
   // const [currentTab, setCurrentTab] = useState('topics')
   const { user } = useAuth()

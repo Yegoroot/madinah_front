@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 import ObjectID from 'bson-objectid'
 
@@ -5,7 +6,7 @@ const initialState = {
   notifications: [],
 }
 
-export const module = 'alert'
+export const MODULE = 'alert'
 
 const slice = createSlice({
   name: 'alert',

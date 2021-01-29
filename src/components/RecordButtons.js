@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable react/prop-types */
 import React, {
   useRef,
   useState,

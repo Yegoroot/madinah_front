@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProgramListRequest, module, deleteProgram } from 'src/slices/program'
+import { getProgramListRequest, MODULE, deleteProgram } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useTranslation } from 'react-i18next'
@@ -41,8 +41,8 @@ function Results() {
   })
 
   const dispatch = useDispatch()
-  const { loading, data, } = useSelector((state) => state[module].list)
-  let { total } = useSelector((state) => state[module].list)
+  const { loading, data, } = useSelector((state) => state[MODULE].list)
+  let { total } = useSelector((state) => state[MODULE].list)
 
   useEffect(() => {
     const params = {
@@ -52,6 +52,7 @@ function Results() {
   }, [dispatch, page, limit, filters])
 
   const onDelete = (programId) => {
+    // eslint-disable-next-line no-alert
     if (window.confirm(t('alert.do you want to delete program'))) {
       dispatch(deleteProgram({ programId }))
       total -= 1

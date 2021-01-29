@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import React from 'react'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,17 +13,17 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 0
     }
   }
-}));
+}))
 
 const Blockquote = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <blockquote
       className={classes.root}
       {...props}
     />
-  );
-};
+  )
+}
 
-export default Blockquote;
+export default Blockquote

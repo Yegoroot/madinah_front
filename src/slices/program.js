@@ -20,7 +20,7 @@ const initialState = {
   },
 }
 
-export const module = 'program'
+export const MODULE = 'program'
 
 const slice = createSlice({
   name: 'program',
@@ -95,7 +95,7 @@ export const getProgramItem = ({ programId, type }) => async (dispatch) => {
 }
 
 // OUTSIDE
-export const getProgramItemRequest = ({ programId, type }) => async (dispatch, getState) => {
+export const getProgramItemRequest = ({ programId, type }) => async (dispatch) => {
   // if (
   //   theSameDocument({ documentId: programId, getState, module })
   // ) {

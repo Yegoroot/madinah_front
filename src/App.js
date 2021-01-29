@@ -1,6 +1,6 @@
 import React from 'react'
-import { Router } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import { BrowserRouter } from 'react-router-dom'
+// import { createBrowserHistory } from 'history'
 import { create } from 'jss'
 import rtl from 'jss-rtl'
 import MomentUtils from '@date-io/moment'
@@ -26,7 +26,7 @@ import i18n from 'src/localization/i18n'
 import UpdateApp from 'src/components/UpdateApp'
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
-const history = createBrowserHistory()
+// const history = createBrowserHistory()
 
 const App = () => {
   const { settings } = useSettings()
@@ -46,7 +46,7 @@ const App = () => {
               dense
               maxSnack={3}
             >
-              <Router history={history}>
+              <BrowserRouter>
                 <AuthProvider>
                   <UpdateApp />
                   <GlobalStyles />
@@ -57,7 +57,7 @@ const App = () => {
                   <Alerts />
                   {renderRoutes(routes)}
                 </AuthProvider>
-              </Router>
+              </BrowserRouter>
             </SnackbarProvider>
           </MuiPickersUtilsProvider>
         </StylesProvider>

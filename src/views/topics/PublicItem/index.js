@@ -13,7 +13,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'src/store'
-import { getTopicItemRequest, module } from 'src/slices/topic'
+import { getTopicItemRequest, MODULE } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
 import useAuth from 'src/hooks/useAuth'
@@ -46,7 +46,7 @@ function TopicItem({ match, location }) {
   const { user } = useAuth()
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { loading, data } = useSelector((state) => state[module].item)
+  const { loading, data } = useSelector((state) => state[MODULE].item)
   const { topicId, programId } = match.params
   const [selectedImage, setSelectedImage] = useState(null)
 

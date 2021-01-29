@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -87,7 +88,8 @@ function FilesDropzone({
     if (!acceptedFiles[0]) return // если не прошел проверку
     if (one) {
       if (type === 'photo') {
-        const file = Object.assign(acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]) })
+        const file = Object.assign(acceptedFiles[0],
+          { preview: URL.createObjectURL(acceptedFiles[0]) })
         setFiles([file])
       } else {
         setFiles([acceptedFiles[0]])
