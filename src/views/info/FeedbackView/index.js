@@ -1,10 +1,10 @@
-import React, { /* lazy, */ Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import Page from 'src/components/Page'
 import { Container, makeStyles } from '@material-ui/core'
-// import { MDXProvider } from '@mdx-js/react'
-// import components from '../mdx'
+import { MDXProvider } from '@mdx-js/react'
+import components from '../mdx'
 
-// const Content = lazy(() => import('!babel-loader!mdx-loader!./Content.mdx'))
+const Content = lazy(() => import('!babel-loader!mdx-loader!./Content.mdx'))
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -34,21 +34,9 @@ const ChangelogView = () => {
               maxWidth="md"
               className={classes.content}
             >
-
-              ## Telegram
-              Open Telegram App
-              {' '}
-              {/* eslint-disable-next-line react/jsx-no-target-blank */}
-              <a
-                href="https://telegram.me/dontRepeatYourself"
-                target="_blank"
-              >
-                write message
-              </a>
-
-              {/* <MDXProvider components={components}>
+              <MDXProvider components={components}>
                 <Content />
-              </MDXProvider> */}
+              </MDXProvider>
             </Container>
           </div>
         </div>

@@ -85,6 +85,7 @@
     "yup": "^0.32.8"
   },
   "devDependencies": {
+    "babel-loader": "8.1.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.2.0",

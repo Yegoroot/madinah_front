@@ -95,7 +95,7 @@ function TopicCreateForm({
     data.programId = programId // we will check, because in process editing
     try {
       const method = id ? 'put' : 'post'
-      const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topicsd`
+      const url = id ? `${API_BASE_URL}/topics/${id}` : `${API_BASE_URL}/topics`
       const setErr = (err) => (id ? err.response.data.error : err.message)
       const message = id ? t('notify.topic was updated') : t('notify.topic was created')
       setLoading(true)

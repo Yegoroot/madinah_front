@@ -43,6 +43,7 @@ function Results() {
   })
 
   const onDelete = (topicId) => {
+    // eslint-disable-next-line no-alert
     if (window.confirm(t('alert.do you want to delete topic'))) {
       dispatch(deleteTopic({ topicId }))
       total -= 1

@@ -87,6 +87,7 @@ function Results({ className, ...rest }) {
   }, [getTypes])
 
   const onDelete = (id) => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('do you want to delete this type?')) {
       instanceAxios
         .delete(`${API_BASE_URL}/types/${id}`)

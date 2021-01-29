@@ -146,33 +146,37 @@ const MyWaveSurfer = ({
     waveformElem.current.load(mediaLink)
 
     waveformElem.current.on('ready', () => {
+      if (!waveformElem.current) {
+        return
+      }
       console.log('ready')
       setIsLoading(false)
       setValueSlider(waveformElem.current.params.minPxPerSec)
       setMinValueSlider(waveformElem.current.params.minPxPerSec)
       // loadRegions(annotations)
       saveRegions()
-    })
-    waveformElem.current.on('region-click', (region, e) => {
-      e.stopPropagation()
-      region.play()
-      setIsShowForm(true)
-      editAnnotation(region)
-      showNote(region)
-    })
-    waveformElem.current.on('region-in', showNote)
-    waveformElem.current.on('region-updated', saveRegions)
-    waveformElem.current.on('region-removed', saveRegions)
-    waveformElem.current.on('region-play', (region) => {
-      region.once('out', () => { showNote(null) })
-    })
-    waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
-    waveformElem.current.on('region-created', (region) => { region.update({ color: randomColor(0.5) }) })
-    waveformElem.current.on('seek', () => { setIsShowForm(false) })
-    waveformElem.current.on('play', () => { setIsplay(true) })
-    waveformElem.current.on('pause', () => { setIsplay(false) })
 
-    return () => waveformElem.current.destroy()
+      waveformElem.current.on('region-click', (region, e) => {
+        e.stopPropagation()
+        region.play()
+        setIsShowForm(true)
+        editAnnotation(region)
+        showNote(region)
+      })
+      waveformElem.current.on('region-in', showNote)
+      waveformElem.current.on('region-updated', saveRegions)
+      waveformElem.current.on('region-removed', saveRegions)
+      waveformElem.current.on('region-play', (region) => {
+        region.once('out', () => { showNote(null) })
+      })
+      waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
+      waveformElem.current.on('region-created', (region) => { region.update({ color: randomColor(0.5) }) })
+      waveformElem.current.on('seek', () => { setIsShowForm(false) })
+      waveformElem.current.on('play', () => { setIsplay(true) })
+      waveformElem.current.on('pause', () => { setIsplay(false) })
+    })
+
+    return () => waveformElem.current?.destroy()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaLink])
 
