@@ -206,7 +206,7 @@ width: 70px;
         })}
       >
         { isLoading
-          ? <LoadingScreen />
+          ? <LoadingScreen width="100%" />
           : (
             <Header
               className={classes.wavesurfer}

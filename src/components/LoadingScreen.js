@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const LoadingScreen = ({ transparent, absolute }) => {
+const LoadingScreen = ({ transparent, absolute, width }) => {
   const classes = useStyles()
   useEffect(() => {
     NProgress.start()
@@ -44,7 +44,7 @@ const LoadingScreen = ({ transparent, absolute }) => {
       [classes.absolute]: absolute,
     })}
     >
-      <Box width={400}>
+      <Box width={width || 400}>
         <LinearProgress />
       </Box>
     </div>
