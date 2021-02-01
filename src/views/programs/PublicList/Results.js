@@ -5,6 +5,7 @@ import {
   Box,
   Grid,
   Typography,
+  Hidden,
   makeStyles
 } from '@material-ui/core'
 import {
@@ -90,20 +91,23 @@ function Results({ className, programs, ...rest }) {
             className={classes.sortButton}
             onClick={handleSortOpen}
             ref={sortRef}
-          >
+            >
             {selectedSort}
             <ArrowDropDownIcon />
           </Button> */}
-          <ToggleButtonGroup
-            exclusive
-            onChange={handleModeChange}
-            size="small"
-            value={mode}
-          >
-            <ToggleButton value="grid">
-              <ViewModuleIcon />
-            </ToggleButton>
-          </ToggleButtonGroup>
+
+          <Hidden xsDown>
+            <ToggleButtonGroup
+              exclusive
+              onChange={handleModeChange}
+              size="small"
+              value={mode}
+            >
+              <ToggleButton value="grid">
+                <ViewModuleIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Hidden>
         </Box>
       </Box>
       {!programs.length && (
@@ -123,8 +127,8 @@ function Results({ className, programs, ...rest }) {
           <Grid
             item
             key={program.id}
-            lg={mode === 'grid' ? 3 : 12}
-            md={mode === 'grid' ? 4 : 12}
+            lg={mode === 'grid' ? 3 : 4}
+            md={mode === 'grid' ? 4 : 6}
             sm={mode === 'grid' ? 6 : 12}
             xs={12}
           >
