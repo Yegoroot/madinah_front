@@ -44,6 +44,11 @@ const useStyles = makeStyles((theme) => createStyles({
       },
     },
     table: {
+      borderSpacing: 0,
+      '& th': {
+        background: theme.palette.text.primary,
+        color: theme.palette.background.default
+      },
       '& td': {
         padding: 4,
         textAlign: 'center',
