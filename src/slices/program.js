@@ -77,6 +77,7 @@ const filter = (params) => {
   if (params.level && params.level.length) {
     fil.level = JSON.stringify(params.level)
   }
+  fil.limit = 35
   return fil
 }
 
