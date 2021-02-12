@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => createStyles({
       '& td': {
         padding: 4,
         textAlign: 'center',
-        border: 'solid 1px #ccc'
+        // border: 'solid 1px #ccc'
       }
     },
     blockquote: {
