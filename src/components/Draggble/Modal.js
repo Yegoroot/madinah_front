@@ -114,7 +114,9 @@ export default function SimpleDialogDemo({ contents, onUpdate, type }) {
         >
           <AlignLeft />
         </SvgIcon>
-        {type === 'topics' ? t('pageProgram.set order of topics') : t('pageProgram.set order of records')}
+        {type === 'topics'
+          ? t('pageProgram.set order of topics')
+          : t('pageProgram.set order of records')}
       </Button>
       <SimpleDialog
         type={type}

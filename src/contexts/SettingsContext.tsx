@@ -35,7 +35,7 @@ export const restoreSettings = () => {
   return settings
 }
 
-export const storeSettings = (settings) => {
+export const storeSettings = (settings?: any) => {
   window.localStorage.setItem('settings', JSON.stringify(settings))
 }
 
@@ -44,7 +44,7 @@ const SettingsContext = createContext({
   saveSettings: () => { }
 })
 
-export const SettingsProvider = ({ settings, children }) => {
+export const SettingsProvider = ({ settings, children }: { settings?: any, children?: any }) => {
   const [currentSettings, setCurrentSettings] = useState(settings || defaultSettings)
 
   const handleSaveSettings = (update = {}) => {

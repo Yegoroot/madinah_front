@@ -170,7 +170,8 @@ const MyWaveSurfer = ({
         region.once('out', () => { showNote(null) })
       })
       waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
-      waveformElem.current.on('region-created', (region) => { region.update({ color: randomColor(0.5) }) })
+      waveformElem.current.on('region-created',
+        (region) => { region.update({ color: randomColor(0.5) }) })
       waveformElem.current.on('seek', () => { setIsShowForm(false) })
       waveformElem.current.on('play', () => { setIsplay(true) })
       waveformElem.current.on('pause', () => { setIsplay(false) })

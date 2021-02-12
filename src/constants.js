@@ -45,4 +45,6 @@ export const LANGUAGES = [
   'ru',
 ]
 
-export const DEFAULT_LANGUAGE = LANGUAGES.find((lang) => navigator.language.match(lang)) || 'en' // navigator.language - "en-US"
+export const DEFAULT_LANGUAGE = LANGUAGES.find(
+  (lang) => navigator.language.match(lang)
+) || 'en' // navigator.language - "en-US"

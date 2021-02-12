@@ -121,7 +121,9 @@ const Settings = () => {
                 edge="start"
                 name="direction"
                 disabled={values.lang === 'ar'}
-                onChange={(event) => handleChange('direction', event.target.checked ? 'rtl' : 'ltr')}
+                onChange={
+                  (event) => handleChange('direction', event.target.checked ? 'rtl' : 'ltr')
+                }
               />
             )}
             label="RTL"

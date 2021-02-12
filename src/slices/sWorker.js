@@ -18,7 +18,8 @@ const slice = createSlice({
     // },
 
     onUpdateServiceWorker(sWorker) {
-      localStorage.setItem('isNewVersionServiceWorker', false) // если пользователь случайно обновил page и не успел обновить app
+      // если пользователь случайно обновил page и не успел обновить app
+      localStorage.setItem('isNewVersionServiceWorker', false)
       const registrationWaiting = sWorker.onRegistrationServiceWorker.waiting
       if (registrationWaiting) {
         registrationWaiting.postMessage({ type: 'SKIP_WAITING' })
@@ -31,7 +32,8 @@ const slice = createSlice({
     },
 
     onCheckUpdateServiceWorker(sWorker, { payload }) {
-      localStorage.setItem('isNewVersionServiceWorker', true) // если пользователь случайно обновил page и не успел обновить app
+      // если пользователь случайно обновил page и не успел обновить app
+      localStorage.setItem('isNewVersionServiceWorker', true)
       const { registration } = payload
       console.log('reduce after callback', registration)
       sWorker.isNewVersionServiceWorker = true

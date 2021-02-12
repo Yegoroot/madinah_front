@@ -13,7 +13,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { enableES5 } from 'immer'
-import * as serviceWorker from 'src/serviceWorker'
+import * as serviceWorker from 'src/serviceWorkerRegistration'
 import store from 'src/store'
 import { SettingsProvider } from 'src/contexts/SettingsContext'
 import App from 'src/App'
@@ -32,7 +32,7 @@ ReactDOM.render(
 
 serviceWorker.register({
   // onSuccess: () => store.dispatch(initServiceWorker()),
-  onUpdate: (reg) => {
+  onUpdate: (reg: any) => {
     console.log('onUpdate callback', reg)
     store.dispatch(onCheckUpdateServiceWorker(reg))
   }

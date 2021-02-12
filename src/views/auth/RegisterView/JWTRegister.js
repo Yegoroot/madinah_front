@@ -37,7 +37,8 @@ const JWTRegister = ({ className, ...rest }) => {
         submit: null
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email(t('pageAuth.Must be a valid email')).max(255).required(t('pageAuth.Email is required')),
+        email: Yup.string().email(t('pageAuth.Must be a valid email'))
+          .max(255).required(t('pageAuth.Email is required')),
         password: Yup.string().max(255).required(t('pageAuth.Password is required')),
         name: Yup.string().max(255).required(t('pageAuth.Name is required')),
         policy: Yup.boolean().oneOf([true], t('pageAuth.This field must be checked'))

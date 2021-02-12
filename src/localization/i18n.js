@@ -22,8 +22,10 @@ i18n
     // lookupCookie: 'i18next',
     // lookupLocalStorage: 'i18nextLng',
     // caches: ['localStorage', 'cookie'],
-    lng: localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE, /* default language when load the website in browser */
-    fallbackLng: localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE, /* When react i18next not finding any language to as default in borwser */
+    /* default language when load the website in browser */
+    lng: localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE,
+    /* When react i18next not finding any language to as default in borwser */
+    fallbackLng: localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE,
 
     debug: DEBUG_I18, /* debugger For Development environment */
     ns: ['translations'],

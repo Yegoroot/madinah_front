@@ -82,7 +82,8 @@ function ProductCreateForm({
           const setErr = (err) => (id ? err.response.data.error : err.message)
           const message = id ? t('notify.program was updated') : t('notify.program was created')
 
-          instanceAxios[method](url, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+          instanceAxios[method](url, formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } })
             .then((res) => {
               enqueueSnackbar(message, { variant: 'success', autoHideDuration: 2000 })
               setStatus({ success: true })
@@ -241,7 +242,9 @@ function ProductCreateForm({
                       className={classes.formControl}
                       error={Boolean(touched.types && errors.types)}
                     >
-                      <InputLabel id="demo-mutiple-chip-label">{t('admin.type of program')}</InputLabel>
+                      <InputLabel id="demo-mutiple-chip-label">
+                        {t('admin.type of program')}
+                      </InputLabel>
                       <Select
                         labelId="demo-mutiple-chip-label"
                         name="types"

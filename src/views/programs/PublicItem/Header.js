@@ -66,7 +66,12 @@ const useStyles = makeStyles((theme) => {
         left: 0,
         height: '100%',
         width: '100%',
-        background: `linear-gradient(-180deg,  ${hex1} 40%,  ${hex2} 60%,  ${hex3} 70%, ${hex4} 85%, ${hex5} 100%)`
+        background: `linear-gradient(-180deg,  
+          ${hex1} 40%, 
+          ${hex2} 60%,  
+          ${hex3} 70%, 
+          ${hex4} 85%, 
+          ${hex5} 100%)`
       },
     },
     content: {
