@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, {
   useEffect,
   useState
@@ -25,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
   },
-  wrapFilter: {
+  filterWrapper: {
     display: 'flex',
     justifyContent: 'flex-end'
   }
 }))
 
-function ProgramBrowseView({ location, /* match */ }) {
+function ProgramBrowseView({ location }) {
   const history = useHistory()
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -62,13 +61,13 @@ function ProgramBrowseView({ location, /* match */ }) {
   if (loading === 'reload') {
     return (
       <span onClick={
-      () => dispatch(getProgramListRequest({ params: filter, reload: true }))
-    }
+        () => dispatch(getProgramListRequest({ params: filter, reload: true }))
+      }
       >
         Перезагрузить
       </span>
     )
-  } if (loading || !data) {
+  } if (loading) {
     return <LoadingScreen />
   }
 
@@ -100,17 +99,10 @@ function ProgramBrowseView({ location, /* match */ }) {
       title={t('menu.programs')}
     >
       <Container maxWidth={false}>
-
-        {/* <Typography
-          variant="h1"
-          color="textPrimary"
-        >
-          {t('programspage.choose')}
-        </Typography> */}
         <Box
           mb={3}
           mt={3}
-          className={classes.wrapFilter}
+          className={classes.filterWrapper}
         >
           <Filter
             filter={filter}
@@ -119,7 +111,7 @@ function ProgramBrowseView({ location, /* match */ }) {
           />
         </Box>
         <Box mt={2}>
-          <Results programs={data} />
+          <Results programs={data || []} />
         </Box>
       </Container>
     </Page>

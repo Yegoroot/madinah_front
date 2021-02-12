@@ -42,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+const ReloadButton = (onClick) => (
+  <Card onClick={onClick}>
+    <CardContent>Перезагрузить</CardContent>
+  </Card>
+)
+
 function TopicItem({ match, location }) {
   const { user } = useAuth()
   const classes = useStyles()
@@ -58,21 +64,25 @@ function TopicItem({ match, location }) {
 
   if (loading === 'reload') {
     return (
-      <Card
-        onClick={() => dispatch(getTopicItemRequest({
-          topicId, programId, type, reload: true
-        }))}
-      >
-        <CardContent>Перезагрузить</CardContent>
-      </Card>
+      <ReloadButton onClick={() => dispatch(getTopicItemRequest({
+        topicId, programId, type, reload: true
+      }))}
+      />
     )
   }
 
-  if (loading || !data) {
+  if (loading) {
     return <LoadingScreen />
   }
 
-  console.log(data)
+  if (!data) {
+    return (
+      <ReloadButton onClick={() => dispatch(getTopicItemRequest({
+        topicId, programId, type, reload: true
+      }))}
+      />
+    )
+  }
 
   return (
     <Page

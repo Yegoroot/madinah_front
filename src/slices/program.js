@@ -85,7 +85,8 @@ const filter = (params) => {
 export const getProgramItem = ({ programId, type }) => async (dispatch) => {
   try {
     const programResponse = await axios.get(`${API_BASE_URL}/programs${prefix(type)}/${programId}`)
-    const topicsResponse = await axios.get(`${API_BASE_URL}/topics${prefix(type)}?program=${programId}&sort=sequence`)
+    const topicsResponse = await axios
+      .get(`${API_BASE_URL}/topics${prefix(type)}?program=${programId}&sort=sequence`)
     dispatch(slice.actions.getProgramItem({
       programData: programResponse.data.data,
       topicsData: topicsResponse.data.data
@@ -98,7 +99,7 @@ export const getProgramItem = ({ programId, type }) => async (dispatch) => {
 // OUTSIDE
 export const getProgramItemRequest = ({ programId, type }) => async (dispatch) => {
   // if (
-  //   theSameDocument({ documentId: programId, getState, module })
+  //   theSameDocument({ documentId: programId, getState, MODULE })
   // ) {
   //   return false
   // }
@@ -120,7 +121,8 @@ export const deleteProgram = ({ programId }) => async (dispatch) => {
 export const getProgramList = ({ params, type }) => async (dispatch) => {
   const response = await axios.get(`${API_BASE_URL}/programs${prefix(type)}`, {
     params: filter(params)
-  })
+  }).catch(() => ({ data: null }))
+
   const { data } = response
   dispatch(slice.actions.getProgramList({ data }))
 }

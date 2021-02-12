@@ -40,24 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function Results({ className, programs, ...rest }) {
   const classes = useStyles()
   const { t } = useTranslation()
-  // const sortRef = useRef(null)
-  // const [openSort, setOpenSort] = useState(false)
-  // const [selectedSort, setSelectedSort] = useState('Most popular')
   const [mode, setMode] = useState('grid')
-
-  // const handleSortOpen = () => {
-  //   setOpenSort(true)
-  // }
-
-  // const handleSortClose = () => {
-  //   setOpenSort(false)
-  // }
-
-  // const handleSortSelect = (value) => {
-  //   setSelectedSort(value)
-  //   setOpenSort(false)
-  // }
-
   const handleModeChange = (event, value) => {
     setMode(value)
   }
@@ -87,14 +70,6 @@ function Results({ className, programs, ...rest }) {
           display="flex"
           alignItems="center"
         >
-          {/* <Button
-            className={classes.sortButton}
-            onClick={handleSortOpen}
-            ref={sortRef}
-            >
-            {selectedSort}
-            <ArrowDropDownIcon />
-          </Button> */}
 
           <Hidden xsDown>
             <ToggleButtonGroup
@@ -136,31 +111,6 @@ function Results({ className, programs, ...rest }) {
           </Grid>
         ))}
       </Grid>
-      {/* <Box
-        mt={6}
-        display="flex"
-        justifyContent="center"
-      >
-        <Pagination count={3} />
-      </Box> */}
-      {/* <Menu
-        anchorEl={sortRef.current}
-        className={classes.menu}
-        onClose={handleSortClose}
-        open={openSort}
-        elevation={1}
-      >
-        {['Most recent', 'Popular', 'Price high', 'Price low', 'On sale'].map(
-          (option) => (
-            <MenuItem
-              key={option}
-              onClick={() => handleSortSelect(option)}
-            >
-              <ListItemText primary={option} />
-            </MenuItem>
-          )
-        )}
-      </Menu> */}
     </div>
   )
 }

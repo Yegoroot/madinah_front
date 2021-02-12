@@ -83,14 +83,10 @@ export const deleteTopic = ({ topicId }) => async (dispatch) => {
 
 // INSIDE
 export const getTopicList = ({ params, type }) => async (dispatch) => {
-  console.log(params)
-  try {
-    const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}`, { params })
-    const { data } = response
-    dispatch(slice.actions.getTopicList({ data }))
-  } catch (error) {
-    console.error('error', error) // FIXME alert message
-  }
+  const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}`, { params })
+    .catch(() => ({ data: null }))
+  const { data } = response
+  dispatch(slice.actions.getTopicList({ data }))
 }
 
 // OUTSIDE
