@@ -69,7 +69,7 @@ function Results({ data, onDelete }) {
                 to={{
                   pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
                   state: {
-                    fromDashboard: true
+                    // fromDashboard
                   }
                 }}
                 variant="h6"
@@ -134,7 +134,7 @@ function Results({ data, onDelete }) {
                   to={{
                     pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
                     state: {
-                      fromDashboard: true
+                      // fromDashboard
                     }
                   }}
                 >

@@ -16,8 +16,6 @@ import { useSelector, useDispatch } from 'src/store'
 import { getTopicItemRequest, MODULE } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
-import useAuth from 'src/hooks/useAuth'
-import { get_item } from 'src/utils/permissions'
 import ShowRecord from 'src/components/Record/Item/ShowRecord'
 import { Lightbox } from 'react-modal-image'
 import Header from './Header'
@@ -48,24 +46,21 @@ const ReloadButton = (onClick) => (
   </Card>
 )
 
-function TopicItem({ match, location }) {
-  const { user } = useAuth()
+function TopicItem({ match }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { loading, data } = useSelector((state) => state[MODULE].item)
   const { topicId, programId } = match.params
   const [selectedImage, setSelectedImage] = useState(null)
 
-  const type = get_item({ location, user }) ? 'private' : ''
-
   useEffect(() => {
-    dispatch(getTopicItemRequest({ topicId, programId, type }))
-  }, [dispatch, topicId, programId, type])
+    dispatch(getTopicItemRequest({ topicId, programId }))
+  }, [dispatch, topicId, programId])
 
   if (loading === 'reload') {
     return (
       <ReloadButton onClick={() => dispatch(getTopicItemRequest({
-        topicId, programId, type, reload: true
+        topicId, programId, reload: true
       }))}
       />
     )
@@ -78,7 +73,7 @@ function TopicItem({ match, location }) {
   if (!data) {
     return (
       <ReloadButton onClick={() => dispatch(getTopicItemRequest({
-        topicId, programId, type, reload: true
+        topicId, programId, reload: true
       }))}
       />
     )
@@ -119,7 +114,6 @@ function TopicItem({ match, location }) {
 }
 
 TopicItem.propTypes = {
-  location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
 }
 export default TopicItem

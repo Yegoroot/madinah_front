@@ -8,7 +8,10 @@
     "eslint:recommended",
     "plugin:mdx/recommended",
     "airbnb",
-    "airbnb/hooks"
+    "airbnb/hooks",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "settings": {
     "import/resolver": {

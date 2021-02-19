@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
@@ -37,7 +37,7 @@ function ProgramCreateView({ match }) {
 
   useEffect(() => {
     if (programId) {
-      dispatch(getProgramItemRequest({ programId, type: 'private' }))
+      dispatch(getProgramItemRequest({ programId }))
     }
     instanceAxios.get(`${API_BASE_URL}/types/`).then((res) => { setTypes(res.data.data) })
   }, [programId, dispatch])
@@ -52,7 +52,6 @@ function ProgramCreateView({ match }) {
   if (data) {
     program = {
       ...data,
-      // eslint-disable-next-line no-underscore-dangle
       types: data.types.map((typeObj) => typeObj._id)
     }
   }

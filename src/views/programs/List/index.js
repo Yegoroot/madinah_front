@@ -48,11 +48,10 @@ function Results() {
     const params = {
       page, limit
     }
-    dispatch(getProgramListRequest({ params, type: 'private' }))
+    dispatch(getProgramListRequest({ params }))
   }, [dispatch, page, limit, filters])
 
   const onDelete = (programId) => {
-    // eslint-disable-next-line no-alert
     if (window.confirm(t('alert.do you want to delete program'))) {
       dispatch(deleteProgram({ programId }))
       total -= 1
@@ -63,7 +62,7 @@ function Results() {
     const params = {
       page, limit
     }
-    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true, type: 'private' }))}>Перезагрузить</span>
+    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}>Перезагрузить</span>
   } if (loading || !data) {
     return <LoadingScreen />
   }

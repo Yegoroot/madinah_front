@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -67,7 +65,7 @@ const useStyles = makeStyles((theme) => {
         height: '100%',
         width: '100%',
         background: `linear-gradient(-180deg,  
-          ${hex1} 40%, 
+          ${hex1} 40%,  
           ${hex2} 60%,  
           ${hex3} 70%, 
           ${hex4} 85%, 
@@ -88,7 +86,7 @@ const useStyles = makeStyles((theme) => {
 })
 
 const Header = ({
-  className, program, topics, type, ...rest
+  className, program, topics, ...rest
 }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -105,7 +103,7 @@ const Header = ({
     }
     await axios.post(`${API_BASE_URL}/topics/order`, data)
       .then(() => {
-        dispatch(getProgramItemRequest({ programId: program._id, type }))
+        dispatch(getProgramItemRequest({ programId: program._id }))
       })
   }
 
@@ -168,12 +166,12 @@ const Header = ({
           </Box>
 
           <Box mx={-1}>
-            {program.types.map((ty) => (
+            {program.types.map((_type) => (
               <Type
-                color={ty.color}
-                key={ty._id}
+                color={_type.color}
+                key={_type._id}
               >
-                {ty.title}
+                {_type.title}
               </Type>
             ))}
           </Box>

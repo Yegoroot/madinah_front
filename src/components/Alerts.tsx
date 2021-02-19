@@ -1,27 +1,35 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'src/store/hooks'
 import { useSnackbar } from 'notistack'
 import { removeSnackbar } from 'src/slices/alert'
 
-let displayed = []
+let displayed: any[] = []
 
-const Notifier = () => {
+const Notifier = (): null => {
   const dispatch = useDispatch()
-  const notifications = useSelector((store) => store.alert.notifications || [])
+  const notifications = useSelector((store) => store.alert.notifications)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-  const storeDisplayed = (id) => {
+  const storeDisplayed = (id: any) => {
     displayed = [...displayed, id]
   }
 
-  const removeDisplayed = (id) => {
+  const removeDisplayed = (id: React.ReactText) => {
     displayed = [...displayed.filter((key) => id !== key)]
+  }
+
+  type Opt = {
+    onClose?: (
+      event: React.SyntheticEvent<any, Event> | null,
+      reason: any,
+      myKey: string | number | undefined
+      )=> void,
   }
 
   React.useEffect(() => {
     notifications.forEach(({
       key, message, options = {}, dismissed = false
-    }) => {
+    }: {key?: any, message: any, options: Opt, dismissed: boolean}) => {
       if (dismissed) {
         // dismiss snackbar using notistack
         closeSnackbar(key)
@@ -34,12 +42,13 @@ const Notifier = () => {
       // display snackbar using notistack
       enqueueSnackbar(message, {
         key,
+        autoHideDuration: 4000,
         ...options,
-        classes: {
-          variantError: {
-            backgroundColor: 'black'
-          }
-        },
+        // classes: {
+        //   variantError: {
+        //     backgroundColor: 'black'
+        //   }
+        // },
         onClose: (event, reason, myKey) => {
           if (options.onClose) {
             options.onClose(event, reason, myKey)

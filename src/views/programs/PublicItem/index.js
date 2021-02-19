@@ -15,12 +15,8 @@ import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramItemRequest, MODULE } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
-import useAuth from 'src/hooks/useAuth'
-// eslint-disable-next-line camelcase
-import { get_item } from 'src/utils/permissions'
 import Header from './Header'
 import Topics from './Topics'
-// import Files from './Files'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,25 +30,14 @@ const ProgramItem = ({ match, location }) => {
   const dispatch = useDispatch()
   const { loading, data, topics } = useSelector((state) => state[MODULE].item)
   const classes = useStyles()
-  // const [currentTab, setCurrentTab] = useState('topics')
-  const { user } = useAuth()
-  // const tabs = [
-  //   { value: 'topics', label: 'Topics' },
-  //   { value: 'files', label: 'Files' },
-  // ]
-  // const handleTabsChange = (event, value) => {
-  //   setCurrentTab(value)
-  // }
-
-  const type = get_item({ location, user }) ? 'private' : ''
 
   useEffect(() => {
-    dispatch(getProgramItemRequest({ programId, type }))
-  }, [dispatch, programId, type])
+    dispatch(getProgramItemRequest({ programId }))
+  }, [dispatch, programId])
 
   if (loading === 'reload') {
     return (
-      <span onClick={() => dispatch(getProgramItemRequest({ programId, type, reload: true }))}>
+      <span onClick={() => dispatch(getProgramItemRequest({ programId, reload: true }))}>
         Перезагрузить
       </span>
     )
@@ -69,7 +54,6 @@ const ProgramItem = ({ match, location }) => {
       <Header
         program={data}
         topics={topics}
-        type={type}
       />
       {/* <Container maxWidth="lg"> */}
       <Container>

@@ -65,7 +65,7 @@ function Row({ program, onDelete }) {
             to={{
               pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
               state: {
-                fromDashboard: true
+                // fromDashboard
               }
             }}
           >
@@ -102,7 +102,7 @@ function Row({ program, onDelete }) {
               to={{
                 pathname: `${PUBLIC_PROGRAMS_URL}/${program.id}`,
                 state: {
-                  fromDashboard: true
+                  // fromDashboard: true
                 }
               }}
             >

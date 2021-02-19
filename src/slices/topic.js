@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
-import { getMenuProgram, prefix } from 'src/slices/program'
+import { getMenuProgram } from 'src/slices/program'
 
 const initialState = {
   list: {
@@ -54,9 +54,9 @@ const slice = createSlice({
 export const { reducer } = slice
 
 // INSIDE
-export const getTopicItem = ({ topicId, type }) => async (dispatch) => {
+export const getTopicItem = ({ topicId }) => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}/${topicId}`)
+    const response = await axios.get(`${API_BASE_URL}/topics/${topicId}`)
     const { data } = response.data
     dispatch(slice.actions.getTopicItem({ data }))
   } catch (error) {
@@ -65,10 +65,10 @@ export const getTopicItem = ({ topicId, type }) => async (dispatch) => {
 }
 
 // OUTSIDE
-export const getTopicItemRequest = ({ topicId, programId, type }) => async (dispatch) => {
+export const getTopicItemRequest = ({ topicId, programId }) => async (dispatch) => {
   dispatch(getMenuProgram(programId)) // set menu
   dispatch(slice.actions.getTopicItemRequest())
-  dispatch(getTopicItem({ topicId, type }))
+  dispatch(getTopicItem({ topicId }))
 }
 
 // OUTSIDE
@@ -82,17 +82,17 @@ export const deleteTopic = ({ topicId }) => async (dispatch) => {
 }
 
 // INSIDE
-export const getTopicList = ({ params, type }) => async (dispatch) => {
-  const response = await axios.get(`${API_BASE_URL}/topics${prefix(type)}`, { params })
+export const getTopicList = ({ params }) => async (dispatch) => {
+  const response = await axios.get(`${API_BASE_URL}/topics`, { params })
     .catch(() => ({ data: null }))
   const { data } = response
   dispatch(slice.actions.getTopicList({ data }))
 }
 
 // OUTSIDE
-export const getTopicListRequest = ({ params, type }) => async (dispatch) => {
+export const getTopicListRequest = ({ params }) => async (dispatch) => {
   dispatch(slice.actions.getTopicListRequest())
-  dispatch(getTopicList({ params, type }))
+  dispatch(getTopicList({ params }))
 }
 
 export default slice
