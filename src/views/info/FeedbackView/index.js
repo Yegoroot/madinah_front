@@ -1,10 +1,6 @@
-import React, { lazy, Suspense } from 'react'
+import React, { Suspense } from 'react'
+import { makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
-import { Container, makeStyles } from '@material-ui/core'
-import { MDXProvider } from '@mdx-js/react'
-import components from '../mdx'
-
-const Content = lazy(() => import('!babel-loader!mdx-loader!./Content.mdx'))
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -30,14 +26,7 @@ const ChangelogView = () => {
       <Suspense fallback={null}>
         <div className={classes.wrapper}>
           <div className={classes.contentContainer}>
-            <Container
-              maxWidth="md"
-              className={classes.content}
-            >
-              <MDXProvider components={components}>
-                <Content />
-              </MDXProvider>
-            </Container>
+            t
           </div>
         </div>
 

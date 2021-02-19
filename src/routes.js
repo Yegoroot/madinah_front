@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {
   Suspense,
   Fragment,

@@ -35,12 +35,14 @@ export const restoreSettings = () => {
   return settings
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const storeSettings = (settings?: any) => {
   window.localStorage.setItem('settings', JSON.stringify(settings))
 }
 
 const SettingsContext = createContext({
   settings: defaultSettings,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   saveSettings: () => { }
 })
 

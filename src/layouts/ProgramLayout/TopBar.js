@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import Account from '../DashboardLayout/TopBar/Account'
 import { useStyles } from '../DashboardLayout/TopBar/style'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TopBar = ({
   className,
   onMobileNavOpen,
@@ -70,6 +71,7 @@ TopBar.propTypes = {
 }
 
 TopBar.defaultProps = {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMobileNavOpen: () => {}
 }
 

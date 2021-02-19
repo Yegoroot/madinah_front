@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import track from 'src/utils/analytics'
 
+// eslint-disable-next-line react/display-name
 const Page = forwardRef(({
   children,
   title = '',

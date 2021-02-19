@@ -84,10 +84,12 @@ const AuthContext = createContext({
   ...initialAuthState,
   method: 'JWT',
   login: () => Promise.resolve(),
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   logout: () => { },
   register: () => Promise.resolve()
 })
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialAuthState)
 

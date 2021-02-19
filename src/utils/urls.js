@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { matchPath } from 'react-router'
 import { PROGRAMS_URL, PUBLIC_PROGRAMS_URL } from 'src/constants'
 
