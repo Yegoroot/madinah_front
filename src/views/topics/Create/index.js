@@ -36,10 +36,11 @@ function TopicCreateView({ match, location }) {
   const topic = useSelector((state) => state[moduleTopic].item)
 
   useEffect(() => {
+    const params = { fromDashboard: true }
     if (topicId) {
-      dispatch(getTopicItemRequest({ topicId, type: 'private' })) // get topic item
+      dispatch(getTopicItemRequest({ topicId })) // get topic item
     }
-    dispatch(getProgramListRequest({ type: 'private' })) // get program list
+    dispatch(getProgramListRequest({ params })) // get program list
   }, [dispatch, topicId])
 
   if (topic.loading || (topicId && !topic.data)) {

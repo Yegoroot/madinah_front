@@ -46,7 +46,7 @@ function Results() {
 
   useEffect(() => {
     const params = {
-      page, limit
+      page, limit, fromDashboard: true
     }
     dispatch(getProgramListRequest({ params }))
   }, [dispatch, page, limit, filters])
@@ -60,7 +60,7 @@ function Results() {
 
   if (loading === 'reload') {
     const params = {
-      page, limit
+      page, limit, fromDashboard: true
     }
     return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}>Перезагрузить</span>
   } if (loading || !data) {
@@ -109,7 +109,7 @@ function Results() {
               labelRowsPerPage={`${t('table.rows')}:`}
               labelDisplayedRows={({ from, to, count }) => `${from} - ${to} ${t('table.from')} ${count}`}
               rowsPerPage={limit}
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[5, 10, 35]}
             />
 
           </Card>

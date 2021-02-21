@@ -80,17 +80,19 @@ const slice = createSlice({
 type Params = {
   language: string[];
   level: string[];
+  limit: number;
+  page: number;
+  fromDashboard: boolean;
   // limit: number;
 }
 const filter = (params: Params) => {
-  const f: any = {}
+  const f: any = { ...params }
   if (params?.language?.length) {
     f.language = JSON.stringify(params.language)
   }
   if (params?.level?.length) {
     f.level = JSON.stringify(params.level)
   }
-  f.limit = 35
   return f
 }
 

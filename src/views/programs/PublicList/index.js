@@ -54,14 +54,19 @@ function ProgramBrowseView({ location }) {
     language: urlParams.getAll('language')
   })
 
+  const params = {
+    limit: 35,
+    page: 0
+  }
+
   useEffect(() => {
-    dispatch(getProgramListRequest({ params: filter }))
+    dispatch(getProgramListRequest({ params: { ...filter, ...params } }))
   }, [dispatch, filter])
 
   if (loading === 'reload') {
     return (
       <span onClick={
-        () => dispatch(getProgramListRequest({ params: filter, reload: true }))
+        () => dispatch(getProgramListRequest({ params: { ...filter, ...params }, reload: true }))
       }
       >
         Перезагрузить

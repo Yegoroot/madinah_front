@@ -52,9 +52,9 @@ function Results() {
 
   useEffect(() => {
     const params = {
-      page, limit
+      page, limit, fromDashboard: true
     }
-    dispatch(getTopicListRequest({ params, type: 'private' }))
+    dispatch(getTopicListRequest({ params }))
   }, [dispatch, filters, page, limit])
 
   if (loading || !data) {
@@ -100,7 +100,7 @@ function Results() {
               rowsPerPage={limit}
               labelRowsPerPage={t('table.rows')}
               labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('table.from')} ${count}`}
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[5, 10, 35]}
             />
           </Card>
         </Box>
