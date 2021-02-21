@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactChild, useState } from 'react'
 import clsx from 'clsx'
 import {
   Box,
@@ -20,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
   title: {
     position: 'relative',
+    marginBottom: 15,
     '&:after': {
       position: 'absolute',
       bottom: -8,
@@ -34,20 +34,25 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     letterSpacing: 0,
     marginRight: theme.spacing(2)
+  },
+  grid: {
+    [theme.breakpoints.down('xs')]: {
+      padding: '5px 5px 5px 5px !important'
+    }
   }
 }))
 
-function Results({ className, programs, ...rest }) {
+function Results({ programs, ...rest }: {programs: any[]}): ReactChild {
   const classes = useStyles()
   const { t } = useTranslation()
   const [mode, setMode] = useState('grid')
-  const handleModeChange = (event, value) => {
+  const handleModeChange = (event: React.MouseEvent, value: string) => {
     setMode(value)
   }
 
   return (
     <div
-      className={clsx(classes.root, className)}
+      className={clsx(classes.root)}
       {...rest}
     >
       <Box
@@ -90,7 +95,7 @@ function Results({ className, programs, ...rest }) {
         variant="h3"
         color="textPrimary"
       >
-        Programs not found, please change your search conditions
+        {t('programspage.notfound')}
       </Typography>
       ) }
       <Grid
@@ -101,6 +106,7 @@ function Results({ className, programs, ...rest }) {
         {programs.map((program) => (
           <Grid
             item
+            className={classes.grid}
             key={program.id}
             lg={mode === 'grid' ? 3 : 4}
             md={mode === 'grid' ? 4 : 6}
@@ -113,11 +119,6 @@ function Results({ className, programs, ...rest }) {
       </Grid>
     </div>
   )
-}
-
-Results.propTypes = {
-  className: PropTypes.string,
-  programs: PropTypes.array.isRequired
 }
 
 export default Results

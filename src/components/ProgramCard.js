@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-function ProgramCard({ program, className, ...rest }) {
+function ProgramCard({ program, ...rest }) {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const classes = useStyles()
@@ -100,7 +100,7 @@ function ProgramCard({ program, className, ...rest }) {
 
   return (
     <Card
-      className={clsx(classes.root, className)}
+      className={clsx(classes.root)}
       {...rest}
     >
       <Box

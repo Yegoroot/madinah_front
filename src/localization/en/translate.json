@@ -2,7 +2,8 @@
   "translations": {
     "programspage": {
       "choose": "Choose params for searching",
-      "count": "Programs was found"
+      "count": "Programs was found",
+      "notfound": "Programs not found, please change your search conditions"
     },
     "pageProgram": {
       "add topic": "add topic",
