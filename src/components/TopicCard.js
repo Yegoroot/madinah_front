@@ -24,7 +24,9 @@ import { useTranslation } from 'react-i18next'
 import useSettings from 'src/hooks/useSettings'
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    position: 'relative'
+  },
   edit: {
     marginTop: -8
   },
@@ -34,7 +36,13 @@ const useStyles = makeStyles((theme) => ({
   subscribersIcon: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(1)
-  }
+  },
+  unpublish: {
+    position: 'absolute',
+    top: -15,
+    left: 0,
+    color: '#f44336',
+  },
 }))
 
 function TopicCard({ topic, programId }) {
@@ -49,6 +57,7 @@ function TopicCard({ topic, programId }) {
     <div>
 
       <Box
+        className={classes.root}
         pt={3}
       >
         <Link
@@ -69,6 +78,8 @@ function TopicCard({ topic, programId }) {
         { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(role) ? null
           : (
             <>
+              {!topic.publish && <div className={classes.unpublish}>Unpublish</div> }
+
               <IconButton
                 className={classes.edit}
                 component={RouterLink}
