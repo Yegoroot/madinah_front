@@ -14,7 +14,11 @@ import Annotations from './Components/Annotations'
 const useStyles = makeStyles(() => ({
   wavesurfer: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+  wave: {
+    width: 'calc(100% - 74px)'
   }
 }))
 
@@ -177,7 +181,7 @@ const MyWaveSurfer = ({
       waveformElem.current.on('pause', () => { setIsplay(false) })
     })
 
-    return () => waveformElem.current?.destroy()
+    return () => waveformElem?.current?.destroy()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaLink])
 
@@ -206,8 +210,9 @@ width: 70px;
           [classes.wavesurfer]: !isEdit,
         })}
       >
+        {/* <LoadingScreen fullwidth /> */}
         { isLoading
-          ? <LoadingScreen width="100%" />
+          ? <LoadingScreen fullwidth />
           : (
             <Header
               className={classes.wavesurfer}
@@ -221,8 +226,10 @@ width: 70px;
             />
           )}
         <div
-          className="not-ar"
-          style={{ width: '100%' }}
+          className={clsx({
+            'not-ar': !isEdit,
+            [classes.wave]: true
+          })}
           ref={waveformElem}
         />
       </Box>

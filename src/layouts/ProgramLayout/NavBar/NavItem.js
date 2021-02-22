@@ -52,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginRight: 'auto'
   },
+  unpublishLink: {
+    '& svg': {
+      color: theme.palette.error.main
+    }
+  },
   active: {
     color: theme.palette.secondary.main,
     '& $title': {
@@ -63,11 +68,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NavItem = ({
   children,
   className,
   depth,
   href,
+  unpublish,
   icon: Icon,
   info: Info,
   open: openProp,
@@ -129,7 +136,8 @@ const NavItem = ({
     >
       <Button
         activeClassName={classes.active}
-        className={clsx(classes.buttonLeaf, `depth-${depth}`)}
+        // eslint-disable-next-line max-len
+        className={clsx({ [classes.buttonLeaf]: true, [`depth-${depth}`]: true, [classes.unpublishLink]: unpublish })}
         component={RouterLink}
         exact
         style={style}
@@ -154,6 +162,7 @@ NavItem.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   depth: PropTypes.number.isRequired,
+  unpublish: PropTypes.bool,
   href: PropTypes.string,
   icon: PropTypes.elementType,
   info: PropTypes.elementType,

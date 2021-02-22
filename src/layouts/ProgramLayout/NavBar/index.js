@@ -71,6 +71,7 @@ function reduceChildRoutes({
   } else {
     acc.push(
       <NavItem
+        unpublish={item.unpublish}
         depth={depth}
         href={item.href}
         icon={item.icon}

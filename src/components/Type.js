@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const Type = ({
   className = '',
   children,
-  style,
+  // style,
   ...rest
 }) => {
   const classes = useStyles()
@@ -51,7 +51,7 @@ const Type = ({
 Type.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  style: PropTypes.object,
+  // style: PropTypes.object,
   color: PropTypes.string.isRequired
 }
 

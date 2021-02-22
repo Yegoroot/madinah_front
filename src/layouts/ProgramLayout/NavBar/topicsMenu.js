@@ -54,11 +54,12 @@ const topicsMenu = (topics) => {
     href: `${PUBLIC_PROGRAMS_URL}/${topics[0].program.id}`
   }
 
-  program.items = topics.map(({ title, id }) => (
+  program.items = topics.map(({ title, id, publish }) => (
     {
       title: `${title}`,
       href: `${PUBLIC_PROGRAMS_URL}/${programId}/topics/${id}`,
-      icon: Minus
+      icon: Minus,
+      unpublish: !publish
     }
 
   ))
