@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { HOST } from 'src/constants'
+import axios from 'src/utils/axios'
 
 const useStyles = makeStyles((/* theme */) => ({
   googleButton: {
@@ -29,7 +30,9 @@ const useStyles = makeStyles((/* theme */) => ({
 export const GoogleButton = () => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const loginByGoogle = () => {
+  const loginByGoogle = async () => {
+    const res = await axios.get('https://madinah.best/api/v1/auth/google')
+    console.log(res)
     window.open('http://api:5000/api/v1/auth/google', '_self')
   }
   return (
