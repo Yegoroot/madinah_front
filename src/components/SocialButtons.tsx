@@ -30,7 +30,7 @@ export const GoogleButton = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   const loginByGoogle = () => {
-    window.open('/api/v1/auth/google', '_self')
+    window.open('https://madinah.best/api/v1/auth/google', '_self')
   }
   return (
     <div

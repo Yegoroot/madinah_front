@@ -18,8 +18,6 @@ export const TOPICS_URL = '/app/topics'
 export const USERS_URL = '/app/users'
 export const TYPES_URL = '/app/types'
 
-export const DOMEN = 'madinah.best'
-
 export const HOST = process.env.NODE_ENV === 'production'
   ? ''
   : 'http://localhost:5000'
