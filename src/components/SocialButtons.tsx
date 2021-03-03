@@ -33,7 +33,8 @@ export const GoogleButton = () => {
   const loginByGoogle = async () => {
     // const res = await axios.get('https://madinah.best/api/v1/auth/google')
     // console.log(res)
-    window.open('http://api:5000/api/v1/auth/google', '_self')
+    // window.open('https://madinah.best/api/v1/auth/google', '_self')
+    window.open('madinah.best/api/v1/auth/google', '_self')
   }
   return (
     <div
