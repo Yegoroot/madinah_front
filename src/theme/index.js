@@ -57,7 +57,7 @@ const themesOptions = [
         active: colors.blueGrey[600]
       },
       background: {
-        default: colors.common.white,
+        default: '#ffffff',
         dark: '#f4f6f8',
         paper: colors.common.white
       },

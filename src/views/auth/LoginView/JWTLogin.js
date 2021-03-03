@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const JWTLogin = ({ className, ...rest }) => {
+const JWTLogin = ({ ...rest }) => {
   const classes = useStyles()
   const { login } = useAuth()
   const isMountedRef = useIsMountedRef()
@@ -74,7 +74,7 @@ const JWTLogin = ({ className, ...rest }) => {
         <form
           noValidate
           onSubmit={handleSubmit}
-          className={clsx(classes.root, className)}
+          className={clsx(classes.root)}
           {...rest}
         >
           <TextField

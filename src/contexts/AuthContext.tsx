@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, {
   createContext,
   useEffect,
@@ -6,8 +6,7 @@ import React, {
 } from 'react'
 import jwtDecode from 'jwt-decode'
 import SplashScreen from 'src/components/SplashScreen'
-// import axios from 'src/utils/axios'
-import { instanceAxios as axios } from 'src/utils/axios'
+import axios from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 
 const initialAuthState = {
@@ -16,18 +15,19 @@ const initialAuthState = {
   user: null
 }
 
-const isValidToken = (accessToken) => {
+const isValidToken = (accessToken: any) => {
   if (!accessToken) {
     return false
   }
 
   const decoded = jwtDecode(accessToken)
   const currentTime = Date.now() / 1000
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Object is of type 'unknown'.
   return decoded.exp > currentTime
 }
 
-const setSession = (accessToken) => {
+const setSession = (accessToken: any) => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken)
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
@@ -37,7 +37,7 @@ const setSession = (accessToken) => {
   }
 }
 
-const reducer = (state, action) => {
+const reducer = (state: any, action: any) => {
   switch (action.type) {
     case 'INITIALISE': {
       const { isAuthenticated, user } = action.payload
@@ -82,18 +82,17 @@ const reducer = (state, action) => {
 
 const AuthContext = createContext({
   ...initialAuthState,
-  method: 'JWT',
   login: () => Promise.resolve(),
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  logout: () => { },
+  logout: () => Promise.resolve(),
   register: () => Promise.resolve()
 })
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: { children: any}) => {
   const [state, dispatch] = useReducer(reducer, initialAuthState)
 
-  const login = async (email, password) => {
+  // JWT auth
+  const login = async (email: string, password: string) => {
     const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password })
     const { token, user } = response.data
 
@@ -107,13 +106,12 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = async () => {
-    await axios.get(`${API_BASE_URL}/auth/logout`).then(() => { // coockies null
-      setSession(null) // local storage null
-      dispatch({ type: 'LOGOUT' })
-    })
+    dispatch({ type: 'LOGOUT' })
+    setSession(null) // local storage null
+    await axios.get(`${API_BASE_URL}/auth/logout`)
   }
 
-  const register = async (email, name, password) => {
+  const register = async (email: string, name: string, password: string) => {
     const response = await axios.post(`${API_BASE_URL}/auth/register`, {
       email,
       name,
@@ -135,7 +133,9 @@ export const AuthProvider = ({ children }) => {
     const initialise = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken')
-
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken)
+        }
         // LOGOUT FOR UNAUTH USER
         // axios.interceptors.response.use(
         //   (response) => response,
@@ -147,28 +147,16 @@ export const AuthProvider = ({ children }) => {
         //   }
         // )
 
-        if (accessToken && isValidToken(accessToken)) {
-          setSession(accessToken)
+        const response = await axios.get(`${API_BASE_URL}/auth/me`)
+        const { user } = response.data
 
-          const response = await axios.get(`${API_BASE_URL}/auth/me`)
-          const { user } = response.data
-
-          dispatch({
-            type: 'INITIALISE',
-            payload: {
-              isAuthenticated: true,
-              user
-            }
-          })
-        } else {
-          dispatch({
-            type: 'INITIALISE',
-            payload: {
-              isAuthenticated: false,
-              user: null
-            }
-          })
-        }
+        dispatch({
+          type: 'INITIALISE',
+          payload: {
+            isAuthenticated: !!user,
+            user
+          }
+        })
       } catch (err) {
         console.error('err', err)
         dispatch({
@@ -192,7 +180,6 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         ...state,
-        method: 'JWT',
         login,
         logout,
         register

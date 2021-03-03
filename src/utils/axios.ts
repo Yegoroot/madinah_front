@@ -4,9 +4,7 @@ import { enqueueSnackbar } from 'src/slices/alert'
 import ObjectID from 'bson-objectid'
 import i18n from 'i18next'
 
-const instanceWithMock = axios.create()
-
-const errorHandler = (err) => {
+const errorHandler = (err: {message: string}) => {
   store.dispatch(enqueueSnackbar({
     message: i18n.t(`error.${err.message}`),
     options: {
@@ -18,8 +16,10 @@ const errorHandler = (err) => {
   return Promise.reject(err)
 }
 
-export const instanceAxios = axios.create()
+export const instanceAxios = axios.create({
+  withCredentials: true
+})
 instanceAxios.interceptors.request.use((req) => req, errorHandler)
 instanceAxios.interceptors.response.use((res) => res, errorHandler)
 
-export default instanceWithMock
+export default instanceAxios

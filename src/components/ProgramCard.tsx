@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import clsx from 'clsx'
 import { hexToRgb } from '@material-ui/core/styles'
 import {
@@ -94,8 +94,9 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-function ProgramCard({ program, ...rest }: {program: any}) {
+function ProgramCard({ program, ...rest }: {program: any}): any {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { t } = useTranslation()
   const classes = useStyles()
   const { user } = useAuth()
@@ -105,6 +106,8 @@ function ProgramCard({ program, ...rest }: {program: any}) {
       dispatch(deleteProgram({ programId: program.id }))
     }
   }
+
+  const handleEdit = () => history.push(`${PROGRAMS_URL}/${program.id}/edit`)
 
   const image = program.photo
     ? `${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo}`
@@ -176,9 +179,8 @@ function ProgramCard({ program, ...rest }: {program: any}) {
             alignItems="center"
           >
             <IconButton
-              component={RouterLink}
               className={classes.edit}
-              to={`${PROGRAMS_URL}/${program.id}/edit`}
+              onClick={handleEdit}
             >
               <SvgIcon
                 fontSize="small"
@@ -202,8 +204,6 @@ function ProgramCard({ program, ...rest }: {program: any}) {
           )}
         </Box>
         <CardMedia
-          component={RouterLink}
-          to={`${PUBLIC_PROGRAMS_URL}/${program.id}`}
           className={classes.media}
           image={image}
         />

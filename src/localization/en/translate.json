@@ -1,5 +1,8 @@
 {
   "translations": {
+    "btn": {
+      "Sign in with google": "Sign in with google"
+    },
     "programspage": {
       "choose": "Choose params for searching",
       "count": "Programs was found",

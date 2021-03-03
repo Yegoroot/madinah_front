@@ -13,10 +13,13 @@ import {
 import Page from 'src/components/Page'
 import Logo from 'src/components/Logo'
 import { useTranslation } from 'react-i18next'
+import { GoogleButton } from 'src/components/SocialButtons'
 import JWTLogin from './JWTLogin'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     backgroundColor: theme.palette.background.dark,
     display: 'flex',
     flexDirection: 'column',
@@ -42,10 +45,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const LoginView = () => {
+const LoginView = (): any => {
   const classes = useStyles()
   const { t } = useTranslation()
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <Page
       className={classes.root}
       title="Login"
@@ -85,6 +90,7 @@ const LoginView = () => {
                 </Typography>
               </div>
             </Box>
+            <GoogleButton />
             <Box
               flexGrow={1}
               mt={3}

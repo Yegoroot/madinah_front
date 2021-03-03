@@ -1,5 +1,8 @@
 {
   "translations": {
+    "btn": {
+      "Sign in with google": "الدخول مع جوجل"
+    },
     "programspage": {
       "choose": "اختر المعلمات للبحث",
       "count": "عدد البرامج المقترحة",
