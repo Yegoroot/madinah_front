@@ -21,7 +21,7 @@ export const TYPES_URL = '/app/types'
 export const DOMEN = 'madinah.best'
 
 export const HOST = process.env.NODE_ENV === 'production'
-  ? ''
+  ? 'https://madinah.best'
   : 'http://localhost:5000'
 
 export const API_BASE_URL = `${HOST}/api/v1`
