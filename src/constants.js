@@ -1,5 +1,5 @@
 // or get from process.env.REACT_APP_{var} to handle PROD and DEV environments
-export const APP_VERSION = '0.3.1'
+export const APP_VERSION = '0.4.0'
 
 export const APP_NAME = 'Learn Arabic App'
 
@@ -19,7 +19,7 @@ export const USERS_URL = '/app/users'
 export const TYPES_URL = '/app/types'
 
 export const HOST = process.env.NODE_ENV === 'production'
-  ? ''
+  ? 'https://madinah.best'
   : 'http://localhost:5000'
 
 export const API_BASE_URL = `${HOST}/api/v1`
@@ -46,3 +46,9 @@ export const LANGUAGES = [
 export const DEFAULT_LANGUAGE = LANGUAGES.find(
   (lang) => navigator.language.match(lang)
 ) || 'en' // navigator.language - "en-US"
+
+/**
+ * Маршрут авторихации который будет обрабатываться специальным образом
+ * так как есть некоторые ньюансы для этого маршрута
+ */
+export const excRoute = '/api/v1/auth/google'

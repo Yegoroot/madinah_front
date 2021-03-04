@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
+import { HOST } from 'src/constants'
 
 const useStyles = makeStyles((/* theme */) => ({
   googleButton: {
@@ -29,8 +30,7 @@ export const GoogleButton = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   const handleGoogleClick = () => {
-    console.log('user')
-    window.open('http://localhost/api/v1/auth/google', '_self')
+    window.open(`${HOST}/api/v1/auth/google`, '_self')
   }
   return (
     <div

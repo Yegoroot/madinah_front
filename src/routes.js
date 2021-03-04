@@ -22,6 +22,7 @@ import UserGuard from 'src/components/UserGuard'
 import ProgramGuard from 'src/components/ProgramGuard'
 import SuperadminGuard from 'src/components/SuperadminGuard'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { excRoute } from './constants'
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -58,6 +59,11 @@ const routes = [
     exact: true,
     path: '/',
     component: () => <Redirect to="/home" />
+  },
+  {
+    exact: true,
+    path: '/home',
+    component: HomeView
   },
   {
     exact: true,
@@ -252,15 +258,15 @@ const routes = [
       }
     ]
   },
+  // не должен react-router что либо выводить для этого роута
+  {
+    exact: true,
+    path: excRoute
+  },
   {
     path: '*',
     layout: MainLayout,
     routes: [
-      {
-        exact: true,
-        path: '/home',
-        component: HomeView
-      },
       {
         component: () => <Redirect to="/404" />
       }
