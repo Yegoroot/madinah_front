@@ -13,6 +13,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { excRoute } from './constants'
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -38,6 +39,12 @@ registerRoute(
 
     // If this is a URL that starts with /_, skip.
     if (url.pathname.startsWith('/_')) {
+      return false;
+    }
+    
+    // Не должен обрабатывать этот роут service-worker
+    // https://stackoverflow.com/questions/45663796/setting-service-worker-to-exclude-certain-urls-only
+    if (url.pathname.startsWith(excRoute)) { // EXCEPTION THIS ROUTE
       return false;
     }
 

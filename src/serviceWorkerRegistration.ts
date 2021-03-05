@@ -13,12 +13,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
-import { excRoute } from './constants'
-
-function isAuthRoute() {
-  return window.location.pathname.startsWith(excRoute)
-}
-
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost'
     // [::1] is the IPv6 localhost address.
@@ -48,14 +42,6 @@ export function register(config?: Config) {
     // eslint-disable-next-line consistent-return
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
-
-      // Не должен обрабатывать этот роут service-worker
-      // https://stackoverflow.com/questions/45663796/setting-service-worker-to-exclude-certain-urls-only
-      if (isAuthRoute()) {
-        unregister()
-        window.location.reload()
-        return false
-      }
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
