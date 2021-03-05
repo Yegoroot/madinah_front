@@ -19,7 +19,7 @@ export const USERS_URL = '/app/users'
 export const TYPES_URL = '/app/types'
 
 export const HOST = process.env.NODE_ENV === 'production'
-  ? 'https://madinah.best'
+  ? 'https://madinah.best' // for local docker-compose use variable "localhost" instead this
   : 'http://localhost:5000'
 
 export const API_BASE_URL = `${HOST}/api/v1`
@@ -50,5 +50,8 @@ export const DEFAULT_LANGUAGE = LANGUAGES.find(
 /**
  * Маршрут авторихации который будет обрабатываться специальным образом
  * так как есть некоторые ньюансы для этого маршрута
+ *
+ * все дело в service-worker и react-router которые обрабатывают
+ * window.open(URL) не так как нужно мне
  */
 export const excRoute = '/api/v1/auth/google'

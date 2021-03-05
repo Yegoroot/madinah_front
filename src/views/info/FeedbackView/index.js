@@ -9,13 +9,16 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     paddingTop: 64,
+    color: theme.palette.text.primary
   },
   contentContainer: {
     flex: '1 1 auto',
-    overflow: 'auto'
-  },
-  content: {
-    paddingBottom: 120
+    overflow: 'auto',
+    padding: '0 20px',
+    paddingBottom: 40,
+    '& a': {
+      color: theme.palette.primary.main
+    }
   }
 }))
 
@@ -26,7 +29,14 @@ const ChangelogView = () => {
       <Suspense fallback={null}>
         <div className={classes.wrapper}>
           <div className={classes.contentContainer}>
-            t
+            Assalam Aleykum
+            <br />
+            We work this project and in sha Allah
+            In Madinah.best will have added a lot of new features.
+            <br />
+            If you want to help or criticize or advise, please call or write by this number
+            {' '}
+            <a href="tel:+966 500 328 598">+966 500 328 598 </a>
           </div>
         </div>
 
