@@ -46,6 +46,10 @@ const TopBar = ({
         <Hidden mdDown>
           <Logo className={classes.logo} />
         </Hidden>
+        <Box
+          ml={2}
+          flexGrow={1}
+        />
         <Button
           className={classes.programs}
           component={RouterLink}
@@ -54,10 +58,6 @@ const TopBar = ({
         >
           {t('menu.programs')}
         </Button>
-        <Box
-          ml={2}
-          flexGrow={1}
-        />
         <Settings />
         <Account />
       </Toolbar>

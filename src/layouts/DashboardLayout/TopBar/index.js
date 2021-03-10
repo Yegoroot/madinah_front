@@ -19,30 +19,7 @@ import { useTranslation } from 'react-i18next'
 import Account from './Account'
 // import Search from './Search'
 import Settings from './Settings'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    zIndex: theme.zIndex.drawer + 100,
-    ...theme.name === THEMES.LIGHT ? {
-      color: 'initial',
-      backgroundColor: '#fff'
-    } : {},
-    ...theme.name === THEMES.ONE_DARK ? {
-      backgroundColor: theme.palette.background.default
-    } : {}
-  },
-  toolbar: {
-    minHeight: 64,
-    justifyContent: 'flex-start'
-  },
-  programs: {
-    marginLeft: theme.spacing(2)
-  },
-  logoLink: {
-    display: 'flex'
-  }
-
-}))
+import { useStyles } from './style'
 
 const TopBar = ({
   className,
@@ -71,7 +48,10 @@ const TopBar = ({
         <Hidden mdDown>
           <Logo className={classes.logo} />
         </Hidden>
-
+        <Box
+          ml={2}
+          flexGrow={1}
+        />
         <Button
           className={classes.programs}
           component={RouterLink}
@@ -80,10 +60,7 @@ const TopBar = ({
         >
           {t('menu.programs')}
         </Button>
-        <Box
-          ml={2}
-          flexGrow={1}
-        />
+
         <Settings />
         <Account />
 

@@ -13,7 +13,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-import { excRoute } from './constants'
+import { routeAuthSocial } from './constants'
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -44,7 +44,7 @@ registerRoute(
     
     // Не должен обрабатывать этот роут service-worker
     // https://stackoverflow.com/questions/45663796/setting-service-worker-to-exclude-certain-urls-only
-    if (url.pathname.startsWith(excRoute)) { // EXCEPTION THIS ROUTE
+    if (url.pathname.startsWith(routeAuthSocial)) { // EXCEPTION THIS ROUTE
       return false;
     }
 

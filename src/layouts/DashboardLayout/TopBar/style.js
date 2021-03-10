@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   programs: {
-    marginLeft: theme.spacing(2)
+    marginRight: theme.spacing(2)
   },
   toolbar: {
     minHeight: 64,

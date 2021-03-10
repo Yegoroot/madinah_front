@@ -106,9 +106,9 @@ export const AuthProvider = ({ children }: { children: any}) => {
   }
 
   const logout = async () => {
-    dispatch({ type: 'LOGOUT' })
-    setSession(null) // local storage null
     await axios.get(`${API_BASE_URL}/auth/logout`)
+    setSession(null) // local storage null
+    dispatch({ type: 'LOGOUT' })
   }
 
   const register = async (email: string, name: string, password: string) => {

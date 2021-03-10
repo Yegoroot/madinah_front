@@ -54,4 +54,4 @@ export const DEFAULT_LANGUAGE = LANGUAGES.find(
  * все дело в service-worker которы обрабатыва
  * window.open(URL) не так как нужно мне
  */
-export const excRoute = '/api/v1/auth/google'
+export const routeAuthSocial = '/api/v1/auth/social'

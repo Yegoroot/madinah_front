@@ -66,13 +66,13 @@ function TopicCard({ topic, programId }) {
           to={`${PUBLIC_PROGRAMS_URL}/${programId}/topics/${topic.id}`}
           variant="h2"
         >
-          <span
+          {/* <span
             aria-labelledby="palma"
             role="img"
           >
             🌴
           </span>
-          {' '}
+          {' '} */}
           {topic.title}
         </Link>
         { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(role) ? null
