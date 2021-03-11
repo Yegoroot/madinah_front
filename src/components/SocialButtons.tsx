@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     cursor: 'pointer',
     borderRadius: 4,
-    paddingRight: 16,
+    padding: 1,
+    paddingRight: 8,
     alignItems: 'center',
     color: '#fff',
     fontSize: 'initial'
