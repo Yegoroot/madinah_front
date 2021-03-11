@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => {
     root: {
       position: 'relative',
       height: '100%',
+      // '&:hover': {
+      //   '& $media': {
+      //     filter: 'none'
+      //   }
+      // }
     },
     media: {
       position: 'absolute',
@@ -41,6 +46,8 @@ const useStyles = makeStyles((theme) => {
       width: '100%',
       left: 0,
       top: 0,
+      // // @ts-ignore
+      // filter: theme.name === 'LIGHT' ? 'grayscale(1)' : 'none'
     },
     box: {
       position: 'relative',

@@ -95,30 +95,31 @@ const useStyles = makeStyles((theme) => {
     },
     h1: {
       fontSize: 50,
-      color: theme.palette.text.primary,
+      color: '#fff',
+      // color: theme.palette.background.default,
       maxWidth: '100%',
       width: '100%',
       left: -10,
       'font-weight': 'bolder',
-      background: `linear-gradient(
-            104deg, ${hightLight[0]} 0.9%, 
-            ${hightLight[1]} 2.4%, 
-            ${hightLight[2]} 5.8%, 
-            ${hightLight[3]} 93%, 
-            ${hightLight[4]} 96%, 
-            ${hightLight[5]} 98%), 
-          linear-gradient(
-            183deg, ${hightLight[6]} 0%, 
-            ${hightLight[7]} 7.9%, 
-            ${hightLight[7]} 15%)
-          `,
+      // background: `linear-gradient(
+      //       104deg, ${hightLight[0]} 0.9%,
+      //       ${hightLight[1]} 2.4%,
+      //       ${hightLight[2]} 5.8%,
+      //       ${hightLight[3]} 93%,
+      //       ${hightLight[4]} 96%,
+      //       ${hightLight[5]} 98%),
+      //     linear-gradient(
+      //       183deg, ${hightLight[6]} 0%,
+      //       ${hightLight[7]} 7.9%,
+      //       ${hightLight[7]} 15%)
+      //     `,
       padding: '0.1em 10px',
       '-webkit-box-decoration-break': 'clone',
       margin: 0,
       'border-radius': 7.5,
 
       // eslint-disable-next-line max-len
-      'text-shadow': '-12px 12px 9.8px rgba(28, 32, 37, 0.2), 21px -18.1px 7.3px rgba(255, 255, 255,0.1), -18.1px -27.3px 30px rgba(255, 255, 255,0.31)',
+      'text-shadow': '12px 12px 9.8px rgb(28 32 37), 21px -18.1px 7.3px rgb(255 255 255 / 52%), -18.1px -27.3px 30px rgb(255 255 255 / 63%)',
     },
     title: {
     }
