@@ -151,6 +151,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
               {program.title}
             </Typography>
 
+            {program.description && (
             <Box pt={1}>
               <Typography
                 color="textSecondary"
@@ -159,6 +160,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
                 {program.description}
               </Typography>
             </Box>
+            )}
 
             <Box pt={1}>
               {program.types.map((type: {color: string, _id: string, title: string}) => (

@@ -151,6 +151,7 @@ function Header({ topic }) {
               )}
           </Typography>
 
+          {topic.description && (
           <Typography
             variant="h5"
             className={classes.description}
@@ -158,6 +159,7 @@ function Header({ topic }) {
           >
             {topic.description}
           </Typography>
+          )}
           <Box
             mx={-2}
             display="flex"
