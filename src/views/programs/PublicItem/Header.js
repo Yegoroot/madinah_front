@@ -37,17 +37,17 @@ const useStyles = makeStyles((theme) => {
   const hex4 = hexToRgb(`${theme.palette.background.dark}a6`) // 63
   const hex5 = hexToRgb(`${theme.palette.background.dark}`) // 63
 
-  const hightLight = [
-    hexToRgb(`${theme.palette.background.dark}0`),
-    hexToRgb(`${theme.palette.background.dark}`),
-    hexToRgb(`${theme.palette.background.dark}80`),
-    hexToRgb(`${theme.palette.background.dark}1a`),
-    hexToRgb(`${theme.palette.background.dark}b3`),
-    hexToRgb(`${theme.palette.background.dark}00`),
-    hexToRgb(`${theme.palette.background.dark}00`),
-    hexToRgb(`${theme.palette.background.dark}4d`),
-    hexToRgb(`${theme.palette.background.dark}00)`)
-  ]
+  // const hightLight = [
+  //   hexToRgb(`${theme.palette.background.dark}0`),
+  //   hexToRgb(`${theme.palette.background.dark}`),
+  //   hexToRgb(`${theme.palette.background.dark}80`),
+  //   hexToRgb(`${theme.palette.background.dark}1a`),
+  //   hexToRgb(`${theme.palette.background.dark}b3`),
+  //   hexToRgb(`${theme.palette.background.dark}00`),
+  //   hexToRgb(`${theme.palette.background.dark}00`),
+  //   hexToRgb(`${theme.palette.background.dark}4d`),
+  //   hexToRgb(`${theme.palette.background.dark}00)`)
+  // ]
 
   return {
     root: {
@@ -94,11 +94,12 @@ const useStyles = makeStyles((theme) => {
       marginLeft: theme.spacing(1)
     },
     h1: {
+      lineHeight: '1.4',
       fontSize: 50,
       color: '#fff',
       // color: theme.palette.background.default,
       maxWidth: '100%',
-      width: '100%',
+      marginRight: theme.spacing(1),
       left: -10,
       'font-weight': 'bolder',
       // background: `linear-gradient(
@@ -113,17 +114,19 @@ const useStyles = makeStyles((theme) => {
       //       ${hightLight[7]} 7.9%,
       //       ${hightLight[7]} 15%)
       //     `,
-      padding: '0.1em 10px',
+      padding: '0.1em 0px',
       '-webkit-box-decoration-break': 'clone',
       margin: 0,
       'border-radius': 7.5,
-
       // eslint-disable-next-line max-len
       'text-shadow': '12px 12px 9.8px rgb(28 32 37), 21px -18.1px 7.3px rgb(255 255 255 / 52%), -18.1px -27.3px 30px rgb(255 255 255 / 63%)',
     },
-    title: {
+    header: {
+      display: 'flex',
+      'align-items': 'center',
+      'flex-wrap': 'wrap',
+      'justify-content': 'space-between'
     }
-    // background: theme.palette.text.primary
   }
 })
 
@@ -167,42 +170,37 @@ const Header = ({
           <Box
             position="relative"
             display="flex"
-            alignItems="center"
+            flexDirection="column"
           >
 
-            <Box
-              className={classes.title}
-              mb={2}
-            >
-
-              <div>
-                <span className={classes.h1}>
-                  {program.title}
-                </span>
-                <Hidden lgUp>
-                  <Button
-                    className={classes.action}
-                    onClick={() => onShare(`${program.id}`)}
+            <div className={classes.header}>
+              <h1 className={classes.h1}>
+                {program.title}
+              </h1>
+              <Hidden lgUp>
+                <Button
+                  className={classes.action}
+                  variant="contained"
+                  onClick={() => onShare(`${program.id}`)}
+                >
+                  <SvgIcon
+                    fontSize="small"
+                    className={classes.actionIcon}
                   >
-                    <SvgIcon
-                      fontSize="small"
-                      className={classes.actionIcon}
-                    >
-                      <ShareIcon />
-                    </SvgIcon>
-                    {t('components.share')}
-                  </Button>
-                </Hidden>
-              </div>
+                    <ShareIcon />
+                  </SvgIcon>
+                  {t('components.share')}
+                </Button>
+              </Hidden>
+            </div>
 
-              <Typography
-                variant="h5"
-                className={classes.description}
-                color="textPrimary"
-              >
-                {program.description}
-              </Typography>
-            </Box>
+            <Typography
+              variant="h5"
+              className={classes.description}
+              color="textPrimary"
+            >
+              {program.description}
+            </Typography>
 
           </Box>
 
