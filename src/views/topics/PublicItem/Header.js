@@ -195,7 +195,32 @@ function Header({ topic }) {
                 color="inherit"
                 component="span"
               >
-                {`${t('time.created')} ${moment(topic.createdAt).fromNow()}`}
+                <b>
+                  {t('time.created')}
+                  {' '}
+                  {' '}
+                </b>
+                {moment(topic.createdAt).fromNow()}
+              </Typography>
+
+            </div>
+            <div className={classes.badge}>
+              <SvgIcon
+                fontSize="small"
+                className={classes.badgeIcon}
+              >
+                <CalendarIcon />
+              </SvgIcon>
+              <Typography
+                variant="body2"
+                color="inherit"
+                component="span"
+              >
+                <b>
+                  {t('time.updated')}
+                  {'  '}
+                </b>
+                {moment(topic.updatedAt).fromNow()}
               </Typography>
             </div>
           </Box>
