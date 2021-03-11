@@ -121,35 +121,32 @@ function Header({ topic }) {
           </Grid>
         </Hidden>
       </Grid>
+      <h1>
+        {topic.title}
+        { !user || !document_is_my_own(user, topic.user)
+              || !perm_work_with_program(user.role) ? null
+          : (
+            <>
+              <IconButton
+                component={RouterLink}
+                to={`${TOPICS_URL}/${topic.id}/edit`}
+              >
+                <SvgIcon
+                  fontSize="small"
+                  color="inherit"
+                >
+                  <EditIcon />
+                </SvgIcon>
+              </IconButton>
+            </>
+          )}
+      </h1>
       <Grid
         container
         spacing={3}
         justify="space-between"
       >
         <Grid item>
-          <Typography
-            variant="h1"
-            color="textPrimary"
-          >
-            {topic.title}
-            { !user || !document_is_my_own(user, topic.user)
-              || !perm_work_with_program(user.role) ? null
-              : (
-                <>
-                  <IconButton
-                    component={RouterLink}
-                    to={`${TOPICS_URL}/${topic.id}/edit`}
-                  >
-                    <SvgIcon
-                      fontSize="small"
-                      color="inherit"
-                    >
-                      <EditIcon />
-                    </SvgIcon>
-                  </IconButton>
-                </>
-              )}
-          </Typography>
 
           {topic.description && (
           <Typography

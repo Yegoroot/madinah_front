@@ -59,7 +59,7 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
 
       <Box
         className={classes.root}
-        pt={3}
+        mb={4}
       >
         <Link
           color="textPrimary"
@@ -88,9 +88,7 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
               </IconButton>
             </>
           )}
-        <Box
-          pt={1}
-        >
+        <Box>
           <Typography
             color="textSecondary"
             variant="body2"
@@ -105,7 +103,7 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
           mt={1}
         >
           <Box>
-            <Typography
+            {/* <Typography
               variant="body2"
               color="textSecondary"
             >
@@ -114,7 +112,7 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
               </b>
               {' '}
               {moment(topic.createdAt).fromNow()}
-            </Typography>
+            </Typography> */}
             <Typography
               variant="body2"
               color="textSecondary"

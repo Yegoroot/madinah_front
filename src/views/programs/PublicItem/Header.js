@@ -37,6 +37,18 @@ const useStyles = makeStyles((theme) => {
   const hex4 = hexToRgb(`${theme.palette.background.dark}a6`) // 63
   const hex5 = hexToRgb(`${theme.palette.background.dark}`) // 63
 
+  const hightLight = [
+    hexToRgb(`${theme.palette.background.dark}0`),
+    hexToRgb(`${theme.palette.background.dark}`),
+    hexToRgb(`${theme.palette.background.dark}80`),
+    hexToRgb(`${theme.palette.background.dark}1a`),
+    hexToRgb(`${theme.palette.background.dark}b3`),
+    hexToRgb(`${theme.palette.background.dark}00`),
+    hexToRgb(`${theme.palette.background.dark}00`),
+    hexToRgb(`${theme.palette.background.dark}4d`),
+    hexToRgb(`${theme.palette.background.dark}00)`)
+  ]
+
   return {
     root: {
       position: 'relative',
@@ -56,7 +68,8 @@ const useStyles = makeStyles((theme) => {
       alignItems: 'flex-end'
     },
     cover: {
-      position: 'relative',
+      position: 'absolute',
+      width: '100%',
       '&:before': {
         position: 'absolute',
         content: '" "',
@@ -74,14 +87,42 @@ const useStyles = makeStyles((theme) => {
     },
     content: {
       position: 'relative',
-      marginBottom: theme.spacing(2)
+      paddingTop: 150,
+      marginBottom: 50
     },
     action: {
       marginLeft: theme.spacing(1)
     },
+    h1: {
+      fontSize: 50,
+      color: theme.palette.text.primary,
+      maxWidth: '100%',
+      width: '100%',
+      left: -10,
+      'font-weight': 'bolder',
+      background: `linear-gradient(
+            104deg, ${hightLight[0]} 0.9%, 
+            ${hightLight[1]} 2.4%, 
+            ${hightLight[2]} 5.8%, 
+            ${hightLight[3]} 93%, 
+            ${hightLight[4]} 96%, 
+            ${hightLight[5]} 98%), 
+          linear-gradient(
+            183deg, ${hightLight[6]} 0%, 
+            ${hightLight[7]} 7.9%, 
+            ${hightLight[7]} 15%)
+          `,
+      padding: '0.1em 10px',
+      '-webkit-box-decoration-break': 'clone',
+      margin: 0,
+      'border-radius': 7.5,
+
+      // eslint-disable-next-line max-len
+      'text-shadow': '-12px 12px 9.8px rgba(28, 32, 37, 0.2), 21px -18.1px 7.3px rgba(255, 255, 255,0.1), -18.1px -27.3px 30px rgba(255, 255, 255,0.31)',
+    },
     title: {
-      maxWidth: '100%'
     }
+    // background: theme.palette.text.primary
   }
 })
 
@@ -132,12 +173,11 @@ const Header = ({
               className={classes.title}
               mb={2}
             >
-              <Typography
-                variant="h1"
-                color="textPrimary"
-              >
 
-                {program.title}
+              <div>
+                <span className={classes.h1}>
+                  {program.title}
+                </span>
                 <Hidden lgUp>
                   <Button
                     className={classes.action}
@@ -152,8 +192,8 @@ const Header = ({
                     {t('components.share')}
                   </Button>
                 </Hidden>
+              </div>
 
-              </Typography>
               <Typography
                 variant="h5"
                 className={classes.description}

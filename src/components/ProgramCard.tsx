@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => {
     title: {
       textDecoration: 'none',
       fontSize: '2.2rem',
+      fontWeight: 'bold',
       [theme.breakpoints.down('xs')]: {
         fontSize: '2rem',
       },
