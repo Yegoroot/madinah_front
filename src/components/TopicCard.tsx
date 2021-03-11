@@ -45,11 +45,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function TopicCard({ topic, programId }) {
+function TopicCard({ topic, programId }: {topic: any, programId: string }) {
   const { settings } = useSettings()
   const classes = useStyles()
   const { user } = useAuth()
-  const role = user ? user.role : null
+  // @ts-ignore
+  const role = user?.role || null
   const { t } = useTranslation()
   moment.locale(settings.lang)
 
@@ -66,13 +67,6 @@ function TopicCard({ topic, programId }) {
           to={`${PUBLIC_PROGRAMS_URL}/${programId}/topics/${topic.id}`}
           variant="h2"
         >
-          {/* <span
-            aria-labelledby="palma"
-            role="img"
-          >
-            🌴
-          </span>
-          {' '} */}
           {topic.title}
         </Link>
         { !user || !document_is_my_own(user, topic.user) || !perm_work_with_program(role) ? null
@@ -115,7 +109,19 @@ function TopicCard({ topic, programId }) {
               variant="body2"
               color="textSecondary"
             >
-              {t('time.created')}
+              <b>
+                {t('time.created')}
+              </b>
+              {' '}
+              {moment(topic.createdAt).fromNow()}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+            >
+              <b>
+                {t('time.updated')}
+              </b>
               {' '}
               {moment(topic.updatedAt).fromNow()}
             </Typography>

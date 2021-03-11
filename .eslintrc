@@ -42,8 +42,8 @@
         "ts": "never",
         "tsx": "never"
       }
-   ],
-   "max-len": ["error", { "code": 100 }],
+    ],
+    "max-len": ["error", { "code": 100 }],
     "react/jsx-max-props-per-line": [
       1,
       {
@@ -67,6 +67,7 @@
     "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
