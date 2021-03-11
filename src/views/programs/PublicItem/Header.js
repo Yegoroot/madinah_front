@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => {
       marginBottom: 50
     },
     action: {
-      marginLeft: theme.spacing(1)
+      color: theme.palette.text.primary,
     },
     h1: {
       lineHeight: '1.4',
@@ -121,12 +121,12 @@ const useStyles = makeStyles((theme) => {
       // eslint-disable-next-line max-len
       'text-shadow': '12px 12px 9.8px rgb(28 32 37), 21px -18.1px 7.3px rgb(255 255 255 / 52%), -18.1px -27.3px 30px rgb(255 255 255 / 63%)',
     },
-    header: {
-      display: 'flex',
-      'align-items': 'center',
-      'flex-wrap': 'wrap',
-      'justify-content': 'space-between'
-    }
+    // header: {
+    //   display: 'flex',
+    //   'align-items': 'center',
+    //   'flex-wrap': 'wrap',
+    //   'justify-content': 'space-between'
+    // }
   }
 })
 
@@ -180,7 +180,7 @@ const Header = ({
               <Hidden lgUp>
                 <Button
                   className={classes.action}
-                  variant="contained"
+                  // variant="contained"
                   onClick={() => onShare(`${program.id}`)}
                 >
                   <SvgIcon
