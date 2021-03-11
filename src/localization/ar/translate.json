@@ -1,7 +1,8 @@
 {
   "translations": {
     "btn": {
-      "Sign in with google": "الدخول مع جوجل"
+      "Sign in with google": "الدخول عبر جوجل",
+      "Sign in with github": "الدخول عبر Github"
     },
     "programspage": {
       "choose": "اختر المعلمات للبحث",
@@ -14,12 +15,13 @@
       "set order of records": "ترتيب السجل"
     },
     "pageAuth": {
-      "signin": "تسجيل الدخول",
+      "or": "أو عن طريق البريد الإلكتروني",
+      "signin": "تسجيل الدخول عن طريق الشبكة الاجتماعية",
       "login": "الدخول",
       "createAccount": "إنشاء الحساب",
       "haveAccount": "لدي حساب مسجل",
       "signDescription": "الدخول في المنصة الداخلية",
-      "registerDescription": "إنشاء الحساب في المنصة الداخلية",
+      "registerDescription": "سجل عن طريق الشبكة الاجتماعية",
       "name": "الاسم",
       "register": "تسجيل الحساب",
       "password": "كلمة السر",

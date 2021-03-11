@@ -18,6 +18,7 @@ import Logo from 'src/components/Logo'
 // import Auth0Register from './Auth0Register'
 // import FirebaseAuthRegister from './FirebaseAuthRegister'
 import { useTranslation } from 'react-i18next'
+import { AuthBySocial } from 'src/components/SocialButtons'
 import JWTRegister from './JWTRegister'
 
 // const methodIcons = {
@@ -28,6 +29,8 @@ import JWTRegister from './JWTRegister'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     backgroundColor: theme.palette.background.dark,
     display: 'flex',
     flexDirection: 'column',
@@ -72,6 +75,8 @@ const RegisterView = () => {
   const { t } = useTranslation()
 
   return (
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <Page
       className={classes.root}
       title={t('pageAuth.register')}
@@ -174,6 +179,7 @@ const RegisterView = () => {
                 />
               </div> */}
             </Box>
+            <AuthBySocial />
             <Box
               flexGrow={1}
               mt={3}

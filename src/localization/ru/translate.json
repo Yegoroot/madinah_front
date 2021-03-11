@@ -1,7 +1,8 @@
 {
   "translations": {
     "btn": {
-      "Sign in with google": "Войти через google"
+      "Sign in with google": "Войти через google",
+      "Sign in with github": "Войти через Github"
     },
     "programspage": {
       "choose": "Выберите параметры для поиска",
@@ -14,12 +15,13 @@
       "set order of records": "Сортировка записей" 
     },
     "pageAuth":{
+      "or": "или через Email",
       "signin": "Войти в систему",
       "login": "войти",
       "createAccount": "Создать новый аккаунт",
       "haveAccount": "Уже есть аккаунт",
-      "signDescription": "Войти во внутреннюю систему",
-      "registerDescription": "Создать новый аккаунт",
+      "signDescription": "Авторизоваться через социальные сети",
+      "registerDescription": "Авторизоваться через социальные сети",
       "name": "Имя",
       "register": "Регистрация",
       "password": "Пароль",

@@ -62,6 +62,7 @@ const routes = [
   {
     exact: true,
     path: '/home',
+    layout: MainLayout,
     component: HomeView
   },
   {

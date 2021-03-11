@@ -1,7 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
 import * as Yup from 'yup'
-import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 import {
   Box,
@@ -21,7 +20,7 @@ const useStyles = makeStyles(() => ({
   root: {}
 }))
 
-const JWTRegister = ({ className, ...rest }) => {
+const JWTRegister = ({ ...rest }) => {
   const classes = useStyles()
   const { register } = useAuth()
   const isMountedRef = useIsMountedRef()
@@ -75,7 +74,7 @@ const JWTRegister = ({ className, ...rest }) => {
       }) => (
         <form
           noValidate
-          className={clsx(classes.root, className)}
+          className={clsx(classes.root)}
           onSubmit={handleSubmit}
           {...rest}
         >
@@ -173,10 +172,6 @@ const JWTRegister = ({ className, ...rest }) => {
       )}
     </Formik>
   )
-}
-
-JWTRegister.propTypes = {
-  className: PropTypes.string
 }
 
 export default JWTRegister

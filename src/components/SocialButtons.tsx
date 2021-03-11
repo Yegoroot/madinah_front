@@ -1,55 +1,119 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Typography } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { HOST, routeAuthSocial } from 'src/constants'
+import clsx from 'clsx'
 
-const useStyles = makeStyles((/* theme */) => ({
-  googleButton: {
+import googleImg from 'src/assets/images/google.png'
+import githubImg from 'src/assets/images/github.png'
+
+const useStyles = makeStyles((theme) => ({
+  button: {
     display: 'flex',
     cursor: 'pointer',
-    background: '#3a78ae',
     borderRadius: 4,
-    color: '#fff',
     paddingRight: 16,
-    alignSelf: 'flex-start',
-    fontSize: 'initial',
-    lineHeight: '35px'
+    alignItems: 'center',
+    color: '#fff',
+    fontSize: 'initial'
   },
-  googleLetter: {
+  googleButton: {
+    background: '#1a73e8'
+  },
+  githubButton: {
+    background: '#0d1117'
+  },
+  img: {
+    width: 40,
+    background: '#fff',
+    padding: 5,
     marginRight: 14,
-    fontWeight: 'bold',
-    background: 'white',
     borderRadius: '4px 0px 0px 4px',
-    backgroundColor: '#fff',
-    color: '#3a78ae',
-    paddingRight: 12,
-    paddingLeft: 12,
-    display: 'block'
+  },
+  social: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gridGap: 16
+  },
+  or: {
+    margin: '40px 0 0px',
+    textAlign: 'center',
+    'line-height': 1,
+    position: 'relative',
+    '&:before, &:after': {
+      content: '""',
+      width: 1,
+      height: 15,
+      top: -25,
+      left: '50%',
+      background: theme.palette.text.secondary,
+      position: 'absolute'
+    },
+    '&:after': {
+      top: 'initial',
+      bottom: -25
+    }
   }
 }))
+
+const handleClick = (provider: string) => {
+  window.open(`${HOST}${routeAuthSocial}/${provider}`, '_self')
+}
 
 export const GoogleButton = () => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const handleGoogleClick = () => {
-    window.open(`${HOST}${routeAuthSocial}/google`, '_self')
-  }
   return (
     <div
-      className={classes.googleButton}
-      onClick={handleGoogleClick}
+      className={clsx(classes.googleButton, classes.button)}
+      onClick={() => handleClick('google')}
     >
-      <span className={classes.googleLetter}>G</span>
+      <img
+        className={classes.img}
+        src={googleImg}
+        alt="google"
+      />
       {t('btn.Sign in with google')}
     </div>
   )
 }
 
-export const FacebookButton = () => {
-  const a = 'd'
+export const GithubButton = () => {
+  const classes = useStyles()
+  const { t } = useTranslation()
   return (
-    <div>
-      sd
+    <div
+      className={clsx(classes.githubButton, classes.button)}
+      onClick={() => handleClick('github')}
+    >
+      <img
+        className={classes.img}
+        src={githubImg}
+        alt="github"
+      />
+      {t('btn.Sign in with github')}
     </div>
+  )
+}
+
+export const AuthBySocial = () => {
+  const classes = useStyles()
+  const { t } = useTranslation()
+  return (
+    <>
+      <div className={classes.social}>
+        <GoogleButton />
+        <GithubButton />
+
+      </div>
+      <Typography
+        className={classes.or}
+        variant="body2"
+        color="textSecondary"
+      >
+        {t('pageAuth.or')}
+      </Typography>
+
+    </>
   )
 }

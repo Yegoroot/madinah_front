@@ -13,7 +13,7 @@ import {
 import Page from 'src/components/Page'
 import Logo from 'src/components/Logo'
 import { useTranslation } from 'react-i18next'
-import { GoogleButton } from 'src/components/SocialButtons'
+import { AuthBySocial } from 'src/components/SocialButtons'
 import JWTLogin from './JWTLogin'
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,7 @@ const LoginView = (): any => {
     // @ts-ignore
     <Page
       className={classes.root}
-      title="Login"
+      title={t('pageAuth.login')}
     >
       <Container
         className={classes.cardContainer}
@@ -90,7 +90,7 @@ const LoginView = (): any => {
                 </Typography>
               </div>
             </Box>
-            <GoogleButton />
+            <AuthBySocial />
             <Box
               flexGrow={1}
               mt={3}

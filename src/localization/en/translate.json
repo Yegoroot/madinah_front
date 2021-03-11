@@ -1,7 +1,8 @@
 {
   "translations": {
     "btn": {
-      "Sign in with google": "Sign in with google"
+      "Sign in with google": "Sign in with google",
+      "Sign in with github": "Sign in with Github"
     },
     "programspage": {
       "choose": "Choose params for searching",
@@ -14,12 +15,13 @@
       "set order of records": "Set order of records" 
     },
     "pageAuth":{
+      "or": "or by Email",
       "signin": "Sign in",
       "login": "log in",
       "createAccount": "Create new account",
       "haveAccount": "Having an account",
-      "signDescription": "Sign in on the internal platform",
-      "registerDescription": "Register on the internal platform",
+      "signDescription": "Sign in by social network",
+      "registerDescription": "Register by social network",
       "name": "Name",
       "register": "Register",
       "password": "Password",

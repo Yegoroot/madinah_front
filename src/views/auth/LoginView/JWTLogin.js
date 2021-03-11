@@ -80,7 +80,7 @@ const JWTLogin = ({ ...rest }) => {
           <TextField
             error={Boolean(touched.email && errors.email)}
             fullWidth
-            autoFocus
+            // autoFocus
             className="not-ar"
             helperText={touched.email && errors.email}
             label={t('pageAuth.email')}
