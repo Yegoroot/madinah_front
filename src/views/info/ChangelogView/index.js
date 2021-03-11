@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
-## v0.4.1
+## v0.5.0
 
 ###### March 11, 2021
 
