@@ -20,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.4.1
+
+###### March 11, 2021
+
+- added auth Github
+- added date of update for Topic material
+
+---
+
 ## v0.4.0
 
 ###### March 5, 2021

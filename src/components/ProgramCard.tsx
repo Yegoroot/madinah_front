@@ -101,13 +101,18 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
   const classes = useStyles()
   const { user } = useAuth()
   const { role } = user || { role: null }
-  const handleDelete = () => {
+
+  const handleDelete = (e: any) => {
+    e.preventDefault()
     if (window.confirm(t('alert.do you want to delete program'))) {
       dispatch(deleteProgram({ programId: program.id }))
     }
   }
 
-  const handleEdit = () => history.push(`${PROGRAMS_URL}/${program.id}/edit`)
+  const handleEdit = (e: any) => {
+    e.preventDefault()
+    history.push(`${PROGRAMS_URL}/${program.id}/edit`)
+  }
 
   const image = program.photo
     ? `${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo}`
