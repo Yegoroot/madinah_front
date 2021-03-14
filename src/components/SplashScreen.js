@@ -27,7 +27,7 @@ const SlashScreen = () => {
 
   return (
     <div className={classes.root}>
-      <Box width={400}>
+      <Box width={320}>
         <LinearProgress />
       </Box>
     </div>

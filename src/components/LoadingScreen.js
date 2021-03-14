@@ -49,7 +49,7 @@ const LoadingScreen = ({ transparent, absolute, fullWidth }) => {
     })}
     >
       <Box
-        width={400}
+        width={320}
         className={clsx({
           [classes.fullWidth]: fullWidth
         })}
