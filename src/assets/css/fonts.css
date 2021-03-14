@@ -1,4 +1,4 @@
-/*
+/* 
   Droid Arabic Naskh
 */
 @font-face {
@@ -28,9 +28,10 @@
   src: url('../fonts/Cairo/Cairo-SemiBold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
-}
+} */
 
-@font-face {
+
+/* @font-face {
   font-family: 'Amiri';
   src: url('../fonts/Amiri/Amiri-Regular.ttf') format('truetype');
   font-weight: normal;
@@ -42,4 +43,4 @@
   src: url('../fonts/Amiri/Amiri-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
-} */
+}  */

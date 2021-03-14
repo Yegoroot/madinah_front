@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => createStyles({
     body: {
       fontSize: '1.2rem',
       fontFamily: '"Roboto", "Droid Arabic Naskh", "Helvetica", "Arial", sans-serif',
+      // fontFamily: '"Roboto", "Amiri", "Helvetica", "Arial", sans-serif',
       height: '100%',
       width: '100%',
       lineHeight: 2,

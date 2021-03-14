@@ -44,6 +44,7 @@ export default {
   fontFamily: [
     '"Roboto"',
     '"Droid Arabic Naskh"',
+    // '"Amiri"',
     '"Helvetica"',
     '-apple-system',
     'BlinkMacSystemFont',
