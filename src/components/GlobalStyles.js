@@ -138,9 +138,16 @@ const useStyles = makeStyles((theme) => createStyles({
     mark: {
       background: `${theme.palette.primary.main} !important`,
       color: '#fff',
-      padding: 10
-    }
-  }
+      'border-radius': 4,
+      padding: 7,
+      '&.mark2': {
+        color: `${theme.palette.secondary.main} !important`,
+        padding: 0,
+        background: 'none !important',
+        fontWeight: 'bold'
+      }
+    },
+  },
 
 }))
 

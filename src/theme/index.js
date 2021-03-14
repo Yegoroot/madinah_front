@@ -62,7 +62,7 @@ const themesOptions = [
         paper: colors.common.white
       },
       primary: {
-        main: '#8a85ff'
+        main: '#3949ab'
       },
       error: {
         main: '#f44336'
