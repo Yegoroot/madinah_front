@@ -1,5 +1,5 @@
 // or get from process.env.REACT_APP_{var} to handle PROD and DEV environments
-export const APP_VERSION = '0.4.0'
+export const APP_VERSION = '0.6.0'
 
 export const APP_NAME = 'Learn Arabic App'
 

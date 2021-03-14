@@ -134,6 +134,11 @@ const useStyles = makeStyles((theme) => createStyles({
     },
     b: {
       color: theme.palette.text.primary
+    },
+    mark: {
+      background: `${theme.palette.primary.main} !important`,
+      color: '#fff',
+      padding: 10
     }
   }
 

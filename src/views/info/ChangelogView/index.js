@@ -20,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.6.0
+
+###### March 14, 2021
+
+- added tag mark for TextEditor (hightlight)
+- added arabic symbols ﷺ and ۝ in TextEditor
+
+---
+
 ## v0.5.0
 
 ###### March 11, 2021
