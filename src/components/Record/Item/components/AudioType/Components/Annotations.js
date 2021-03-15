@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     fontSize: 30
   },
+  noteTranslate: {
+    direction: 'ltr',
+    textAlign: 'right'
+  }
 }))
 
 const Header = ({ noteOriginal, noteTranslate }) => {
@@ -28,7 +32,7 @@ const Header = ({ noteOriginal, noteTranslate }) => {
         <Typography
           variant="h6"
           color="textPrimary"
-          className="ar"
+          className={classes.noteTranslate}
         >
           <div ref={noteTranslate} />
         </Typography>
