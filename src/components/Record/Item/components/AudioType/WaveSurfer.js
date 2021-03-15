@@ -11,33 +11,9 @@ import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
-const useStyles = makeStyles((/* theme */) => ({
-  wavesurfer: {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    // position: 'fixed',
-    // right: 0,
-    // padding: 10,
-    // width: '100%',
-    // bottom: 0,
-    // opacity: 0.95,
-    // margin: 0,
-    // background: theme.palette.background.default,
-    // zIndex: 1000,
-  },
-  wave: {
-    width: 'calc(100% - 74px)',
-  //   '& wave': {
-  //     borderRadius: 4
-  //   }
-  }
-}))
-
 const MyWaveSurfer = ({
   mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
 }) => {
-  const classes = useStyles()
   const waveformElem = useRef(null)
   const noteOriginal = useRef(null)
   const noteTranslate = useRef(null)
@@ -58,6 +34,32 @@ const MyWaveSurfer = ({
   const [isLoading, setIsLoading] = useState(true)
   const [currentRegion, setCurrentRegion] = useState({})
   const { settings } = useSettings()
+
+  const useStyles = makeStyles((/* theme */) => ({
+    wavesurfer: {
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      // position: 'fixed',
+      // right: 0,
+      // padding: 10,
+      // width: '100%',
+      // bottom: 0,
+      // opacity: 0.95,
+      // margin: 0,
+      // background: theme.palette.background.default,
+      // zIndex: 1000,
+    },
+    wave: {
+      width: 'calc(100% - 74px)',
+      direction: settings.direction
+    //   '& wave': {
+    //     borderRadius: 4
+    //   }
+    }
+  }))
+
+  const classes = useStyles()
 
   const onChange = (e) => {
     if (e.target.name === 'original' || e.target.name === 'translate') {
