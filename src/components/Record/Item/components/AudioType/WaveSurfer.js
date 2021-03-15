@@ -11,14 +11,26 @@ import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((/* theme */) => ({
   wavesurfer: {
     display: 'flex',
     alignItems: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    // position: 'fixed',
+    // right: 0,
+    // padding: 10,
+    // width: '100%',
+    // bottom: 0,
+    // opacity: 0.95,
+    // margin: 0,
+    // background: theme.palette.background.default,
+    // zIndex: 1000,
   },
   wave: {
-    width: 'calc(100% - 74px)'
+    width: 'calc(100% - 74px)',
+  //   '& wave': {
+  //     borderRadius: 4
+  //   }
   }
 }))
 
@@ -135,7 +147,7 @@ const MyWaveSurfer = ({
       rtl: settings.direction === 'rtl',
       pixelRatio: 1,
       normalize: true,
-      height: isEdit ? 100 : 50,
+      height: isEdit ? 100 : 34,
       backend: 'MediaElement',
       plugins: [
         RegionsPlugin.create({
@@ -219,7 +231,6 @@ width: 70px;
               isPlay={isPlay}
               onPlay={onPlay}
               isEdit={isEdit}
-              onSaveChanges={onSaveChanges}
               minValueSlider={minValueSlider}
               valueSlider={valueSlider}
               handleSlider={handleSlider}
@@ -242,6 +253,7 @@ width: 70px;
       {isEdit && isShowForm && (
         <Form
           onSave={onSave}
+          onSaveChanges={onSaveChanges}
           onDelete={onDelete}
           onChange={onChange}
           values={values}

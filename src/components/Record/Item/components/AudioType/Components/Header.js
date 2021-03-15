@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Header = ({
-  isPlay, onPlay, onSaveChanges, isEdit, minValueSlider, valueSlider, handleSlider
+  isPlay, onPlay, isEdit, minValueSlider, valueSlider, handleSlider
 }) => {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -76,26 +76,6 @@ const Header = ({
             </Button>
           )}
         </Grid>
-        {isEdit && (
-        <Grid
-          item
-        >
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={onSaveChanges}
-          >
-            <SvgIcon
-              fontSize="small"
-              className={classes.actionIcon}
-            >
-              <Upload />
-            </SvgIcon>
-            {t('components.save changes')}
-          </Button>
-        </Grid>
-        )}
-
         {isEdit && (
         <Grid
           item

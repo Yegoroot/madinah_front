@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Form = ({
-  values, onChange, onSave, onDelete
+  values, onChange, onSave, onSaveChanges, onDelete
 }) => {
   const classes = useStyles()
   return (
@@ -43,7 +43,7 @@ const Form = ({
             >
               <Grid item>
                 <Button
-                  onClick={onSave}
+                  onClick={() => { onSaveChanges(); onSave() }}
                   color="secondary"
                 >
                   <SvgIcon
