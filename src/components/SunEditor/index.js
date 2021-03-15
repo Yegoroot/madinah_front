@@ -35,7 +35,7 @@ const Editor = ({ onChange, content }) => {
           ['customCommand_mark', 'colorText'],
           ['customCommand_bism', 'customCommand_surah_l', 'customCommand_surah_r', 'customCommand_ayah', 'customCommand_sollya'],
           ['strike', 'bold', 'link'],
-          ['list', 'formatBlock'], ['codeView', 'undo', 'redo']
+          ['list', 'formatBlock', 'image'], ['removeFormat', 'codeView', 'undo', 'redo']
         ]
       }}
       lang={settings.lang}
