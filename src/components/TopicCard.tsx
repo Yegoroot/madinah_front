@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   unpublish: {
     position: 'absolute',
-    top: -15,
+    top: -30,
     left: 0,
     color: '#f44336',
   },
