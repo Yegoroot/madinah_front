@@ -1,15 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 import PropTypes from 'prop-types'
-import EditRecord from 'src/components/Record/Item/EditRecord'
+import Record from 'src/components/Record/Item'
 
-function EditRecordList({
+function RecordList({
   contents, onDelete, onEdit, onSave, programId, topicId, isEditPage, setSelectedImage
 }) {
   return (
     <>
       {contents.map((content, index) => (
-        <EditRecord
+        <Record
           isEditPage={isEditPage}
           key={content._id}
           content={content}
@@ -26,7 +26,7 @@ function EditRecordList({
   )
 }
 
-EditRecordList.propTypes = {
+RecordList.propTypes = {
   contents: PropTypes.array,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
@@ -35,4 +35,4 @@ EditRecordList.propTypes = {
   onSave: PropTypes.func
 }
 
-export default EditRecordList
+export default RecordList

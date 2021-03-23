@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'src/store'
 import { getTopicItemRequest, MODULE } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
-import EditRecordList from 'src/components/Record/EditRecordList'
+import RecordList from 'src/components/Record/List'
 import { Lightbox } from 'react-modal-image'
 import Header from './Header'
 
@@ -93,7 +93,7 @@ function TopicItem({ match }) {
           className={classes.contents}
         >
           {/* ВЫВОД КОНТЕНТА */}
-          <EditRecordList
+          <RecordList
             programId={programId}
             topicId={topicId}
             contents={data.contents}

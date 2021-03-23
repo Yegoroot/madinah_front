@@ -18,7 +18,7 @@ import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL, TOPICS_URL } from 'src/constants'
 import { useTranslation } from 'react-i18next'
 import CreateRecord from 'src/components/Record/Create'
-import EditRecordList from 'src/components/Record/EditRecordList'
+import RecordList from 'src/components/Record/List'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useStateWithCallbackLazy } from 'use-state-with-callback'
 import ModalOrder from 'src/components/Draggble/Modal'
@@ -331,7 +331,7 @@ function TopicCreateForm({
                       <CardHeader title={t('admin.entries')} />
                       <Divider />
                       <CardContent>
-                        <EditRecordList
+                        <RecordList
                           programId={programId}
                           topicId={topicId}
                           onSave={onSave}

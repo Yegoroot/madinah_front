@@ -7,7 +7,7 @@ import {
   makeStyles
 } from '@material-ui/core'
 import clsx from 'clsx'
-import EditRecord from 'src/components/Record/Item/EditRecord'
+import Record from 'src/components/Record/Item'
 import { useSelector } from 'src/store'
 
 const reorder = (list, startIndex, endIndex) => {
@@ -101,7 +101,7 @@ const List = ({ contents, onDragble, type }) => {
                   >
 
                     {type === 'topics' ? item.title : (
-                      <EditRecord
+                      <Record
                         content={item}
                         programId={data.program._id}
                       />

@@ -5,11 +5,11 @@ import { makeStyles } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { UPLOADS_URL } from 'src/constants'
 import Buttons from 'src/components/RecordButtons'
+import Create from 'src/components/Record/Create'
 import TextType from './components/TextType'
 import MarkdownType from './components/MarkdownType'
 import WaveSurfer from './components/AudioType/WaveSurfer'
 import ImageTypeShow from './components/ImageType/ImageTypeShow'
-import Create from '../Create'
 
 const useStyles = makeStyles((theme) => ({
   section: {
