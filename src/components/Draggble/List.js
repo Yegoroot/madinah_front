@@ -7,7 +7,8 @@ import {
   makeStyles
 } from '@material-ui/core'
 import clsx from 'clsx'
-import ShowRecord from 'src/components/Record/Item/ShowRecord'
+import EditRecord from 'src/components/Record/Item/EditRecord'
+import { useSelector } from 'src/store'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
 const List = ({ contents, onDragble, type }) => {
   const classes = useStyles()
   const [items, setItems] = useState(contents)
+
+  const { data } = useSelector((state) => state.topic.item)
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -97,7 +100,12 @@ const List = ({ contents, onDragble, type }) => {
                     })}
                   >
 
-                    {type === 'topics' ? item.title : <ShowRecord content={item} /> }
+                    {type === 'topics' ? item.title : (
+                      <EditRecord
+                        content={item}
+                        programId={data.program._id}
+                      />
+                    ) }
 
                   </Paper>
 

@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'src/store'
 import { getTopicItemRequest, MODULE } from 'src/slices/topic'
 import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
-import ShowRecord from 'src/components/Record/Item/ShowRecord'
+import EditRecordList from 'src/components/Record/EditRecordList'
 import { Lightbox } from 'react-modal-image'
 import Header from './Header'
 
@@ -93,13 +93,16 @@ function TopicItem({ match }) {
           className={classes.contents}
         >
           {/* ВЫВОД КОНТЕНТА */}
-          {data.contents.map((content) => (
-            <ShowRecord
-              key={content._id}
-              content={content}
-              setSelectedImage={setSelectedImage}
-            />
-          ))}
+          <EditRecordList
+            programId={programId}
+            topicId={topicId}
+            contents={data.contents}
+            setSelectedImage={setSelectedImage}
+            onSave={() => console.log('sdf save')}
+            onDelete={() => console.log('sdfsdfsdfds delete')}
+            onEdit={() => console.log('sdfsdf edit')}
+            isEditPage={false}
+          />
 
         </Box>
       </Container>

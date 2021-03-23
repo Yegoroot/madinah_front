@@ -38,10 +38,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SectionItem = ({
-  content, index, onDelete, onEdit, onSave, programId, topicId
+  content, index, onDelete, onEdit, onSave, programId, topicId, isEditPage, setSelectedImage
 }) => {
   const classes = useStyles()
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEditRecord, setIsEdit] = useState(false)
+
+  const onImageOpen = () => {
+    if (setSelectedImage) {
+      setSelectedImage(`${UPLOADS_URL}/programs/${programId}/${content.data.image}`)
+    }
+  }
 
   const onHandleButton = (record) => {
     if (record.event === 'delete') {
@@ -63,13 +69,15 @@ const SectionItem = ({
       className={classes.section}
     >
 
+      {isEditPage && (
       <Buttons
         className={classes.buttons}
         record={content}
         onHandle={onHandleButton}
       />
+      )}
 
-      {isEdit
+      {isEditRecord
         ? (
           <Create
             topicId={topicId}
@@ -87,6 +95,7 @@ const SectionItem = ({
             {content.type === 'image' && (
             <ImageTypeShow
               content={content}
+              onImageOpen={onImageOpen}
               mediaLink={`${UPLOADS_URL}/programs/${programId}/${content.data.image}`}
             />
             )}

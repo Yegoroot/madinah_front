@@ -335,6 +335,7 @@ function TopicCreateForm({
                           programId={programId}
                           topicId={topicId}
                           onSave={onSave}
+                          isEditPage
                           contents={contents}
                           onDelete={onDelete}
                           onEdit={onEdit}

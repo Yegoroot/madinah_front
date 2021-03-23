@@ -4,14 +4,16 @@ import PropTypes from 'prop-types'
 import EditRecord from 'src/components/Record/Item/EditRecord'
 
 function EditRecordList({
-  contents, onDelete, onEdit, onSave, programId, topicId
+  contents, onDelete, onEdit, onSave, programId, topicId, isEditPage, setSelectedImage
 }) {
   return (
     <>
       {contents.map((content, index) => (
         <EditRecord
+          isEditPage={isEditPage}
           key={content._id}
           content={content}
+          setSelectedImage={setSelectedImage}
           programId={programId}
           topicId={topicId}
           index={index}
