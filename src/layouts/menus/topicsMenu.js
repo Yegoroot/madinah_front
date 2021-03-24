@@ -1,11 +1,5 @@
-import {
-  Minus,
-  // User as UserIcon,
-  BookOpen,
-  Home,
-
-} from 'react-feather'
-
+import { Minus } from 'react-feather'
+import { publicMenu } from 'src/layouts/menus'
 import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 
 // const initialMenu = [{
@@ -18,33 +12,6 @@ import { PUBLIC_PROGRAMS_URL } from 'src/constants'
 //     }
 //   ]
 // }]
-
-const additionalMenu = [{
-  subheader: '',
-  href: '/app/account',
-  items: [
-    {
-      title: 'menu.home',
-      href: '/home',
-      icon: Home
-    },
-    {
-      title: 'menu.programs',
-      href: '/programs',
-      icon: BookOpen
-    },
-    // {
-    //   title: 'Account',
-    //   href: '/app/account',
-    //   icon: UserIcon
-    // },
-    // {
-    //   title: 'Contacts',
-    //   href: '/contacts',
-    //   icon: UserIcon
-    // },
-  ]
-}]
 
 const topicsMenu = (topics) => {
   const programId = topics[0].program.id
@@ -71,13 +38,13 @@ export const generateTopicsMenu = (topics, loading) => {
   if (loading || !topics.length) {
     return [
       // ...initialMenu,
-      ...additionalMenu
+      ...publicMenu
     ]
   }
   return [
     // ...initialMenu,
     ...topicsMenu(topics),
-    ...additionalMenu
+    ...publicMenu
   ]
 }
 

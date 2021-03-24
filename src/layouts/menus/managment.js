@@ -58,7 +58,7 @@ export const defineManagment = (role) => {
       subheader: 'menu.managment',
       items: [
         {
-          title: 'menu.programs',
+          title: 'menu.myProgram',
           href: '#',
           icon: Folder,
           items: [

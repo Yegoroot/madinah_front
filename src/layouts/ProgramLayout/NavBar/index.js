@@ -18,8 +18,8 @@ import Logo from 'src/components/Logo'
 import { matchPathProgramNotAuth } from 'src/utils/urls'
 import { resetTopicsProgram } from 'src/slices/program'
 import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
+import { generateTopicsMenu } from 'src/layouts/menus'
 import NavItem from './NavItem'
-import { generateTopicsMenu } from './topicsMenu'
 
 function renderNavItems({
   items,
