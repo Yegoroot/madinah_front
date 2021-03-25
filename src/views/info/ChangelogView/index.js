@@ -24,8 +24,22 @@ const source = `
 
 ###### March 25, 2021
 
+### For Admins, Teachers
+
 - Audio Record with text Editor
-  > Now you can add audio with your html
+  > You can add audio with your html
+- Image in TextEditor
+  > You can change image and text while audio is playing
+
+### For Users
+
+- Hightlight style improvment
+- Improvment Audio Text
+
+### For Developers
+
+- Refactored Menu's Layout
+- Refactored AudioType
 
 ---
 
