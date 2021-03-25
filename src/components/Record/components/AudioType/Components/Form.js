@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   delete: {
     color: theme.palette.error.main,
   },
+  root: {
+
+  }
 
 }))
 
@@ -125,6 +128,7 @@ const Form = ({
             xs={12}
           >
             <SunEditor
+              rtl
               content={currentRegion.data.original || ''}
               onChange={setContent}
             />
