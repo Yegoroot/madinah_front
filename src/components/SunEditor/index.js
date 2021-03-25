@@ -3,7 +3,7 @@
 /* eslint-disable import/named */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react'
+import React, { memo } from 'react'
 import SunEditor from 'suneditor-react'
 import './style.css'
 
@@ -43,4 +43,4 @@ const Editor = ({ onChange, content }) => {
 
   )
 }
-export default Editor
+export default memo(Editor)

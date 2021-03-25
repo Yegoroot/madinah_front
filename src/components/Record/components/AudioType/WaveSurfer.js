@@ -17,89 +17,48 @@ const MyWaveSurfer = ({
   const waveformElem = useRef(null)
   const noteOriginal = useRef(null)
   const noteTranslate = useRef(null)
-  const initialValues = {
-    start: '',
-    end: '',
-    data: {
-      original: '',
-      translate: ''
-    }
+  const initCurrentRegion = {
+    play: () => '', data: { original: '', translate: '' }, start: '', end: ''
   }
   const [annotations, setAnnotations] = useState([...dataAnnotations])
   const [isPlay, setIsplay] = useState(false)
   const [minValueSlider, setMinValueSlider] = useState(0)
   const [valueSlider, setValueSlider] = useState(0)
-  const [values, setValues] = useState(initialValues)
   const [isShowForm, setIsShowForm] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [currentRegion, setCurrentRegion] = useState({})
+  const [currentRegion, setCurrentRegion] = useState(initCurrentRegion)
   const { settings } = useSettings()
 
-  const useStyles = makeStyles((/* theme */) => ({
+  const useStyles = makeStyles(() => ({
     wavesurfer: {
       display: 'flex',
       alignItems: 'center',
       flexWrap: 'wrap',
-      // position: 'fixed',
-      // right: 0,
-      // padding: 10,
-      // width: '100%',
-      // bottom: 0,
-      // opacity: 0.95,
-      // margin: 0,
-      // background: theme.palette.background.default,
-      // zIndex: 1000,
     },
     wave: {
       width: 'calc(100% - 74px)',
       direction: settings.direction
-    //   '& wave': {
-    //     borderRadius: 4
-    //   }
     }
   }))
 
   const classes = useStyles()
-
-  const onChange = (e) => {
-    if (e.target.name === 'original' || e.target.name === 'translate') {
-      setValues({
-        ...values,
-        data: {
-          ...values.data,
-          [e.target.name]: e.target.value
-        }
-      })
-      return
-    }
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value
-    })
-  }
 
   const handleSlider = (e, newValue) => {
     setValueSlider(newValue)
     waveformElem.current.zoom(Number(newValue))
   }
 
-  const onSaveChanges = () => {
-    onSaveChangesOut(annotations)
-  }
-
-  const onSave = () => {
-    onSaveChangesOut(annotations)
-    currentRegion.update(values)
-    setCurrentRegion({})
+  const onSave = (value) => {
     setIsShowForm(false)
-    setValues(initialValues)
+    onSaveChangesOut(annotations)
+    currentRegion.update(value)
+    setCurrentRegion(initCurrentRegion)
   }
 
   const onDelete = () => {
-    currentRegion.remove()
     setIsShowForm(false)
-    setCurrentRegion({})
-    setValues(initialValues)
+    currentRegion.remove()
+    setCurrentRegion(initCurrentRegion)
   }
 
   const onPlay = () => {
@@ -126,18 +85,6 @@ const MyWaveSurfer = ({
         data: region.data
       }
     }))
-  }
-
-  /**
- * Edit annotation for a region.
- */
-  function editAnnotation(region) {
-    const start = Math.round(region.start * 10) / 10
-    const end = Math.round(region.end * 10) / 10
-    const { data } = region
-    setValues({ start, end, data })
-    setCurrentRegion(region)
-    return false
   }
 
   useEffect(() => {
@@ -171,15 +118,14 @@ const MyWaveSurfer = ({
       setIsLoading(false)
       setValueSlider(waveformElem.current.params.minPxPerSec)
       setMinValueSlider(waveformElem.current.params.minPxPerSec)
-      // loadRegions(annotations)
       saveRegions()
 
       waveformElem.current.on('region-click', (region, e) => {
         e.stopPropagation()
         region.play()
-        setIsShowForm(true)
-        editAnnotation(region)
         showNote(region)
+        setIsShowForm(true)
+        setCurrentRegion(region)
       })
       waveformElem.current.on('region-in', showNote)
       waveformElem.current.on('region-updated', saveRegions)
@@ -189,7 +135,10 @@ const MyWaveSurfer = ({
       })
       waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
       waveformElem.current.on('region-created',
-        (region) => { region.update({ color: randomColor(0.5) }) })
+        (region) => {
+          region.update({ color: randomColor(0.5) })
+          setCurrentRegion(region)
+        })
       waveformElem.current.on('seek', () => { setIsShowForm(false) })
       waveformElem.current.on('play', () => { setIsplay(true) })
       waveformElem.current.on('pause', () => { setIsplay(false) })
@@ -210,23 +159,14 @@ const MyWaveSurfer = ({
       </h2>
       )}
 
-      {/* root : {
-
-}
-
-width: 70px;
-    margin-left: 20px;
-    transform: scale(-1); */}
-
       <Box
         mb={2}
         className={clsx({
           [classes.wavesurfer]: !isEdit,
         })}
       >
-        {/* <LoadingScreen fullwidth /> */}
         { isLoading
-          ? <LoadingScreen fullwidth />
+          ? <LoadingScreen />
           : (
             <Header
               className={classes.wavesurfer}
@@ -255,10 +195,8 @@ width: 70px;
       {isEdit && isShowForm && (
         <Form
           onSave={onSave}
-          onSaveChanges={onSaveChanges}
           onDelete={onDelete}
-          onChange={onChange}
-          values={values}
+          currentRegion={currentRegion}
         />
       )}
 

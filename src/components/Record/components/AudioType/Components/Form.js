@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card, CardContent, Button, makeStyles, Grid, SvgIcon, TextField
 } from '@material-ui/core'
 import { Trash, Save } from 'react-feather'
+import SunEditor from 'src/components/SunEditor'
 
 const useStyles = makeStyles((theme) => ({
   actionIcon: {
@@ -16,9 +17,28 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Form = ({
-  values, onChange, onSave, onSaveChanges, onDelete
+  onSave, onDelete, currentRegion
 }) => {
   const classes = useStyles()
+
+  const [content, setContent] = useState(currentRegion.data.original || '')
+  console.log('RELOAD', content, currentRegion.data, currentRegion)
+
+  const values = {
+    start: Math.round(currentRegion.start * 10) / 10,
+    end: Math.round(currentRegion.end * 10) / 10,
+    data: { translate: currentRegion.data.translate }
+  }
+
+  const onSaveButton = () => {
+    const start = Math.round(currentRegion.start * 10) / 10
+    const end = Math.round(currentRegion.end * 10) / 10
+
+    onSave({
+      data: { original: content }, start, end
+    })
+  }
+
   return (
     <Card>
       <CardContent>
@@ -43,7 +63,7 @@ const Form = ({
             >
               <Grid item>
                 <Button
-                  onClick={() => { onSaveChanges(); onSave() }}
+                  onClick={onSaveButton}
                   color="secondary"
                 >
                   <SvgIcon
@@ -71,7 +91,6 @@ const Form = ({
                 </Button>
               </Grid>
             </Grid>
-
             <Grid
               item
               lg={3}
@@ -83,7 +102,8 @@ const Form = ({
                 label="Start"
                 name="start"
                 type="number"
-                onChange={onChange}
+                disabled
+                // onChange={onChange}
                 value={values.start}
                 variant="outlined"
               />
@@ -98,8 +118,9 @@ const Form = ({
               <TextField
                 type="number"
                 fullWidth
+                disabled
                 label="End"
-                onChange={onChange}
+                // onChange={onChange}
                 value={values.end}
                 name="end"
                 variant="outlined"
@@ -110,7 +131,11 @@ const Form = ({
             item
             xs={12}
           >
-            <TextField
+            <SunEditor
+              content={currentRegion.data.original || ''}
+              onChange={setContent}
+            />
+            {/* <TextField
               fullWidth
               label="Original"
               name="original"
@@ -119,7 +144,7 @@ const Form = ({
               onChange={onChange}
               value={values.data.original || ''}
               variant="outlined"
-            />
+            /> */}
           </Grid>
 
           <Grid
@@ -132,7 +157,7 @@ const Form = ({
               name="translate"
               multiline
               className="not-ar"
-              onChange={onChange}
+              // onChange={onChange}
               value={values.data.translate || ''}
               variant="outlined"
             />
