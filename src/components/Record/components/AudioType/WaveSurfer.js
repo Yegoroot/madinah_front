@@ -15,10 +15,8 @@ const MyWaveSurfer = ({
   mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
 }) => {
   const waveformElem = useRef(null)
-  const noteOriginal = useRef(null)
-  const noteTranslate = useRef(null)
   const initCurrentRegion = {
-    play: () => '', data: { original: '', translate: '' }, start: '', end: ''
+    play: () => '', data: { original: '', /* translate: '' */ }, start: '', end: ''
   }
   const [annotations, setAnnotations] = useState([...dataAnnotations])
   const [isPlay, setIsplay] = useState(false)
@@ -48,13 +46,6 @@ const MyWaveSurfer = ({
     waveformElem.current.zoom(Number(newValue))
   }
 
-  const onSave = (value) => {
-    setIsShowForm(false)
-    onSaveChangesOut(annotations)
-    currentRegion.update(value)
-    setCurrentRegion(initCurrentRegion)
-  }
-
   const onDelete = () => {
     setIsShowForm(false)
     currentRegion.remove()
@@ -69,13 +60,8 @@ const MyWaveSurfer = ({
     }
   }
 
-  function showNote(region) {
-    noteOriginal.current.textContent = (region && region.data.original) || ''
-    noteTranslate.current.textContent = (region && region.data.translate) || ''
-  }
-
-  function saveRegions() {
-    setAnnotations(Object.keys(waveformElem.current.regions.list).map((id) => {
+  const calculateAnnotations = () => {
+    const newAnnotations = Object.keys(waveformElem.current.regions.list).map((id) => {
       const region = waveformElem.current.regions.list[id]
       return {
         color: region.color,
@@ -84,12 +70,25 @@ const MyWaveSurfer = ({
         attributes: region.attributes,
         data: region.data
       }
-    }))
+    })
+    return newAnnotations
   }
 
+  function saveRegions() {
+    setAnnotations(calculateAnnotations())
+  }
+
+  const onSave = (value) => {
+    setIsShowForm(false)
+    currentRegion.update(value) // скорее всего это асинхронно
+    onSaveChangesOut(annotations) // приходится на лету заново вычислять (иначе не )
+    onSaveChangesOut(calculateAnnotations()) // приходится на лету заново вычислять (иначе не )
+    setCurrentRegion(initCurrentRegion)
+  }
+
+  const [html, setHtml] = useState('')
+
   useEffect(() => {
-    /**
-     */
     waveformElem.current = WaveSurfer.create({
       container: waveformElem.current,
       scrollParent: true,
@@ -121,19 +120,21 @@ const MyWaveSurfer = ({
       saveRegions()
 
       waveformElem.current.on('region-click', (region, e) => {
+        setHtml(region.data.original)
         e.stopPropagation()
         region.play()
-        showNote(region)
         setIsShowForm(true)
         setCurrentRegion(region)
       })
-      waveformElem.current.on('region-in', showNote)
+      waveformElem.current.on('region-in', (region) => {
+        setHtml(region.data.original)
+      })
       waveformElem.current.on('region-updated', saveRegions)
       waveformElem.current.on('region-removed', saveRegions)
-      waveformElem.current.on('region-play', (region) => {
-        region.once('out', () => { showNote(null) })
+      waveformElem.current.on('region-play', (/* region */) => {
+        // region.once('out', () => { setHtml('')/ })
       })
-      waveformElem.current.on('region-update-end', () => { setIsShowForm(false) })
+      // waveformElem.current.on('region-update-end', () => {
       waveformElem.current.on('region-created',
         (region) => {
           region.update({ color: randomColor(0.5) })
@@ -187,10 +188,7 @@ const MyWaveSurfer = ({
         />
       </Box>
 
-      <Annotations
-        noteOriginal={noteOriginal}
-        noteTranslate={noteTranslate}
-      />
+      <Annotations html={html} />
 
       {isEdit && isShowForm && (
         <Form

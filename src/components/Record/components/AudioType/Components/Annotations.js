@@ -1,45 +1,26 @@
-/* eslint-disable react/prop-types */
-import React from 'react'
-import { makeStyles, Box, Typography } from '@material-ui/core'
+import React, { memo } from 'react'
+import { Box, Typography } from '@material-ui/core'
 import clsx from 'clsx'
+import DOMPurify from 'dompurify'
 
-const useStyles = makeStyles((theme) => ({
-  noteOriginal: {
-    marginBottom: theme.spacing(1),
-    fontSize: 30
-  },
-  noteTranslate: {
-    direction: 'ltr',
-    textAlign: 'right'
-  }
-}))
-
-const Header = ({ noteOriginal, noteTranslate }) => {
-  const classes = useStyles()
+// console.log('HTML in Annotations', html)
+const Annotations = ({ html }) => {
+  const clean = DOMPurify.sanitize(html)
   return (
-    <Box mb={4}>
-      <Typography
-        variant="h3"
-        color="textPrimary"
+
+    <Box
+      mt={4}
+      mb={4}
+    >
+      <div
+        dangerouslySetInnerHTML={{ __html: clean }}
         className={clsx({
-          [classes.noteOriginal]: true,
           ar: true
         })}
-      >
-        <div ref={noteOriginal} />
-      </Typography>
-      <Box mt={1}>
-        <Typography
-          variant="h6"
-          color="textPrimary"
-          className={classes.noteTranslate}
-        >
-          <div ref={noteTranslate} />
-        </Typography>
-      </Box>
+      />
     </Box>
 
   )
 }
 
-export default Header
+export default memo(Annotations)

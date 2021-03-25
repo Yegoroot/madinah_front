@@ -20,22 +20,15 @@ const Form = ({
   onSave, onDelete, currentRegion
 }) => {
   const classes = useStyles()
+  const [original, setContent] = useState(currentRegion.data.original || '')
 
-  const [content, setContent] = useState(currentRegion.data.original || '')
-  console.log('RELOAD', content, currentRegion.data, currentRegion)
-
-  const values = {
-    start: Math.round(currentRegion.start * 10) / 10,
-    end: Math.round(currentRegion.end * 10) / 10,
-    data: { translate: currentRegion.data.translate }
-  }
+  const start = Math.round(currentRegion.start * 10) / 10
+  const end = Math.round(currentRegion.end * 10) / 10
 
   const onSaveButton = () => {
-    const start = Math.round(currentRegion.start * 10) / 10
-    const end = Math.round(currentRegion.end * 10) / 10
-
+    // console.log({ data: { original }, start, end })
     onSave({
-      data: { original: content }, start, end
+      data: { original }, start, end
     })
   }
 
@@ -104,7 +97,7 @@ const Form = ({
                 type="number"
                 disabled
                 // onChange={onChange}
-                value={values.start}
+                value={start}
                 variant="outlined"
               />
             </Grid>
@@ -121,7 +114,7 @@ const Form = ({
                 disabled
                 label="End"
                 // onChange={onChange}
-                value={values.end}
+                value={end}
                 name="end"
                 variant="outlined"
               />
@@ -134,32 +127,6 @@ const Form = ({
             <SunEditor
               content={currentRegion.data.original || ''}
               onChange={setContent}
-            />
-            {/* <TextField
-              fullWidth
-              label="Original"
-              name="original"
-              multiline
-              className="ar"
-              onChange={onChange}
-              value={values.data.original || ''}
-              variant="outlined"
-            /> */}
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Translate"
-              name="translate"
-              multiline
-              className="not-ar"
-              // onChange={onChange}
-              value={values.data.translate || ''}
-              variant="outlined"
             />
           </Grid>
         </Grid>

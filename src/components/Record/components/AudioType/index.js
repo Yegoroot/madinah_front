@@ -18,7 +18,6 @@ const AudioType = ({
   }
 
   const onSaveChangesOut = (annotations) => {
-    console.log(annotations)
     onChange({ annotations })
   }
   const src = `${UPLOADS_URL}/programs/${programId}${data.audio}`

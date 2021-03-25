@@ -141,8 +141,8 @@ const useStyles = makeStyles((theme) => createStyles({
       color: '#fff',
       'border-radius': 4,
       padding: '7px 0px',
-      boxShadow: `0.5em 0 0 ${theme.palette.primary.main},
-       -0.5em 0 0 ${theme.palette.primary.main}`,
+      boxShadow: `3px 0 0 ${theme.palette.primary.main},
+       -3px 0 0 ${theme.palette.primary.main}`,
       '&.mark2': {
         color: `${theme.palette.secondary.main} !important`,
         padding: 0,
