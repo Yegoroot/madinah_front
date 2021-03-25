@@ -18,7 +18,7 @@ import { plugin_sollya } from './plugins/Sollya'
 import { plugin_surah_l, plugin_surah_r } from './plugins/Surah'
 import { plugin_bism } from './plugins/BasmAllah'
 
-const Editor = ({ onChange, content }) => {
+const Editor = ({ onChange, content, rtl }) => {
   const { settings } = useSettings()
   return (
     <SunEditor
@@ -27,6 +27,7 @@ const Editor = ({ onChange, content }) => {
       setOptions={{
         codeMirror: CodeMirror,
         height: 200,
+        rtl,
         minHeight: 200,
         addTagsWhitelist: 'mark',
         formats: ['p', 'div', 'blockquote', 'h3', 'h4'],

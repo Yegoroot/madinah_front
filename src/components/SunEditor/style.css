@@ -22,6 +22,10 @@ EDITOR
   user-select: none;
 }
 
+.se-rtl {
+  direction: rtl;
+}
+
 .sun-editor * {
   box-sizing: border-box;
   overflow: visible;
