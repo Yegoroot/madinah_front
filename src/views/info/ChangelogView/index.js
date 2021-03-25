@@ -20,12 +20,21 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.7.0
+
+###### March 25, 2021
+
+- Audio Record with text Editor
+  > Now you can add audio with your html
+
+---
+
 ## v0.6.0
 
 ###### March 14, 2021
 
-- added tag mark for TextEditor (hightlight)
-- added arabic symbols ﷺ and ۝ in TextEditor
+- added tag "mark" for TextEditor (hightlight)
+- added special arabic symbols in TextEditor
 
 ---
 
@@ -113,6 +122,7 @@ const ChangelogView = () => {
       <Suspense fallback={null}>
         <div className={classes.wrapper}>
           <div className={classes.contentContainer}>
+            <h1>Changelog</h1>
             <Markdown
               escapeHtml={false}
               source={source}
