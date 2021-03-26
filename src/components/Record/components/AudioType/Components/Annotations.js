@@ -36,25 +36,25 @@ const Annotations = ({ html, isActive }) => {
   const classes = useStyles()
   const clean = DOMPurify.sanitize(html)
 
-  return html && (
-  <Box
-    mt={4}
-    mb={4}
-    className={
+  return html ? (
+    <Box
+      mt={4}
+      mb={4}
+      className={
         clsx({
           [classes.root]: true,
           [classes.annotationsActive]: isActive
         })
       }
-  >
-    <div
-      dangerouslySetInnerHTML={{ __html: clean }}
-      className={clsx({
-        ar: true
-      })}
-    />
-  </Box>
-  )
+    >
+      <div
+        dangerouslySetInnerHTML={{ __html: clean }}
+        className={clsx({
+          ar: true
+        })}
+      />
+    </Box>
+  ) : null
 }
 
 export default memo(Annotations)

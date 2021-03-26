@@ -27,6 +27,9 @@ const slice = createSlice({
     /** contents */
     setAudioActive(topic, action) {
       const { id, ...props } = action.payload
+      if (!topic.item.data) {
+        return
+      }
       topic.item.data.contents = topic.item.data.contents
         .map((c) => {
           if (c._id === id) {
