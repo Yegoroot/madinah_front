@@ -7,7 +7,7 @@ import WaveSurfer from './WaveSurfer'
 const AudioType = ({
   programId, onChange, isEdit, content
 }) => {
-  const { subtitle, data } = content
+  const { subtitle, data, _id } = content
 
   const setFieldValue = (a, file) => {
     if (file) { onChange({ file }) }
@@ -28,6 +28,7 @@ const AudioType = ({
         ? (
           <WaveSurfer
             isEdit
+            id={_id}
             subtitle={subtitle}
             mediaLink={src}
             dataAnnotations={data.annotations}

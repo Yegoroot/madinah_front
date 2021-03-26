@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
@@ -23,6 +24,22 @@ const slice = createSlice({
   name: 'topic',
   initialState,
   reducers: {
+    /** contents */
+    setAudioActive(topic, action) {
+      const { id, ...props } = action.payload
+      topic.item.data.contents = topic.item.data.contents
+        .map((c) => {
+          if (c._id === id) {
+            // console.log(id, props)
+            return ({ ...c, ...props })
+          }
+
+          if (props.handlyOnlyThis) {
+            return c
+          }
+          return ({ ...c, isActive: false, isPlay: false })
+        })
+    },
     /** Topic */
     getTopicItemRequest(topic) {
       topic.item = { ...initialState.item }
@@ -62,6 +79,10 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
   } catch (error) {
     console.error('error', error) // FIXME alert message
   }
+}
+
+export const setAudioActive = (params) => (dispatch) => {
+  dispatch(slice.actions.setAudioActive(params))
 }
 
 // OUTSIDE

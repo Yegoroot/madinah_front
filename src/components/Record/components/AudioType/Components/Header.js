@@ -3,10 +3,10 @@ import React from 'react'
 import {
   Button, makeStyles, Grid, SvgIcon, Slider, Box
 } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 
-import { Play, Pause, Upload } from 'react-feather'
+import { Play, Pause, X } from 'react-feather'
 
 const useStyles = makeStyles((theme) => ({
   actionIcon: {
@@ -24,14 +24,19 @@ const useStyles = makeStyles((theme) => ({
   },
   zoom: {
     padding: '0px 12px 12px'
+  },
+  onClose: {
+    position: 'fixed',
+    right: 10,
+    zIndex: 4
   }
 }))
 
 const Header = ({
-  isPlay, onPlay, isEdit, minValueSlider, valueSlider, handleSlider
+  isPlay, onPlay, isEdit, minValueSlider, valueSlider, handleSlider, isActive, onClose
 }) => {
   const classes = useStyles()
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   return (
 
     <Box
@@ -40,6 +45,22 @@ const Header = ({
         [classes.marginBtn]: !isEdit
       })}
     >
+
+      {
+        isActive && (
+        <Button
+          variant="outlined"
+          color="secondary"
+          className={classes.onClose}
+          onClick={onClose}
+        >
+          <SvgIcon fontSize="small">
+            <X />
+          </SvgIcon>
+        </Button>
+        )
+      }
+
       <Grid
         container
         spacing={3}
@@ -61,7 +82,6 @@ const Header = ({
               <SvgIcon fontSize="small">
                 <Play />
               </SvgIcon>
-              {/* Play */}
             </Button>
           ) : (
             <Button

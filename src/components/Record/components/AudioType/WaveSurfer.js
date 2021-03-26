@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useRef, useEffect, useState } from 'react'
 import { Box, makeStyles } from '@material-ui/core'
@@ -7,27 +9,34 @@ import WaveSurfer from 'wavesurfer.js'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min'
 import clsx from 'clsx'
 import useSettings from 'src/hooks/useSettings'
+import { useSelector, useDispatch } from 'src/store'
+import { setAudioActive } from 'src/slices/topic'
 import Form from './Components/Form'
 import Header from './Components/Header'
 import Annotations from './Components/Annotations'
 
 const MyWaveSurfer = ({
-  mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut
+  mediaLink, dataAnnotations, subtitle, isEdit, onSaveChangesOut, id
 }) => {
   const waveformElem = useRef(null)
   const initCurrentRegion = {
     play: () => '', data: { original: '', /* translate: '' */ }, start: '', end: ''
   }
   const [annotations, setAnnotations] = useState([...dataAnnotations])
-  const [isPlay, setIsplay] = useState(false)
   const [minValueSlider, setMinValueSlider] = useState(0)
   const [valueSlider, setValueSlider] = useState(0)
   const [isShowForm, setIsShowForm] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [currentRegion, setCurrentRegion] = useState(initCurrentRegion)
   const { settings } = useSettings()
+  /** fixed audio player */
+  const dispatch = useDispatch()
+  const contents = useSelector((state) => state.topic.item.data.contents)
+  const currentContent = contents.find((c) => c._id === id) || {}
+  const { isActive, isPlay } = currentContent
+  // const [isPlay, setIsplay] = useState(false)
 
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     wavesurfer: {
       display: 'flex',
       alignItems: 'center',
@@ -36,10 +45,38 @@ const MyWaveSurfer = ({
     wave: {
       width: 'calc(100% - 74px)',
       direction: settings.direction
+    },
+    wavesurferActive: {
+      position: 'fixed',
+      right: 0,
+      padding: 10,
+      width: '100%',
+      bottom: 0,
+      // opacity: 0.94,
+      margin: 0,
+      [theme.breakpoints.up('lg')]: {
+        width: 'calc(100% - 256px)'
+      },
+      background: theme.palette.background.default,
+      zIndex: 1000,
+    },
+    waveActive: {
+      width: 'calc(100% - 150px)',
+      '& wave': {
+        borderRadius: 4
+      }
     }
   }))
 
   const classes = useStyles()
+
+  /** */
+  // console.log(currentContent)
+
+  const onCloseFixedPlayer = () => {
+    waveformElem.current.pause()
+    dispatch(setAudioActive({ id, isActive: false, isPlay: false }))
+  }
 
   const handleSlider = (e, newValue) => {
     setValueSlider(newValue)
@@ -52,17 +89,26 @@ const MyWaveSurfer = ({
     setCurrentRegion(initCurrentRegion)
   }
 
+  /** отключать waveformElem, так как из вне его не отключишь */
+  useEffect(() => {
+    if (typeof isPlay === 'boolean' && !isActive && !isPlay && typeof waveformElem.current.pause === 'function') {
+      waveformElem.current.pause()
+    }
+  }, [isPlay])
+
   const onPlay = () => {
     if (isPlay) {
+      dispatch(setAudioActive({ id, isPlay: false }))
       waveformElem.current.pause()
     } else {
+      dispatch(setAudioActive({ id, isActive: true, isPlay: true }))
       waveformElem.current.play()
     }
   }
 
   const calculateAnnotations = () => {
-    const newAnnotations = Object.keys(waveformElem.current.regions.list).map((id) => {
-      const region = waveformElem.current.regions.list[id]
+    const newAnnotations = Object.keys(waveformElem.current.regions.list).map((rId) => {
+      const region = waveformElem.current.regions.list[rId]
       return {
         color: region.color,
         start: region.start,
@@ -141,8 +187,13 @@ const MyWaveSurfer = ({
           setCurrentRegion(region)
         })
       waveformElem.current.on('seek', () => { setIsShowForm(false) })
-      waveformElem.current.on('play', () => { setIsplay(true) })
-      waveformElem.current.on('pause', () => { setIsplay(false) })
+      waveformElem.current.on('play', () => {
+        if (!isPlay) dispatch(setAudioActive({ id, isPlay: true }))
+      })
+      waveformElem.current.on('pause', () => {
+        dispatch(setAudioActive({ id, isPlay: false, handlyOnlyThis: true }))
+        // if (isPlay) { dispatch(setAudioActive({ id, isPlay: false })) }
+      })
     })
 
     return () => waveformElem?.current?.destroy()
@@ -164,6 +215,7 @@ const MyWaveSurfer = ({
         mb={2}
         className={clsx({
           [classes.wavesurfer]: !isEdit,
+          [classes.wavesurferActive]: isActive
         })}
       >
         { isLoading
@@ -177,18 +229,24 @@ const MyWaveSurfer = ({
               minValueSlider={minValueSlider}
               valueSlider={valueSlider}
               handleSlider={handleSlider}
+              onClose={onCloseFixedPlayer}
+              isActive={isActive}
             />
           )}
         <div
           className={clsx({
             'not-ar': !isEdit,
-            [classes.wave]: true
+            [classes.wave]: true,
+            [classes.waveActive]: isActive
           })}
           ref={waveformElem}
         />
       </Box>
 
-      <Annotations html={html} />
+      <Annotations
+        html={html}
+        isActive={isActive}
+      />
 
       {isEdit && isShowForm && (
         <Form

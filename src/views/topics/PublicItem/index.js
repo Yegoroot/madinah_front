@@ -90,6 +90,7 @@ function TopicItem({ match }) {
         />
         <Box
           mt={3}
+          mb={12}
           className={classes.contents}
         >
           {/* ВЫВОД КОНТЕНТА */}

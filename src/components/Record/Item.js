@@ -102,6 +102,7 @@ const SectionItem = ({
             {content.type === 'audio' && (
             <div style={{ paddingTop: 60 }}>
               <WaveSurfer
+                id={content._id}
                 subtitle={content.subtitle}
                 mediaLink={`${UPLOADS_URL}/programs/${programId}${content.data.audio}`}
                 dataAnnotations={content.data.annotations}
