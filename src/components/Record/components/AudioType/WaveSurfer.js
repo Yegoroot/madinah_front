@@ -42,10 +42,6 @@ const MyWaveSurfer = ({
       alignItems: 'center',
       flexWrap: 'wrap',
     },
-    wave: {
-      width: 'calc(100% - 74px)',
-      direction: settings.direction
-    },
     wavesurferActive: {
       position: 'fixed',
       right: 0,
@@ -60,7 +56,13 @@ const MyWaveSurfer = ({
       background: theme.palette.background.default,
       zIndex: 1000,
     },
+    wave: {
+      width: 'calc(100% - 74px)',
+      direction: settings.direction,
+      filter: ' grayscale(1)'
+    },
     waveActive: {
+      filter: 'grayscale(0.3)',
       width: 'calc(100% - 150px)',
       '& wave': {
         borderRadius: 4

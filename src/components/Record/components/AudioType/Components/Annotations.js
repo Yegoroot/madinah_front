@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     // opacity: 0.92,
     right: 0,
     marginBottom: 0,
-    zIndex: 4,
+    zIndex: 101,
     width: '100%',
     [theme.breakpoints.up('lg')]: {
       width: 'calc(100% - 256px)'
@@ -36,25 +36,24 @@ const Annotations = ({ html, isActive }) => {
   const classes = useStyles()
   const clean = DOMPurify.sanitize(html)
 
-  return (
-    <Box
-      mt={4}
-      mb={4}
-      className={
+  return html && (
+  <Box
+    mt={4}
+    mb={4}
+    className={
         clsx({
           [classes.root]: true,
           [classes.annotationsActive]: isActive
         })
       }
-    >
-      <div
-        dangerouslySetInnerHTML={{ __html: clean }}
-        className={clsx({
-          ar: true
-        })}
-      />
-    </Box>
-
+  >
+    <div
+      dangerouslySetInnerHTML={{ __html: clean }}
+      className={clsx({
+        ar: true
+      })}
+    />
+  </Box>
   )
 }
 

@@ -20,6 +20,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.8.0
+
+###### March 26, 2021
+
+### For Users
+
+- Fixed Audio Player position into bottom when user click "play"
+- Fix some bugs in audio record
+
+---
+
 ## v0.7.0
 
 ###### March 25, 2021
