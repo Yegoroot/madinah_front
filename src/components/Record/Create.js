@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
 import {
@@ -43,6 +44,9 @@ const CONTENT_TYPES = [
 ]
 
 const useStyles = makeStyles((theme) => ({
+  card: {
+    background: theme.palette.background.dark
+  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
@@ -73,8 +77,16 @@ function SectionCreate({
       return
     }
     if (section.type === 'image' || section.type === 'audio') {
-      // eslint-disable-next-line consistent-return
-      if (!section.data.file) { return false }
+      console.log(section)
+
+      // нет новых данных по изображению
+      if (!section.data.file) {
+        // Но есть старое изображение (может быть только subtitle меняем)
+        if (section.data.image) {
+          onSave({ record: { ...section, _id } })
+        }
+        return false
+      }
       setLoading(true)
       const formData = new FormData()
       formData.append(section.type, section.data.file)
@@ -110,7 +122,7 @@ function SectionCreate({
   return (
     <>
 
-      <Card>
+      <Card className={classes.card}>
         <Backdrop
           className={classes.backdrop}
           open={loading}
@@ -201,9 +213,12 @@ function SectionCreate({
                   topicId={topicId}
                   programId={programId}
                   content={section}
-                  onChange={(file) => setSection(
-                    (prev) => ({ ...prev, type: 'image', data: { file } })
-                  )}
+                  onChange={(data) => {
+                    console.log(data)
+                    return setSection(
+                      (prev) => ({ ...prev, type: 'image', data: { ...prev.data, ...data } })
+                    )
+                  }}
                 />
 
               ) : null }

@@ -131,6 +131,7 @@
       "backButton": "Перейти на главную"
     },
     "admin": {
+      "image full width": "Картинку на всю ширину",
       "my programs": "Мои прорграммы",
       "new program": "Создать",
       "cancel": "отмена",

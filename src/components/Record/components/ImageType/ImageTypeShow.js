@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ImageTypeShow = ({ onImageOpen, mediaLink, content }) => {
-  const { subtitle, } = content
+  const { subtitle, data } = content
 
   return (
     <>
@@ -11,6 +11,7 @@ const ImageTypeShow = ({ onImageOpen, mediaLink, content }) => {
       <img
         alt={subtitle}
         src={mediaLink}
+        className={data.fullWidth ? 'full-width' : ''}
         onClick={onImageOpen}
       />
     </>

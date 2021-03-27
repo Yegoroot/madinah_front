@@ -105,7 +105,7 @@ export default function SimpleDialogDemo({ contents, onUpdate, type }) {
       <Button
         variant={type === 'topics' ? 'contained' : 'outlined'}
         className={classes[type]}
-        color="primary"
+        color="secondary"
         onClick={handleClickOpen}
       >
         <SvgIcon

@@ -20,6 +20,22 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.9.0
+
+###### March 27, 2021
+
+### For Admins
+
+- image edit text fix bug
+- image full and iinitial width
+- fix bug audio edit position fixed (fixed it)
+
+### For User
+
+- Program view small style improvment
+
+---
+
 ## v0.8.0
 
 ###### March 26, 2021

@@ -70,3 +70,7 @@ span.contrast {
 textarea.mde-text {
   font-size: 16px;
 }
+
+.full-width {
+  width: 100%;
+}
