@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => {
     content: {
       position: 'relative',
       paddingTop: 150,
-      marginBottom: 50
+      marginBottom: 100
     },
     action: {
       color: theme.palette.text.primary,

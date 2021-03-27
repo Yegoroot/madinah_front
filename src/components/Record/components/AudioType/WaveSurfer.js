@@ -57,7 +57,7 @@ const MyWaveSurfer = ({
       zIndex: 1000,
     },
     wave: {
-      width: 'calc(100% - 74px)',
+      width: !isEdit ? 'calc(100% - 74px)' : '100%',
       direction: settings.direction,
       filter: ' grayscale(1)'
     },
@@ -217,7 +217,7 @@ const MyWaveSurfer = ({
         mb={2}
         className={clsx({
           [classes.wavesurfer]: !isEdit,
-          [classes.wavesurferActive]: isActive
+          [classes.wavesurferActive]: isActive && !isEdit
         })}
       >
         { isLoading
@@ -232,14 +232,14 @@ const MyWaveSurfer = ({
               valueSlider={valueSlider}
               handleSlider={handleSlider}
               onClose={onCloseFixedPlayer}
-              isActive={isActive}
+              isActive={isActive && !isEdit}
             />
           )}
         <div
           className={clsx({
             'not-ar': !isEdit,
             [classes.wave]: true,
-            [classes.waveActive]: isActive
+            [classes.waveActive]: isActive && !isEdit
           })}
           ref={waveformElem}
         />
@@ -247,7 +247,7 @@ const MyWaveSurfer = ({
 
       <Annotations
         html={html}
-        isActive={isActive}
+        isActive={isActive && !isEdit}
       />
 
       {isEdit && isShowForm && (

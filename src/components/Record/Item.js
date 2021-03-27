@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& img': {
       maxWidth: '100%',
-      width: '100%'
+      // width: '100%'
     }
   },
   buttons: {
