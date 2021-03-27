@@ -48,18 +48,18 @@ const MyWaveSurfer = ({
       padding: 10,
       width: '100%',
       bottom: 0,
-      // opacity: 0.94,
+      opacity: 0.92,
       margin: 0,
       [theme.breakpoints.up('lg')]: {
         width: 'calc(100% - 256px)'
       },
-      background: theme.palette.background.default,
+      background: theme.palette.background.dark,
       zIndex: 1000,
     },
     wave: {
       width: !isEdit ? 'calc(100% - 74px)' : '100%',
       direction: settings.direction,
-      filter: ' grayscale(1)'
+      filter: !isEdit ? 'grayscale(1)' : 'none'
     },
     waveActive: {
       filter: 'grayscale(0.3)',
