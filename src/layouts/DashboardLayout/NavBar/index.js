@@ -144,6 +144,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         <Box p={2}>
           <Box
             p={2}
+            className={classes.infoBlock}
             borderRadius="borderRadius"
             bgcolor="background.dark"
           >
@@ -162,7 +163,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               {t('menu.changelog')}
             </Link>
             {/* , */}
-            {'  '}
+            <br />
             <Link
               variant="subtitle1"
               color="secondary"

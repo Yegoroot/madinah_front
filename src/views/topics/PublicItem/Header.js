@@ -37,16 +37,20 @@ import { onShare } from 'src/utils/urls'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  bageWrapper: {
+    marginBottom: theme.spacing(2)
+  },
   badge: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
+    marginBottom: 0
   },
   badgeIcon: {
     marginRight: theme.spacing(1)
   },
   action: {
-    marginBottom: theme.spacing(1),
+    padding: 0,
     '& + &': {
       marginLeft: theme.spacing(1)
     }
@@ -57,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
   description: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3)
+  },
+  breadcrumbs: {
+    lineHeight: 1.5,
+    '& li': {
+      padding: '3px 0px'
+    }
   }
 }))
 
@@ -77,6 +87,7 @@ function Header({ topic }) {
       >
         <Grid item>
           <Breadcrumbs
+            className={classes.breadcrumbs}
             separator={<NavigateNextIcon fontSize="small" />}
             aria-label="breadcrumb"
           >
@@ -163,6 +174,7 @@ function Header({ topic }) {
             color="text.secondary"
             alignItems="center"
             flexWrap="wrap"
+            className={classes.bageWrapper}
           >
             { !isAuthenticated || !document_is_my_own(user, topic.user) ? null
               : (

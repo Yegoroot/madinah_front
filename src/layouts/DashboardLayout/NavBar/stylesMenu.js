@@ -8,8 +8,8 @@ const useStylesMenu = makeStyles((theme) => ({
     '& svg': { flex: 'none' }
   },
   subheaderRoot: {
-    // lineHeight: 1.5,
-    // fontSize: 20,
+    lineHeight: 1.5,
+    fontSize: 25,
     color: theme.palette.text.primary
   },
   progress: {
@@ -30,6 +30,9 @@ const useStylesMenu = makeStyles((theme) => ({
     cursor: 'pointer',
     width: 64,
     height: 64
+  },
+  infoBlock: {
+    lineHeight: 1.4
   }
 }))
 

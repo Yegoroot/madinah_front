@@ -186,7 +186,6 @@ const Header = ({
                 >
                   <SvgIcon
                     fontSize="small"
-                    className={classes.actionIcon}
                   >
                     <ShareIcon />
                   </SvgIcon>
