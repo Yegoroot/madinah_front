@@ -117,7 +117,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           </Box>
         </Hidden>
 
-        <Box p={2}>
+        <Box
+          p={2}
+          pt={3}
+        >
           {sections.map((section) => (
             <List
               key={section.subheader}

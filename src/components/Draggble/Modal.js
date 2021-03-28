@@ -64,14 +64,14 @@ function SimpleDialog(props) {
       <DialogActions>
         <Button
           onClick={onClose}
-          color="primary"
+          color="secondary"
           autoFocus
         >
           Cancel
         </Button>
         <Button
           onClick={handleClose}
-          color="primary"
+          color="secondary"
           autoFocus
         >
           Okey

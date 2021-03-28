@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useEffect, useState } from 'react'
-import { useLocation, matchPath } from 'react-router-dom'
+import { useLocation, matchPath, Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
@@ -116,6 +116,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, location.pathname, topics, loading])
 
+  console.log('menuList', menuList)
+
   const content = (
     <Box
       height="100%"
@@ -137,7 +139,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           </Box>
         ) : null }
 
-        <Box p={2}>
+        <Box
+          p={2}
+          pt={4}
+        >
           {menuList.map((section) => (
             <List
               className={classes.subheader}
@@ -147,6 +152,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
                   classes={{
                     root: classes.subheaderRoot
                   }}
+                  component={RouterLink}
+                  to={`${section.href}`}
                   disableGutters
                   disableSticky
                 >

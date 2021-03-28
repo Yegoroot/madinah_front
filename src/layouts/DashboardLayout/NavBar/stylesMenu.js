@@ -10,7 +10,8 @@ const useStylesMenu = makeStyles((theme) => ({
   subheaderRoot: {
     lineHeight: 1.5,
     fontSize: 25,
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    textDecoration: 'none'
   },
   progress: {
     top: 115,

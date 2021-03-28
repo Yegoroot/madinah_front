@@ -11,7 +11,6 @@ import {
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, MODULE } from 'src/slices/program'
-import LoadingScreen from 'src/components/LoadingScreen'
 import { useTranslation } from 'react-i18next'
 import { useHistory, } from 'react-router-dom'
 import ReloadData from 'src/components/ReloadData'
