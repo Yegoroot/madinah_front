@@ -32,18 +32,20 @@ const ChangelogView = () => {
         <div className={classes.wrapper}>
           <div className={classes.contentContainer}>
             <h1>Feedback and plans</h1>
-            Marhaban!
+            أسعد الله أوقاتكم بكل خير أيها الأحبة
             <br />
             <h2>We want to develop</h2>
             <ul>
+              <li>Alphabet</li>
+              <li>Own Dictionary for the Student</li>
               <li>System of comment</li>
-              <li>Page for teacher</li>
+              <li>Page for the Teacher</li>
               <li>Madinah Course Book 1</li>
               <li>Chat for Students</li>
             </ul>
             <br />
             If you want to help or criticize or advise, please call or write by this number
-            {' '}
+            <br />
             <a
               href="tel:+966 500 328 598"
             >
