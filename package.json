@@ -79,6 +79,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "suneditor-react": "^2.15.2",
+    "use-sound": "^2.0.1",
     "use-state-with-callback": "^2.0.3",
     "wavesurfer.js": "^4.4.0",
     "web-vitals": "^1.1.0",
@@ -99,6 +100,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.26",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",

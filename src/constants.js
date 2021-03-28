@@ -55,3 +55,10 @@ export const DEFAULT_LANGUAGE = LANGUAGES.find(
  * window.open(URL) не так как нужно мне
  */
 export const routeAuthSocial = '/api/v1/auth/social'
+
+/**
+ * another component load
+ */
+export const alphabetProgramId = process.env.NODE_ENV === 'development'
+  ? '605fc7fd629d9301d8c07bb2'
+  : '605bd1cea7b7090013b9160b'

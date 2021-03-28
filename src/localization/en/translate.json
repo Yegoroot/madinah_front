@@ -1,5 +1,9 @@
 {
   "translations": {
+    "alph": {
+      "Check yourself": "Check yourself",
+      "Say a letter then check yourself": "Say a letter then check yourself"
+    },
     "btn": {
       "Sign in with google": "Sign in with google",
       "Sign in with github": "Sign in with Github"

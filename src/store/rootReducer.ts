@@ -1,16 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import { reducer as programReducer, MODULE as programMODULE } from 'src/slices/program'
-import { reducer as userReducer, MODULE as userMODULE } from 'src/slices/user'
-import { reducer as topicReducer, MODULE as topicMODULE } from 'src/slices/topic'
-import { reducer as alertReducer, MODULE as alertMODULE } from 'src/slices/alert'
-import { reducer as sWorkerReducer, MODULE as sWorkerMODULE } from 'src/slices/sWorker'
+import { reducer as programReducer } from 'src/slices/program'
+import { reducer as userReducer } from 'src/slices/user'
+import { reducer as topicReducer } from 'src/slices/topic'
+import { reducer as alertReducer } from 'src/slices/alert'
+import { reducer as sWorkerReducer } from 'src/slices/sWorker'
 
 const rootReducer = combineReducers({
-  [programMODULE]: programReducer,
-  [topicMODULE]: topicReducer,
-  [alertMODULE]: alertReducer,
-  [userMODULE]: userReducer,
-  [sWorkerMODULE]: sWorkerReducer
+  program: programReducer,
+  topic: topicReducer,
+  alert: alertReducer,
+  user: userReducer,
+  sWorker: sWorkerReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

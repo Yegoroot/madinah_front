@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import React from 'react'
@@ -31,11 +32,12 @@ import { getProgramItemRequest } from 'src/slices/program'
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => {
-  const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // d4
-  const hex2 = hexToRgb(`${theme.palette.background.dark}3d`) // 63
-  const hex3 = hexToRgb(`${theme.palette.background.dark}7d`) // 63
-  const hex4 = hexToRgb(`${theme.palette.background.dark}a6`) // 63
-  const hex5 = hexToRgb(`${theme.palette.background.dark}`) // 63
+  // @ts-ignore
+  const hex1 = hexToRgb(`${theme.palette.background.dark}00`) // @ts-ignore
+  const hex2 = hexToRgb(`${theme.palette.background.dark}3d`) // @ts-ignore
+  const hex3 = hexToRgb(`${theme.palette.background.dark}7d`) // @ts-ignore
+  const hex4 = hexToRgb(`${theme.palette.background.dark}a6`) // @ts-ignore
+  const hex5 = hexToRgb(`${theme.palette.background.dark}`)
 
   // const hightLight = [
   //   hexToRgb(`${theme.palette.background.dark}0`),
@@ -132,7 +134,7 @@ const useStyles = makeStyles((theme) => {
 
 const Header = ({
   className, program, topics, ...rest
-}) => {
+}:{className?: string, program: any, topics: any, rest?: any}) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const classes = useStyles()
@@ -141,10 +143,9 @@ const Header = ({
     ? `url(${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo})`
     : null
 
-  const onUpdateOrder = async (items) => {
-    console.log(items)
+  const onUpdateOrder = async (items: any) => {
     const data = {
-      topics: items.map((topic, index) => ({ _id: topic._id, sequence: index }))
+      topics: items.map((topic: any, index: number) => ({ _id: topic._id, sequence: index }))
     }
     await axios.post(`${API_BASE_URL}/topics/order`, data)
       .then(() => {
@@ -173,7 +174,7 @@ const Header = ({
             flexDirection="column"
           >
 
-            <div className={classes.header}>
+            <div>
               <h1 className={classes.h1}>
                 {program.title}
               </h1>
@@ -205,7 +206,7 @@ const Header = ({
           </Box>
 
           <Box mx={-1}>
-            {program.types.map((_type) => (
+            {program.types.map((_type: any) => (
               <Type
                 color={_type.color}
                 key={_type._id}
@@ -222,7 +223,7 @@ const Header = ({
           : (
             <Box className={classes.button}>
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
                 component={RouterLink}
                 to={{

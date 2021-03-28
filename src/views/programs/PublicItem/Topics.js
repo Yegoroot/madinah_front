@@ -14,30 +14,29 @@ const Topics = ({
   const classes = useStyles()
 
   return (
-    <div
+
+    <Grid
       className={clsx(classes.root, className)}
       {...rest}
+      container
+      spacing={3}
     >
-      <Grid
-        container
-        spacing={3}
-      >
 
-        {topics.map((topic) => (
-          <Grid
-            item
-            xs={12}
-            md={6}
-            key={topic.id}
-          >
-            <TopicCard
-              programId={programId}
-              topic={topic}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+      {topics.map((topic) => (
+        <Grid
+          item
+          xs={12}
+          md={6}
+          key={topic.id}
+        >
+          <TopicCard
+            programId={programId}
+            topic={topic}
+          />
+        </Grid>
+      ))}
+    </Grid>
+
   )
 }
 

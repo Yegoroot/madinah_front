@@ -1,5 +1,9 @@
 {
   "translations": {
+    "alph": {
+      "Check yourself": "تحقق من نفسك",
+      "Say a letter then check yourself": "قل حرف ثم تحقق من نفسك"
+    },
     "btn": {
       "Sign in with google": "الدخول عبر جوجل",
       "Sign in with github": "الدخول عبر Github"

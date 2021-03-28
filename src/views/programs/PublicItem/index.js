@@ -74,12 +74,11 @@ const ProgramItem = ({ match, location }) => {
             ))}
           </Tabs>
         </Box> */}
-        <Box>
-          <Topics
-            topics={topics}
-            programId={programId}
-          />
-        </Box>
+
+        <Topics
+          topics={topics}
+          programId={programId}
+        />
         {/* <Divider />
         <Box
           py={3}

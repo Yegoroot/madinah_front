@@ -21,7 +21,7 @@ import GuestGuard from 'src/components/GuestGuard'
 import UserGuard from 'src/components/UserGuard'
 import ProgramGuard from 'src/components/ProgramGuard'
 import SuperadminGuard from 'src/components/SuperadminGuard'
-import { PUBLIC_PROGRAMS_URL } from 'src/constants'
+import { PUBLIC_PROGRAMS_URL, alphabetProgramId } from 'src/constants'
 
 export const renderRoutes = (routes = []) => (
   <Suspense fallback={<LoadingScreen />}>
@@ -237,6 +237,11 @@ const routes = [
       {
         layout: ProgramLayout,
         routes: [
+          {
+            exact: true,
+            path: `${PUBLIC_PROGRAMS_URL}/${alphabetProgramId}`,
+            component: lazy(() => import('src/views/programs/PublicItemAlphabet'))
+          },
           {
             exact: true,
             path: `${PUBLIC_PROGRAMS_URL}/:programId`,

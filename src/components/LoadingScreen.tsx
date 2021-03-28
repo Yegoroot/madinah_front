@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import NProgress from 'nprogress'
@@ -11,7 +12,7 @@ import clsx from 'clsx'
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: 'center',
-    backgroundColor: theme.palette.background.default,
+    // backgroundColor: theme.palette.background.default,
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
@@ -31,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const LoadingScreen = ({ transparent, absolute, fullWidth }) => {
+const LoadingScreen = ({ transparent, absolute, fullWidth }
+  : {transparent?: boolean, absolute?: boolean, fullWidth?: boolean}) => {
   const classes = useStyles()
   useEffect(() => {
     NProgress.start()
@@ -54,7 +56,9 @@ const LoadingScreen = ({ transparent, absolute, fullWidth }) => {
           [classes.fullWidth]: fullWidth
         })}
       >
-        <LinearProgress />
+        <LinearProgress
+          color="secondary"
+        />
       </Box>
     </div>
   )
