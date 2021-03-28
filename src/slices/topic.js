@@ -53,6 +53,9 @@ const slice = createSlice({
       topic.item.data = data
       topic.item.loading = false
     },
+    getTopcError(topic) {
+      topic.item.loading = 'reload'
+    },
     deleteTopic(topic, action) {
       const { topicId } = action.payload
       topic.list.data = topic.list.data.filter((el) => el.id !== topicId)
@@ -80,7 +83,8 @@ export const getTopicItem = ({ topicId }) => async (dispatch) => {
     const { data } = response.data
     dispatch(slice.actions.getTopicItem({ data }))
   } catch (error) {
-    console.error('error', error) // FIXME alert message
+    dispatch(slice.actions.getTopcError())
+    // console.error('error', error) // FIXME alert message
   }
 }
 

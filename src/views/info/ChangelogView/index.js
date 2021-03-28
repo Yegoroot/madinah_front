@@ -20,6 +20,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const source = `
+## v0.10.1
+
+###### March 28, 2021
+
+### For User
+
+- Reload button (when not found or no Internet connection)
+
+---
+
 ## v0.10.0
 
 ###### March 28, 2021

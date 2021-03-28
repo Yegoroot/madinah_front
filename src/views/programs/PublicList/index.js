@@ -14,6 +14,7 @@ import { getProgramListRequest, MODULE } from 'src/slices/program'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useTranslation } from 'react-i18next'
 import { useHistory, } from 'react-router-dom'
+import ReloadData from 'src/components/ReloadData'
 import Filter from './Filter'
 import Results from './Results'
 
@@ -63,17 +64,17 @@ function ProgramBrowseView({ location }) {
     dispatch(getProgramListRequest({ params: { ...filter, ...params } }))
   }, [dispatch, filter])
 
-  if (loading === 'reload') {
+  // FIXME may be this not need
+  if (loading || !data) {
     return (
-      <span onClick={
-        () => dispatch(getProgramListRequest({ params: { ...filter, ...params }, reload: true }))
-      }
-      >
-        Перезагрузить
-      </span>
+      <ReloadData
+        loading={loading}
+        data={data}
+        onClick={
+          () => dispatch(getProgramListRequest({ params: { ...filter, ...params }, reload: true }))
+        }
+      />
     )
-  } if (loading) {
-    return <LoadingScreen />
   }
 
   const onChange = ({

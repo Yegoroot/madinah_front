@@ -6,18 +6,14 @@ import PropTypes from 'prop-types'
 import {
   Box,
   Container,
-  // CardMedia,
-  // CardActionArea,
-  CardContent,
-  Card,
   makeStyles
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'src/store'
 import { getTopicItemRequest, MODULE } from 'src/slices/topic'
-import LoadingScreen from 'src/components/LoadingScreen'
 import Page from 'src/components/Page'
 import RecordList from 'src/components/Record/List'
 import { Lightbox } from 'react-modal-image'
+import ReloadData from 'src/components/ReloadData'
 import Header from './Header'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,12 +36,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ReloadButton = (onClick) => (
-  <Card onClick={onClick}>
-    <CardContent>Перезагрузить</CardContent>
-  </Card>
-)
-
 function TopicItem({ match }) {
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -57,24 +47,14 @@ function TopicItem({ match }) {
     dispatch(getTopicItemRequest({ topicId, programId }))
   }, [dispatch, topicId, programId])
 
-  if (loading === 'reload') {
+  if (loading || !data) {
     return (
-      <ReloadButton onClick={() => dispatch(getTopicItemRequest({
-        topicId, programId, reload: true
-      }))}
-      />
-    )
-  }
-
-  if (loading) {
-    return <LoadingScreen />
-  }
-
-  if (!data) {
-    return (
-      <ReloadButton onClick={() => dispatch(getTopicItemRequest({
-        topicId, programId, reload: true
-      }))}
+      <ReloadData
+        loading={loading}
+        data={data}
+        onClick={
+          () => dispatch(getTopicItemRequest({ topicId, programId, reload: true }))
+        }
       />
     )
   }

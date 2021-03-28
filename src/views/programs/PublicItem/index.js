@@ -4,17 +4,13 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Box,
   Container,
-  // Divider,
-  // Tab,
-  // Tabs,
   makeStyles
 } from '@material-ui/core'
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramItemRequest, MODULE } from 'src/slices/program'
-import LoadingScreen from 'src/components/LoadingScreen'
+import ReloadData from 'src/components/ReloadData'
 import Header from './Header'
 import Topics from './Topics'
 
@@ -35,17 +31,15 @@ const ProgramItem = ({ match, location }) => {
     dispatch(getProgramItemRequest({ programId }))
   }, [dispatch, programId])
 
-  if (loading === 'reload') {
+  if (loading || !data) {
     return (
-      <span onClick={() => dispatch(getProgramItemRequest({ programId, reload: true }))}>
-        Перезагрузить
-      </span>
+      <ReloadData
+        loading={loading}
+        data={data}
+        onClick={() => dispatch(getProgramItemRequest({ programId }))}
+      />
     )
   }
-  if (loading || !data) {
-    return <LoadingScreen />
-  }
-
   return (
     <Page
       className={classes.root}

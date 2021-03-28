@@ -7,8 +7,8 @@ import {
 import Page from 'src/components/Page'
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { getProgramItemRequest } from 'src/slices/program'
-import LoadingScreen from 'src/components/LoadingScreen'
 import { alphabetProgramId } from 'src/constants'
+import ReloadData from 'src/components/ReloadData'
 import Header from '../PublicItem/Header'
 import Topics from '../PublicItem/Topics'
 import Alphabet from './Alphabet'
@@ -40,15 +40,14 @@ const ProgramItem = () => {
     dispatch(getProgramItemRequest({ programId }))
   }, [dispatch, programId])
 
-  if (loading === 'reload') {
-    return (
-      <span onClick={() => dispatch(getProgramItemRequest({ programId }))}>
-        Перезагрузить
-      </span>
-    )
-  }
   if (loading || !data) {
-    return <LoadingScreen />
+    return (
+      <ReloadData
+        loading={loading}
+        data={data}
+        onClick={() => dispatch(getProgramItemRequest({ programId }))}
+      />
+    )
   }
 
   return (

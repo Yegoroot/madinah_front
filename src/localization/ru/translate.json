@@ -5,6 +5,8 @@
       "Say a letter then check yourself": "Произнеси букву затем проверь хорошо ли выучил"
     },
     "btn": {
+      "return home": "Вернуться на главную",
+      "reload": "Перезагрузить данные",
       "Sign in with google": "Войти через google",
       "Sign in with github": "Войти через Github"
     },
@@ -71,6 +73,7 @@
       "are you sure to delete this entry": "Вы уверены, что хотите удалить эту запись?"
     },
     "error": {
+      "Request failed with status code 404": "Запрашиваемый контент не найден",
       "Request failed with status code 401": "Ошибка авторизации, проверьте введенный e mail и пароль",
       "Request failed with status code 429": "429 слишком много запросов было отправлено за 10 минут",
       "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение"

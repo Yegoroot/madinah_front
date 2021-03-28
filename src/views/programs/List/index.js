@@ -11,7 +11,7 @@ import {
 import Page from 'src/components/Page'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProgramListRequest, MODULE, deleteProgram } from 'src/slices/program'
-import LoadingScreen from 'src/components/LoadingScreen'
+import ReloadData from 'src/components/ReloadData'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useTranslation } from 'react-i18next'
 import Header from './Header'
@@ -58,13 +58,17 @@ function Results() {
     }
   }
 
-  if (loading === 'reload') {
-    const params = {
-      page, limit, fromDashboard: true
-    }
-    return <span onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}>Перезагрузить</span>
-  } if (loading || !data) {
-    return <LoadingScreen />
+  const params = {
+    page, limit, fromDashboard: true
+  }
+  if (loading || !data) {
+    return (
+      <ReloadData
+        loading={loading}
+        data={data}
+        onClick={() => dispatch(getProgramListRequest({ params, reload: true }))}
+      />
+    )
   }
 
   const handlePageChange = (event, newPage) => {
