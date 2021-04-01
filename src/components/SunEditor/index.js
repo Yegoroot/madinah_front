@@ -27,6 +27,12 @@ const Editor = ({ onChange, content, rtl }) => {
       setOptions={{
         codeMirror: CodeMirror,
         height: 200,
+        attributesWhitelist: {
+          all: 'style',
+          mark: 'class',
+          input: 'checked',
+
+        },
         rtl,
         minHeight: 200,
         addTagsWhitelist: 'mark',

@@ -143,12 +143,15 @@ const useStyles = makeStyles((theme) => createStyles({
       padding: '7px 0px',
       boxShadow: `3px 0 0 ${theme.palette.primary.main},
        -3px 0 0 ${theme.palette.primary.main}`,
+      marginLeft: 3,
+      marginRight: 3,
       '&.mark2': {
         color: `${theme.palette.secondary.main} !important`,
         padding: 0,
         background: 'none !important',
-        fontWeight: 'bold'
-      }
+        fontWeight: 'bold',
+        boxShadow: 'none'
+      },
     },
   },
 
