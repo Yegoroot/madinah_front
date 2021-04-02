@@ -5,10 +5,10 @@ export const plugin_color_mark = {
   name: 'colorText',
   display: 'command',
 
-  title: 'Text node change',
+  title: 'Highlight text by color',
   buttonClass: '',
   // This icon uses Font Awesome
-  innerHTML: '<i class="se se_h">H-</i>',
+  innerHTML: '<i class="se se_h">H_</i>',
 
   add(core, targetElement) {
     const { context } = core

@@ -5,7 +5,7 @@ export const plugin_ayah = {
   name: 'customCommand_ayah',
   display: 'command',
 
-  // title: 'Ayah',
+  title: 'آية',
   buttonClass: '',
   // This icon uses Font Awesome
   innerHTML: '<span class="se se_a">۝</span>',

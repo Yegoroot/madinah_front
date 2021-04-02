@@ -12,6 +12,8 @@ import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/lib/codemirror.css'
 import useSettings from 'src/hooks/useSettings'
 import { plugin_mark } from './plugins/Mark'
+// import { plugin_mark_Q } from './plugins/MarkQ'
+import { plugin_ar_word } from './plugins/ArWord'
 import { plugin_color_mark } from './plugins/Mark2'
 import { plugin_ayah } from './plugins/Ayah'
 import { plugin_sollya } from './plugins/Sollya'
@@ -29,7 +31,7 @@ const Editor = ({ onChange, content, rtl }) => {
         height: 200,
         attributesWhitelist: {
           all: 'style',
-          mark: 'class',
+          mark: 'class', //
           input: 'checked',
 
         },
@@ -37,10 +39,10 @@ const Editor = ({ onChange, content, rtl }) => {
         minHeight: 200,
         addTagsWhitelist: 'mark',
         formats: ['p', 'div', 'blockquote', 'h3', 'h4'],
-        plugins: [plugin_mark, plugin_color_mark, plugin_bism, plugin_surah_l, plugin_surah_r, plugin_ayah, plugin_sollya],
+        plugins: [plugin_mark, plugin_color_mark, plugin_ar_word, plugin_bism, plugin_surah_l, plugin_surah_r, plugin_ayah, plugin_sollya],
         buttonList: [
           ['customCommand_mark', 'colorText'],
-          ['customCommand_bism', 'customCommand_surah_l', 'customCommand_surah_r', 'customCommand_ayah', 'customCommand_sollya'],
+          ['ar_word', 'customCommand_bism', 'customCommand_surah_l', 'customCommand_surah_r', 'customCommand_ayah', 'customCommand_sollya'],
           ['strike', 'bold', 'link'],
           ['list', 'formatBlock', 'image'], ['removeFormat', 'codeView', 'undo', 'redo']
         ]

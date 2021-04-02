@@ -4,6 +4,7 @@
 export const plugin_bism = {
   name: 'customCommand_bism',
   display: 'command',
+  title: 'بسم الله الرحمان الرحيم',
   innerHTML: '<span class="se se_bs">بســم</span>',
   add(core, targetElement) {
     const { context } = core

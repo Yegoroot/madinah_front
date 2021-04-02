@@ -1,7 +1,9 @@
+/* eslint-disable camelcase */
+/* eslint-disable max-len */
 import { prefixZmj, suffixZmj } from './utilsArWord'
 
 // ex) A submenu plugin that appends the contents of the input element to the editor
-export const PluginArWord = {
+export const plugin_ar_word = {
   // @Required @Unique
   // plugin name
   name: 'ar_word',
@@ -11,7 +13,7 @@ export const PluginArWord = {
   display: 'submenu',
 
   // @Options
-  title: 'ArWord',
+  title: 'HighLight suffix prefix in arabic word',
   buttonClass: '',
   innerHTML: '<img style="width: 25px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABi0lEQVRIic3WQUsVYRTG8Z/hQgqFQiHoXkGiiHCjm4iIPkAp1CqDtu6lRat2UYugpdBXyFwVtWzRqqAWbQJBsaULERWhCLku5igy1zvvO/depAcO78zhzPM/75lhZmhXA0vYQSsR63h0gkdSDWxmAMrxtC5oKS78gEuJ2tsl2PM6oMNxNTJqh7Tv7HUu6PCCuvXH49VpgVp4dlqgFh73E/SlArTeT1BZ53A3x6dXUEefM30whVGc76mTDD3BPv7hWq5PuWAAD/EC1yM3jl+4qJjIHhZxD4Pdgt7E+Q5+RG4uctMYieMHCZ+jDk7SZcxjAc3oGCZjHYqAv1Xdp0BruIFvWMbvyE/FOoqtON6SUBWoFRCYwHecxZ3ITSruIaz2AjquYUXXMwH7ilncVOx8I9PnSJ2elp94rxjfZ9zCH8W9uV/DJ1nwMvIrijHCGC7U9EkWDAQgd9T/z7tuN9acT3knNWPdripajk4+dglr4lN4vKsqvKq7361ybOJKqqsG3iq2XhewHTtpgxwAsFm6+FECFwEAAAAASUVORK5CYII="/>',
   // eslint-disable-next-line max-len
@@ -60,9 +62,9 @@ export const PluginArWord = {
     listDiv.innerHTML = ''
           + '<div class="se-arword">'
               + '<div class="se-arword__inputs">'
-              + '<input class="se-arword__input se-suffix" type="text" placeholder="Suffix" />'
-              + '<input class="se-arword__input se-root" type="text" placeholder="Root" />'
               + '<input class="se-arword__input se-prefix" type="text" placeholder="Prefix" />'
+              + '<input class="se-arword__input se-root" type="text" placeholder="Root" />'
+              + '<input class="se-arword__input se-suffix" type="text" placeholder="Suffix" />'
               + '</div>'
               + '<div class="se-arword__buttons">'
                   + '<button type="button" class="se-arword__add">'
@@ -90,12 +92,14 @@ export const PluginArWord = {
     const prefix = textElementPrefix ? `<span class="arword__prefix">${textElementPrefix}${prefixZmj(textElementPrefix)}</span>` : ''
     const root = `<span class="arword__root">${prefixZmj(textElementPrefix)}${textElementRoot}${suffixZmj(textElementRoot, textElementSuffix)}</span>`
     const suffix = textElementSuffix ? `<span class="arword__suffix">${suffixZmj(textElementRoot, textElementSuffix)}${textElementSuffix}</span>` : ''
-    this.functions.insertHTML(`<span class="arword">${prefix}${root}${suffix}</span>`, true)
+    this.functions.insertHTML(`<span class="arword">${prefix}${root}${suffix}</span>&nbsp;`, true)
 
+    this.context.customSubmenu.textElementPrefix.value = ''
     this.context.customSubmenu.textElementRoot.value = ''
+    this.context.customSubmenu.textElementSuffix.value = ''
 
     this.submenuOff()
   }
 }
 
-export default PluginArWord
+export default plugin_ar_word

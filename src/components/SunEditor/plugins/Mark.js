@@ -5,7 +5,7 @@ export const plugin_mark = {
   name: 'customCommand_mark',
   display: 'command',
 
-  title: 'Text node change',
+  title: 'Highlight text by Background Color',
   buttonClass: '',
   // This icon uses Font Awesome
   innerHTML: '<i class="se se_h">H</i>',

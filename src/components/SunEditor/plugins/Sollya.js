@@ -5,7 +5,7 @@ export const plugin_sollya = {
   name: 'customCommand_sollya',
   display: 'command',
 
-  // title: 'Ayah',
+  title: 'صلى الله عليه وسلم',
   buttonClass: '',
   // This icon uses Font Awesome
   innerHTML: '<span class="se se_a">ﷺ</span>',

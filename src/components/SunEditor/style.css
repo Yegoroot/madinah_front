@@ -2659,7 +2659,7 @@ EDITOR
 }
 .se-arword__inputs input {
   width: 100px;
-  font-size: 21px;
+  font-size: inherit;
   /* direction: rtl; */
 }
 .se-arword__buttons {
