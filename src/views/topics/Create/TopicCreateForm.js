@@ -384,7 +384,7 @@ function TopicCreateForm({
             )}
             <Box mt={5}>
               <Button
-                style={{ marginBottom: 8, marginRight: 16 }}
+                style={{ marginBottom: 8 }}
                 onClick={
               () => {
                 setRedirect('continue')
