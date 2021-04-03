@@ -179,6 +179,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
                   {type.title}
                 </Type>
               ))}
+              <Type>{program.language}</Type>
             </Box>
           </Box>
 

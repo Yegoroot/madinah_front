@@ -63,7 +63,7 @@ function ProductCreateForm({
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(t('admin.this is a required field')),
-        language: Yup.string().required(t('admin.this is a required field')),
+        language: Yup.string(), // .required(t('admin.this is a required field')),
         level: Yup.string().required(t('admin.this is a required field')),
         description: Yup.string().max(400),
         types: Yup.array(),
