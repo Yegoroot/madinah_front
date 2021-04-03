@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   Box,
   Button,
@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 
 const Search = () => {
   const classes = useStyles()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const [value, setValue] = useState('')
   const [isOpen, setOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -54,9 +54,7 @@ const Search = () => {
       setResults(response.data.results)
     } catch (err) {
       console.error(err)
-      enqueueSnackbar('Something went wrong', {
-        variant: 'error'
-      })
+      notify({ message: 'Something went wrong', variant: 'error' })
     } finally {
       setLoading(false)
     }
@@ -147,6 +145,7 @@ const Search = () => {
                 <>
                   {results.map((result, i) => (
                     <Box
+                      // eslint-disable-next-line react/no-array-index-key
                       key={i}
                       mb={2}
                     >

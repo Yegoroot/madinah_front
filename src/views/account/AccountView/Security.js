@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   Box,
   Button,
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 
 const Security = ({ className, ...rest }) => {
   const classes = useStyles()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
 
   return (
     <Formik
@@ -54,9 +54,7 @@ const Security = ({ className, ...rest }) => {
           resetForm()
           setStatus({ success: true })
           setSubmitting(false)
-          enqueueSnackbar('Password updated', {
-            variant: 'success'
-          })
+          notify({ message: 'Password updated', variant: 'success' })
         } catch (err) {
           console.error(err)
           setStatus({ success: false })

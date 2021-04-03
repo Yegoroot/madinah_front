@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { useSnackbar } from 'notistack'
 import AddOutlined from '@material-ui/icons/AddOutlined'
 import {
   Box, Button, Select, InputLabel,
@@ -22,6 +21,7 @@ import RecordList from 'src/components/Record/List'
 import LoadingScreen from 'src/components/LoadingScreen'
 import { useStateWithCallbackLazy } from 'use-state-with-callback'
 import ModalOrder from 'src/components/Draggble/Modal'
+import { useNotification } from 'src/hooks/useNotification'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -50,7 +50,7 @@ function TopicCreateForm({
    */
   const classes = useStyles()
   const history = useHistory()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const { t } = useTranslation()
   const initTopicId = () => id || ObjectID.generate()
   const [topicId] = useState(initTopicId()) // WARN 1
@@ -109,7 +109,7 @@ function TopicCreateForm({
           setStatus({ success: true })
           setSubmitting(false)
           setLoading(false)
-          enqueueSnackbar(message, { variant: 'success' })
+          notify({ message })
           history.push(`${redirectUrl}`)
         }).catch((err) => {
           setLoading(false)

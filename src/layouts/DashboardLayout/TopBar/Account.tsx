@@ -4,7 +4,7 @@ import React, {
 } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { LogIn as LogInIcon, LogOut, Clipboard } from 'react-feather'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   // Avatar,
   // Box,
@@ -44,7 +44,7 @@ const Account = () => {
   const history = useHistory()
   const ref = useRef(null)
   const { /* user, */ logout, isAuthenticated } = useAuth()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const [isOpen, setOpen] = useState(false)
   const { t } = useTranslation()
 
@@ -63,9 +63,7 @@ const Account = () => {
       history.push('/')
     } catch (err) {
       console.error(err)
-      enqueueSnackbar('Unable to logout', {
-        variant: 'error'
-      })
+      notify({ message: 'Unable to logout', variant: 'error' })
     }
   }
 

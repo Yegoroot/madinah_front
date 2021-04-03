@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   Box,
   Button,
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
 
 const GeneralSettings = ({ className, user, ...rest }) => {
   const classes = useStyles()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
 
   return (
     <Formik
@@ -66,9 +66,7 @@ const GeneralSettings = ({ className, user, ...rest }) => {
           resetForm()
           setStatus({ success: true })
           setSubmitting(false)
-          enqueueSnackbar('Profile updated', {
-            variant: 'success'
-          })
+          notify({ message: 'Profile updated' })
         } catch (err) {
           console.error(err)
           setStatus({ success: false })

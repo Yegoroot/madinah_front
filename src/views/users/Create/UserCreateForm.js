@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   Box,
   Button,
@@ -35,7 +35,7 @@ function ProductCreateForm({
 }) {
   const classes = useStyles()
   const history = useHistory()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const { user } = useAuth()
   const { t } = useTranslation()
 
@@ -66,10 +66,7 @@ function ProductCreateForm({
           if (id) {
             instanceAxios.put(`${API_BASE_URL}/users/${id}`, values)
               .then(() => {
-                enqueueSnackbar(t('notify.user was updated'), {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
+                notify({ message: t('notify.user was updated') })
                 setStatus({ success: true })
                 setSubmitting(false)
                 history.push(`${USERS_URL}`)
@@ -78,10 +75,7 @@ function ProductCreateForm({
           } else {
             instanceAxios.post(`${API_BASE_URL}/users`, values)
               .then(() => {
-                enqueueSnackbar(t('notify.user was created'), {
-                  variant: 'success',
-                  autoHideDuration: 2000
-                })
+                notify({ message: t('notify.user was created') })
                 setStatus({ success: true })
                 setSubmitting(false)
                 history.push(`${USERS_URL}`)

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 import {
   Box,
   Button,
@@ -51,7 +51,7 @@ function ProductCreateForm({
 }) {
   const classes = useStyles()
   const history = useHistory()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const srcPhoto = initialValues.photo
@@ -92,7 +92,7 @@ function ProductCreateForm({
           instanceAxios[method](url, formData,
             { headers: { 'Content-Type': 'multipart/form-data' } })
             .then((res) => {
-              enqueueSnackbar(message, { variant: 'success', autoHideDuration: 2000 })
+              notify({ message })
               setStatus({ success: true })
               setSubmitting(false)
               history.push(`/programs/${res.data.data.id}`)
@@ -101,12 +101,15 @@ function ProductCreateForm({
               setSubmitting(false)
               setErrors({ submit: setErr(err) })
               setStatus({ success: false })
+              // axios handler work instead
+              // notify({ message: err.message, variant: 'error' })
               setLoading(false)
             })
         } catch (err) {
-          setErrors({ submit: err.message })
+          setErrors({ submit: 'err.message' })
           setStatus({ success: false })
           setSubmitting(false)
+          notify({ message: err.message, variant: 'error' })
           setLoading(false)
         }
       }}

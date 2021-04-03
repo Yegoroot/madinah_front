@@ -30,7 +30,7 @@ import { useTranslation } from 'react-i18next'
 import { instanceAxios } from 'src/utils/axios'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import { API_BASE_URL } from 'src/constants'
-import { useSnackbar } from 'notistack'
+import { useNotification } from 'src/hooks/useNotification'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Results({ className, ...rest }) {
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
   const classes = useStyles()
 
   const { t } = useTranslation()
@@ -92,13 +92,13 @@ function Results({ className, ...rest }) {
       instanceAxios
         .delete(`${API_BASE_URL}/types/${id}`)
         .then(() => {
-          enqueueSnackbar('Type was deleted', { variant: 'success' })
+          notify({ message: 'Type was deleted' })
           const newTypes = types.filter((u) => u._id !== id)
           console.log(newTypes)
           setTypes(newTypes)
         })
         .catch(() => {
-          enqueueSnackbar('Type wasnt deleted', { variant: 'error' })
+          notify({ message: 'Type wasnt deleted', variant: 'error' })
         })
     }
   }

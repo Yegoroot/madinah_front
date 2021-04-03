@@ -33,8 +33,8 @@ import getInitials from 'src/utils/getInitials'
 import { instanceAxios } from 'src/utils/axios'
 import useIsMountedRef from 'src/hooks/useIsMountedRef'
 import { API_BASE_URL } from 'src/constants'
-import { useSnackbar } from 'notistack'
 import { useTranslation } from 'react-i18next'
+import { useNotification } from 'src/hooks/useNotification'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 function Results({ className, ...rest }) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { enqueueSnackbar } = useSnackbar()
+  const notify = useNotification()
 
   // const dispatch = useDispatch()
   const isMountedRef = useIsMountedRef()
@@ -91,13 +91,13 @@ function Results({ className, ...rest }) {
       instanceAxios
         .delete(`${API_BASE_URL}/users/${id}`)
         .then(() => {
-          enqueueSnackbar(t('notify.user has been deleted'), { variant: 'success' })
+          notify({ message: t('notify.user has been deleted') })
           const newUsers = users.filter((u) => u._id !== id)
           console.log(newUsers)
           setUsers(newUsers)
         })
         .catch(() => {
-          enqueueSnackbar(t('notify.user hasnt been deleted'), { variant: 'error' })
+          notify({ message: t('notify.user hasnt been deleted'), variant: 'error' })
         })
     }
   }
