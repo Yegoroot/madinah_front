@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => createStyles({
     },
     h1: {
       fontWeight: 500,
-      fontSize: '3rem',
+      fontSize: '3.2rem',
       letterSpacing: '-0.24px',
       lineHeight: 1.167,
       marginTop: theme.spacing(6),
@@ -90,11 +90,12 @@ const useStyles = makeStyles((theme) => createStyles({
       }
     },
     h2: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(8),
       marginBottom: theme.spacing(2),
-      // [theme.breakpoints.up('md')]: {
-      //   fontSize: 42
-      // }
+      fontSize: '2.7rem',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '2rem',
+      }
     },
     h3: {
       marginTop: theme.spacing(6),

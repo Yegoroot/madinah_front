@@ -96,10 +96,7 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.text.primary,
     },
     h1: {
-      lineHeight: '1.4',
-      fontSize: 50,
       color: '#fff',
-      // color: theme.palette.background.default,
       maxWidth: '100%',
       marginRight: theme.spacing(1),
       left: -10,
@@ -129,6 +126,9 @@ const useStyles = makeStyles((theme) => {
     //   'flex-wrap': 'wrap',
     //   'justify-content': 'space-between'
     // }
+    svgShare: {
+      marginRight: theme.spacing(1)
+    }
   }
 })
 
@@ -186,6 +186,7 @@ const Header = ({
                 >
                   <SvgIcon
                     fontSize="small"
+                    className={classes.svgShare}
                   >
                     <ShareIcon />
                   </SvgIcon>

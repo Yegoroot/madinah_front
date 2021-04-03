@@ -12,7 +12,7 @@ const lang = localStorage.getItem('i18nextLng') || DEFAULT_LANGUAGE
 const defaultSettings = {
   // direction: lang === 'ar' ? 'rtl' : 'ltr',
   direction: 'rtl', //
-  responsiveFontSizes: true,
+  responsiveFontSizes: false,
   theme: THEMES.ONE_DARK,
   lang
 }

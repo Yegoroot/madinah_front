@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     '& img': {
       // width: '100%',
       maxWidth: '100%',
+    },
+    '& section:nth-child(1) h2': {
+      marginTop: 0
     }
   },
   root: {
