@@ -72,18 +72,16 @@ function SectionCreate({
     const _id = section._id ? section._id : objectId // если запись на update
     // для audio не нуэно менять сам файл, можно только меняьб annotations или удалить файл
     if (section.type === 'audio' && isUpdate) {
-      console.log(section, section.type)
       onSave({ record: { ...section } })
       return
     }
     if (section.type === 'image' || section.type === 'audio') {
-      console.log(section)
-
       // нет новых данных по изображению
       if (!section.data.file) {
         // Но есть старое изображение (может быть только subtitle меняем)
         if (section.data.image) {
-          onSave({ record: { ...section, _id } })
+          const record = { ...section, _id }
+          onSave({ record })
         }
         return false
       }
@@ -100,7 +98,8 @@ function SectionCreate({
           // eslint-disable-next-line max-len
           // WARN ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount поэтому состояние его изменять не нужно
           // setLoading(false)
-          onSave({ record: { ...section, data, _id } })
+          const record = { ...section, data: { ...data, ...section.data }, _id }
+          onSave({ record })
         })
         .catch(() => {
           // ЭТОТ КОМПОНЕНТ ТЕПЕРЬ ПОСЛЕ СРАБАТЫВАНИЯ onSave unmount
@@ -213,8 +212,9 @@ function SectionCreate({
                   topicId={topicId}
                   programId={programId}
                   content={section}
+                  // eslint-disable-next-line arrow-body-style
                   onChange={(data) => {
-                    console.log(data)
+                    // console.log('ImageType', data)
                     return setSection(
                       (prev) => ({ ...prev, type: 'image', data: { ...prev.data, ...data } })
                     )
