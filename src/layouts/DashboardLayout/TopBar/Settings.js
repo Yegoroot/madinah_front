@@ -6,11 +6,11 @@ import {
   // Badge,
   Box,
   Button,
-  FormControlLabel,
+  // FormControlLabel,
   IconButton,
   Popover,
   SvgIcon,
-  Switch,
+  // Switch,
   TextField,
   Tooltip,
   Typography,
@@ -42,7 +42,7 @@ const Settings = () => {
   const [isOpen, setOpen] = useState(false)
   const { t, i18n } = useTranslation()
   const [values, setValues] = useState({
-    direction: settings.direction,
+    // direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,
     theme: settings.theme,
     lang: settings.lang
@@ -61,11 +61,12 @@ const Settings = () => {
       ...values,
       [field]: value
     }
-    if (field === 'lang') {
-      newValues.direction = value === 'ar'
-        ? 'rtl'
-        : 'ltr'
-    }
+    // if (field === 'lang') {
+    //   newValues.direction = value === 'ar'
+    //     ? 'rtl'
+    //     : 'ltr'
+    // }
+    newValues.direction = 'rtl'
     setValues(newValues)
   }
 
@@ -110,7 +111,7 @@ const Settings = () => {
         >
           {t('components.settings.title')}
         </Typography>
-        <Box
+        {/* <Box
           mt={2}
           px={1}
         >
@@ -128,8 +129,8 @@ const Settings = () => {
             )}
             label="RTL"
           />
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           mt={2}
           px={1}
         >
@@ -138,13 +139,13 @@ const Settings = () => {
               <Switch
                 checked={values.responsiveFontSizes}
                 edge="start"
-                name="direction"
+                name="responsiveFontSizes"
                 onChange={(event) => handleChange('responsiveFontSizes', event.target.checked)}
               />
             )}
             label={t('components.settings.font')}
           />
-        </Box>
+        </Box> */}
         <Box mt={2}>
           <TextField
             fullWidth
