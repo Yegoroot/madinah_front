@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import React, { /* useState */ } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -21,6 +21,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Backdrop,
   Input,
   FormControl,
   Switch,
@@ -31,14 +32,18 @@ import { instanceAxios } from 'src/utils/axios'
 import {
   UPLOADS_URL, API_BASE_URL, LEVELS, LANGUAGES
 } from 'src/constants'
+import LoadingScreen from 'src/components/LoadingScreen'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   editor: {
     '& .ql-editor': {
       height: 400
     }
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1
+  },
 }))
 
 function ProductCreateForm({
@@ -48,6 +53,7 @@ function ProductCreateForm({
   const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
   const srcPhoto = initialValues.photo
     ? `${UPLOADS_URL}/programs/${id}/photo/compress/${initialValues.photo}`
     : null
@@ -68,6 +74,7 @@ function ProductCreateForm({
         setSubmitting
       }) => {
         try {
+          setLoading(true)
           const formData = new FormData()
           formData.set('title', values.title)
           formData.set('description', values.description)
@@ -94,11 +101,13 @@ function ProductCreateForm({
               setSubmitting(false)
               setErrors({ submit: setErr(err) })
               setStatus({ success: false })
+              setLoading(false)
             })
         } catch (err) {
           setErrors({ submit: err.message })
           setStatus({ success: false })
           setSubmitting(false)
+          setLoading(false)
         }
       }}
     >
@@ -117,6 +126,12 @@ function ProductCreateForm({
           className={clsx(classes.root, className)}
           {...rest}
         >
+          <Backdrop
+            className={classes.backdrop}
+            open={loading}
+          >
+            <LoadingScreen transparent />
+          </Backdrop>
           <Grid
             container
             spacing={3}
