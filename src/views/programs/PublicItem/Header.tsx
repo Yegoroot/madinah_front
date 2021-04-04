@@ -118,7 +118,8 @@ const useStyles = makeStyles((theme) => {
       margin: 0,
       'border-radius': 7.5,
       // eslint-disable-next-line max-len
-      'text-shadow': '12px 12px 9.8px rgb(28 32 37), 21px -18.1px 7.3px rgb(255 255 255 / 52%), -18.1px -27.3px 30px rgb(255 255 255 / 63%)',
+      // 'text-shadow': '12px 12px 9.8px rgb(28 32 37), 21px -18.1px 7.3px rgb(255 255 255 / 52%), -18.1px -27.3px 30px rgb(255 255 255 / 63%)',
+      'text-shadow': '-12px 12px 9.8px rgb(28 32 37), 21px -18.1px 20px #1c2025, -18.1px -27.3px 30px #1c2025',
     },
     // header: {
     //   display: 'flex',

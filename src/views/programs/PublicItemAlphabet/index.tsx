@@ -65,7 +65,7 @@ const ProgramItem = () => {
       title={data.title}
     >
       <Header
-        alternativeBackground="linear-gradient(220deg, rgb(57, 73, 171), rgb(184 34 221 / 23%), transparent)"
+        alternativeBackground="linear-gradient(220deg, rgb(171, 57, 57), rgb(184 34 221 / 23%), transparent)"
         program={data}
         topics={topics}
       />
