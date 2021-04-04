@@ -26,6 +26,7 @@ export default function Parallax(props) {
       paralaxParent.removeEventListener('scroll', resetTransform)
     }
   })
+  //
   const resetTransform = () => {
     // eslint-disable-next-line no-shadow
     const scrollTop = paralaxParent ? paralaxParent.scrollTop / 3 : 0
