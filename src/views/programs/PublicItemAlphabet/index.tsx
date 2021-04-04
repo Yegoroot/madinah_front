@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   topicsRoot: {
     display: 'grid',
     gridGap: 10,
-    'grid-template-columns': 'repeat(auto-fill, minmax(160px, 1fr))',
+    'grid-template-columns': 'repeat(auto-fill, minmax(110px, 1fr))',
     '& div': {
       width: '100%',
       maxWidth: '100%',
