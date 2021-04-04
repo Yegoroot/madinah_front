@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     zIndex: 100,
     marginBottom: 80,
-    marginTop: 60
+    marginTop: 60,
+    position: 'relative'
     // background: theme.palette.background.default
   },
   alphabet: {

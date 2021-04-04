@@ -32,8 +32,8 @@ const App = () => {
   const { settings } = useSettings()
 
   const theme = createTheme({
-    direction: settings.direction,
-    responsiveFontSizes: settings.responsiveFontSizes,
+    direction: 'rtl',
+    responsiveFontSizes: false,
     theme: settings.theme
   })
 

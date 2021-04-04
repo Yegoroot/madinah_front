@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     top: -30,
     left: 0,
     color: '#f44336',
-  },
+  }
 }))
 
 function TopicCard({ topic, programId }: {topic: any, programId: string }) {
@@ -101,9 +101,10 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
           display="flex"
           alignItems="center"
           mt={1}
+          className="forAlphabet"
         >
-          <Box>
-            {/* <Typography
+          {/* <Box> */}
+          {/* <Typography
               variant="body2"
               color="textSecondary"
             >
@@ -113,18 +114,18 @@ function TopicCard({ topic, programId }: {topic: any, programId: string }) {
               {' '}
               {moment(topic.createdAt).fromNow()}
             </Typography> */}
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >
-              <b>
-                {t('time.updated')}
-              </b>
-              {' '}
-              {moment(topic.updatedAt).fromNow()}
-            </Typography>
-          </Box>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+          >
+            <b>
+              {t('time.updated')}
+            </b>
+            {' '}
+            {moment(topic.updatedAt).fromNow()}
+          </Typography>
         </Box>
+        {/* </Box> */}
       </Box>
 
     </div>

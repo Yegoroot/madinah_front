@@ -66,7 +66,6 @@ const Settings = () => {
     //     ? 'rtl'
     //     : 'ltr'
     // }
-    newValues.direction = 'rtl'
     setValues(newValues)
   }
 

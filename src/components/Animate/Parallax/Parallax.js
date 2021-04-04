@@ -32,7 +32,7 @@ export default function Parallax(props) {
     setTransform(`translate3d(0,${scrollTop}px,0)`)
   }
   const {
-    filter, className, children, style, image, small
+    filter, className, alternativeBackground, children, style, image, small
   } = props
   const classes = useStyles()
   const parallaxClasses = clsx({
@@ -41,12 +41,17 @@ export default function Parallax(props) {
     [classes.small]: small,
     [className]: className !== undefined
   })
+  const background = {}
+  if (alternativeBackground) {
+    background.background = alternativeBackground
+  }
   return (
     <div
       className={parallaxClasses}
       style={{
         ...style,
         backgroundImage: image,
+        ...background,
         transform
       }}
     >

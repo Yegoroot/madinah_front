@@ -133,8 +133,8 @@ const useStyles = makeStyles((theme) => {
 })
 
 const Header = ({
-  className, program, topics, ...rest
-}:{className?: string, program: any, topics: any, rest?: any}) => {
+  className, program, topics, alternativeBackground, ...rest
+}:{className?: string, program: any, alternativeBackground?: string, topics: any, rest?: any}) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const classes = useStyles()
@@ -162,6 +162,8 @@ const Header = ({
       <Parallax
         className={classes.cover}
         image={backgroundImage}
+        // @ts-ignore
+        alternativeBackground={alternativeBackground}
         // filter
         small
       />

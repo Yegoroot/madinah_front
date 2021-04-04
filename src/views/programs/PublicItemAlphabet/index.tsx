@@ -21,11 +21,19 @@ const useStyles = makeStyles((theme) => ({
   },
   topicsRoot: {
     display: 'grid',
-    'grid-template-columns': 'repeat(auto-fill, minmax(270px, 1fr))',
+    gridGap: 10,
+    'grid-template-columns': 'repeat(auto-fill, minmax(160px, 1fr))',
     '& div': {
       width: '100%',
       maxWidth: '100%',
       flexBasis: '100%'
+    },
+    '& .forAlphabet': {
+      display: 'none'
+    },
+    '& a': {
+      fontSize: 47,
+      fontWeight: 'bold'
     }
   }
 }))
@@ -57,6 +65,7 @@ const ProgramItem = () => {
       title={data.title}
     >
       <Header
+        alternativeBackground="linear-gradient(220deg, rgb(57, 73, 171), rgb(184 34 221 / 23%), transparent)"
         program={data}
         topics={topics}
       />
