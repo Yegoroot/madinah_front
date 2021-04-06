@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     '& a': {
       fontSize: 47,
       fontWeight: 'bold'
+    },
+    '& > div > div > div': {
+      textAlign: 'center'
     }
   }
 }))
