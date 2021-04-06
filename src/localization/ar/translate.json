@@ -1,6 +1,7 @@
 {
   "translations": {
     "alph": {
+      "alphabet": "الأبجدية",
       "Check yourself": "استنتاج",
       "Say a letter then check yourself": "انطق حرف ثم تحقق من نفسك"
     },

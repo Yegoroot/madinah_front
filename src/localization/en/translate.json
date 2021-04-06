@@ -1,6 +1,7 @@
 {
   "translations": {
     "alph": {
+      "alphabet": "Alphabet",
       "Check yourself": "Conclusion",
       "Say a letter then check yourself": "Pronounce a letter then check yourself"
     },

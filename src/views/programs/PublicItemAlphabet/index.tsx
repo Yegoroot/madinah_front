@@ -9,6 +9,7 @@ import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { getProgramItemRequest } from 'src/slices/program'
 import { alphabetProgramId } from 'src/constants'
 import ReloadData from 'src/components/ReloadData'
+import { useTranslation } from 'react-i18next'
 import Header from '../PublicItem/Header'
 import Topics from '../PublicItem/Topics'
 import Alphabet from './Alphabet'
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ProgramItem = () => {
+  const { t } = useTranslation()
   const programId = alphabetProgramId
   const dispatch = useDispatch()
   const { loading, data, topics } = useSelector((state: RootStateOrAny) => state.program.item)
@@ -69,7 +71,7 @@ const ProgramItem = () => {
     >
       <Header
         alternativeBackground="linear-gradient(220deg, rgb(171, 57, 57), rgb(184 34 221 / 23%), transparent)"
-        program={data}
+        program={{ ...data, title: `💡 ${t('alph.alphabet')}` }}
         topics={topics}
       />
 
