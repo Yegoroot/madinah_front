@@ -235,6 +235,11 @@ function ProductCreateForm({
                             onChange={handleChange}
                             input={<Input id="select-multiple-chip2" />}
                           >
+                            <MenuItem
+                              value=""
+                            >
+                              -
+                            </MenuItem>
                             {LANGUAGES.map((lang) => (
                               <MenuItem
                                 key={lang}
