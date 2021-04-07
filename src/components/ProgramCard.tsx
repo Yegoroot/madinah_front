@@ -179,7 +179,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
                   {type.title}
                 </Type>
               ))}
-              {program.language && <Type>{program.language}</Type>}
+              {Array.isArray(program.language) && program.language.map((lang: any) => <Type key={lang}>{lang}</Type>) }
             </Box>
           </Box>
 

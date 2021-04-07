@@ -63,7 +63,7 @@ function ProductCreateForm({
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         title: Yup.string().max(255).required(t('admin.this is a required field')),
-        language: Yup.string(), // .required(t('admin.this is a required field')),
+        // language: Yup, // .required(t('admin.this is a required field')),
         level: Yup.string().required(t('admin.this is a required field')),
         description: Yup.string().max(400),
         types: Yup.array(),
@@ -80,7 +80,7 @@ function ProductCreateForm({
           formData.set('description', values.description)
           formData.set('publish', values.publish)
           formData.set('level', values.level)
-          formData.set('language', values.language)
+          formData.set('language', JSON.stringify(values.language))
           formData.set('types', JSON.stringify(values.types))
           if (values.file) { formData.append('photo', values.file) }
 
@@ -221,7 +221,47 @@ function ProductCreateForm({
                         xs={12}
                         lg={6}
                       >
+                        {LANGUAGES.length && (
                         <FormControl
+                          fullWidth
+                          className={classes.formControl}
+                          error={Boolean(touched.language && errors.language)}
+                        >
+                          <InputLabel id="demo-mutiple-chip-label">
+                            {t('admin.language')}
+                          </InputLabel>
+                          <Select
+                            labelId="demo-mutiple-chip-label"
+                            name="language"
+                            multiple
+                            value={Array.isArray(values.language) ? values.language : []}
+                            onChange={handleChange}
+                            input={<Input id="select-multiple-chip" />}
+                            renderValue={(selected) => (
+                              <div className={classes.chips}>
+                                {selected.map((value) => (
+                                  <Chip
+                                    key={value}
+                                    label={LANGUAGES.find((el) => el === value)}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          >
+                            {LANGUAGES.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText>{touched.language && errors.language}</FormHelperText>
+                        </FormControl>
+                        ) }
+
+                        {/* <FormControl
                           fullWidth
                           className={classes.formControl}
                           error={Boolean(touched.language && errors.language)}
@@ -250,7 +290,7 @@ function ProductCreateForm({
                             ))}
                           </Select>
                           <FormHelperText>{touched.language && errors.language}</FormHelperText>
-                        </FormControl>
+                        </FormControl> */}
                       </Grid>
                     </Grid>
                   </Box>
