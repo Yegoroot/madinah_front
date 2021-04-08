@@ -9,13 +9,14 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles,
+  // makeStyles,
   SvgIcon
 } from '@material-ui/core'
 import { Menu as MenuIcon } from 'react-feather'
 import Logo from 'src/components/Logo'
-import { THEMES } from 'src/constants'
+// import { THEMES } from 'src/constants'
 import { useTranslation } from 'react-i18next'
+import Dictionary from 'src/components/Dictionary/TopBar'
 import Account from './Account'
 // import Search from './Search'
 import Settings from './Settings'
@@ -60,7 +61,7 @@ const TopBar = ({
         >
           {t('menu.programs')}
         </Button>
-
+        <Dictionary />
         <Settings />
         <Account />
 

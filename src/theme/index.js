@@ -103,7 +103,7 @@ const themesOptions = [
         paper: '#282C34'
       },
       primary: {
-        main: '#3949ab'
+        main: '#289dca'
       },
       error: {
         main: '#f44336'
