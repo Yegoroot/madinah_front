@@ -108,7 +108,8 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
   const { t } = useTranslation()
   const classes = useStyles()
   const { user } = useAuth()
-  const { role } = user || { role: null }
+  // @ts-ignore
+  const role = user ? user.role : null
 
   const handleDelete = (e: any) => {
     e.preventDefault()

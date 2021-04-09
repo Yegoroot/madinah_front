@@ -9,6 +9,12 @@ import SplashScreen from 'src/components/SplashScreen'
 import axios from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 
+export type userType = {
+  role: string,
+  dictionary: any,
+  _id: string
+}
+
 const initialAuthState = {
   isAuthenticated: false,
   isInitialised: false,
