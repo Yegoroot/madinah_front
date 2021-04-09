@@ -36,12 +36,22 @@ const slice = createSlice({
 
 export const { reducer } = slice
 
-export const enqueueSnackbar = (notification) => async (dispatch) => {
-  const key = notification.options && notification.options.key
+export const enqueueSnackbar = ({ message, variant }) => async (dispatch) => {
+  const key = ObjectID.generate()
+
+  const options = {
+    autoHideDuration: 4000,
+    variant,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'right',
+    },
+  }
   dispatch(slice.actions.enqueueSnackbar({
     notification: {
-      ...notification,
-      key: key || ObjectID.generate(),
+      message,
+      options,
+      key,
     },
   }))
 }
@@ -61,12 +71,3 @@ export const removeSnackbar = (key) => async (dispatch) => {
 }
 
 export default slice
-
-// export const errorMessage = (message) => enqueueSnackbar({
-//   message,
-//   options: {
-//     autoHideDuration: 6000,
-//     key: new Date().getTime() + Math.random(),
-//     variant: 'error'
-//   },
-// })

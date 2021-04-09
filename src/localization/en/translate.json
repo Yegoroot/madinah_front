@@ -74,8 +74,15 @@
       "are you sure to delete this entry": "Are you sure to delete this entry?"
     },
     "error": {
-      "Request failed with status code 404": "Sorry, Content Not Found",
-      "Request failed with status code 401": "Authorization error, check the entered e-mail and password",
+      "404": "Sorry, Content Not Found",
+      "Duplicate": "A material with the same name has already been created",
+      "Server Error": "Sorry, undefined error, let us know about it",
+      "Program with current id not found": "Program with current id not found",
+      "This user is not allowed to work with the current program": "This user is not allowed to work with the requested program",
+      "Dictionary not found": "Dictionary not found",
+      "404 The requested topic was not found": "The requested topic was not found",
+      "401 Not authorize to access this route": "401 Not authorize to access this route",
+      "403 Not allowed to access this route": "Not allowed to access this route",
       "Request failed with status code 429": "429 too many requests was sent in a 10 minute amount of time",
       "Network Error": "Failed to load data. Check your Internet connection"
     },

@@ -74,8 +74,15 @@
       "are you sure to delete this entry": "هل أنت متأكد من حذف هذا الإدخال؟"
     },
     "error": {
-      "Request failed with status code 404": "لم يتم العثور على المعلومات المطلوبة",
-      "Request failed with status code 401": "خطأ في التفويض ، تحقق من البريد الإلكتروني الذي تم إدخاله وكلمة المرور",
+      "404": "لم يتم العثور على المعلومات المطلوبة",
+      "Duplicate": "تم بالفعل إنشاء مادة بنفس الاسم",
+      "Server Error": "خطأ في الخادم",
+      "Program with current id not found": "البرنامج بالمعرف الحالي غير موجود",
+      "This user is not allowed to work with the current program": "لا يسمح لهذا المستخدم بالعمل مع البرنامج المطلوب",
+      "Dictionary not found": "القاموس غير موجود",
+      "404 The requested topic was not found": "المواد المطلوبة غير موجودة",
+      "401 Not authorize to access this route": "غير مخول للوصول إلى هذا الطريق",
+      "403 Not allowed to access this route": "غير مسموح له بالوصول إلى هذا الطريق",
       "Request failed with status code 429": "تم إرسال العديد من الطلبات في غضون 10 دقائق من الوقت",
       "Network Error": "فشل تحميل البيانات. تحقق من اتصالك بالإنترنت"
     },

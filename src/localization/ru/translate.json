@@ -74,8 +74,15 @@
       "are you sure to delete this entry": "Вы уверены, что хотите удалить эту запись?"
     },
     "error": {
-      "Request failed with status code 404": "Запрашиваемый контент не найден",
-      "Request failed with status code 401": "Ошибка авторизации, проверьте введенный e mail и пароль",
+      "404": "Запрашиваемый контент не найден",
+      "Duplicate": "Материал с таким же именем уже создан",
+      "Server Error": "Простите, неопределенная ошибка, сообщите нам о ней",
+      "Program with current id not found": "Программа с текущим id не найдена",
+      "This user is not allowed to work with the current program": "Данному пользователю не разрешается работать с запрашиваемой программой",
+      "Dictionary not found": "Словарь не найден",
+      "404 The requested topic was not found": "Требуемый материал не найден",
+      "401 Not authorize to access this route": "у вас нет прав доступа к этому материалу",
+      "403 Not allowed to access this route": "Не разрешен доступ к этому маршруту",
       "Request failed with status code 429": "429 слишком много запросов было отправлено за 10 минут",
       "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение"
     },

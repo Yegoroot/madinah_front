@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'src/store/hooks'
 import { useSnackbar } from 'notistack'
 import { removeSnackbar } from 'src/slices/alert'
+import Grow from '@material-ui/core/Grow'
 
 let displayed: any[] = []
 
@@ -43,6 +44,8 @@ const Notifier = (): null => {
       enqueueSnackbar(message, {
         key,
         autoHideDuration: 4000,
+        // @ts-ignore
+        TransitionComponent: Grow,
         ...options,
         // classes: {
         //   variantError: {
