@@ -7,17 +7,26 @@ import {
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { getCategoryRequest } from 'src/slices/dictionary'
+import { getCategoryRequest, deleteCategoryItem } from 'src/slices/dictionary'
 import { useDispatch, useSelector } from 'src/store/hooks'
 import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
+import { useTranslation } from 'react-i18next'
 import { useStyles } from './stylesModal'
 
 export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string, onClose: any}): any => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const { category, loading } = useSelector((store) => store.dictionary.item)
+
+  const onDelete = () => {
+    if (window.confirm(t('alert.do you want to delete this category'))) {
+      dispatch(deleteCategoryItem(categoryId))
+      onClose()
+    }
+  }
 
   useEffect(() => {
     if (categoryId) {
@@ -81,7 +90,7 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
         </ListItem>
         <ListItem
           button
-          onClick={onClose}
+          onClick={onDelete}
         >
           <ListItemText primary="Delete this category" />
         </ListItem>

@@ -80,7 +80,7 @@ const slice = createSlice({
       console.log('REQUEST CATEGOTY')
       dictionary.item.loading = true
     },
-    // INFO get
+    // INFO category get
     get_category_success(dictionary, action) {
       console.log('RESPONSE CATEGORY')
       const { category } = action.payload
@@ -91,31 +91,32 @@ const slice = createSlice({
       dictionary.item.loading = false
     },
 
-    // INFO Create, update
+    // INFO category create, update
     create_category_success(dictionary, action) {
       const { category } = action.payload
       dictionary.item.loading = false
       if (dictionary.list.categories) { dictionary.list.categories.push(category) }
-    }
+    },
 
-    // delete_item(dictionary, action) {
-    //   const { categoryId }: {categoryId: categoryIdType} = action.payload
-    //   dictionary.categories = dictionary.categories.filter((el) => el._id !== categoryId)
-    // }
+    // INFO category delete
+    delete_category_item(dictionary, action: {type: string, payload: categoryIdType}) {
+      const categoryId = action.payload
+      if (dictionary.list.categories) {
+        dictionary.list.categories = dictionary.list.categories.filter((el) => el._id !== categoryId)
+      }
+    }
   }
 })
 
-// OUTSIDE
-// export const deleteCategoryItem = (
-//   { categoryId }: {categoryId: categoryIdType}
-// ) => async (dispatch: AppDispatch) => {
-//   try {
-//     await axios.delete(`${API_BASE_URL}/dictionary/${categoryId}`)
-//     dispatch(slice.actions.delete_item({ categoryId }))
-//   } catch (error) {
-//     console.error('error', error) // FIXME alert message
-//   }
-// }
+//  INFO OUTSIDE
+export const deleteCategoryItem = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
+    dispatch(slice.actions.delete_category_item(categoryId))
+  } catch (error) {
+    console.error('error', error) // FIXME alert message
+  }
+}
 
 // INFO CREATE DICTIONARY INSIDE
 export const createDictionary = () => async (dispatch: AppDispatch) => {
