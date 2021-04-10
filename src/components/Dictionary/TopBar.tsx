@@ -1,6 +1,6 @@
 import React from 'react'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import { IconButton, Button } from '@material-ui/core'
+import { IconButton, } from '@material-ui/core'
 import { Book } from 'react-feather'
 import useAuth from 'src/hooks/useAuth'
 import { makeStyles } from '@material-ui/core/styles'
@@ -27,21 +27,6 @@ export const Content = ({ toggleDrawer }: {toggleDrawer:any}): any => {
   const classes = useStylesContent()
   const { user } = useAuth()
   const { loading, categories } = useSelector((store) => store.dictionary.list)
-
-  if (loading === 'reload') {
-    return (
-      <div className={classes.reload}>
-        <Button
-          onClick={() => window.location.reload()}
-          variant="outlined"
-          color="secondary"
-        >
-          {/* {t('btn.reload')} */}
-          reload
-        </Button>
-      </div>
-    )
-  }
 
   if (!user) {
     return <LoginButton className={classes.content} />

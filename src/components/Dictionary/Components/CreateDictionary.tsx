@@ -2,10 +2,11 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import { useDispatch, } from 'src/store/hooks'
 import { createDictionaryRequest } from 'src/slices/dictionary'
+import { useTranslation } from 'react-i18next'
 
 export default function Create({ className }: {className: string}):any {
   const dispatch = useDispatch()
-
+  const { t } = useTranslation()
   const onCreateDictionary = async () => {
     dispatch(createDictionaryRequest())
   }
@@ -16,8 +17,7 @@ export default function Create({ className }: {className: string}):any {
         onClick={onCreateDictionary}
         variant="outlined"
       >
-        {/* {t('menu.programs')} */}
-        Create Dictionary
+        {t('dict.Create Dictionary')}
       </Button>
     </div>
   )

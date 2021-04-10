@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-import React, { /* memo, */useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -17,7 +17,9 @@ import { useTranslation } from 'react-i18next'
 import SunEditor from 'src/components/SunEditor'
 import { Formik } from 'formik'
 import Select from 'src/components/Select'
-import { WordType, CategoryType, getCategoryRequest } from 'src/slices/dictionary'
+import {
+  WordType, CategoryType, getCategoryRequest, createCategoryRequest
+} from 'src/slices/dictionary'
 import { useDispatch, useSelector } from 'src/store/hooks'
 import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
@@ -255,9 +257,11 @@ export const FormWord = ({ isOpen, categories, onClose }: {isOpen: boolean, onCl
 
 export const FormCategory = ({ isOpen, onClose, onChange }: {isOpen: boolean, onClose: any, onChange: any}): any => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
   const [title, setTitle] = useState('')
 
-  const onSend = () => {
+  const onSend = async () => {
     if (!title) return
 
     const category: CategoryType = {
@@ -265,6 +269,7 @@ export const FormCategory = ({ isOpen, onClose, onChange }: {isOpen: boolean, on
       title,
       words: []
     }
+    // await dispatch(createCategoryRequest())
     onChange(category)
     setTitle('')
     onClose()

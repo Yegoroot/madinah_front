@@ -11,6 +11,7 @@ import { AppDispatch } from 'src/store/index'
 // import i18n from 'i18next'
 
 type categoryIdType = string
+type dictionaryIdType = string
 
 export type WordType = {
   _id?: string,
@@ -27,7 +28,8 @@ export interface CategoryType {
 
 type DictionaryType = {
   list: {
-      loading: boolean | 'reload';
+      _id: dictionaryIdType | null;
+      loading: boolean;
       categories: CategoryType[] | null;
   },
   item: {
@@ -38,6 +40,7 @@ type DictionaryType = {
 
 const initialState: DictionaryType = {
   list: {
+    _id: null,
     loading: false,
     categories: null,
   },
@@ -54,16 +57,17 @@ const slice = createSlice({
     /**
      * INFO Dictionary
      */
-    get_dictionary_request(dictionary) {
+    dictionary_request(dictionary) {
       dictionary.list.loading = true
     },
     get_dictionary_success(dictionary, action) {
-      const { categories } = action.payload
-      dictionary.list.categories = categories
+      const { data } = action.payload
+      dictionary.list.categories = data.categories
+      dictionary.list._id = data._id
       dictionary.list.loading = false
     },
     get_dictionary_error(dictionary) {
-      dictionary.list.loading = 'reload'
+      dictionary.list.loading = false
     },
 
     /**
@@ -103,56 +107,66 @@ const slice = createSlice({
 //   }
 // }
 
-// INFO DICTIONARY INSIDE
+// INFO CREATE DICTIONARY INSIDE
 export const createDictionary = () => async (dispatch: AppDispatch) => {
   try {
-    await axios.post(`${API_BASE_URL}/dictionary`) // const dictionary = response.data
-    dispatch(slice.actions.get_dictionary_success({ categories: [] }))
+    const response = await axios.post(`${API_BASE_URL}/dictionary`)
+    const { data } = response.data
+    console.log(response.data)
+    dispatch(slice.actions.get_dictionary_success({ data }))
   } catch (error) {
     dispatch(slice.actions.get_dictionary_error())
   }
 }
 
-// INFO DICTIONARY INSIDE
+// INFO GET DICTIONARY INSIDE
 export const getDictionary = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/dictionary`)
-    const { categories } = response.data.data
-    dispatch(slice.actions.get_dictionary_success({ categories }))
+
+    const { data } = response.data
+    console.log(data)
+    dispatch(slice.actions.get_dictionary_success({ data }))
   } catch (error) {
     dispatch(slice.actions.get_dictionary_error())
   }
 }
 
-// INFO CATEGORY INSIDE
+// INFO GET CATEGORY INSIDE
 export const getCategory = ({ categoryId }: {categoryId: categoryIdType}) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/dictionary/${categoryId}`)
     console.log('CATEGORYID', categoryId)
-    const category = response.data.data
-    dispatch(slice.actions.get_category_success({ category }))
+    const { data } = response.data
+    dispatch(slice.actions.get_category_success({ data }))
   } catch (error) {
     dispatch(slice.actions.get_category_error())
   }
 }
 
-// INFO DICTIONARY OUTSIDE
+// INFO CREATE DICTIONARY OUTSIDE
 export const createDictionaryRequest = () => async (dispatch: AppDispatch) => {
-  dispatch(slice.actions.get_dictionary_request())
+  dispatch(slice.actions.dictionary_request())
   dispatch(createDictionary())
 }
 
-// INFO DICTIONARY OUTSIDE
+// INFO GET DICTIONARY OUTSIDE
 export const getDictionaryRequest = () => async (dispatch: AppDispatch) => {
   console.log()
-  dispatch(slice.actions.get_dictionary_request())
+  dispatch(slice.actions.dictionary_request())
   dispatch(getDictionary())
 }
 
 // INFO CATEGORY OUTSIDE
-export const getCategoryRequest = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
+export const createCategoryRequest = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.get_category_request())
   dispatch(getCategory({ categoryId }))
+}
+
+// INFO CATEGORY OUTSIDE
+export const getCategoryRequest = (dictionaryId: dictionaryIdType) => async (dispatch: AppDispatch) => {
+  // dispatch(slice.actions.create_category_request())
+  // dispatch(createCategory({ dictionaryIdType }))
 }
 
 export const { reducer } = slice

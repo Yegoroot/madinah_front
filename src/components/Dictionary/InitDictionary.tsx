@@ -9,7 +9,7 @@ export const InitDictionary = (): any => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('YEAH')
+      console.log('2 DICTIONARY LOAD')
       dispatch(getDictionaryRequest())
     }
   }, [dispatch, isAuthenticated])

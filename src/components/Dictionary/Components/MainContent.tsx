@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
 import { Add, Clear } from '@material-ui/icons'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
@@ -49,10 +48,9 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
   // Show Category
   const [categoryId, setCategoryId] = React.useState('')
 
-  // --------------
+  // -------------- can delete this, all logic inside component
   const onSendCategory = (category: CategoryType) => {
     console.log(category)
-    // setCategories((old) => ([...old, category]))
     setIsOpenWord(true)
   }
 

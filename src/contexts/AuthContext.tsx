@@ -162,7 +162,7 @@ export const AuthProvider = ({ children }: { children: any}) => {
 
         const response = await axios.get(`${API_BASE_URL}/auth/me`)
         const { user } = response.data
-        console.log('Auth successful')
+        console.log('1 AUTH /auth/me WATH RETURNED')
         dispatch({
           type: 'INITIALISE',
           payload: {
