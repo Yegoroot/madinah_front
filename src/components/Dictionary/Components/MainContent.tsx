@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
-import { CategoryType } from 'src/slices/dictionary'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
@@ -10,7 +9,9 @@ import { Add, Clear } from '@material-ui/icons'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { /* useDispatch, */useSelector } from 'src/store/hooks'
-import { FormCategory, FormWord, ModalShowCategory } from './Modals'
+import CreateCategoryModal from './CreateCategoryModal'
+import CreateWordModal from './CreateWordModal'
+import ShowCategoryModal from './ShowCategoryModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,16 +49,6 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
   // Show Category
   const [categoryId, setCategoryId] = React.useState('')
 
-  // -------------- can delete this, all logic inside component
-  const onSendCategory = (category: CategoryType) => {
-    console.log(category)
-    setIsOpenWord(true)
-  }
-
-  const onCategoryClick = (id: string) => {
-    setCategoryId(id)
-  }
-
   // на самом деле по логике ты никогда не должен оказатся в компоненте MainContent если нет categories,
   // но typescript жалуется и пусть будет спокоен
   if (!categories) return <div style={{ color: 'red' }}> No Categories </div>
@@ -74,7 +65,7 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
         {categories.map((category) => (
           <ListItem
             button
-            onClick={() => onCategoryClick(category._id)}
+            onClick={() => setCategoryId(category._id || '')} // FIXME хахах странная конструкция
             key={category._id}
             className={classes.item}
           >
@@ -89,10 +80,9 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
       <Divider />
       <List>
 
-        <FormCategory
+        <CreateCategoryModal
           isOpen={isOpenCategory}
           onClose={() => setIsOpenCategory(false)}
-          onChange={onSendCategory}
         />
         <ListItem
           button
@@ -103,7 +93,7 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
           </ListItemIcon>
           <ListItemText primary="Add Category" />
         </ListItem>
-        <FormWord
+        <CreateWordModal
           isOpen={isOpenWord}
           onClose={() => setIsOpenWord(false)}
           categories={categories}
@@ -144,7 +134,7 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
         </ListItem>
       </List>
 
-      <ModalShowCategory
+      <ShowCategoryModal
         onClose={() => setCategoryId('')}
         categoryId={categoryId}
       />

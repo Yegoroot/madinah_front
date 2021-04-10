@@ -13,32 +13,33 @@ import { AppDispatch } from 'src/store/index'
 type categoryIdType = string
 type dictionaryIdType = string
 
-export type WordType = {
+export interface IWordType {
   _id?: string,
-  title?: string,
-  content?: string,
-  category: string
-}
-
-export interface CategoryType {
-  _id: categoryIdType,
   title: string,
-  words: WordType[],
+  content?: string,
+  category?: string
 }
 
-type DictionaryType = {
+export interface ICategoryType {
+  dictionary: string,
+  _id?: categoryIdType,
+  title: string,
+  words: IWordType[],
+}
+
+type IDictionaryType = {
   list: {
       _id: dictionaryIdType | null;
       loading: boolean;
-      categories: CategoryType[] | null;
+      categories: ICategoryType[] | null;
   },
   item: {
     loading: boolean;
-    category: CategoryType | null;
+    category: ICategoryType | null;
   }
 }
 
-const initialState: DictionaryType = {
+const initialState: IDictionaryType = {
   list: {
     _id: null,
     loading: false,
@@ -60,6 +61,7 @@ const slice = createSlice({
     dictionary_request(dictionary) {
       dictionary.list.loading = true
     },
+    // INFO GET AND CREATE
     get_dictionary_success(dictionary, action) {
       const { data } = action.payload
       dictionary.list.categories = data.categories
@@ -74,10 +76,11 @@ const slice = createSlice({
      * INFO Category
      */
 
-    get_category_request(dictionary) {
+    category_request(dictionary) {
       console.log('REQUEST CATEGOTY')
       dictionary.item.loading = true
     },
+    // INFO get
     get_category_success(dictionary, action) {
       console.log('RESPONSE CATEGORY')
       const { category } = action.payload
@@ -87,6 +90,13 @@ const slice = createSlice({
     get_category_error(dictionary) {
       dictionary.item.loading = false
     },
+
+    // INFO Create, update
+    create_category_success(dictionary, action) {
+      const { category } = action.payload
+      dictionary.item.loading = false
+      if (dictionary.list.categories) { dictionary.list.categories.push(category) }
+    }
 
     // delete_item(dictionary, action) {
     //   const { categoryId }: {categoryId: categoryIdType} = action.payload
@@ -123,9 +133,8 @@ export const createDictionary = () => async (dispatch: AppDispatch) => {
 export const getDictionary = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/dictionary`)
-
     const { data } = response.data
-    console.log(data)
+
     dispatch(slice.actions.get_dictionary_success({ data }))
   } catch (error) {
     dispatch(slice.actions.get_dictionary_error())
@@ -135,10 +144,21 @@ export const getDictionary = () => async (dispatch: AppDispatch) => {
 // INFO GET CATEGORY INSIDE
 export const getCategory = ({ categoryId }: {categoryId: categoryIdType}) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/dictionary/${categoryId}`)
+    const response = await axios.get(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
     console.log('CATEGORYID', categoryId)
-    const { data } = response.data
-    dispatch(slice.actions.get_category_success({ data }))
+    const category = response.data.data
+    dispatch(slice.actions.get_category_success({ category }))
+  } catch (error) {
+    dispatch(slice.actions.get_category_error())
+  }
+}
+// INFO CREATE CATEGORY INSIDE
+export const createCategory = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/dictionary/cat`, newCategory)
+    console.log(response)
+    const category = response.data.data
+    dispatch(slice.actions.create_category_success({ category }))
   } catch (error) {
     dispatch(slice.actions.get_category_error())
   }
@@ -158,15 +178,15 @@ export const getDictionaryRequest = () => async (dispatch: AppDispatch) => {
 }
 
 // INFO CATEGORY OUTSIDE
-export const createCategoryRequest = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
-  dispatch(slice.actions.get_category_request())
+export const getCategoryRequest = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.category_request())
   dispatch(getCategory({ categoryId }))
 }
 
 // INFO CATEGORY OUTSIDE
-export const getCategoryRequest = (dictionaryId: dictionaryIdType) => async (dispatch: AppDispatch) => {
-  // dispatch(slice.actions.create_category_request())
-  // dispatch(createCategory({ dictionaryIdType }))
+export const createCategoryRequest = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.category_request())
+  dispatch(createCategory(newCategory))
 }
 
 export const { reducer } = slice
