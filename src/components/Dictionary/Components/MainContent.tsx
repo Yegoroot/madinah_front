@@ -10,7 +10,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox'
 import { Add, Clear } from '@material-ui/icons'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { FormCategory, FormWord } from '../Forms'
+import { /* useDispatch, */useSelector } from 'src/store/hooks'
+import { FormCategory, FormWord, ModalShowCategory } from './Modals'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,20 +31,38 @@ const useStyles = makeStyles((theme) => ({
   },
   close: {
     color: theme.palette.error.main
-  }
+  },
+  // h2: {
+  //   margin: ' 0px 16px'
+  // }
 }))
 
 const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
   const classes = useStyles()
+  // get category
+  const { categories } = useSelector((store) => store.dictionary.list)
+
+  // create, update Category
   const [isOpenCategory, setIsOpenCategory] = React.useState(false)
   const [isOpenWord, setIsOpenWord] = React.useState(false)
-  const [categories, setCategories] = React.useState<CategoryType[]>([])
+
+  // Show Category
+  const [categoryId, setCategoryId] = React.useState('')
+
   // --------------
   const onSendCategory = (category: CategoryType) => {
     console.log(category)
-    setCategories((old) => ([...old, category]))
+    // setCategories((old) => ([...old, category]))
     setIsOpenWord(true)
   }
+
+  const onCategoryClick = (id: string) => {
+    setCategoryId(id)
+  }
+
+  // на самом деле по логике ты никогда не должен оказатся в компоненте MainContent если нет categories,
+  // но typescript жалуется и пусть будет спокоен
+  if (!categories) return <div style={{ color: 'red' }}> No Categories </div>
 
   return (
     <div
@@ -52,10 +71,12 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
       })}
       role="presentation"
     >
+      {/* <h2 className={classes.h2}>Categories</h2> */}
       <div className={classes.list}>
         {categories.map((category) => (
           <ListItem
             button
+            onClick={() => onCategoryClick(category._id)}
             key={category._id}
             className={classes.item}
           >
@@ -93,10 +114,7 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
           button
           onClick={
           !categories.length
-            ? () => {
-              // alert('First of all, we need to add a category of word')
-              setIsOpenCategory(true)
-            }
+            ? () => setIsOpenCategory(true)
             : () => setIsOpenWord(true)
           }
         >
@@ -106,12 +124,12 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
           <ListItemText primary="Add Word" />
         </ListItem>
 
-        <ListItem button>
+        {/* <ListItem button>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
-        </ListItem>
+        </ListItem> */}
 
         <ListItem
           button
@@ -128,6 +146,10 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
         </ListItem>
       </List>
 
+      <ModalShowCategory
+        onClose={() => setCategoryId('')}
+        categoryId={categoryId}
+      />
     </div>
   )
 }

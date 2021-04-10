@@ -1,9 +1,12 @@
 import React from 'react'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Button } from '@material-ui/core'
 import { Book } from 'react-feather'
 import useAuth from 'src/hooks/useAuth'
 import { makeStyles } from '@material-ui/core/styles'
+import LoadingScreen from 'src/components/LoadingScreen'
+import { useSelector } from 'src/store/hooks'
+import blinkImage from 'src/assets/images/blink.gif'
 import CreateDictionary from './Components/CreateDictionary'
 import LoginButton from './Components/LoginButton'
 import MainContent from './Components/MainContent'
@@ -13,17 +16,45 @@ const useStylesContent = makeStyles(() => ({
     padding: 20,
     textAlign: 'center'
   },
+  reload: {
+    display: 'flex',
+    margin: '20px auto',
+  }
 
 }))
 
 export const Content = ({ toggleDrawer }: {toggleDrawer:any}): any => {
   const classes = useStylesContent()
   const { user } = useAuth()
+  const { loading, categories } = useSelector((store) => store.dictionary.list)
+
+  if (loading === 'reload') {
+    return (
+      <div className={classes.reload}>
+        <Button
+          onClick={() => window.location.reload()}
+          variant="outlined"
+          color="secondary"
+        >
+          {/* {t('btn.reload')} */}
+          reload
+        </Button>
+      </div>
+    )
+  }
+
   if (!user) {
     return <LoginButton className={classes.content} />
   }
-  // @ts-ignore
-  return user.dictionary.length ? <MainContent toggleDrawer={toggleDrawer} /> : <CreateDictionary className={classes.content} />
+
+  if (loading) {
+    return <div className={classes.content}><LoadingScreen /></div>
+  }
+  console.log(categories)
+
+  return categories
+    ? <MainContent toggleDrawer={toggleDrawer} />
+    : <CreateDictionary className={classes.content} />
 }
 
 export default function Dictionary(): any {
@@ -49,6 +80,13 @@ export default function Dictionary(): any {
         onClick={toggleDrawer(true)}
       >
         <Book />
+        <img
+          style={{
+            position: 'absolute', width: 5, bottom: 12, right: 7
+          }}
+          src={blinkImage}
+          alt=""
+        />
       </IconButton>
 
       <SwipeableDrawer

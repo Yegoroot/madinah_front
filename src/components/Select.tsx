@@ -20,7 +20,6 @@ export default function CustSelect(
       <Select
         labelId={id}
         name={name}
-        autoFocus
         value={value}
         onChange={onChange}
       >

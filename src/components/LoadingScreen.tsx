@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   fullWidth: {
     width: '100%'
+  },
+  maxWidth: {
+    maxWidth: '100%'
   }
 }))
 
@@ -53,7 +56,8 @@ const LoadingScreen = ({ transparent, absolute, fullWidth }
       <Box
         width={320}
         className={clsx({
-          [classes.fullWidth]: fullWidth
+          [classes.fullWidth]: fullWidth,
+          [classes.maxWidth]: true
         })}
       >
         <LinearProgress

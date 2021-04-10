@@ -9,7 +9,9 @@
       "return home": "Return Home Page",
       "reload": "Reload Data",
       "Sign in with google": "Sign in with google",
-      "Sign in with github": "Sign in with Github"
+      "Sign in with github": "Sign in with Github",
+      "cancel": "cancel",
+      "add": "Add"
     },
     "programspage": {
       "choose": "Choose params for searching",

@@ -1,18 +1,19 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import { Button } from '@material-ui/core'
+import { useDispatch, } from 'src/store/hooks'
+import { createDictionaryRequest } from 'src/slices/dictionary'
 
 export default function Create({ className }: {className: string}):any {
-  const onCreateDictionary = () => {
-    console.log('create')
-    // dispatch
+  const dispatch = useDispatch()
+
+  const onCreateDictionary = async () => {
+    dispatch(createDictionaryRequest())
   }
 
   return (
     <div className={className}>
       <Button
-        component={RouterLink}
-        to="/login"
+        onClick={onCreateDictionary}
         variant="outlined"
       >
         {/* {t('menu.programs')} */}

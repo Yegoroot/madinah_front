@@ -3,12 +3,14 @@ import { reducer as programReducer } from 'src/slices/program'
 import { reducer as userReducer } from 'src/slices/user'
 import { reducer as topicReducer } from 'src/slices/topic'
 import { reducer as alertReducer } from 'src/slices/alert'
+import { reducer as dictionaryReducer } from 'src/slices/dictionary'
 import { reducer as sWorkerReducer } from 'src/slices/sWorker'
 
 const rootReducer = combineReducers({
   program: programReducer,
   topic: topicReducer,
   alert: alertReducer,
+  dictionary: dictionaryReducer,
   user: userReducer,
   sWorker: sWorkerReducer
 })

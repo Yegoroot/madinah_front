@@ -9,7 +9,9 @@
       "return home": "العودة إلى الصفحة الرئيسية",
       "reload": "تحميل البيانات مرة أخرى",
       "Sign in with google": "الدخول عبر جوجل",
-      "Sign in with github": "الدخول عبر Github"
+      "Sign in with github": "الدخول عبر Github",
+      "cancel": "إلغاء",
+      "add": "إضافة"
     },
     "programspage": {
       "choose": "اختر المعلمات للبحث",

@@ -125,7 +125,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
 
   const image = program.photo
     ? `${UPLOADS_URL}/programs/${program.id}/photo/compress/${program.photo}`
-    : ''
+    : '/static/images/calligraphy/calligraphy.jpg'
 
   // eslint-disable-next-line max-len
   const showHiddenMaterial = () => perm_work_with_program(role) && document_is_my_own(user, program.user)
@@ -222,7 +222,7 @@ function ProgramCard({ program, ...rest }: {program: any}): any {
         </Box>
         <CardMedia
           className={classes.media}
-          image={image}
+          image={`${image}`}
         />
 
       </RouterLink>

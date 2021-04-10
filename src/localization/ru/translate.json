@@ -9,7 +9,9 @@
       "return home": "Вернуться на главную",
       "reload": "Перезагрузить данные",
       "Sign in with google": "Войти через google",
-      "Sign in with github": "Войти через Github"
+      "Sign in with github": "Войти через Github",
+      "cancel": "отмена",
+      "add": "Добавить"
     },
     "programspage": {
       "choose": "Выберите параметры для поиска",

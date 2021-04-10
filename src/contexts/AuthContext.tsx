@@ -147,22 +147,22 @@ export const AuthProvider = ({ children }: { children: any}) => {
         // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
         // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
         // LOGOUT FOR UNAUTH USER
-        axios.interceptors.response.use(
-          (response) => response,
-          (error) => {
-            if (error.response && error.response.status === 401) {
-              logout()
-            }
-            return Promise.reject(error)
-          }
-        )
+        // axios.interceptors.response.use(
+        //   (response) => response,
+        //   (error) => {
+        //     if (error.response && error.response.status === 401) {
+        //       logout()
+        //     }
+        //     return Promise.reject(error)
+        //   }
+        // )
         // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
         // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
         // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
 
         const response = await axios.get(`${API_BASE_URL}/auth/me`)
         const { user } = response.data
-
+        console.log('Auth successful')
         dispatch({
           type: 'INITIALISE',
           payload: {
