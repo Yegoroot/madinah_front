@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react'
@@ -7,7 +8,9 @@ import {
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { getCategoryRequest, deleteCategoryItem } from 'src/slices/dictionary'
+import {
+  getCategoryRequest, deleteCategoryItem, deleteWord, wordIdType
+} from 'src/slices/dictionary'
 import { useDispatch, useSelector } from 'src/store/hooks'
 import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
@@ -22,10 +25,18 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
 
   const { category, loading } = useSelector((store) => store.dictionary.item)
 
-  const onDelete = () => {
+  const onDeleteCategory = () => {
     if (window.confirm(t('alert.do you want to delete this category'))) {
       dispatch(deleteCategoryItem(categoryId))
       onClose()
+    }
+  }
+
+  const onDeleteWord = (id: wordIdType | undefined) => {
+    if (id) {
+      if (window.confirm(t('alert.do you want to delete this word'))) {
+        dispatch(deleteWord(id))
+      }
     }
   }
 
@@ -40,17 +51,26 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
       {category?.words.map((word) => {
         const clean = word.content ? DOMPurify.sanitize(word.content) : ''
         return (
-          <p
+          <div
             className={classes.cardWord}
             key={word._id}
           >
             <div>
-              {word.title}
+              <div>
+                {word.title}
+              </div>
+              <div className={classes.wordContent}>
+                <div dangerouslySetInnerHTML={{ __html: clean }} />
+              </div>
             </div>
-            <div className={classes.wordContent}>
-              <div dangerouslySetInnerHTML={{ __html: clean }} />
-            </div>
-          </p>
+            <IconButton
+              className={classes.closeIcon}
+              color="inherit"
+              onClick={() => onDeleteWord(word._id)}
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
         )
       })}
     </>
@@ -74,13 +94,13 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
         {/* <h1> */}
         {category?.title}
         {/* </h1> */}
-        <IconButton
+        {/* <IconButton
           className={classes.closeIcon}
           color="inherit"
           onClick={onClose}
         >
           <CloseIcon />
-        </IconButton>
+        </IconButton> */}
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
         {
@@ -96,7 +116,7 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
         </ListItem>
         <ListItem
           button
-          onClick={onDelete}
+          onClick={onDeleteCategory}
         >
           <ListItemText primary="Delete this category" />
         </ListItem>

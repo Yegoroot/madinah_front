@@ -67,6 +67,7 @@
       "chooselevel": "من فضلك اختر مستواك"
     },
     "notify": {
+      "word has not been deleted": "لم يتم حذف الكلمة",
       "word has been added": "تمت إضافة الكلمة '{{word}}'",
       "word has not been added": "لم تتم إضافة الكلمة '{{word}}'",
       "topic was created": "تم إنشاء الموضوع",
@@ -83,9 +84,11 @@
       "update": "تحديث"
     },
     "alert": {
-      "do you want to delete this user": "هل تريد حذف هذا المشارك",
-      "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه",
-      "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته",
+      "do you want to delete this word": "هل تريد إزالة هذه الكلمة؟",
+      "do you want to delete this category": "هل تريد إزالة هذه الفئة؟",
+      "do you want to delete this user": "هل تريد حذف هذا المشارك؟",
+      "do you want to delete program": "هل تريد حذف البرنامج وجميع مواضيعه؟",
+      "do you want to delete topic": "هل تريد حذف هذا الموضوع وجميع محتوياته؟",
       "are you sure to delete this entry": "هل أنت متأكد من حذف هذا الإدخال؟"
     },
     "error": {

@@ -67,6 +67,7 @@
       "chooselevel": "Please select your level"
     },
     "notify": {
+      "word has not been deleted": "Word has not been deleted",
       "word has been added": "Word {{word}} has been added",
       "word has not been added": "Word {{word}} has not been added",
       "topic was created": "Topic has been created",
@@ -83,6 +84,8 @@
       "update": "Update"
     },
     "alert": {
+      "do you want to delete this word": "Do you want to delete this word?",
+      "do you want to delete this category": "Do you want to delete this category?",
       "do you want to delete this user": "Do you want to delete this user?",
       "do you want to delete program": "Do do you want to delete program and all his topics?",
       "do you want to delete topic": "Do you want to delete this topic and all his contents?",

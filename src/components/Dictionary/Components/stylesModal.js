@@ -56,6 +56,7 @@ export const useStyles = makeStyles((theme) => {
       fontSize: '.9rem'
     },
     cardWord: {
+      display: 'flex',
       marginBottom: 20,
       paddingBottom: 10,
       borderBottom: `solid 1px ${borderLight}`

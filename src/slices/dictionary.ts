@@ -7,14 +7,13 @@ import { API_BASE_URL } from 'src/constants'
 import { AppDispatch } from 'src/store/index'
 import { enqueueSnackbar } from 'src/slices/alert'
 import i18n from 'i18next'
-// import wait from 'src/utils/wait' // await wait(4000)
-// import ObjectID from 'bson-objectid'
 
+export type wordIdType = string
 type categoryIdType = string
 type dictionaryIdType = string
 
 export interface IWordType {
-  _id?: string,
+  _id?: wordIdType,
   title: string,
   content?: string,
   category: string
@@ -113,6 +112,16 @@ const slice = createSlice({
           }
           return cat
         })
+      }
+    },
+
+    delete_word_item(dictionary, action: {payload: wordIdType}) {
+      const wordId = action.payload
+      const words = dictionary.item.category?.words.filter((w) => w._id !== wordId) || []
+      // @ts-ignore
+      dictionary.item.category = {
+        ...dictionary.item.category,
+        words
       }
     }
   }
@@ -225,6 +234,20 @@ export const createWord = (newWord: IWordType) => async (dispatch: AppDispatch) 
   } catch (error) {
     dispatch(enqueueSnackbar({
       message: i18n.t('notify.word has not been added', { word: newWord.title }),
+      variant: 'error'
+    }))
+  }
+}
+
+// DELETE WORD OUTSIDE, INSIDE
+
+export const deleteWord = (wordId: wordIdType) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/dictionary/word/${wordId}`)
+    dispatch(slice.actions.delete_word_item(wordId))
+  } catch (error) {
+    dispatch(enqueueSnackbar({
+      message: i18n.t('notify.word has not been deleted'),
       variant: 'error'
     }))
   }
