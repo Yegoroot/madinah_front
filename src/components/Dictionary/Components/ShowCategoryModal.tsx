@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'src/store/hooks'
 import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
 import { useTranslation } from 'react-i18next'
+import DOMPurify from 'dompurify'
 import { useStyles } from './stylesModal'
 
 export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string, onClose: any}): any => {
@@ -34,19 +35,24 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
     }
   }, [dispatch, categoryId])
 
-  console.log(category)
   const Words = () => (
     <>
-      {category?.words.map((word) => (
-        <p key={word._id}>
-          <div>
-            {word.title}
-          </div>
-          <div className={classes.wordContent}>
-            {word.content}
-          </div>
-        </p>
-      ))}
+      {category?.words.map((word) => {
+        const clean = word.content ? DOMPurify.sanitize(word.content) : ''
+        return (
+          <p
+            className={classes.cardWord}
+            key={word._id}
+          >
+            <div>
+              {word.title}
+            </div>
+            <div className={classes.wordContent}>
+              <div dangerouslySetInnerHTML={{ __html: clean }} />
+            </div>
+          </p>
+        )
+      })}
     </>
   )
 

@@ -48,7 +48,6 @@ export const CreateWordModal = ({
           content: Yup.string(),
         })}
         onSubmit={async (values) => {
-          console.log(values)
           dispatch(createWord(values))
           onCloseDictionary()
           onClose()
