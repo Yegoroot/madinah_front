@@ -118,10 +118,21 @@ const slice = createSlice({
     delete_word_item(dictionary, action: {payload: wordIdType}) {
       const wordId = action.payload
       const words = dictionary.item.category?.words.filter((w) => w._id !== wordId) || []
+      const categoryId = dictionary.item.category?._id
       // @ts-ignore
       dictionary.item.category = {
         ...dictionary.item.category,
         words
+      }
+      // DICREASE count of word in category was added word
+      if (dictionary.list.categories) {
+        dictionary.list.categories.map((cat) => {
+          if (cat._id === categoryId && cat.countWords) {
+            cat.countWords -= 1
+            return cat
+          }
+          return cat
+        })
       }
     }
   }

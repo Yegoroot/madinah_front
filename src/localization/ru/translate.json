@@ -1,6 +1,8 @@
 {
   "translations": {
     "dict": {
+      "to use your dictionary, please log in": "Чтоб пользоваться своим словарем, пожалуйста авторизуйтесь",
+      "create a dictionary": "Создать словарь",
       "create a new category": "Создать новую категорию",
       "for example countries": "Пример категории: страны, животные",
       "write a category name": "Название категории",

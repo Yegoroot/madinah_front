@@ -17,7 +17,7 @@ export default function Create({ className }: {className: string}):any {
         onClick={onCreateDictionary}
         variant="outlined"
       >
-        {t('dict.Create Dictionary')}
+        {t('dict.create a dictionary')}
       </Button>
     </div>
   )

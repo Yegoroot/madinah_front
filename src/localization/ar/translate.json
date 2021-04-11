@@ -1,6 +1,8 @@
 {
   "translations": {
     "dict": {
+      "to use your dictionary, please log in": "لاستخدام القاموس الخاص بك ، الرجاء تسجيل الدخول",
+      "create a dictionary": "أنشئ قاموسًا",
       "create a new category": "إنشاء فئة جديدة",
       "for example countries": "فئة المثال: البلدان ، الحيوانات",
       "write a category name": "اسم الفئة",

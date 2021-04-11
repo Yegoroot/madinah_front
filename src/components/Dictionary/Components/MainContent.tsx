@@ -69,6 +69,7 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
       role="presentation"
     >
       {/* <h2 className={classes.h2}>Categories</h2> */}
+      {!!categories.length && (
       <div className={classes.list}>
         {categories.map((category) => (
           <ListItem
@@ -87,8 +88,9 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
           </ListItem>
         ))}
       </div>
+      )}
 
-      <Divider />
+      { !!categories.length && <Divider /> }
       <List>
 
         <CreateCategoryModal

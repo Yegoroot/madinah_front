@@ -1,6 +1,8 @@
 {
   "translations": {
     "dict": {
+      "to use your dictionary, please log in": "To use your dictionary, please log in",
+      "create a dictionary": "Create a dictionary",
       "create a new category": "Create a new category",
       "for example countries": "Example category: countries, animals",
       "write a category name": "Name of category",
