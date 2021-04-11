@@ -1,5 +1,16 @@
 {
   "translations": {
+    "dict": {
+      "create a new category": "Создать новую категорию",
+      "for example countries": "Пример категории: страны, животные",
+      "write a category name": "Название категории",
+      "add category": "Добавить категорию",
+      "add word": "Добавить слово",
+      "add a new word": "Добавить новое слово",
+      "choose a category": "Выберите категорию",
+      "write word": "Слово, фраза"
+
+    },
     "alph": {
       "alphabet": "Алфавит",
       "Check yourself": "Заключение",
@@ -11,7 +22,8 @@
       "Sign in with google": "Войти через google",
       "Sign in with github": "Войти через Github",
       "cancel": "отмена",
-      "add": "Добавить"
+      "add": "Добавить",
+      "close": "Закрыть"
     },
     "programspage": {
       "choose": "Выберите параметры для поиска",
@@ -56,6 +68,8 @@
       "chooselevel": "Пожалуйста выберите свой уровень"
     },
     "notify": {
+      "word has been added": "Слово {{word}} было добавлено",
+      "word has not been added": "Слово {{word}} не было добавлено",
       "topic was created": "Тема успешно создана",
       "topic was updated": "Тема успещно обновлена",
       "program was updated": "Программа успешно обновлена",

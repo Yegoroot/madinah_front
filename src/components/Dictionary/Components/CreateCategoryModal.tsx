@@ -44,6 +44,7 @@ export const CreateCategoryModal = ({ isOpen, onClose }: {isOpen: boolean, onClo
       open={isOpen}
       onClose={onClose}
       onKeyDown={(e) => onkeydown(e)}
+      classes={{ paper: classes.paper, }}
     >
       <DialogTitle
         disableTypography
@@ -51,9 +52,9 @@ export const CreateCategoryModal = ({ isOpen, onClose }: {isOpen: boolean, onClo
       >
         {t('dict.create a new category')}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.dialogContent}>
         <DialogContentText>
-          {t('dict.Create a new category of your dictionary')}
+          {t('dict.for example countries')}
 
         </DialogContentText>
         <TextField
@@ -61,7 +62,7 @@ export const CreateCategoryModal = ({ isOpen, onClose }: {isOpen: boolean, onClo
           margin="dense"
           id="name"
           onChange={(e) => setTitle(e.target.value)}
-          label={t('dict.write category name')}
+          label={t('dict.write a category name')}
           fullWidth
           value={title}
         />

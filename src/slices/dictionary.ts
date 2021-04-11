@@ -6,9 +6,9 @@ import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import { AppDispatch } from 'src/store/index'
 import { enqueueSnackbar } from 'src/slices/alert'
+import i18n from 'i18next'
 // import wait from 'src/utils/wait' // await wait(4000)
 // import ObjectID from 'bson-objectid'
-// import i18n from 'i18next'
 
 type categoryIdType = string
 type dictionaryIdType = string
@@ -206,7 +206,10 @@ export const deleteCategoryItem = (categoryId: categoryIdType) => async (dispatc
     await axios.delete(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
     dispatch(slice.actions.delete_category_item(categoryId))
   } catch (error) {
-    console.error('error', error) // FIXME alert message
+    dispatch(enqueueSnackbar({
+      message: i18n.t('notify.category has not been deleted'),
+      variant: 'error'
+    }))
   }
 }
 
@@ -218,10 +221,10 @@ export const createWord = (newWord: IWordType) => async (dispatch: AppDispatch) 
     console.log(response)
     const word: IWordType = response.data.data
     dispatch(slice.actions.create_word_success(word))
-    dispatch(enqueueSnackbar({ message: `Word ${word.title} was added` }))
+    dispatch(enqueueSnackbar({ message: i18n.t('notify.word has been added', { word: word.title }) }))
   } catch (error) {
     dispatch(enqueueSnackbar({
-      message: 'Word wasnt added',
+      message: i18n.t('notify.word has not been added', { word: newWord.title }),
       variant: 'error'
     }))
   }

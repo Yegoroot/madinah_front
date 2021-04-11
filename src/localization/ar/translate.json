@@ -1,5 +1,15 @@
 {
   "translations": {
+    "dict": {
+      "create a new category": "إنشاء فئة جديدة",
+      "for example countries": "فئة المثال: البلدان ، الحيوانات",
+      "write a category name": "اسم الفئة",
+      "add category": "إضافة فئة",
+      "add word": "إضافة كلمة",
+      "add a new word": "إضافة كلمة جديدة",
+      "choose a category": "حدد فئة لهذه الكلمة أو العبارة",
+      "write word": "كلمة، العبارة"
+    },
     "alph": {
       "alphabet": "الأبجدية",
       "Check yourself": "استنتاج",
@@ -11,7 +21,8 @@
       "Sign in with google": "الدخول عبر جوجل",
       "Sign in with github": "الدخول عبر Github",
       "cancel": "إلغاء",
-      "add": "إضافة"
+      "add": "إضافة",
+      "close": "إغلاق"
     },
     "programspage": {
       "choose": "اختر المعلمات للبحث",
@@ -56,6 +67,8 @@
       "chooselevel": "من فضلك اختر مستواك"
     },
     "notify": {
+      "word has been added": "تمت إضافة الكلمة '{{word}}'",
+      "word has not been added": "لم تتم إضافة الكلمة '{{word}}'",
       "topic was created": "تم إنشاء الموضوع",
       "topic was updated": "تم تحديث الموضوع",
       "program was created": "تم إنشاء البرنامج",

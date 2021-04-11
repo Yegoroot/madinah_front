@@ -68,19 +68,16 @@ export const CreateWordModal = ({
               disableTypography
               className={classes.dialogTitle}
             >
-              {t('dict.New Word')}
+              {t('dict.add a new word')}
             </DialogTitle>
             <DialogContent className={classes.dialogContent}>
               <Select
-              // @ts-ignore FIXME если вынести word на бекенду в отдельную сущность
-               //  то тогда можно спокойно делать IWordType.category обязательным,
-               //  и тогда мы сможем переносиить слова в разные категории, меняя только IWordType.category
                 value={values.category}
                 collection={categories}
                 collectionElement={['_id', 'title']} // elemt of collection
                 name="category"
                 id="category"
-                label={t('dict.choose category')}
+                label={t('dict.choose a category')}
                 error={Boolean(touched.category && errors.category)}
                 onChange={handleChange}
                 helper={touched.category && errors.category}

@@ -1,5 +1,15 @@
 {
   "translations": {
+    "dict": {
+      "create a new category": "Create a new category",
+      "for example countries": "Example category: countries, animals",
+      "write a category name": "Name of category",
+      "add category": "Add category",
+      "add word": "Add word",
+      "add a new word": "Adding a new word",
+      "choose a category": "Select a category",
+      "write word": "Word, phrase"
+    },
     "alph": {
       "alphabet": "Alphabet",
       "Check yourself": "Conclusion",
@@ -11,7 +21,8 @@
       "Sign in with google": "Sign in with google",
       "Sign in with github": "Sign in with Github",
       "cancel": "cancel",
-      "add": "Add"
+      "add": "Add",
+      "close": "Close"
     },
     "programspage": {
       "choose": "Choose params for searching",
@@ -56,6 +67,8 @@
       "chooselevel": "Please select your level"
     },
     "notify": {
+      "word has been added": "Word {{word}} has been added",
+      "word has not been added": "Word {{word}} has not been added",
       "topic was created": "Topic has been created",
       "topic was updated": "Topic has been update",
       "program was created": "Program has been created",

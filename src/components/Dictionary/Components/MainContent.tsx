@@ -8,7 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { Add, Clear } from '@material-ui/icons'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { /* useDispatch, */useSelector } from 'src/store/hooks'
+import { useSelector } from 'src/store/hooks'
+import { useTranslation } from 'react-i18next'
 import CreateCategoryModal from './CreateCategoryModal'
 import CreateWordModal from './CreateWordModal'
 import ShowCategoryModal from './ShowCategoryModal'
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, onCloseDictionary: any}): any => {
   const classes = useStyles()
+  const { t } = useTranslation()
   // get category
   const { categories } = useSelector((store) => store.dictionary.list)
 
@@ -100,13 +102,10 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
           <ListItemIcon>
             <Add />
           </ListItemIcon>
-          <ListItemText primary="Add Category" />
+          <ListItemText primary={t('dict.add category')} />
         </ListItem>
         <CreateWordModal
-          onCloseDictionary={() => {
-            console.log('asd')
-            onCloseDictionary()
-          }}
+          onCloseDictionary={onCloseDictionary}
           isOpen={isOpenWord}
           onClose={() => setIsOpenWord(false)}
           categories={categories}
@@ -122,7 +121,7 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
           <ListItemIcon>
             <Add />
           </ListItemIcon>
-          <ListItemText primary="Add Word" />
+          <ListItemText primary={t('dict.add word')} />
         </ListItem>
 
         {/* <ListItem button>
@@ -142,7 +141,7 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
             <Clear />
           </ListItemIcon>
           <ListItemText
-            primary="Close"
+            primary={t('btn.close')}
           />
         </ListItem>
       </List>
