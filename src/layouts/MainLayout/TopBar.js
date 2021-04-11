@@ -12,6 +12,7 @@ import {
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
 // import { useTranslation } from 'react-i18next'
+import Dictionary from 'src/components/Dictionary/TopBar'
 import Account from '../DashboardLayout/TopBar/Account'
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,7 @@ const TopBar = ({ className, ...rest }) => {
           {t('menu.programs')}
         </Button> */}
         <Box flexGrow={1} />
+        <Dictionary />
         <Settings />
         <Account />
 

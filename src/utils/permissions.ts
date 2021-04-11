@@ -1,10 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-type userType = {
-  role: string,
-  _id: string
-}
+import { userType } from 'src/contexts/AuthContext'
+
 export const ROLES = ['superadmin', 'admin', 'teacher', 'user']
 export const CAN_WORK_WITH_USERS = ['superadmin', 'admin']
 export const CAN_WORK_WITH_PROGRAM = ['superadmin', 'admin', 'teacher']

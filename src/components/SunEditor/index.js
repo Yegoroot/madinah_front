@@ -20,23 +20,26 @@ import { plugin_sollya } from './plugins/Sollya'
 import { plugin_surah_l, plugin_surah_r } from './plugins/Surah'
 import { plugin_bism } from './plugins/BasmAllah'
 
-const Editor = ({ onChange, content, rtl }) => {
+const Editor = ({
+  onChange, content, mini, height
+}) => {
   const { settings } = useSettings()
+
+  const max = !mini ? ['list', 'formatBlock', 'image'] : []
+  const undo = !mini ? ['undo', 'redo'] : []
   return (
     <SunEditor
       onChange={onChange}
       setContents={content}
       setOptions={{
         codeMirror: CodeMirror,
-        height: 200,
+        height: height || 200,
         attributesWhitelist: {
           all: 'style',
           mark: 'class', //
           input: 'checked',
-
         },
-        rtl,
-        minHeight: 200,
+        minHeight: height || 200,
         addTagsWhitelist: 'mark',
         formats: ['p', 'div', 'blockquote', 'h3', 'h4'],
         plugins: [plugin_mark, plugin_color_mark, plugin_ar_word, plugin_bism, plugin_surah_l, plugin_surah_r, plugin_ayah, plugin_sollya],
@@ -44,7 +47,7 @@ const Editor = ({ onChange, content, rtl }) => {
           ['customCommand_mark', 'colorText'],
           ['ar_word', 'customCommand_bism', 'customCommand_surah_l', 'customCommand_surah_r', 'customCommand_ayah', 'customCommand_sollya'],
           ['strike', 'bold', 'link'],
-          ['list', 'formatBlock', 'image'], ['removeFormat', 'codeView', 'undo', 'redo']
+          max, ['removeFormat', 'codeView'], undo
         ]
       }}
       lang={settings.lang}

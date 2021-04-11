@@ -9,6 +9,12 @@ import SplashScreen from 'src/components/SplashScreen'
 import axios from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 
+export type userType = {
+  role: string,
+  dictionary: any,
+  _id: string
+}
+
 const initialAuthState = {
   isAuthenticated: false,
   isInitialised: false,
@@ -136,20 +142,27 @@ export const AuthProvider = ({ children }: { children: any}) => {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken)
         }
+
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
         // LOGOUT FOR UNAUTH USER
         // axios.interceptors.response.use(
         //   (response) => response,
         //   (error) => {
         //     if (error.response && error.response.status === 401) {
-        //       logout(null)
+        //       logout()
         //     }
         //     return Promise.reject(error)
         //   }
         // )
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
+        // FIXME  Посмотреть по наблюдать, нормально ли работает данный подход в обычном использовании и проблемах
 
         const response = await axios.get(`${API_BASE_URL}/auth/me`)
         const { user } = response.data
-
+        console.log('1 AUTH /auth/me WATH RETURNED')
         dispatch({
           type: 'INITIALISE',
           payload: {

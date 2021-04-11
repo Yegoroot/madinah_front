@@ -1,5 +1,5 @@
 // or get from process.env.REACT_APP_{var} to handle PROD and DEV environments
-export const APP_VERSION = '0.8.0'
+export const APP_VERSION = '0.11.0'
 
 export const APP_NAME = 'Arabic\' Practice App'
 
@@ -27,7 +27,7 @@ export const UPLOADS_URL = `${HOST}/uploads`
 
 export const ENABLE_REDUX_LOGGER = false
 
-export const DEBUG_I18 = process.env.NODE_ENV === 'development' // for deb
+export const DEBUG_I18 = false // process.env.NODE_ENV === 'development' // for deb
 
 export const LEVELS = [
   'beginner',

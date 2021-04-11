@@ -24,6 +24,7 @@ import routes, { renderRoutes } from 'src/routes'
 import { I18nextProvider } from 'react-i18next'
 import i18n from 'src/localization/i18n'
 import UpdateApp from 'src/components/UpdateApp'
+import InitDictionary from 'src/components/Dictionary/InitDictionary'
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
 // const history = createBrowserHistory()
@@ -43,7 +44,8 @@ const App = () => {
         <StylesProvider jss={jss}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <SnackbarProvider
-              dense
+              // dense
+              hideIconVariant
               maxSnack={3}
             >
               <BrowserRouter>
@@ -56,6 +58,7 @@ const App = () => {
                   {/* <SettingsNotification /> */}
                   <Alerts />
                   {renderRoutes(routes)}
+                  <InitDictionary />
                 </AuthProvider>
               </BrowserRouter>
             </SnackbarProvider>

@@ -60,7 +60,6 @@ const Account = () => {
     try {
       handleClose()
       await logout()
-      history.push('/')
     } catch (err) {
       console.error(err)
       notify({ message: 'Unable to logout', variant: 'error' })

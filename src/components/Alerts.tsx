@@ -1,14 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'src/store/hooks'
 import { useSnackbar } from 'notistack'
-import { removeSnackbar } from 'src/slices/alert'
+import { removeSnackbar, EnqueSnackbarType } from 'src/slices/alert'
+import Grow from '@material-ui/core/Grow'
 
 let displayed: any[] = []
 
 const Notifier = (): null => {
   const dispatch = useDispatch()
   const notifications = useSelector((store) => store.alert.notifications)
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar() // INFO FOR SHOW Snackbar on site
 
   const storeDisplayed = (id: any) => {
     displayed = [...displayed, id]
@@ -18,18 +19,10 @@ const Notifier = (): null => {
     displayed = [...displayed.filter((key) => id !== key)]
   }
 
-  type Opt = {
-    onClose?: (
-      event: React.SyntheticEvent<any, Event> | null,
-      reason: any,
-      myKey: string | number | undefined
-      )=> void,
-  }
-
   React.useEffect(() => {
     notifications.forEach(({
-      key, message, options = {}, dismissed = false
-    }: {key?: any, message: any, options: Opt, dismissed: boolean}) => {
+      key, message, options, dismissed = false
+    }: EnqueSnackbarType) => {
       if (dismissed) {
         // dismiss snackbar using notistack
         closeSnackbar(key)
@@ -42,7 +35,8 @@ const Notifier = (): null => {
       // display snackbar using notistack
       enqueueSnackbar(message, {
         key,
-        autoHideDuration: 4000,
+        // @ts-ignore
+        TransitionComponent: Grow,
         ...options,
         // classes: {
         //   variantError: {

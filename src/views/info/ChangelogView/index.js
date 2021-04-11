@@ -19,7 +19,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const source = `
+const source = `## v0.11.0
+
+###### April 12, 2021
+
+### For Auth User
+
+- Personal Dictionary 📚 for the User 
+
+---
+
 ## v0.10.1
 
 ###### March 28, 2021
@@ -27,6 +36,7 @@ const source = `
 ### For User
 
 - Reload button (when not found or no Internet connection)
+- Small "PixelPerfect" fix
 
 ---
 

@@ -7,7 +7,7 @@ export const useNotification = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   return ({ message, variant }: {message: String, variant?: any}) => enqueueSnackbar(message, {
-    autoHideDuration: 4000,
+    autoHideDuration: 3000,
     variant,
     // @ts-ignore
     TransitionComponent: Grow,

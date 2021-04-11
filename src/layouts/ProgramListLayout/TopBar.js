@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
+import Dictionary from 'src/components/Dictionary/TopBar'
 import { useStyles } from '../DashboardLayout/TopBar/style'
 import Account from '../DashboardLayout/TopBar/Account'
 
@@ -32,6 +33,7 @@ const TopBar = ({
           ml={2}
           flexGrow={1}
         />
+        <Dictionary />
         <Settings />
         <Account />
       </Toolbar>

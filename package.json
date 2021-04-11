@@ -1,7 +1,7 @@
 {
   "author": "student",
   "name": "madinahbest",
-  "version": "0.8.0",
+  "version": "0.11.0",
   "private": true,
   "scripts": {
     "lint": "eslint ./src",
@@ -98,6 +98,7 @@
     "yup": "^0.32.8"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.2.1",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.26",
     "@types/nprogress": "^0.2.0",

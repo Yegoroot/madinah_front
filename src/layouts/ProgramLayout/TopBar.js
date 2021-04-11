@@ -15,6 +15,7 @@ import { Menu as MenuIcon } from 'react-feather'
 import Logo from 'src/components/Logo'
 import Settings from 'src/layouts/DashboardLayout/TopBar/Settings'
 import { useTranslation } from 'react-i18next'
+import Dictionary from 'src/components/Dictionary/TopBar'
 import Account from '../DashboardLayout/TopBar/Account'
 import { useStyles } from '../DashboardLayout/TopBar/style'
 
@@ -58,6 +59,7 @@ const TopBar = ({
         >
           {t('menu.programs')}
         </Button>
+        <Dictionary />
         <Settings />
         <Account />
       </Toolbar>

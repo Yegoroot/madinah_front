@@ -52,7 +52,7 @@ Type.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   // style: PropTypes.object,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string
 }
 
 export default Type
