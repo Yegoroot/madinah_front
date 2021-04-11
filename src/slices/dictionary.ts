@@ -17,13 +17,14 @@ export interface IWordType {
   _id?: string,
   title: string,
   content?: string,
-  category?: string
+  category: string
 }
 
 export interface ICategoryType {
-  dictionary: string,
   _id?: categoryIdType,
+  dictionary: string,
   title: string,
+  countWords?: number,
   words: IWordType[],
 }
 

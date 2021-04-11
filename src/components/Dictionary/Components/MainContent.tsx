@@ -32,9 +32,13 @@ const useStyles = makeStyles((theme) => ({
   close: {
     color: theme.palette.error.main
   },
-  // h2: {
-  //   margin: ' 0px 16px'
-  // }
+  bage: {
+    position: 'absolute',
+    right: 6,
+    fontSize: '0.7rem',
+    top: 5,
+    color: theme.palette.text.primary
+  }
 }))
 
 const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
@@ -73,6 +77,9 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
               color="primary"
               primary={category.title}
             />
+            <div className={classes.bage}>
+              {category.countWords}
+            </div>
           </ListItem>
         ))}
       </div>
