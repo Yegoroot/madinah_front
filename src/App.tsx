@@ -44,7 +44,8 @@ const App = () => {
         <StylesProvider jss={jss}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <SnackbarProvider
-              dense
+              // dense
+              hideIconVariant
               maxSnack={3}
             >
               <BrowserRouter>

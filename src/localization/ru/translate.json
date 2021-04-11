@@ -86,7 +86,8 @@
       "401 Not authorize to access this route": "у вас нет прав доступа к этому материалу",
       "403 Not allowed to access this route": "Не разрешен доступ к этому маршруту",
       "Request failed with status code 429": "429 слишком много запросов было отправлено за 10 минут",
-      "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение"
+      "Network Error": "Не удалось загрузить данные. Проверьте ваше интернет-соединение",
+      "The requested URL does not exist": "Запрашиваемый URL не существует"
     },
     "components": {
       "settings": {

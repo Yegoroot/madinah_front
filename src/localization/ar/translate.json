@@ -86,7 +86,8 @@
       "401 Not authorize to access this route": "غير مخول للوصول إلى هذا الطريق",
       "403 Not allowed to access this route": "غير مسموح له بالوصول إلى هذا الطريق",
       "Request failed with status code 429": "تم إرسال العديد من الطلبات في غضون 10 دقائق من الوقت",
-      "Network Error": "فشل تحميل البيانات. تحقق من اتصالك بالإنترنت"
+      "Network Error": "فشل تحميل البيانات. تحقق من اتصالك بالإنترنت",
+      "The requested URL does not exist": "عنوان URL المطلوب غير موجود"
     },
     "components": {
       "settings": {

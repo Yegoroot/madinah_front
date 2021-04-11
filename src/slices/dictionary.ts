@@ -5,8 +5,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { instanceAxios as axios } from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 import { AppDispatch } from 'src/store/index'
+import { enqueueSnackbar } from 'src/slices/alert'
 // import wait from 'src/utils/wait' // await wait(4000)
-// import { enqueueSnackbar } from 'src/slices/alert'
 // import ObjectID from 'bson-objectid'
 // import i18n from 'i18next'
 
@@ -56,13 +56,12 @@ const slice = createSlice({
   name: 'dictionary',
   initialState,
   reducers: {
-    /**
-     * INFO Dictionary
-     */
+
+    // INFO DICTIONARY
+
     dictionary_request(dictionary) {
       dictionary.list.loading = true
     },
-    // INFO GET AND CREATE
     get_dictionary_success(dictionary, action) {
       const { data } = action.payload
       dictionary.list.categories = data.categories
@@ -73,15 +72,12 @@ const slice = createSlice({
       dictionary.list.loading = false
     },
 
-    /**
-     * INFO Category
-     */
+    // INFO CATEGORY
 
     category_request(dictionary) {
       console.log('REQUEST CATEGOTY')
       dictionary.item.loading = true
     },
-    // INFO category get
     get_category_success(dictionary, action) {
       console.log('RESPONSE CATEGORY')
       const { category } = action.payload
@@ -91,35 +87,39 @@ const slice = createSlice({
     get_category_error(dictionary) {
       dictionary.item.loading = false
     },
-
-    // INFO category create, update
     create_category_success(dictionary, action) {
       const { category } = action.payload
       dictionary.item.loading = false
       if (dictionary.list.categories) { dictionary.list.categories.push(category) }
     },
-
-    // INFO category delete
     delete_category_item(dictionary, action: {type: string, payload: categoryIdType}) {
       const categoryId = action.payload
       if (dictionary.list.categories) {
         dictionary.list.categories = dictionary.list.categories.filter((el) => el._id !== categoryId)
       }
+    },
+
+    // INFO WORD
+
+    create_word_success(dictionary, action: {payload: IWordType}) {
+      const word = action.payload
+      const categoryId = word.category
+      // DICREASE count of word in category was added word
+      if (dictionary.list.categories) {
+        dictionary.list.categories.map((cat) => {
+          if (cat._id === categoryId && cat.countWords) {
+            cat.countWords += 1
+            return cat
+          }
+          return cat
+        })
+      }
     }
   }
 })
 
-//  INFO OUTSIDE
-export const deleteCategoryItem = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
-  try {
-    await axios.delete(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
-    dispatch(slice.actions.delete_category_item(categoryId))
-  } catch (error) {
-    console.error('error', error) // FIXME alert message
-  }
-}
+// POST DICTIONARY INSIDE
 
-// INFO CREATE DICTIONARY INSIDE
 export const createDictionary = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/dictionary`)
@@ -131,7 +131,15 @@ export const createDictionary = () => async (dispatch: AppDispatch) => {
   }
 }
 
-// INFO GET DICTIONARY INSIDE
+// POST DICTIONARY OUTSIDE
+
+export const createDictionaryRequest = () => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.dictionary_request())
+  dispatch(createDictionary())
+}
+
+// GET DICTIONARY INSIDE
+
 export const getDictionary = () => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/dictionary`)
@@ -143,18 +151,16 @@ export const getDictionary = () => async (dispatch: AppDispatch) => {
   }
 }
 
-// INFO GET CATEGORY INSIDE
-export const getCategory = ({ categoryId }: {categoryId: categoryIdType}) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
-    console.log('CATEGORYID', categoryId)
-    const category = response.data.data
-    dispatch(slice.actions.get_category_success({ category }))
-  } catch (error) {
-    dispatch(slice.actions.get_category_error())
-  }
+// GET DICTIONARY OUTSIDE
+
+export const getDictionaryRequest = () => async (dispatch: AppDispatch) => {
+  console.log()
+  dispatch(slice.actions.dictionary_request())
+  dispatch(getDictionary())
 }
-// INFO CREATE CATEGORY INSIDE
+
+// POST CATEGORY INSIDE
+
 export const createCategory = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/dictionary/cat`, newCategory)
@@ -166,29 +172,59 @@ export const createCategory = (newCategory: ICategoryType) => async (dispatch: A
   }
 }
 
-// INFO CREATE DICTIONARY OUTSIDE
-export const createDictionaryRequest = () => async (dispatch: AppDispatch) => {
-  dispatch(slice.actions.dictionary_request())
-  dispatch(createDictionary())
+// POST CATEGORY OUTSIDE
+
+export const createCategoryRequest = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.category_request())
+  dispatch(createCategory(newCategory))
 }
 
-// INFO GET DICTIONARY OUTSIDE
-export const getDictionaryRequest = () => async (dispatch: AppDispatch) => {
-  console.log()
-  dispatch(slice.actions.dictionary_request())
-  dispatch(getDictionary())
+// GET CATEGORY INSIDE
+
+export const getCategory = ({ categoryId }: {categoryId: categoryIdType}) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
+    console.log('CATEGORYID', categoryId)
+    const category = response.data.data
+    dispatch(slice.actions.get_category_success({ category }))
+  } catch (error) {
+    dispatch(slice.actions.get_category_error())
+  }
 }
 
-// INFO CATEGORY OUTSIDE
+// GET CATEGORY OUTSIDE
+
 export const getCategoryRequest = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.category_request())
   dispatch(getCategory({ categoryId }))
 }
 
-// INFO CATEGORY OUTSIDE
-export const createCategoryRequest = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
-  dispatch(slice.actions.category_request())
-  dispatch(createCategory(newCategory))
+// DELETE CATEGORY OUTSIDE, INSIDE
+
+export const deleteCategoryItem = (categoryId: categoryIdType) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/dictionary/cat/${categoryId}`)
+    dispatch(slice.actions.delete_category_item(categoryId))
+  } catch (error) {
+    console.error('error', error) // FIXME alert message
+  }
+}
+
+// POST WORD
+
+export const createWord = (newWord: IWordType) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/dictionary/word`, newWord)
+    console.log(response)
+    const word: IWordType = response.data.data
+    dispatch(slice.actions.create_word_success(word))
+    dispatch(enqueueSnackbar({ message: `Word ${word.title} was added` }))
+  } catch (error) {
+    dispatch(enqueueSnackbar({
+      message: 'Word wasnt added',
+      variant: 'error'
+    }))
+  }
 }
 
 export const { reducer } = slice

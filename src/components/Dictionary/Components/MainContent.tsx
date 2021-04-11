@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1)
   },
   item: {
     color: theme.palette.primary.main,
@@ -36,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     right: 6,
     fontSize: '0.7rem',
-    top: 5,
+    top: 0,
     color: theme.palette.text.primary
   }
 }))
 
-const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
+const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, onCloseDictionary: any}): any => {
   const classes = useStyles()
   // get category
   const { categories } = useSelector((store) => store.dictionary.list)
@@ -101,6 +103,10 @@ const MainContent = ({ toggleDrawer }: {toggleDrawer: any}): any => {
           <ListItemText primary="Add Category" />
         </ListItem>
         <CreateWordModal
+          onCloseDictionary={() => {
+            console.log('asd')
+            onCloseDictionary()
+          }}
           isOpen={isOpenWord}
           onClose={() => setIsOpenWord(false)}
           categories={categories}

@@ -12,12 +12,16 @@ import { useTranslation } from 'react-i18next'
 import SunEditor from 'src/components/SunEditor'
 import { Formik } from 'formik'
 import Select from 'src/components/Select'
-import { IWordType, ICategoryType, } from 'src/slices/dictionary'
+import { IWordType, ICategoryType, createWord } from 'src/slices/dictionary'
+import { useDispatch, } from 'src/store/hooks'
 import { useStyles } from './stylesModal'
 
-export const CreateWordModal = ({ isOpen, categories, onClose }:
-   {isOpen: boolean, onClose: any, categories: ICategoryType[]}): any => {
+export const CreateWordModal = ({
+  isOpen, categories, onClose, onCloseDictionary
+}:
+   {isOpen: boolean, onClose: any, categories: ICategoryType[], onCloseDictionary: any}): any => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const classes = useStyles()
 
   const initialValue: IWordType = {
@@ -45,6 +49,8 @@ export const CreateWordModal = ({ isOpen, categories, onClose }:
         })}
         onSubmit={async (values) => {
           console.log(values)
+          dispatch(createWord(values))
+          onCloseDictionary()
           onClose()
         }}
       >

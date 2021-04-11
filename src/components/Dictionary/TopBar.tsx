@@ -23,7 +23,7 @@ const useStylesContent = makeStyles(() => ({
 
 }))
 
-export const Content = ({ toggleDrawer }: {toggleDrawer:any}): any => {
+export const Content = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer:any, onCloseDictionary: any}): any => {
   const classes = useStylesContent()
   const { user } = useAuth()
   const { loading, categories } = useSelector((store) => store.dictionary.list)
@@ -38,7 +38,12 @@ export const Content = ({ toggleDrawer }: {toggleDrawer:any}): any => {
   console.log(categories)
 
   return categories
-    ? <MainContent toggleDrawer={toggleDrawer} />
+    ? (
+      <MainContent
+        toggleDrawer={toggleDrawer}
+        onCloseDictionary={onCloseDictionary}
+      />
+    )
     : <CreateDictionary className={classes.content} />
 }
 
@@ -80,7 +85,10 @@ export default function Dictionary(): any {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <Content toggleDrawer={toggleDrawer} />
+        <Content
+          toggleDrawer={toggleDrawer}
+          onCloseDictionary={() => setIsOpen(false)}
+        />
       </SwipeableDrawer>
     </div>
   )

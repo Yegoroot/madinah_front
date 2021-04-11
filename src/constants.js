@@ -27,7 +27,7 @@ export const UPLOADS_URL = `${HOST}/uploads`
 
 export const ENABLE_REDUX_LOGGER = false
 
-export const DEBUG_I18 = process.env.NODE_ENV === 'development' // for deb
+export const DEBUG_I18 = false // process.env.NODE_ENV === 'development' // for deb
 
 export const LEVELS = [
   'beginner',

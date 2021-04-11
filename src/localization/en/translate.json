@@ -86,7 +86,8 @@
       "401 Not authorize to access this route": "401 Not authorize to access this route",
       "403 Not allowed to access this route": "Not allowed to access this route",
       "Request failed with status code 429": "429 too many requests was sent in a 10 minute amount of time",
-      "Network Error": "Failed to load data. Check your Internet connection"
+      "Network Error": "Failed to load data. Check your Internet connection",
+      "The requested URL does not exist": "The requested URL does not exist"
     },
     "components": {
       "settings": {
