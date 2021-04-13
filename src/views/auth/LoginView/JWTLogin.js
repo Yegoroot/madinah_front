@@ -109,7 +109,7 @@ const JWTLogin = ({ ...rest }) => {
           {errors.submit && (
             <Box mt={3}>
               <FormHelperText error>
-                {errors.submit}
+                {t(`error.${errors.submit}`)}
               </FormHelperText>
             </Box>
           )}

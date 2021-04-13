@@ -95,6 +95,7 @@
       "are you sure to delete this entry": "Are you sure to delete this entry?"
     },
     "error": {
+      "Invalid credentials": "Login or password is incorrect",
       "404": "Sorry, Content Not Found",
       "Duplicate": "A material with the same name has already been created",
       "Server Error": "Sorry, undefined error, let us know about it",
