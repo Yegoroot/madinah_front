@@ -32,6 +32,17 @@ export const useStyles = makeStyles((theme) => {
       }
     },
 
+    dialogContentShowCategory: {
+      [theme.breakpoints.down('xs')]: {
+        padding: 10
+      },
+      [theme.breakpoints.up('md')]: {
+        display: 'grid',
+        'grid-template-columns': '1fr 1fr',
+        'grid-gap': ' 0px 16px'
+      }
+    },
+
     paper: {
       [theme.breakpoints.down('xs')]: {
         width: '95%',
@@ -52,15 +63,21 @@ export const useStyles = makeStyles((theme) => {
       }
     },
     // word show
+    wordTitle: {
+      fontSize: '1.4rem',
+      fontWeight: 'bold'
+    },
     wordContent: {
-      fontSize: '.9rem'
+      fontSize: '.8rem'
     },
     cardWord: {
       display: 'flex',
-      marginBottom: 20,
-      paddingBottom: 10,
+      alignItems: 'center',
       borderBottom: `solid 1px ${borderLight}`
-    }
+    },
+    closeCategoryButton: {
+      color: theme.palette.primary.main,
+    },
   }
 })
 

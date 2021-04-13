@@ -68,12 +68,13 @@ export const ShowCategoryModal = (): any => {
             key={word._id}
           >
             <div>
-              <div>
+              <div className={classes.wordTitle}>
                 {word.title}
               </div>
-              <div className={classes.wordContent}>
-                <div dangerouslySetInnerHTML={{ __html: clean }} />
-              </div>
+              <div
+                className={classes.wordContent}
+                dangerouslySetInnerHTML={{ __html: clean }}
+              />
             </div>
             <IconButton
               className={classes.closeIcon}
@@ -104,7 +105,7 @@ export const ShowCategoryModal = (): any => {
       >
         {loading ? '...' : category?.title}
       </DialogTitle>
-      <DialogContent className={classes.dialogContent}>
+      <DialogContent className={classes.dialogContentShowCategory}>
         {
           loading ? <LoadingScreen /> : <Words />
         }
@@ -112,15 +113,16 @@ export const ShowCategoryModal = (): any => {
       <DialogActions className={classes.dialogActionsShowCategory}>
         <ListItem
           button
+          className={classes.closeCategoryButton}
           onClick={onCLose}
         >
-          <ListItemText primary=" Close" />
+          <ListItemText primary={t('btn.close')} />
         </ListItem>
         <ListItem
           button
           onClick={onDeleteCategory}
         >
-          <ListItemText primary="Delete this category" />
+          <ListItemText primary={t('dict.delete this category')} />
         </ListItem>
       </DialogActions>
     </Dialog>
