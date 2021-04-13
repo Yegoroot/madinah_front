@@ -61,7 +61,7 @@ const LoadingScreen = ({ transparent, absolute, fullWidth }
         })}
       >
         <LinearProgress
-          color="secondary"
+          color="primary"
         />
       </Box>
     </div>

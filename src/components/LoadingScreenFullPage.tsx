@@ -1,9 +1,6 @@
 import React from 'react'
-import {
-  Box,
-  LinearProgress,
-  makeStyles
-} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
+import LoadingScreen from './LoadingScreen'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +24,7 @@ const SlashScreen = () => {
 
   return (
     <div className={classes.root}>
-      <Box width={320}>
-        <LinearProgress />
-      </Box>
+      <LoadingScreen />
     </div>
   )
 }

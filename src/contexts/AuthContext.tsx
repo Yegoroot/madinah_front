@@ -5,7 +5,7 @@ import React, {
   useReducer
 } from 'react'
 import jwtDecode from 'jwt-decode'
-import SplashScreen from 'src/components/SplashScreen'
+import LoadingScreenFullPage from 'src/components/LoadingScreenFullPage'
 import axios from 'src/utils/axios'
 import { API_BASE_URL } from 'src/constants'
 
@@ -186,7 +186,7 @@ export const AuthProvider = ({ children }: { children: any}) => {
   }, [])
 
   if (!state.isInitialised) {
-    return <SplashScreen />
+    return <LoadingScreenFullPage />
   }
 
   return (

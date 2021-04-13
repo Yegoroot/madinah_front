@@ -8,7 +8,6 @@ import {
   Box,
   Drawer,
   Hidden,
-  LinearProgress,
   List,
   ListSubheader
 } from '@material-ui/core'
@@ -19,6 +18,7 @@ import { matchPathProgramNotAuth } from 'src/utils/urls'
 import { resetTopicsProgram } from 'src/slices/program'
 import useStylesMenu from 'src/layouts/DashboardLayout/NavBar/stylesMenu'
 import { generateTopicsMenu } from 'src/layouts/menus'
+import LoadingScreen from 'src/components/LoadingScreen'
 import NavItem from './NavItem'
 
 function renderNavItems({
@@ -135,7 +135,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </Hidden>
         {loading && loading !== 'reload' ? (
           <Box className={classes.progress}>
-            <LinearProgress />
+            <LoadingScreen />
           </Box>
         ) : null }
 
