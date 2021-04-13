@@ -74,11 +74,9 @@ const slice = createSlice({
     // INFO CATEGORY
 
     category_request(dictionary) {
-      console.log('REQUEST CATEGOTY')
       dictionary.item.loading = true
     },
     get_category_success(dictionary, action) {
-      console.log('RESPONSE CATEGORY')
       const { category } = action.payload
       dictionary.item.category = category
       dictionary.item.loading = false

@@ -10,6 +10,7 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { useSelector } from 'src/store/hooks'
 import { useTranslation } from 'react-i18next'
+import { useHistory, useLocation } from 'react-router-dom'
 import CreateCategoryModal from './CreateCategoryModal'
 import CreateWordModal from './CreateWordModal'
 import ShowCategoryModal from './ShowCategoryModal'
@@ -41,12 +42,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.7rem',
     top: 0,
     color: theme.palette.text.primary
+  },
+  h2: {
+    marginBottom: 0,
+    marginTop: 20,
+    marginLeft: theme.spacing(2)
+    // fontSize:
   }
 }))
 
 const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, onCloseDictionary: any}): any => {
   const classes = useStyles()
   const { t } = useTranslation()
+  const history = useHistory()
+  const location = useLocation()
+
   // get category
   const { categories } = useSelector((store) => store.dictionary.list)
 
@@ -54,12 +64,15 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
   const [isOpenCategory, setIsOpenCategory] = React.useState(false)
   const [isOpenWord, setIsOpenWord] = React.useState(false)
 
-  // Show Category
-  const [categoryId, setCategoryId] = React.useState('')
-
-  // на самом деле по логике ты никогда не должен оказатся в компоненте MainContent если нет categories,
-  // но typescript жалуется и пусть будет спокоен
   if (!categories) return <div style={{ color: 'red' }}> No Categories </div>
+
+  const showCategory = (id:string): void => {
+    history.push({
+      ...location,
+      // @ts-ignore
+      state: { categoryId: id }
+    })
+  }
 
   return (
     <div
@@ -68,13 +81,15 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
       })}
       role="presentation"
     >
-      {/* <h2 className={classes.h2}>Categories</h2> */}
+      <h2 className={classes.h2}>{t('dict.my dictionary')}</h2>
       {!!categories.length && (
       <div className={classes.list}>
         {categories.map((category) => (
           <ListItem
             button
-            onClick={() => setCategoryId(category._id || '')} // FIXME хахах странная конструкция
+            onClick={() => {
+              showCategory(category._id || '')
+            }}
             key={category._id}
             className={classes.item}
           >
@@ -148,10 +163,7 @@ const MainContent = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer: any, on
         </ListItem>
       </List>
 
-      <ShowCategoryModal
-        onClose={() => setCategoryId('')}
-        categoryId={categoryId}
-      />
+      <ShowCategoryModal />
     </div>
   )
 }

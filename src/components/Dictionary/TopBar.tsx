@@ -35,7 +35,6 @@ export const Content = ({ toggleDrawer, onCloseDictionary }: {toggleDrawer:any, 
   if (loading) {
     return <div className={classes.content}><LoadingScreen /></div>
   }
-  console.log(categories)
 
   return categories
     ? (

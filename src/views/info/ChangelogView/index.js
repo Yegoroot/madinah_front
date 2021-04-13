@@ -19,13 +19,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const source = `## v0.11.0
+const source = `## v0.11.1
+
+###### April 13, 2021 | 1 Ramadan
+
+### For Auth User
+
+- Fix click back buttom when Category is open, and now after click back bubtton category is closing, not changing URl
+
+---
+
+## v0.11.0
 
 ###### April 12, 2021
 
 ### For Auth User
 
-- Personal Dictionary 📚 for the User 
+- Personal Dictionary for the User 📚
 
 ---
 

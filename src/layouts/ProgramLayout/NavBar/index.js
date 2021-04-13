@@ -116,7 +116,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, location.pathname, topics, loading])
 
-  console.log('menuList', menuList)
+  // console.log('menuList', menuList)
 
   const content = (
     <Box

@@ -16,19 +16,29 @@ import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
 import { useTranslation } from 'react-i18next'
 import DOMPurify from 'dompurify'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useStyles } from './stylesModal'
 
-export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string, onClose: any}): any => {
+export const ShowCategoryModal = (): any => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const history = useHistory()
+  const location = useLocation()
 
   const { category, loading } = useSelector((store) => store.dictionary.item)
 
+  const { state } = location
+
+  const onCLose = () => {
+    // @ts-ignore
+    history.goBack()
+  }
+
   const onDeleteCategory = () => {
     if (window.confirm(t('alert.do you want to delete this category'))) {
-      dispatch(deleteCategoryItem(categoryId))
-      onClose()
+      dispatch(deleteCategoryItem(state.categoryId))
+      onCLose()
     }
   }
 
@@ -41,10 +51,12 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
   }
 
   useEffect(() => {
-    if (categoryId) {
-      dispatch(getCategoryRequest(categoryId))
+    if (state && state.categoryId) {
+      dispatch(getCategoryRequest(state.categoryId))
     }
-  }, [dispatch, categoryId])
+  }, [dispatch, state])
+
+  if (!state || !state.categoryId) return null
 
   const Words = () => (
     <>
@@ -76,11 +88,10 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
     </>
   )
 
-  console.log(categoryId)
   return (
     <Dialog
-      open={!!categoryId}
-      onClose={onClose}
+      open={!!state.categoryId}
+      onClose={onCLose}
       fullScreen
       fullWidth
       maxWidth="lg"
@@ -91,16 +102,7 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
         disableTypography
         className={classes.dialogTitle}
       >
-        {/* <h1> */}
-        {category?.title}
-        {/* </h1> */}
-        {/* <IconButton
-          className={classes.closeIcon}
-          color="inherit"
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton> */}
+        {loading ? '...' : category?.title}
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
         {
@@ -110,7 +112,7 @@ export const ShowCategoryModal = ({ categoryId, onClose }: { categoryId: string,
       <DialogActions className={classes.dialogActionsShowCategory}>
         <ListItem
           button
-          onClick={onClose}
+          onClick={onCLose}
         >
           <ListItemText primary=" Close" />
         </ListItem>
