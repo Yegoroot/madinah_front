@@ -49,11 +49,21 @@ export const useStyles = makeStyles((theme) => {
         'min-width': '95%'
       }
     },
-
-    closeIcon: {
-      color: theme.palette.error.main,
-      marginLeft: 'auto'
+    // category
+    closeCategoryButton: {
+      color: theme.palette.primary.main,
     },
+
+    wordDeleteIcon: {
+      color: theme.palette.error.main,
+    },
+    wordViewButtons: {
+      marginLeft: 'auto',
+      '& svg': {
+        width: 16
+      }
+    },
+
     // word form
     wordTitleInput: {
       marginBottom: 16,
@@ -75,9 +85,7 @@ export const useStyles = makeStyles((theme) => {
       alignItems: 'center',
       borderBottom: `solid 1px ${borderLight}`
     },
-    closeCategoryButton: {
-      color: theme.palette.primary.main,
-    },
+
   }
 })
 

@@ -14,9 +14,11 @@ import {
 import { useDispatch, useSelector } from 'src/store/hooks'
 import LoadingScreen from 'src/components/LoadingScreen'
 import CloseIcon from '@material-ui/icons/Close'
+import FilterNoneIcon from '@material-ui/icons/FilterNone'
 import { useTranslation } from 'react-i18next'
 import DOMPurify from 'dompurify'
 import { useHistory, useLocation } from 'react-router-dom'
+import { useNotification } from 'src/hooks/useNotification'
 import { useStyles } from './stylesModal'
 
 export const ShowCategoryModal = (): any => {
@@ -25,6 +27,7 @@ export const ShowCategoryModal = (): any => {
   const { t } = useTranslation()
   const history = useHistory()
   const location = useLocation()
+  const notify = useNotification()
 
   const { category, loading } = useSelector((store) => store.dictionary.item)
 
@@ -33,6 +36,15 @@ export const ShowCategoryModal = (): any => {
   const onCLose = () => {
     // @ts-ignore
     history.goBack()
+  }
+
+  const copyToClipBoard = async (copyMe: string) => {
+    try {
+      await navigator.clipboard.writeText(copyMe)
+      notify({ message: t('dict.word was copied') })
+    } catch (err) {
+      notify({ message: t('dict.word was not copied') })
+    }
   }
 
   const onDeleteCategory = () => {
@@ -76,13 +88,21 @@ export const ShowCategoryModal = (): any => {
                 dangerouslySetInnerHTML={{ __html: clean }}
               />
             </div>
-            <IconButton
-              className={classes.closeIcon}
-              color="inherit"
-              onClick={() => onDeleteWord(word._id)}
-            >
-              <CloseIcon />
-            </IconButton>
+            <div className={classes.wordViewButtons}>
+              <IconButton
+                color="inherit"
+                onClick={() => copyToClipBoard(word.title)}
+              >
+                <FilterNoneIcon />
+              </IconButton>
+              <IconButton
+                className={classes.wordDeleteIcon}
+                color="inherit"
+                onClick={() => onDeleteWord(word._id)}
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
           </div>
         )
       })}

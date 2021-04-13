@@ -1,6 +1,7 @@
 {
   "translations": {
     "dict": {
+      "word was copied": "نسخ",
       "my dictionary": "قاموسي",
       "to use your dictionary, please log in": "لاستخدام القاموس الخاص بك ، الرجاء تسجيل الدخول",
       "create a dictionary": "أنشئ قاموسًا",
