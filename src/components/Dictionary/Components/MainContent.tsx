@@ -26,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      overflowY: 'auto',
+      maxHeight: 'calc(100vh - 185px)'
+    }
   },
   item: {
     color: theme.palette.primary.main,
@@ -46,8 +50,10 @@ const useStyles = makeStyles((theme) => ({
   h2: {
     marginBottom: 0,
     marginTop: 20,
-    marginLeft: theme.spacing(2)
-    // fontSize:
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   }
 }))
 
