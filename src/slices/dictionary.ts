@@ -95,6 +95,21 @@ const slice = createSlice({
         dictionary.list.categories = dictionary.list.categories.filter((el) => el._id !== categoryId)
       }
     },
+    rename_category_success(dictionary, action: { type: string, payload : {categotyId: categoryIdType, title: string} }) {
+      const { categotyId, title } = action.payload
+      if (dictionary.list.categories) {
+        const category = dictionary.list.categories.find((el) => el._id === categotyId)
+        console.log(category)
+        if (category) {
+          category.title = title
+        }
+        // @ts-ignore
+        dictionary.list.categories = dictionary.list.categories.map((el) => {
+          if (el._id === categotyId) { return category }
+          return el
+        })
+      }
+    },
 
     // INFO WORD
 
@@ -195,6 +210,22 @@ export const createCategory = (newCategory: ICategoryType) => async (dispatch: A
 export const createCategoryRequest = (newCategory: ICategoryType) => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.category_request())
   dispatch(createCategory(newCategory))
+}
+
+// PUT CATEGORY OUTSIDE
+
+export const renameCategory = (newCategory: {categotyId: categoryIdType, title: string},) => async (dispatch: AppDispatch) => {
+  try {
+    const { categotyId, title } = newCategory
+    await axios.put(`${API_BASE_URL}/dictionary/cat/${categotyId}`, { title })
+    // const category = response.data.data
+    dispatch(slice.actions.rename_category_success({ categotyId, title }))
+    dispatch(enqueueSnackbar({
+      message: i18n.t('notify.category has not been renamed')
+    }))
+  } catch (error) {
+    dispatch(slice.actions.get_category_error())
+  }
 }
 
 // GET CATEGORY INSIDE

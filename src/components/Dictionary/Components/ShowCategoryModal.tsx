@@ -3,11 +3,10 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react'
 import {
-  Dialog, ListItemText, ListItem, IconButton
+  Dialog, ListItemText, ListItem, IconButton,
+  DialogTitle, DialogContent, DialogActions
 } from '@material-ui/core'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
+
 import {
   getCategoryRequest, deleteCategoryItem, deleteWord, wordIdType
 } from 'src/slices/dictionary'
@@ -20,6 +19,8 @@ import DOMPurify from 'dompurify'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useNotification } from 'src/hooks/useNotification'
 import { useStyles } from './stylesModal'
+
+import TitleCategoryDict from './TitleCategoryDict'
 
 export const ShowCategoryModal = (): any => {
   const classes = useStyles()
@@ -118,12 +119,14 @@ export const ShowCategoryModal = (): any => {
       maxWidth="lg"
       aria-labelledby="modalShowCategory"
     >
-      <DialogTitle
-        id="modalShowCategory"
-        disableTypography
-        className={classes.dialogTitle}
-      >
-        {loading ? '...' : category?.title}
+      <DialogTitle>
+        {!loading && category?.title && category._id ? (
+          <TitleCategoryDict
+            id={category._id}
+            value={category?.title}
+          />
+        ) : '...'}
+
       </DialogTitle>
       <DialogContent className={classes.dialogContentShowCategory}>
         {

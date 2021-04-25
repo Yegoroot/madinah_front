@@ -19,7 +19,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const source = `## v0.11.1
+const source = `## v0.11.2
+
+###### April 25, 2021 | 13 Ramadan
+
+### For Auth User
+
+- Rename category of Dictionary
+
+---
+
+## v0.11.1
 
 ###### April 13, 2021 | 1 Ramadan
 
