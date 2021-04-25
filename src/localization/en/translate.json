@@ -74,8 +74,8 @@
     "notify": {
       "category has been renamed": "Category has been renamed",
       "word has not been deleted": "Word has not been deleted",
-      "word has been added": "Word {{word}} has been added",
-      "word has not been added": "Word {{word}} has not been added",
+      "word has been added": "Word has been added",
+      "word has not been added": "Word has not been added",
       "topic was created": "Topic has been created",
       "topic was updated": "Topic has been update",
       "program was created": "Program has been created",

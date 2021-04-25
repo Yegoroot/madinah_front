@@ -269,7 +269,7 @@ export const createWord = (newWord: IWordType) => async (dispatch: AppDispatch) 
     console.log(response)
     const word: IWordType = response.data.data
     dispatch(slice.actions.create_word_success(word))
-    dispatch(enqueueSnackbar({ message: i18n.t('notify.word has been added', { word: word.title }) }))
+    dispatch(enqueueSnackbar({ message: i18n.t('notify.word has been added') }))
   } catch (error) {
     dispatch(enqueueSnackbar({
       message: i18n.t('notify.word has not been added', { word: newWord.title }),

@@ -74,8 +74,8 @@
     "notify": {
       "category has been renamed": "Категория удалена",
       "word has not been deleted": "Cлово не было удалено",
-      "word has been added": "Слово {{word}} было добавлено",
-      "word has not been added": "Слово {{word}} не было добавлено",
+      "word has been added": "Слово было добавлено",
+      "word has not been added": "Слово не было добавлено",
       "topic was created": "Тема успешно создана",
       "topic was updated": "Тема успещно обновлена",
       "program was updated": "Программа успешно обновлена",
