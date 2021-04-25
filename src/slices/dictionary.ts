@@ -99,7 +99,6 @@ const slice = createSlice({
       const { categotyId, title } = action.payload
       if (dictionary.list.categories) {
         const category = dictionary.list.categories.find((el) => el._id === categotyId)
-        console.log(category)
         if (category) {
           category.title = title
         }
@@ -221,7 +220,7 @@ export const renameCategory = (newCategory: {categotyId: categoryIdType, title: 
     // const category = response.data.data
     dispatch(slice.actions.rename_category_success({ categotyId, title }))
     dispatch(enqueueSnackbar({
-      message: i18n.t('notify.category has not been renamed')
+      message: i18n.t('notify.category has been renamed')
     }))
   } catch (error) {
     dispatch(slice.actions.get_category_error())

@@ -72,6 +72,7 @@
       "chooselevel": "من فضلك اختر مستواك"
     },
     "notify": {
+      "category has been renamed": "تمت إعادة تسمية الفئة",
       "word has not been deleted": "لم يتم حذف الكلمة",
       "word has been added": "تمت إضافة الكلمة '{{word}}'",
       "word has not been added": "لم تتم إضافة الكلمة '{{word}}'",

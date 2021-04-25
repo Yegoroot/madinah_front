@@ -37,9 +37,9 @@
     "pageProgram": {
       "add topic": "add topic",
       "set order of topics": "Set order of topics",
-      "set order of records": "Set order of records" 
+      "set order of records": "Set order of records"
     },
-    "pageAuth":{
+    "pageAuth": {
       "or": "or by Email",
       "signin": "Sign in",
       "login": "log in",
@@ -72,6 +72,7 @@
       "chooselevel": "Please select your level"
     },
     "notify": {
+      "category has been renamed": "Category has been renamed",
       "word has not been deleted": "Word has not been deleted",
       "word has been added": "Word {{word}} has been added",
       "word has not been added": "Word {{word}} has not been added",
@@ -117,7 +118,7 @@
         "title": "Settings",
         "font": "Responsive font sizes",
         "theme": {
-          "title":  "Theme",
+          "title": "Theme",
           "ONE_DARK": "Dark",
           "LIGHT": "Light"
         }
@@ -136,7 +137,6 @@
     "time": {
       "created": "Created",
       "updated": "Updated"
-
     },
     "menu": {
       "programs": "Programs",
@@ -156,14 +156,14 @@
       "feedback": "Feedback"
     },
     "chips": {
-      "ar": "العربية" ,
-      "en": "English" ,
+      "ar": "العربية",
+      "en": "English",
       "ru": "Русский",
       "beginner": "Beginner",
       "elementary": "Elementary",
       "preintermediate": "Pre Intermediate",
       "intermediate": "Intermediate",
-      "upperintermediate": "Upper Intermediate" 
+      "upperintermediate": "Upper Intermediate"
     },
     "pageNotFound": {
       "title": "404: Not found",
@@ -183,7 +183,7 @@
       "publish": "Publish",
       "level": "Level of Program",
       "language": "Language of Explanation",
-      "type of program": "Type of program" ,
+      "type of program": "Type of program",
       "create": "create",
       "update": "Update",
       "this is a required field": "This is a required field",
@@ -225,7 +225,7 @@
     "dropImage": {
       "select one file": "Select one file",
       "select files": "Select files",
-      "change file": "You can change the selected file" 
+      "change file": "You can change the selected file"
     },
     "entry": {
       "add entry": "Adding entry",

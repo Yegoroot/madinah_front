@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: theme.palette.text.primary,
-    paddingLeft: 0
+    marginLeft: -10,
   }
 }))
 

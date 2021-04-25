@@ -14,7 +14,6 @@
       "add a new word": "Добавить новое слово",
       "choose a category": "Выберите категорию",
       "write word": "Слово, фраза"
-
     },
     "alph": {
       "alphabet": "Алфавит",
@@ -38,9 +37,9 @@
     "pageProgram": {
       "add topic": "Добавить тему",
       "set order of topics": "Сортировка тем",
-      "set order of records": "Сортировка записей" 
+      "set order of records": "Сортировка записей"
     },
-    "pageAuth":{
+    "pageAuth": {
       "or": "или через Email",
       "signin": "Войти в систему",
       "login": "войти",
@@ -73,6 +72,7 @@
       "chooselevel": "Пожалуйста выберите свой уровень"
     },
     "notify": {
+      "category has been renamed": "Категория удалена",
       "word has not been deleted": "Cлово не было удалено",
       "word has been added": "Слово {{word}} было добавлено",
       "word has not been added": "Слово {{word}} не было добавлено",
@@ -118,7 +118,7 @@
         "title": "Настройки",
         "font": "Адаптивный размер шрифтов",
         "theme": {
-          "title":  "Тема",
+          "title": "Тема",
           "ONE_DARK": "Темная",
           "LIGHT": "Светлая"
         }
@@ -156,9 +156,9 @@
       "feedback": "Обратная связь"
     },
     "chips": {
-      "ar": "العربية" ,
-      "en": "English" ,
-      "ru": "Русский" ,
+      "ar": "العربية",
+      "en": "English",
+      "ru": "Русский",
       "beginner": "Начальный",
       "elementary": "Элементарный",
       "preintermediate": "На пороге входа",
@@ -183,7 +183,7 @@
       "publish": "Опубликовано",
       "level": "Уровень",
       "language": "Язык объяснения",
-      "type of program": "Тип программы" ,
+      "type of program": "Тип программы",
       "create": "Создать",
       "update": "Обновить",
       "this is a required field": "Это поле объязательно к заполнению",
@@ -225,7 +225,7 @@
     "dropImage": {
       "select one file": "Выбрать файл",
       "select files": "Выбрать файлы",
-      "change file": "Вы можете изменить выбранный файл" 
+      "change file": "Вы можете изменить выбранный файл"
     },
     "entry": {
       "add entry": "Добавить запись",
