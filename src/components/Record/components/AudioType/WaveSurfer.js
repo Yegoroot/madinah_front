@@ -96,7 +96,7 @@ const MyWaveSurfer = ({
     if (typeof isPlay === 'boolean' && !isActive && !isPlay && typeof waveformElem.current.pause === 'function') {
       waveformElem.current.pause()
     }
-  }, [isPlay])
+  }, [isPlay, isActive])
 
   const onPlay = () => {
     if (isPlay) {

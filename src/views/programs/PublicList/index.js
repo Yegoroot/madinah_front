@@ -54,14 +54,14 @@ function ProgramBrowseView({ location }) {
     language: urlParams.getAll('language')
   })
 
-  const params = {
+  const params = React.useMemo(() => ({
     limit: 35,
     page: 0
-  }
+  }), [])
 
   useEffect(() => {
     dispatch(getProgramListRequest({ params: { ...filter, ...params } }))
-  }, [dispatch, filter])
+  }, [dispatch, filter, params])
 
   // FIXME may be this not need
   if (loading || !data) {

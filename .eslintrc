@@ -43,7 +43,12 @@
         "tsx": "never"
       }
     ],
-    "max-len": ["error", { "code": 130 }],
+    "max-len": [
+      "error",
+      {
+        "code": 130
+      }
+    ],
     "react/jsx-max-props-per-line": [
       1,
       {
@@ -63,7 +68,7 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "no-console": "off",
     "no-plusplus": "off",
-    "react-hooks/exhaustive-deps": "off",
+    // "react-hooks/exhaustive-deps": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
